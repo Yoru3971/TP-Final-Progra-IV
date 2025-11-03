@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+/*Variables para los colores*/
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  background: var(--bg-color);
+  margin: 0 auto;
+  color: var(--text-color);
+}
