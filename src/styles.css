@@ -2,6 +2,16 @@
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
+
+  --form-bg: #fefefe;
+  --input-bg: #f9f8f8;
+  --input-text: #7e7e7f;
+  --input-border: #e6e6e7;
+  --input-focus-outline: #fe9039;
+
+  --button-bg: #fe9039;
+  --button-text: white;
+  --button-hover-bg: #ffbc88;
 }
 
 html {
@@ -19,4 +29,44 @@ body {
   background: var(--bg-color);
   margin: 0 auto;
   color: var(--text-color);
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.05rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem 1.4rem;
+  border: 0.1rem solid var(--input-border);
+  border-radius: 2.5rem;
+  font-size: 1rem;
+  color: var(--input-text);
+  outline: none;
+  margin-bottom: 1rem;
+}
+
+.form-input:focus {
+  border-color:var(--input-focus-outline);
+}
+
+.btn {
+  width: 100%;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem 0;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  background-color: var(--button-hover-bg);
 }
