@@ -1,0 +1,28 @@
+.form-registro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 2rem;
+  width: 100%;
+  margin: 5rem auto;
+  background: var(--form-bg);
+  border-radius: 1rem;
+  box-shadow: var(--form-shadow);
+}
+
+.form-registro div {
+  width: 100%;
+}
+
+.checkbox-container a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.checkbox-container a:hover {
+  text-decoration: underline;
+}
+
+

@@ -6,6 +6,8 @@
   --bg-color: #ffffff;
   --text-color: #000000;
 
+  --form-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+
   --form-bg: #f9f8f8; /*linear-gradient(90deg, #fff9ee 0%, #fcfaf7 100%)*/
   --input-bg: #f9f8f8;
   --input-text: #444;
