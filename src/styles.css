@@ -1,22 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
 /*Variables para los colores*/
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
 
-  --form-bg: #fefefe;
+  --form-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+
+  --form-bg: #f9f8f8; /*linear-gradient(90deg, #fff9ee 0%, #fcfaf7 100%)*/
   --input-bg: #f9f8f8;
-  --input-text: #7e7e7f;
+  --input-text: #444;
   --input-border: #e6e6e7;
   --input-focus-outline: #fe9039;
+  --input-focus-shadow: 0 0 0 0.3rem rgba(254, 144, 57, 0.25);
 
   --button-bg: #fe9039;
   --button-text: white;
-  --button-hover-bg: #ffbc88;
+  --button-hover-bg: #ff7d1a;
+
+  --link-color: #fe9039;
+
+  --checked-color: #fe9039;
+
+  --invalid-border: #ff4b4b;
+  --error-color: #ff4b4b;
+  --invalid-focus-shadow: 0 0 0 0.3rem rgba(255, 75, 75, 0.25);
+
+  --btn-disabled: #ccc;
+  --btn-disabled-text: #666;
+
+  --toggle-eye-color: #888;
+  --toggle-eye-hover-color: #fe9039;
+
+  --line-trough-color: gray;
 }
 
 html {
   box-sizing: border-box;
   font-size: 62.5%;
+  font-family: 'Inria Sans', sans-serif;
 }
 
 *,
@@ -29,44 +52,136 @@ body {
   background: var(--bg-color);
   margin: 0 auto;
   color: var(--text-color);
+  font-family: 'Inria Sans', sans-serif;
 }
 
 .form-label {
-  font-size: 0.9rem;
-  font-weight: bold;
+  display: block;
+  font-size: 1.1rem;
+  font-weight: lighter;
   color: var(--text-color);
   margin-bottom: 0.8rem;
   letter-spacing: 0.05rem;
+  text-transform: uppercase;
 }
 
 .form-input {
   width: 100%;
+  display: block;
   padding: 1rem 1.4rem;
   border: 0.1rem solid var(--input-border);
   border-radius: 2.5rem;
-  font-size: 1rem;
+  font-size: 1.4rem;
   color: var(--input-text);
   outline: none;
   margin-bottom: 1rem;
 }
 
 .form-input:focus {
-  border-color:var(--input-focus-outline);
+  border-color: var(--input-focus-outline);
+  outline: none;
+  box-shadow: var(--invalid-focus-shadow);
+}
+
+.form-input::placeholder {
+  color: var(--input-text);
+  opacity: 0.3;
+}
+
+.form-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.invalid {
+  border-color: var(--invalid-border);
+  box-shadow: var(--invalid-focus-shadow);
+}
+
+.error-messages p {
+  color: var(--error-color);
+  font-size: 1.2rem;
+  margin-top: 0.1rem;
+  margin-bottom: 0;
+  font-weight: lighter;
 }
 
 .btn {
-  width: 100%;
+  width: 30%;
   background-color: var(--button-bg);
   color: var(--button-text);
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   padding: 1rem 0;
   border: none;
   border-radius: 2rem;
   cursor: pointer;
   transition: 0.2s ease;
+  margin-top: 1.5rem;
+  align-self: center;
 }
 
 .btn:hover {
   background-color: var(--button-hover-bg);
+}
+
+.btn:disabled,
+.btn.disabled {
+  background-color: var(--btn-disabled);
+  color: var(--btn-disabled-text);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.checkbox-container {
+  width: 100%;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+.checkbox-container input {
+  margin-right: 0.5rem;
+}
+
+.checkbox-container input[type='checkbox'] {
+  accent-color: var(--checked-color);
+}
+
+.input-with-icon {
+  position: relative;
+  width: 100%;
+}
+
+.input-with-icon .form-input {
+  padding-right: 3.5rem;
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--toggle-eye-color);
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.toggle-eye:hover {
+  color: var(--toggle-eye-hover-color);
+}
+
+.main-form-container {
+  width: 60%;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
