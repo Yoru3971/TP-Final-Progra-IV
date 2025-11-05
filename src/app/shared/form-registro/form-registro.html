@@ -1,0 +1,42 @@
+<form class="form-registro" [formGroup]="formRegistro">
+  <div>
+    <label for="nombreCompleto" class="form-label">Nombre</label>
+    <input formControlName="nombreCompleto" type="text" class="form-input" />
+  </div>
+
+  <div>
+    <label for="email" class="form-label">Email</label>
+    <input formControlName="email" type="email" class="form-input" />
+  </div>
+
+  <div>
+    <label for="telefono" class="form-label">Teléfono</label>
+    <input formControlName="telefono" type="text" class="form-input" />
+  </div>
+
+  <div>
+    <label for="password" class="form-label">Password</label>
+    <input formControlName="password" type="password" class="form-input" />
+  </div>
+
+  <div>
+    <label for="confirmarPassword" class="form-label">Repetir Password</label>
+    <input formControlName="confirmarPassword" type="password" class="form-input" />
+  </div>
+
+  <div class="checkbox-container">
+    <label>
+      <input type="checkbox" required />
+      He leído y acepto las <a href="#" target="_blank">bases y condiciones</a>.
+    </label>
+  </div>
+
+  <div class="checkbox-container">
+    <label>
+      <input type="checkbox" required />
+      Me comprometo a hacer un buen uso de la plataforma y respetar las normas comunitarias.
+    </label>
+  </div>
+
+  <button type="button" (click)="onSubmit()" class="btn">Registrarse</button>
+</form>
