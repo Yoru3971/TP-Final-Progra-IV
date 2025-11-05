@@ -1,0 +1,174 @@
+<form class="form-registro" [formGroup]="formRegistro">
+  <!-- Nombre completo -->
+  <div class="form-field">
+    <label for="nombreCompleto" class="form-label">Nombre</label>
+    <input
+      formControlName="nombreCompleto"
+      type="text"
+      class="form-input"
+      [class.invalid]="
+        formRegistro.get('nombreCompleto')?.invalid &&
+        (formRegistro.get('nombreCompleto')?.touched || formRegistro.get('nombreCompleto')?.dirty)
+      "
+      placeholder="Ej: Juan Pérez"
+    />
+    <!-- Si el nombre es invalido y el input ya fue tocado de alguna manera, se le agrega la clase invalid al input, asi se manejan visualmente los errores -->
+
+    @if ( formRegistro.get('nombreCompleto')?.invalid &&
+    (formRegistro.get('nombreCompleto')?.touched || formRegistro.get('nombreCompleto')?.dirty) ) {
+    <div class="error-messages">
+      @if (formRegistro.get('nombreCompleto')?.hasError('required')) {
+      <p>El nombre es obligatorio.</p>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- Email -->
+  <div class="form-field">
+    <label for="email" class="form-label">Email</label>
+    <input
+      formControlName="email"
+      type="email"
+      class="form-input"
+      [class.invalid]="
+        formRegistro.get('email')?.invalid &&
+        (formRegistro.get('email')?.touched || formRegistro.get('email')?.dirty)
+      "
+      placeholder="Ej: tunombre@gmail.com"
+    />
+
+    @if ( formRegistro.get('email')?.invalid && (formRegistro.get('email')?.touched ||
+    formRegistro.get('email')?.dirty) ) {
+    <div class="error-messages">
+      @if (formRegistro.get('email')?.hasError('required')) {
+      <p>El email es obligatorio.</p>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- Telefono -->
+  <div class="form-field">
+    <label for="telefono" class="form-label">Teléfono</label>
+    <input
+      formControlName="telefono"
+      type="text"
+      class="form-input"
+      [class.invalid]="
+        formRegistro.get('telefono')?.invalid &&
+        (formRegistro.get('telefono')?.touched || formRegistro.get('telefono')?.dirty)
+      "
+      placeholder="11234567890"
+    />
+
+    @if ( formRegistro.get('telefono')?.invalid && (formRegistro.get('telefono')?.touched ||
+    formRegistro.get('telefono')?.dirty) ) {
+    <div class="error-messages">
+      @if (formRegistro.get('telefono')?.hasError('required')) {
+      <p>El teléfono es obligatorio.</p>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- Password -->
+  <div class="form-field password-field">
+    <label for="password" class="form-label">Password</label>
+
+    <div class="input-with-icon">
+      <input
+        formControlName="password"
+        [type]="showPassword ? 'text' : 'password'"
+        class="form-input"
+        [class.invalid]="
+          formRegistro.get('password')?.invalid &&
+          (formRegistro.get('password')?.touched || formRegistro.get('password')?.dirty)
+        "
+        placeholder="Entre 10 y 16 caracteres, una mayúscula, un número y un caracter especial"
+      />
+      <button type="button" class="toggle-eye" (click)="togglePassword()">
+        <i class="fa-solid {{ showPassword ? 'fa-eye-slash' : 'fa-eye' }}"></i>
+      </button>
+    </div>
+
+    @if ( formRegistro.get('password')?.invalid && (formRegistro.get('password')?.touched ||
+    formRegistro.get('password')?.dirty) ) {
+    <div class="error-messages">
+      @if (formRegistro.get('password')?.hasError('required')) {
+      <p>La contraseña es obligatoria.</p>
+      } @if (formRegistro.get('password')?.hasError('pattern')) {
+      <p>Debe tener entre 10 y 16 caracteres, una mayúscula, un número y un caracter especial.</p>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- Confirmar Password -->
+  <div class="form-field password-field">
+    <label for="confirmarPassword" class="form-label">Repetir Password</label>
+
+    <div class="input-with-icon">
+      <input
+        formControlName="confirmarPassword"
+        [type]="showConfirmPassword ? 'text' : 'password'"
+        class="form-input"
+        [class.invalid]="
+          (formRegistro.get('confirmarPassword')?.touched ||
+            formRegistro.get('confirmarPassword')?.dirty) &&
+          (formRegistro.get('confirmarPassword')?.hasError('required') ||
+            (formRegistro.get('password')?.value &&
+              formRegistro.get('confirmarPassword')?.value &&
+              formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value))
+        "
+        placeholder="Repetir la contraseña ingresada"
+      />
+      <button type="button" class="toggle-eye" (click)="toggleConfirmPassword()">
+        <i class="fa-solid {{ showConfirmPassword ? 'fa-eye-slash' : 'fa-eye' }}"></i>
+      </button>
+    </div>
+
+    @if ( (formRegistro.get('confirmarPassword')?.touched ||
+    formRegistro.get('confirmarPassword')?.dirty) &&
+    (formRegistro.get('confirmarPassword')?.hasError('required') ||
+    (formRegistro.get('password')?.value && formRegistro.get('confirmarPassword')?.value &&
+    formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value)) ) {
+    <div class="error-messages">
+      @if (formRegistro.get('confirmarPassword')?.hasError('required')) {
+      <p>Debe repetir la contraseña.</p>
+      } @if ( formRegistro.get('password')?.value && formRegistro.get('confirmarPassword')?.value &&
+      formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value ) {
+      <p>Las contraseñas no coinciden.</p>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- Checkboxes -->
+  <div class="checkbox-container">
+    <label>
+      <input type="checkbox" formControlName="aceptarTerminos" />
+      He leído y acepto las <a href="#" target="_blank">bases y condiciones</a>.
+      <!-- Aca hay que linkear bases y condiciones / abrir un modal -->
+    </label>
+  </div>
+
+  <div class="checkbox-container">
+    <label>
+      <input type="checkbox" formControlName="aceptarPoliticas" />
+      Me comprometo a hacer un buen uso de la plataforma y respetar las normas comunitarias.
+      <!-- Aca hay que linkear normas comunitarias / abrir un modal -->
+    </label>
+  </div>
+
+  <button
+    type="button"
+    (click)="onSubmit()"
+    class="btn"
+    [disabled]="!formRegistro.valid"
+    [class.disabled]="!formRegistro.valid"
+  >
+    <!-- Si el form no es valido, se desabilita el boton, funcional y esteticamente -->
+    Registrarse
+  </button>
+</form>
