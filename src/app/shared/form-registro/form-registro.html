@@ -1,40 +1,138 @@
 <form class="form-registro" [formGroup]="formRegistro">
-  <div>
+  <!-- Nombre completo -->
+  <div class="form-field">
     <label for="nombreCompleto" class="form-label">Nombre</label>
-    <input formControlName="nombreCompleto" type="text" class="form-input" />
+    <input
+      formControlName="nombreCompleto"
+      type="text"
+      class="form-input"
+      [class.invalid]="
+        formRegistro.get('nombreCompleto')?.invalid &&
+        (formRegistro.get('nombreCompleto')?.touched || formRegistro.get('nombreCompleto')?.dirty)
+      "
+    />
+
+    @if ( formRegistro.get('nombreCompleto')?.invalid &&
+    (formRegistro.get('nombreCompleto')?.touched || formRegistro.get('nombreCompleto')?.dirty) ) {
+    <div class="error-messages">
+      @if (formRegistro.get('nombreCompleto')?.hasError('required')) {
+      <p>El nombre es obligatorio.</p>
+      }
+    </div>
+    }
   </div>
 
-  <div>
+  <!-- Email -->
+  <div class="form-field">
     <label for="email" class="form-label">Email</label>
-    <input formControlName="email" type="email" class="form-input" />
+    <input
+      formControlName="email"
+      type="email"
+      class="form-input"
+      [class.invalid]="
+        formRegistro.get('email')?.invalid &&
+        (formRegistro.get('email')?.touched || formRegistro.get('email')?.dirty)
+      "
+    />
+
+    @if ( formRegistro.get('email')?.invalid && (formRegistro.get('email')?.touched ||
+    formRegistro.get('email')?.dirty) ) {
+    <div class="error-messages">
+      @if (formRegistro.get('email')?.hasError('required')) {
+      <p>El email es obligatorio.</p>
+      }
+    </div>
+    }
   </div>
 
-  <div>
+  <!-- Telefono -->
+  <div class="form-field">
     <label for="telefono" class="form-label">Teléfono</label>
-    <input formControlName="telefono" type="text" class="form-input" />
+    <input
+      formControlName="telefono"
+      type="text"
+      class="form-input"
+      [class.invalid]="
+        formRegistro.get('telefono')?.invalid &&
+        (formRegistro.get('telefono')?.touched || formRegistro.get('telefono')?.dirty)
+      "
+    />
+
+    @if ( formRegistro.get('telefono')?.invalid && (formRegistro.get('telefono')?.touched ||
+    formRegistro.get('telefono')?.dirty) ) {
+    <div class="error-messages">
+      @if (formRegistro.get('telefono')?.hasError('required')) {
+      <p>El teléfono es obligatorio.</p>
+      }
+    </div>
+    }
   </div>
 
-  <div>
+  <!-- Password -->
+  <div class="form-field">
     <label for="password" class="form-label">Password</label>
-    <input formControlName="password" type="password" class="form-input" />
+    <input
+      formControlName="password"
+      type="password"
+      class="form-input"
+      [class.invalid]="
+        formRegistro.get('password')?.invalid &&
+        (formRegistro.get('password')?.touched || formRegistro.get('password')?.dirty)
+      "
+    />
+
+    @if ( formRegistro.get('password')?.invalid && (formRegistro.get('password')?.touched ||
+    formRegistro.get('password')?.dirty) ) {
+    <div class="error-messages">
+      @if (formRegistro.get('password')?.hasError('required')) {
+      <p>La contraseña es obligatoria.</p>
+      } @if (formRegistro.get('password')?.hasError('pattern')) {
+      <p>Debe tener al menos 10 caracteres, una mayúscula, un número y un caracter especial.</p>
+      }
+    </div>
+    }
   </div>
 
-  <div>
+    <!-- Confirmar Password -->
+  <div class="form-field">
     <label for="confirmarPassword" class="form-label">Repetir Password</label>
-    <input formControlName="confirmarPassword" type="password" class="form-input" />
+    <input
+      formControlName="confirmarPassword"
+      type="password"
+      class="form-input"
+      [class.invalid]="
+        formRegistro.get('confirmarPassword')?.invalid ||
+        (formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value &&
+          (formRegistro.get('confirmarPassword')?.touched ||
+            formRegistro.get('confirmarPassword')?.dirty))
+      "
+    />
+
+    @if ( formRegistro.get('confirmarPassword')?.invalid || (formRegistro.get('password')?.value !==
+    formRegistro.get('confirmarPassword')?.value && (formRegistro.get('confirmarPassword')?.touched
+    || formRegistro.get('confirmarPassword')?.dirty)) ) {
+    <div class="error-messages">
+      @if (formRegistro.get('confirmarPassword')?.hasError('required')) {
+      <p>Debe repetir la contraseña.</p>
+      } @if ( formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value )
+      {
+      <p>Las contraseñas no coinciden.</p>
+      }
+    </div>
+    }
   </div>
 
   <div class="checkbox-container">
     <label>
       <input type="checkbox" required />
-      He leído y acepto las <a href="#" target="_blank">bases y condiciones</a>.
+      He leído y acepto las <a href="#" target="_blank">bases y condiciones</a>. <!-- Aca hay que linkear bases y condiciones / abrir un modal -->
     </label>
   </div>
 
   <div class="checkbox-container">
     <label>
       <input type="checkbox" required />
-      Me comprometo a hacer un buen uso de la plataforma y respetar las normas comunitarias.
+      Me comprometo a hacer un buen uso de la plataforma y respetar las normas comunitarias. <!-- Aca hay que linkear normas comunitarias / abrir un modal -->
     </label>
   </div>
 
