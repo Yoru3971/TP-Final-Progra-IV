@@ -35,6 +35,18 @@ export class FormRegistro {
     aceptarPoliticas: [false, Validators.requiredTrue],
   });
 
+// Variables para mostrar/ocultar contraseñas 
+  showPassword = false;
+showConfirmPassword = false;
+
+togglePassword() {
+  this.showPassword = !this.showPassword;
+}
+
+toggleConfirmPassword() {
+  this.showConfirmPassword = !this.showConfirmPassword;
+}
+
   onSubmit() {
     const usuario = this.formRegistro.value;
     this.registroService

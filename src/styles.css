@@ -19,7 +19,7 @@
   --button-text: white;
   --button-hover-bg: #ff7d1a;
 
-  --link: #fe9039;
+  --link-color: #fe9039;
 
   --checked-color: #fe9039;
 
@@ -28,13 +28,16 @@
   --invalid-focus-shadow: 0 0 0 0.3rem rgba(255, 75, 75, 0.25);
 
   --btn-disabled: #ccc;
-  --btn-disabled-text:#666; 
+  --btn-disabled-text: #666;
+
+  --toggle-eye-color: #888;
+  --toggle-eye-hover-color: #fe9039;
 }
 
 html {
   box-sizing: border-box;
   font-size: 62.5%;
-  font-family: "Inria Sans", sans-serif;
+  font-family: 'Inria Sans', sans-serif;
 }
 
 *,
@@ -47,7 +50,7 @@ body {
   background: var(--bg-color);
   margin: 0 auto;
   color: var(--text-color);
-  font-family: "Inria Sans", sans-serif;
+  font-family: 'Inria Sans', sans-serif;
 }
 
 .form-label {
@@ -73,7 +76,7 @@ body {
 }
 
 .form-input:focus {
-  border-color:var(--input-focus-outline);
+  border-color: var(--input-focus-outline);
   outline: none;
   box-shadow: var(--invalid-focus-shadow);
 }
@@ -91,7 +94,7 @@ body {
 
 .invalid {
   border-color: var(--invalid-border);
-  box-shadow: var(--invalid-focus-shadow); 
+  box-shadow: var(--invalid-focus-shadow);
 }
 
 .error-messages p {
@@ -140,6 +143,32 @@ body {
   margin-right: 0.5rem;
 }
 
-.checkbox-container input[type="checkbox"] {
+.checkbox-container input[type='checkbox'] {
   accent-color: var(--checked-color);
+}
+
+.input-with-icon {
+  position: relative;
+  width: 100%;
+}
+
+.input-with-icon .form-input {
+  padding-right: 3.5rem; /* espacio para el ojito */
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--toggle-eye-color);
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.toggle-eye:hover {
+  color: var(--toggle-eye-hover-color);
 }

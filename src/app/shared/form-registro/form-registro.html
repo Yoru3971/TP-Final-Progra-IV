@@ -73,18 +73,24 @@
   </div>
 
   <!-- Password -->
-  <div class="form-field">
+  <div class="form-field password-field">
     <label for="password" class="form-label">Password</label>
-    <input
-      formControlName="password"
-      type="password"
-      class="form-input"
-      [class.invalid]="
-        formRegistro.get('password')?.invalid &&
-        (formRegistro.get('password')?.touched || formRegistro.get('password')?.dirty)
-      "
-      placeholder="Al menos 10 caracteres, una mayúscula, un número y un caracter especial"
-    />
+
+    <div class="input-with-icon">
+      <input
+        formControlName="password"
+        [type]="showPassword ? 'text' : 'password'"
+        class="form-input"
+        [class.invalid]="
+          formRegistro.get('password')?.invalid &&
+          (formRegistro.get('password')?.touched || formRegistro.get('password')?.dirty)
+        "
+        placeholder="Entre 10 y 16 caracteres, una mayúscula, un número y un caracter especial"
+      />
+      <button type="button" class="toggle-eye" (click)="togglePassword()">
+        <i class="fa-solid {{ showPassword ? 'fa-eye-slash' : 'fa-eye' }}"></i>
+      </button>
+    </div>
 
     @if ( formRegistro.get('password')?.invalid && (formRegistro.get('password')?.touched ||
     formRegistro.get('password')?.dirty) ) {
@@ -92,35 +98,41 @@
       @if (formRegistro.get('password')?.hasError('required')) {
       <p>La contraseña es obligatoria.</p>
       } @if (formRegistro.get('password')?.hasError('pattern')) {
-      <p>Debe tener al menos 10 caracteres, una mayúscula, un número y un caracter especial.</p>
+      <p>Debe tener entre 10 y 16 caracteres, una mayúscula, un número y un caracter especial.</p>
       }
     </div>
     }
   </div>
 
   <!-- Confirmar Password -->
-  <div class="form-field">
+  <div class="form-field password-field">
     <label for="confirmarPassword" class="form-label">Repetir Password</label>
-    <input
-      formControlName="confirmarPassword"
-      type="password"
-      class="form-input"
-      [class.invalid]="
-        (formRegistro.get('confirmarPassword')?.touched ||
-          formRegistro.get('confirmarPassword')?.dirty) &&
-        (formRegistro.get('confirmarPassword')?.hasError('required') ||
-          (formRegistro.get('password')?.value &&
-            formRegistro.get('confirmarPassword')?.value &&
-            formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value))
-      "
-      placeholder="Repetir la contraseña ingresada"
-    />
+
+    <div class="input-with-icon">
+      <input
+        formControlName="confirmarPassword"
+        [type]="showConfirmPassword ? 'text' : 'password'"
+        class="form-input"
+        [class.invalid]="
+          (formRegistro.get('confirmarPassword')?.touched ||
+            formRegistro.get('confirmarPassword')?.dirty) &&
+          (formRegistro.get('confirmarPassword')?.hasError('required') ||
+            (formRegistro.get('password')?.value &&
+              formRegistro.get('confirmarPassword')?.value &&
+              formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value))
+        "
+        placeholder="Repetir la contraseña ingresada"
+      />
+      <button type="button" class="toggle-eye" (click)="toggleConfirmPassword()">
+        <i class="fa-solid {{ showConfirmPassword ? 'fa-eye-slash' : 'fa-eye' }}"></i>
+      </button>
+    </div>
 
     @if ( (formRegistro.get('confirmarPassword')?.touched ||
-    formRegistro.get('confirmarPassword')?.dirty) && (
-    formRegistro.get('confirmarPassword')?.hasError('required') || (
-    formRegistro.get('password')?.value && formRegistro.get('confirmarPassword')?.value &&
-    formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value ) ) ) {
+    formRegistro.get('confirmarPassword')?.dirty) &&
+    (formRegistro.get('confirmarPassword')?.hasError('required') ||
+    (formRegistro.get('password')?.value && formRegistro.get('confirmarPassword')?.value &&
+    formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value)) ) {
     <div class="error-messages">
       @if (formRegistro.get('confirmarPassword')?.hasError('required')) {
       <p>Debe repetir la contraseña.</p>
