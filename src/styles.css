@@ -32,6 +32,8 @@
 
   --toggle-eye-color: #888;
   --toggle-eye-hover-color: #fe9039;
+
+  --line-trough-color: gray;
 }
 
 html {
@@ -153,7 +155,7 @@ body {
 }
 
 .input-with-icon .form-input {
-  padding-right: 3.5rem; /* espacio para el ojito */
+  padding-right: 3.5rem;
 }
 
 .toggle-eye {
@@ -171,4 +173,15 @@ body {
 
 .toggle-eye:hover {
   color: var(--toggle-eye-hover-color);
+}
+
+.main-form-container {
+  width: 60%;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
