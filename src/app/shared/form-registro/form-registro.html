@@ -10,7 +10,9 @@
         formRegistro.get('nombreCompleto')?.invalid &&
         (formRegistro.get('nombreCompleto')?.touched || formRegistro.get('nombreCompleto')?.dirty)
       "
+      placeholder="Ej: Juan Pérez"
     />
+    <!-- Si el nombre es invalido y el input ya fue tocado de alguna manera, se le agrega la clase invalid al input, asi se manejan visualmente los errores -->
 
     @if ( formRegistro.get('nombreCompleto')?.invalid &&
     (formRegistro.get('nombreCompleto')?.touched || formRegistro.get('nombreCompleto')?.dirty) ) {
@@ -33,6 +35,7 @@
         formRegistro.get('email')?.invalid &&
         (formRegistro.get('email')?.touched || formRegistro.get('email')?.dirty)
       "
+      placeholder="Ej: tunombre@gmail.com"
     />
 
     @if ( formRegistro.get('email')?.invalid && (formRegistro.get('email')?.touched ||
@@ -56,6 +59,7 @@
         formRegistro.get('telefono')?.invalid &&
         (formRegistro.get('telefono')?.touched || formRegistro.get('telefono')?.dirty)
       "
+      placeholder="11234567890"
     />
 
     @if ( formRegistro.get('telefono')?.invalid && (formRegistro.get('telefono')?.touched ||
@@ -79,6 +83,7 @@
         formRegistro.get('password')?.invalid &&
         (formRegistro.get('password')?.touched || formRegistro.get('password')?.dirty)
       "
+      placeholder="Al menos 10 caracteres, una mayúscula, un número y un caracter especial"
     />
 
     @if ( formRegistro.get('password')?.invalid && (formRegistro.get('password')?.touched ||
@@ -93,7 +98,7 @@
     }
   </div>
 
-    <!-- Confirmar Password -->
+  <!-- Confirmar Password -->
   <div class="form-field">
     <label for="confirmarPassword" class="form-label">Repetir Password</label>
     <input
@@ -101,40 +106,57 @@
       type="password"
       class="form-input"
       [class.invalid]="
-        formRegistro.get('confirmarPassword')?.invalid ||
-        (formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value &&
-          (formRegistro.get('confirmarPassword')?.touched ||
-            formRegistro.get('confirmarPassword')?.dirty))
+        (formRegistro.get('confirmarPassword')?.touched ||
+          formRegistro.get('confirmarPassword')?.dirty) &&
+        (formRegistro.get('confirmarPassword')?.hasError('required') ||
+          (formRegistro.get('password')?.value &&
+            formRegistro.get('confirmarPassword')?.value &&
+            formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value))
       "
+      placeholder="Repetir la contraseña ingresada"
     />
 
-    @if ( formRegistro.get('confirmarPassword')?.invalid || (formRegistro.get('password')?.value !==
-    formRegistro.get('confirmarPassword')?.value && (formRegistro.get('confirmarPassword')?.touched
-    || formRegistro.get('confirmarPassword')?.dirty)) ) {
+    @if ( (formRegistro.get('confirmarPassword')?.touched ||
+    formRegistro.get('confirmarPassword')?.dirty) && (
+    formRegistro.get('confirmarPassword')?.hasError('required') || (
+    formRegistro.get('password')?.value && formRegistro.get('confirmarPassword')?.value &&
+    formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value ) ) ) {
     <div class="error-messages">
       @if (formRegistro.get('confirmarPassword')?.hasError('required')) {
       <p>Debe repetir la contraseña.</p>
-      } @if ( formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value )
-      {
+      } @if ( formRegistro.get('password')?.value && formRegistro.get('confirmarPassword')?.value &&
+      formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value ) {
       <p>Las contraseñas no coinciden.</p>
       }
     </div>
     }
   </div>
 
+  <!-- Checkboxes -->
   <div class="checkbox-container">
     <label>
-      <input type="checkbox" required />
-      He leído y acepto las <a href="#" target="_blank">bases y condiciones</a>. <!-- Aca hay que linkear bases y condiciones / abrir un modal -->
+      <input type="checkbox" formControlName="aceptarTerminos" />
+      He leído y acepto las <a href="#" target="_blank">bases y condiciones</a>.
+      <!-- Aca hay que linkear bases y condiciones / abrir un modal -->
     </label>
   </div>
 
   <div class="checkbox-container">
     <label>
-      <input type="checkbox" required />
-      Me comprometo a hacer un buen uso de la plataforma y respetar las normas comunitarias. <!-- Aca hay que linkear normas comunitarias / abrir un modal -->
+      <input type="checkbox" formControlName="aceptarPoliticas" />
+      Me comprometo a hacer un buen uso de la plataforma y respetar las normas comunitarias.
+      <!-- Aca hay que linkear normas comunitarias / abrir un modal -->
     </label>
   </div>
 
-  <button type="button" (click)="onSubmit()" class="btn">Registrarse</button>
+  <button
+    type="button"
+    (click)="onSubmit()"
+    class="btn"
+    [disabled]="!formRegistro.valid"
+    [class.disabled]="!formRegistro.valid"
+  >
+    <!-- Si el form no es valido, se desabilita el boton, funcional y esteticamente -->
+    Registrarse
+  </button>
 </form>

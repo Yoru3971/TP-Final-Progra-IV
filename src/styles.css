@@ -13,18 +13,22 @@
   --input-text: #444;
   --input-border: #e6e6e7;
   --input-focus-outline: #fe9039;
+  --input-focus-shadow: 0 0 0 0.3rem rgba(254, 144, 57, 0.25);
 
   --button-bg: #fe9039;
   --button-text: white;
   --button-hover-bg: #ff7d1a;
 
-  --link-color: #fe9039;
+  --link: #fe9039;
 
-  --checkbox-color: #fe9039;
   --checked-color: #fe9039;
 
   --invalid-border: #ff4b4b;
   --error-color: #ff4b4b;
+  --invalid-focus-shadow: 0 0 0 0.3rem rgba(255, 75, 75, 0.25);
+
+  --btn-disabled: #ccc;
+  --btn-disabled-text:#666; 
 }
 
 html {
@@ -60,7 +64,7 @@ body {
   width: 100%;
   display: block;
   padding: 1rem 1.4rem;
-  border: 0.2rem solid var(--input-border);
+  border: 0.1rem solid var(--input-border);
   border-radius: 2.5rem;
   font-size: 1.4rem;
   color: var(--input-text);
@@ -70,6 +74,13 @@ body {
 
 .form-input:focus {
   border-color:var(--input-focus-outline);
+  outline: none;
+  box-shadow: var(--invalid-focus-shadow);
+}
+
+.form-input::placeholder {
+  color: var(--input-text);
+  opacity: 0.3;
 }
 
 .form-field {
@@ -78,8 +89,9 @@ body {
   flex-direction: column;
 }
 
-input.invalid {
+.invalid {
   border-color: var(--invalid-border);
+  box-shadow: var(--invalid-focus-shadow); 
 }
 
 .error-messages p {
@@ -107,6 +119,14 @@ input.invalid {
 
 .btn:hover {
   background-color: var(--button-hover-bg);
+}
+
+.btn:disabled,
+.btn.disabled {
+  background-color: var(--btn-disabled);
+  color: var(--btn-disabled-text);
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .checkbox-container {

@@ -20,6 +20,7 @@ export class FormRegistro {
   formRegistro = this.fb.group({
     nombreCompleto: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
     email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
+    telefono: ['', [Validators.required, Validators.pattern(/^\d{10,15}$/)]],
     password: [
       '',
       [
@@ -30,7 +31,8 @@ export class FormRegistro {
       ],
     ],
     confirmarPassword: ['', [Validators.required]],
-    telefono: ['', [Validators.required, Validators.pattern(/^\d{10,15}$/)]],
+    aceptarTerminos: [false, Validators.requiredTrue],
+    aceptarPoliticas: [false, Validators.requiredTrue],
   });
 
   onSubmit() {
