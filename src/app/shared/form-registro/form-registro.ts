@@ -17,35 +17,48 @@ export class FormRegistro {
   //Como este form va dentro de una pagina (componente padre) que define el rol desde la URL, lo recibo por Input, luego desde la pagina padre le paso el rol correspondiente.
   @Input() rolUsuario: string = '';
 
-  formRegistro = this.fb.group({
-    nombreCompleto: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
-    email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
-    telefono: ['', [Validators.required, Validators.pattern(/^\d{10,15}$/)]],
-    password: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/
-        ),
+  formRegistro = this.fb.group(
+    {
+      nombreCompleto: [
+        '',
+        [Validators.required, Validators.minLength(1), Validators.maxLength(255)],
       ],
-    ],
-    confirmarPassword: ['', [Validators.required]],
-    aceptarTerminos: [false, Validators.requiredTrue],
-    aceptarPoliticas: [false, Validators.requiredTrue],
-  });
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
+      telefono: ['', [Validators.required, Validators.pattern(/^\d{10,15}$/)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/
+          ),
+        ],
+      ],
+      confirmarPassword: ['', [Validators.required]],
+      aceptarTerminos: [false, Validators.requiredTrue],
+      aceptarPoliticas: [false, Validators.requiredTrue],
+    },
+    { validators: this.passwordsCoinciden }
+  );
 
-// Variables para mostrar/ocultar contraseñas 
+  // Variables para mostrar/ocultar contraseñas
   showPassword = false;
-showConfirmPassword = false;
+  showConfirmPassword = false;
 
-togglePassword() {
-  this.showPassword = !this.showPassword;
-}
+  // Validador personalizado para verificar que las contraseñas coincidan
+  passwordsCoinciden(form: any) {
+    const pass = form.get('password')?.value;
+    const confirm = form.get('confirmarPassword')?.value;
+    return pass === confirm ? null : { noCoinciden: true };
+  }
 
-toggleConfirmPassword() {
-  this.showConfirmPassword = !this.showConfirmPassword;
-}
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
 
   onSubmit() {
     const usuario = this.formRegistro.value;

@@ -117,9 +117,7 @@
           (formRegistro.get('confirmarPassword')?.touched ||
             formRegistro.get('confirmarPassword')?.dirty) &&
           (formRegistro.get('confirmarPassword')?.hasError('required') ||
-            (formRegistro.get('password')?.value &&
-              formRegistro.get('confirmarPassword')?.value &&
-              formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value))
+            formRegistro.hasError('noCoinciden'))
         "
         placeholder="Repetir la contraseña ingresada"
       />
@@ -131,13 +129,11 @@
     @if ( (formRegistro.get('confirmarPassword')?.touched ||
     formRegistro.get('confirmarPassword')?.dirty) &&
     (formRegistro.get('confirmarPassword')?.hasError('required') ||
-    (formRegistro.get('password')?.value && formRegistro.get('confirmarPassword')?.value &&
-    formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value)) ) {
+    formRegistro.hasError('noCoinciden')) ) {
     <div class="error-messages">
       @if (formRegistro.get('confirmarPassword')?.hasError('required')) {
       <p>Debe repetir la contraseña.</p>
-      } @if ( formRegistro.get('password')?.value && formRegistro.get('confirmarPassword')?.value &&
-      formRegistro.get('password')?.value !== formRegistro.get('confirmarPassword')?.value ) {
+      } @if (formRegistro.hasError('noCoinciden')) {
       <p>Las contraseñas no coinciden.</p>
       }
     </div>
@@ -156,7 +152,8 @@
   <div class="checkbox-container">
     <label>
       <input type="checkbox" formControlName="aceptarPoliticas" />
-      Me comprometo a hacer un buen uso de la plataforma y respetar las normas comunitarias.
+      Me comprometo a hacer un buen uso de la plataforma y respetar las
+      <a href="#" target="_blank">normas de la comunidad</a>.
       <!-- Aca hay que linkear normas comunitarias / abrir un modal -->
     </label>
   </div>
