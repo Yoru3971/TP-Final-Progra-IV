@@ -108,17 +108,12 @@ body {
 }
 
 .btn {
-  width: 30%;
   background-color: var(--button-bg);
   color: var(--button-text);
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 1rem 0;
   border: none;
   border-radius: 2rem;
   cursor: pointer;
   transition: 0.2s ease;
-  margin-top: 1.5rem;
   align-self: center;
 }
 
