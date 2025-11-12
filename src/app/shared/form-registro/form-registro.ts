@@ -72,9 +72,8 @@ export class FormRegistro {
       })
       .subscribe({
         next: () => {
-          alert('Registro exitoso');
           // Redirige al usuario a la página de login después del registro exitoso, idealmente podría ser una pagina con un mensaje de exito y un boton para ir al login.
-          this.router.navigate(['/login']);
+          this.router.navigate(['/registro-exitoso']);
         },
         error: (err) => {
           // Si el backend devuelve un mensaje dentro de error.error (estructura del back)
