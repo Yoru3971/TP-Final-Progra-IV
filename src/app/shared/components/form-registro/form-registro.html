@@ -19,6 +19,11 @@
     <div class="error-messages">
       @if (formRegistro.get('nombreCompleto')?.hasError('required')) {
       <p>El nombre es obligatorio.</p>
+      }@if (formRegistro.get('nombreCompleto')?.hasError('maxLength')) {
+      <p>El nombre no debe superar los 100 caracteres.</p>
+      }
+      @if (formRegistro.get('nombreCompleto')?.hasError('minLength')) {
+      <p>El nombre no debe tener al menos 1 caracter.</p>
       }
     </div>
     }
@@ -43,6 +48,11 @@
     <div class="error-messages">
       @if (formRegistro.get('email')?.hasError('required')) {
       <p>El email es obligatorio.</p>
+      }@if (formRegistro.get('email')?.hasError('email')) {
+      <p>Ingresa un mail válido.</p>
+      }
+      @if (formRegistro.get('email')?.hasError('maxLength')) {
+      <p>El mail no debe superar los 100 caracteres.</p>
       }
     </div>
     }
