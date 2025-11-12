@@ -9,10 +9,10 @@
 html {
   @include mat.theme((
     color: (
-      primary: var(--custom-primary-color),
-      tertiary: var(--custom-tertiary-color),
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
     ),
-    typography: Inria Sans,
+    typography: Roboto,
     density: 0,
   ));
 }
