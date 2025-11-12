@@ -1,0 +1,122 @@
+.app-footer {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 3rem 2rem 0 2rem;
+    border-top: 0.1rem solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.app-footer .footer-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8rem;
+    width: 100%;
+    max-width: 120rem;
+    margin-bottom: 2rem;
+}
+
+.footer-contact-info,
+.footer-quick-links {
+    flex-basis: 28rem; /* define el tamaño base antes de que Flexbox actue */
+    flex-grow: 1; /* permite que crezcan un poco si hay espacio */
+    min-width: 20rem;
+    padding: 0 1rem;
+    text-align: left;
+}
+
+/* titulos de las secciones */
+.app-footer .footer-section h3 {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-top: 0;
+    margin-bottom: 1,5rem;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.footer-section .footer-logo-container {
+    flex-basis: 28rem;
+    flex-grow: 1;
+    min-height: 20rem;
+    padding: 0 1rem;
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+
+}
+
+/* estilos logo */
+.footer-section .footer-logo-container .footer-logo {
+    max-width: 15rem;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+.footer-section .footer-logo-container .footer-name-conteiner {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 0;
+}
+
+.footer-section .footer-logo-container .footer-name-conteiner .footer-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* estilos eslogan y contacto */
+.footer-section .footer-logo-container .footer-name-conteiner .footer-eslogan {
+    font-size: 1.9rem;
+    margin: 0.8rem -3rem; /* acomodar en funcion del eslogan */
+    color: var(--link-color);
+}
+
+
+/* contacto */
+.footer-section .footer-contact-info p {
+    font-size: 1.35rem;
+    margin: 0;
+    color: var(--link-color);   
+}
+
+/* enlaces */
+.footer-section .footer-quick-links a {
+    display: block; /* cada enlace en su propia línea */
+    margin-bottom: 0.8rem;
+    text-decoration: none;
+    font-size: 1.35rem;
+    color: var(--link-color);
+    transition: color 0.3s ease;
+}
+
+.footer-section .footer-quick-links a:hover {
+    color: #e07b3d;
+    text-decoration: underline;
+}
+
+/* barra inferior */
+.app-footer .footer-bottom-bar {
+    background-color: var(--form-bg);
+    color: #888;
+    text-align: center;
+    padding: 1.5rem 2rem;
+    font-size: 1.2rem;
+    border-top: 1px solid #e5e5e5;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-footer .footer-bottom-bar .separador {
+    margin: 0 1rem;
+}
+
+
+
