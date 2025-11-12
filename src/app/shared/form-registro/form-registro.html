@@ -59,7 +59,7 @@
         formRegistro.get('telefono')?.invalid &&
         (formRegistro.get('telefono')?.touched || formRegistro.get('telefono')?.dirty)
       "
-      placeholder="11234567890"
+      placeholder="Ej: 11234567890"
     />
 
     @if ( formRegistro.get('telefono')?.invalid && (formRegistro.get('telefono')?.touched ||
@@ -67,7 +67,10 @@
     <div class="error-messages">
       @if (formRegistro.get('telefono')?.hasError('required')) {
       <p>El teléfono es obligatorio.</p>
+      }@if (formRegistro.get('telefono')?.hasError('pattern')) {
+      <p>El telefono debe tener entre 10 y 1 caracteres numericos.</p>
       }
+      
     </div>
     }
   </div>
