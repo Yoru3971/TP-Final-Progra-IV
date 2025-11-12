@@ -1,7 +1,9 @@
 import { Component, inject, Input } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RegistroService } from '../../services/registro-service';
+import { RegistroService } from '../../../services/registro-service';
+import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-form-registro',
@@ -13,6 +15,7 @@ export class FormRegistro {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private registroService = inject(RegistroService);
+  private dialog = inject(MatDialog);
 
   //Como este form va dentro de una pagina (componente padre) que define el rol desde la URL, lo recibo por Input, luego desde la pagina padre le paso el rol correspondiente.
   @Input() rolUsuario: string = '';
@@ -21,9 +24,9 @@ export class FormRegistro {
     {
       nombreCompleto: [
         '',
-        [Validators.required, Validators.minLength(1), Validators.maxLength(255)],
+        [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
       ],
-      email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
       telefono: ['', [Validators.required, Validators.pattern(/^\d{10,15}$/)]],
       password: [
         '',
@@ -40,6 +43,42 @@ export class FormRegistro {
     },
     { validators: this.passwordsCoinciden }
   );
+
+  onSubmit() {
+    const usuario = this.formRegistro.value;
+    this.registroService
+      .registrarUsuario({
+        nombreCompleto: usuario.nombreCompleto || '',
+        email: usuario.email || '',
+        password: usuario.password || '',
+        telefono: usuario.telefono || '',
+        rolUsuario: this.rolUsuario,
+      })
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/registro-exitoso']);
+        },
+        error: (err) => {
+          // Por si el backend devuelve un mensaje dentro de error.error (estructura del back)
+          const backendMsg =
+            err.error?.message || err.error?.error || 'Error desconocido en el registro';
+
+          console.error(backendMsg);
+
+          this.dialog.open(ErrorDialogModal, {
+            data: {
+              message: backendMsg, // Pasa el mensaje al diálogo
+            },
+          });
+
+          // Resetear el formulario o la contraseña para que el usuario intente de nuevo
+          this.formRegistro.get('password')?.reset();
+          this.formRegistro.get('confirmarPassword')?.reset();
+          this.formRegistro.get('aceptarTerminos')?.setValue(false);
+          this.formRegistro.get('aceptarPoliticas')?.setValue(false);
+        },
+      });
+  }
 
   // Variables para mostrar/ocultar contraseñas
   showPassword = false;
@@ -58,31 +97,5 @@ export class FormRegistro {
 
   toggleConfirmPassword() {
     this.showConfirmPassword = !this.showConfirmPassword;
-  }
-
-  onSubmit() {
-    const usuario = this.formRegistro.value;
-    this.registroService
-      .registrarUsuario({
-        nombreCompleto: usuario.nombreCompleto || '',
-        email: usuario.email || '',
-        password: usuario.password || '',
-        telefono: usuario.telefono || '',
-        rolUsuario: this.rolUsuario,
-      })
-      .subscribe({
-        next: () => {
-          // Redirige al usuario a la página de login después del registro exitoso, idealmente podría ser una pagina con un mensaje de exito y un boton para ir al login.
-          this.router.navigate(['/registro-exitoso']);
-        },
-        error: (err) => {
-          // Si el backend devuelve un mensaje dentro de error.error (estructura del back)
-          //Mas adelante hay que cambiarlo para mostrar el mensaje en el HTML del form o con un modal
-          const backendMsg =
-            err.error?.message || err.error?.error || 'Error desconocido en el registro';
-
-          console.error('Error en el registro:', backendMsg);
-        },
-      });
   }
 }
