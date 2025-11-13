@@ -1,7 +1,7 @@
 <form class="form-registro" [formGroup]="formRegistro">
   <!-- Nombre completo -->
   <div class="form-field">
-    <label for="nombreCompleto" class="form-label">Nombre</label>
+    <label for="nombreCompleto" class="form-label">Nombre completo</label>
     <input
       formControlName="nombreCompleto"
       type="text"
@@ -19,6 +19,11 @@
     <div class="error-messages">
       @if (formRegistro.get('nombreCompleto')?.hasError('required')) {
       <p>El nombre es obligatorio.</p>
+      }@if (formRegistro.get('nombreCompleto')?.hasError('maxLength')) {
+      <p>El nombre no debe superar los 100 caracteres.</p>
+      }
+      @if (formRegistro.get('nombreCompleto')?.hasError('minLength')) {
+      <p>El nombre no debe tener al menos 1 caracter.</p>
       }
     </div>
     }
@@ -43,6 +48,11 @@
     <div class="error-messages">
       @if (formRegistro.get('email')?.hasError('required')) {
       <p>El email es obligatorio.</p>
+      }@if (formRegistro.get('email')?.hasError('email')) {
+      <p>Ingresa un mail válido.</p>
+      }
+      @if (formRegistro.get('email')?.hasError('maxLength')) {
+      <p>El mail no debe superar los 100 caracteres.</p>
       }
     </div>
     }
@@ -59,7 +69,7 @@
         formRegistro.get('telefono')?.invalid &&
         (formRegistro.get('telefono')?.touched || formRegistro.get('telefono')?.dirty)
       "
-      placeholder="11234567890"
+      placeholder="Ej: 11234567890"
     />
 
     @if ( formRegistro.get('telefono')?.invalid && (formRegistro.get('telefono')?.touched ||
@@ -67,7 +77,10 @@
     <div class="error-messages">
       @if (formRegistro.get('telefono')?.hasError('required')) {
       <p>El teléfono es obligatorio.</p>
+      }@if (formRegistro.get('telefono')?.hasError('pattern')) {
+      <p>El telefono debe tener entre 10 y 16 caracteres numericos.</p>
       }
+      
     </div>
     }
   </div>
@@ -85,7 +98,7 @@
           formRegistro.get('password')?.invalid &&
           (formRegistro.get('password')?.touched || formRegistro.get('password')?.dirty)
         "
-        placeholder="Entre 10 y 16 caracteres, una mayúscula, un número y un caracter especial"
+        placeholder="Entre 10 y 16 caracteres, al menos una mayúscula, una minuscula, un número y un caracter especial"
       />
       <button type="button" class="toggle-eye" (click)="togglePassword()">
         <i class="fa-solid {{ showPassword ? 'fa-eye-slash' : 'fa-eye' }}"></i>
@@ -98,7 +111,7 @@
       @if (formRegistro.get('password')?.hasError('required')) {
       <p>La contraseña es obligatoria.</p>
       } @if (formRegistro.get('password')?.hasError('pattern')) {
-      <p>Debe tener entre 10 y 16 caracteres, una mayúscula, un número y un caracter especial.</p>
+      <p>Debe tener entre 10 y 16 caracteres, al menos una mayúscula, una minuscula, un número y un caracter especial.</p>
       }
     </div>
     }
@@ -143,9 +156,8 @@
   <!-- Checkboxes -->
   <div class="checkbox-container">
     <label>
-      <input type="checkbox" formControlName="aceptarTerminos" />
-      He leído y acepto las <a href="#" target="_blank">bases y condiciones</a>.
-      <!-- Aca hay que linkear bases y condiciones / abrir un modal -->
+      <input type="checkbox" formControlName="aceptarTerminos"/>
+      He leído y acepto las <a (click) = "openBasesCondiciones()" >bases y condiciones</a>.
     </label>
   </div>
 
@@ -153,8 +165,7 @@
     <label>
       <input type="checkbox" formControlName="aceptarPoliticas" />
       Me comprometo a hacer un buen uso de la plataforma y respetar las
-      <a href="#" target="_blank">normas de la comunidad</a>.
-      <!-- Aca hay que linkear normas comunitarias / abrir un modal -->
+      <a (click) = "openNormasComunidad()">normas de la comunidad</a>.
     </label>
   </div>
 
