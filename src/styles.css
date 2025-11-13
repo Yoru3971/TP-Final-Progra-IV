@@ -33,6 +33,8 @@
   --toggle-eye-hover-color: #fe9039;
 
   --line-trough-color: gray;
+
+  --modal-bg: #f9f8f8;
 }
 
 html {
@@ -180,6 +182,71 @@ body {
   align-items: center;
 }
 
+.modal-error .mat-mdc-dialog-title {
+  background-color: var(--modal-bg);
+  color: var(--error-color) !important;
+  padding: 1.2rem 1.6rem;
+  margin: 0;
+}
+
+.modal-error .mat-icon {
+  color: var(--error-color) !important;
+  vertical-align: middle;
+}
+
+.modal-error .mat-mdc-dialog-content {
+  background-color: var(--modal-bg);
+  padding: 2rem;
+}
+
+.modal-error .mat-mdc-dialog-content p {
+  font-size: 1.4rem;
+  color: var(--input-text);
+  margin: 0;
+}
+
+.modal-error .mat-mdc-dialog-actions {
+  background-color: var(--modal-bg);
+  padding: 1.6rem;
+}
+
+.modal-error .mat-mdc-dialog-actions .btn {
+  padding: 1rem 3rem; 
+  font-size: 1.6rem;
+  margin: 0;
+}
+
 .modal-scrolleable .mat-mdc-dialog-title {
   background-color: #ff8c00;
+  color: white !important;
+  border: none;
+  margin: 0;
+  font-size: 2rem !important;
+}
+
+.modal-scrolleable .mat-mdc-dialog-actions .btn {
+  padding: 1rem;
+  font-size: 1.6rem;
+  margin: 1.5rem;
+  font-weight: bold;
+}
+
+.modal-scrolleable .mat-mdc-dialog-content {
+  background-color: rgb(238, 238, 238);
+  margin: 0;
+}
+
+.modal-scrolleable .mat-mdc-dialog-content p {
+  font-size: 1.2rem;
+  color: var(--input-text);
+}
+
+.modal-scrolleable .mat-mdc-dialog-actions {
+  background: linear-gradient(
+    to top,
+    #e0e0e0 0%,
+    #d5d5d5 80%
+  );
+  padding: 0;
+  border: none;
 }

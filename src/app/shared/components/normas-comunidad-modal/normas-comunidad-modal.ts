@@ -5,17 +5,18 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-bases-condiciones-modal',
+  selector: 'app-normas-comunidad-modal',
   imports: [
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
   ],
-  templateUrl: './bases-condiciones-modal.html',
-  styleUrl: './bases-condiciones-modal.css',
+  templateUrl: './normas-comunidad-modal.html',
+  styleUrl: './normas-comunidad-modal.css',
 })
-export class BasesCondicionesModal {}
+export class NormasComunidadModal {
+
+}
