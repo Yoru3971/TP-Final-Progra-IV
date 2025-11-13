@@ -48,7 +48,7 @@
             <!-- Botones condicionales -->
             @if (!isLoggedIn()) {
                 <!-- Invitado -->
-                <button (click)="onLogin()" class="btn btn-primary">
+                <button routerLink="/login" (click)="onLogin()" class="btn btn-primary">
                     Iniciar Sesión
                 </button>
             } @else {

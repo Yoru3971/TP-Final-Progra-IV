@@ -6,7 +6,7 @@ export type UserRole = 'ADMIN' | 'DUENO' | 'CLIENTE' | 'INVITADO';
   providedIn: 'root'
 })
 export class AuthService {
-  private TOKEN_KEY = 'miviandita_auth_token';
+  private TOKEN_KEY = 'authToken';
 
   // Signal con rol del usuario
   public currentUserRole = signal<UserRole>(this.getRolFromToken())

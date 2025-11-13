@@ -37,3 +37,8 @@
   font-weight: light;
   margin-top: 2rem;
 }
+
+.link-button{
+  text-decoration: none;
+  color: var(--button-text);
+}
