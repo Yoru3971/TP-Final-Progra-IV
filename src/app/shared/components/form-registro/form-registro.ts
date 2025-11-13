@@ -42,8 +42,8 @@ export class FormRegistro {
         ],
       ],
       confirmarPassword: ['', [Validators.required]],
-      aceptarTerminos: [{ value: false, disabled: true }, Validators.requiredTrue],
-      aceptarPoliticas: [{ value: false, disabled: true }, Validators.requiredTrue],
+      aceptarTerminos: [false, Validators.requiredTrue],
+      aceptarPoliticas: [false, Validators.requiredTrue],
     },
     { validators: this.passwordsCoinciden }
   );
@@ -76,7 +76,7 @@ export class FormRegistro {
             panelClass: 'modal-error'
           });
 
-          // Resetear el formulario o la contraseña para que el usuario intente de nuevo
+          // Resetear la contraseña para que el usuario intente de nuevo
           this.formRegistro.get('password')?.reset();
           this.formRegistro.get('confirmarPassword')?.reset();
           this.formRegistro.get('aceptarTerminos')?.setValue(false);
