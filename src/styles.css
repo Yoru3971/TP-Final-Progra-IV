@@ -179,3 +179,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.modal-scrolleable .mat-mdc-dialog-title {
+  background-color: #ff8c00;
+}

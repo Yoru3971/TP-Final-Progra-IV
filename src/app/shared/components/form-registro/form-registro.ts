@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistroService } from '../../../services/registro-service';
 import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
+import { BasesCondicionesModal } from '../bases-condiciones-modal/bases-condiciones-modal';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -16,6 +17,8 @@ export class FormRegistro {
   private router = inject(Router);
   private registroService = inject(RegistroService);
   private dialog = inject(MatDialog);
+  showPassword = false;
+  showConfirmPassword = false;
 
   //Como este form va dentro de una pagina (componente padre) que define el rol desde la URL, lo recibo por Input, luego desde la pagina padre le paso el rol correspondiente.
   @Input() rolUsuario: string = '';
@@ -38,8 +41,8 @@ export class FormRegistro {
         ],
       ],
       confirmarPassword: ['', [Validators.required]],
-      aceptarTerminos: [false, Validators.requiredTrue],
-      aceptarPoliticas: [false, Validators.requiredTrue],
+      aceptarTerminos: [{ value: false, disabled: true }, Validators.requiredTrue],
+      aceptarPoliticas: [{ value: false, disabled: true }, Validators.requiredTrue],
     },
     { validators: this.passwordsCoinciden }
   );
@@ -80,9 +83,17 @@ export class FormRegistro {
       });
   }
 
-  // Variables para mostrar/ocultar contraseñas
-  showPassword = false;
-  showConfirmPassword = false;
+  openBasesCondiciones() {
+    const dialogRef = this.dialog.open(BasesCondicionesModal, { disableClose: true, panelClass:'modal-scrolleable' });
+
+    dialogRef.afterClosed().subscribe((resultado) => {
+      if (resultado === true) {
+        this.formRegistro.get('aceptarTerminos')?.setValue(true);
+      } else {
+        this.formRegistro.get('aceptarTerminos')?.setValue(false);
+      }
+    });
+  }
 
   // Validador personalizado para verificar que las contraseñas coincidan
   passwordsCoinciden(form: any) {
