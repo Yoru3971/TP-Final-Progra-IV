@@ -17,8 +17,8 @@ export class Header {
 
   public role = this.authService.currentUserRole;
 
-  // idea, agregar un  signal que me diga si tengo algo logueado para mostrar
-  // o no el boton de perfil o logout, o sino login
+  // agrego un  signal que me diga si tengo algo logueado para mostrar
+  // o no, el boton de perfil o logout, o sino login
   isLoggedIn = computed( () => this.role() !== 'INVITADO');
 
   //Recibo la lista de notificaciones (solo para logueados), DEBERIA SER SIGNAL?
