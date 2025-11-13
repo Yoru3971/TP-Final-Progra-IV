@@ -156,9 +156,8 @@
   <!-- Checkboxes -->
   <div class="checkbox-container">
     <label>
-      <input type="checkbox" formControlName="aceptarTerminos" />
-      He leído y acepto las <a href="#" target="_blank">bases y condiciones</a>.
-      <!-- Aca hay que linkear bases y condiciones / abrir un modal -->
+      <input type="checkbox" formControlName="aceptarTerminos"/>
+      He leído y acepto las <a (click) = "openBasesCondiciones()" >bases y condiciones</a>.
     </label>
   </div>
 
@@ -166,8 +165,7 @@
     <label>
       <input type="checkbox" formControlName="aceptarPoliticas" />
       Me comprometo a hacer un buen uso de la plataforma y respetar las
-      <a href="#" target="_blank">normas de la comunidad</a>.
-      <!-- Aca hay que linkear normas comunitarias / abrir un modal -->
+      <a (click) = "openNormasComunidad()">normas de la comunidad</a>.
     </label>
   </div>
 
