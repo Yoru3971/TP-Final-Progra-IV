@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { RegisterPageDueno } from './pages/register-page-dueno/register-page-dueno';
 import { RegisterPageCliente } from './pages/register-page-cliente/register-page-cliente';
+import { Login } from './pages/login/login';
 import { RegisterSuccessPage } from './pages/register-success-page/register-success-page';
 
 export const routes: Routes = [
@@ -15,7 +16,11 @@ export const routes: Routes = [
     data: { rol: 'CLIENTE' },
   },
   {
-    path: 'registro-exitoso',
+     path: 'registro-exitoso',
     component: RegisterSuccessPage,
   },
+  {
+     path: 'login',
+    component: Login
+  }
 ];

@@ -112,7 +112,7 @@ body {
   background-color: var(--button-bg);
   color: var(--button-text);
   border: none;
-  border-radius: 2rem;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: 0.2s ease;
   align-self: center;
@@ -197,6 +197,8 @@ body {
 .modal-error .mat-mdc-dialog-content {
   background-color: var(--modal-bg);
   padding: 2rem;
+  max-height: none !important;
+  overflow: visible !important;
 }
 
 .modal-error .mat-mdc-dialog-content p {

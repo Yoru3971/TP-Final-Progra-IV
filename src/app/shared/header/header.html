@@ -1,0 +1,102 @@
+<header class="main-header">
+    <nav class="header-nav">
+
+        <!-- Izquierda: Logo y rol-->
+        <div class="header-left">
+            <a routerLink="/home">
+                <img src="logo-miviandita-removebg-preview.png" alt="MiViandita Logo" class="header-logo">
+            </a>
+
+            <div class="role-tag">
+                <!-- MUestro 'menu dueño' si es el rol -->
+                @if (role() === 'DUENO') {
+                    <span class="owner-tag">Menu Dueño</span>
+                }
+                <!-- NO IMPLEMENTADO EN CSS -->
+                @if (role() === 'ADMIN') {
+                    <span class="admin-tag">Menu Admin</span>
+                }
+            </div>
+            
+            <select class="ubication-select">
+                <option value="">Ubicación</option>
+                <option value="Mar del Plata">Mar del Plata</option>
+                <option value="Balcarce">Balcarce</option>
+                <option value="Miramar">Miramar</option>
+            </select>
+        </div>
+        
+        <!-- Centro: Buscador y Opciones -->
+        <div class="header-center">
+            <!-- Barra de busqueda -->
+            <form (submit)="onSearch($event, searchInput)" class="search-form">
+                <input 
+                #searchInput
+                type="text"
+                placeholder="Ingrese una vianda"
+                class="search-input"
+                >
+            </form>
+        </div>
+
+        <!-- Derecha: Navegacion y Acciones -->
+         <div class="header-right">
+            <!-- Links Comunes -->
+            <a routerLink="/home" class="nav-link">Home</a>
+            <a routerLink="/sobre-nosotros" class="nav-link">Sobre nosotros</a>
+
+            <!-- Botones condicionales -->
+            @if (!isLoggedIn()) {
+                <!-- Invitado -->
+                <button (click)="onLogin()" class="btn btn-primary">
+                    Iniciar Sesión
+                </button>
+            } @else {
+                <!-- Clientes o Dueño -->
+
+                <!-- Boton notificaciones -->
+                 <div class="notification-wrapper">
+                    <button (click)="toggleNotificationMenu()" class="btn notification-button">
+                        <!-- Icono campana -->
+                         <span>campana</span>
+                        @if (notifications().length > 0) {
+                            <span class="notification-badge">
+                                {{ notifications().length }}
+                            </span>
+                        }
+                    </button>
+                    
+                    <!-- Menu Desplegable de Notificaciones -->
+                     @if (notificationMenuOpen()) {
+                        <div class="notification-dropdown">
+                            <div class="dropdown-header">Notificaciones</div>
+                            <div class="dropdown-content">
+                                @if (notifications().length === 0){
+                                    <p class="empty-message">No hay notificaciones nuevas</p>
+                                } @else {
+                                    @for (notification of notifications(); track $index) {
+                                        <div class="notification-item">
+                                            {{ notification }}
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                     }
+                 </div>
+                
+                 <!-- Boton de Perfil -->
+                 <button (click)="onProfileClick()" class="btn btn-profile">
+                    <!-- Icono usuario -->
+                    <span>Mi perfil</span>
+                 </button> 
+
+                 <!-- Boton de Logout -->
+                  <button (click)="onLogout()" title="Cerrar Sesion" class="btn btn-logout">
+                    <!-- Icono salir -->
+                     <span>Salir</span>
+                  </button>
+            }
+         </div>
+    </nav>
+</header>
