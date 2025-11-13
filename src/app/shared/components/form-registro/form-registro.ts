@@ -73,6 +73,7 @@ export class FormRegistro {
             data: {
               message: backendMsg, // Pasa el mensaje al diálogo
             },
+            panelClass: 'modal-error'
           });
 
           // Resetear el formulario o la contraseña para que el usuario intente de nuevo
