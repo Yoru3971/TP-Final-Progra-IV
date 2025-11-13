@@ -1,0 +1,60 @@
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LoginService } from '../../services/login-service';
+import { Router } from '@angular/router';
+import { LoginResponse } from '../../model/login-response.model';
+
+@Component({
+  selector: 'app-form-login',
+  imports: [ReactiveFormsModule],
+  templateUrl: './form-login.html',
+  styleUrl: './form-login.css',
+})
+export class FormLogin {
+
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private loginService = inject(LoginService);
+
+  formLogin = this.fb.group(
+    {
+      email: ['', [Validators.required]],
+      password: ['',[Validators.required]],
+      recordarme: [false]
+    }
+  );
+
+  showPassword = false;
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  login(){
+    const usuario = this.formLogin.value;
+    this.loginService
+      .login({
+        email: usuario.email || '',
+        password: usuario.password || ''
+      })
+      .subscribe({
+        next: (response: LoginResponse) => {
+          alert('Login exitoso');
+          if (usuario.recordarme){
+            localStorage.setItem('authToken', response.token);      //  MOVER debería estar en el auth-service
+          } else {
+            sessionStorage.setItem('authToken', response.token);    //  MOVER debería estar en el auth-service
+          }
+          this.router.navigate(['']);     //  AGREGAR debería redirigir a la página principal (páginas distintas dependiendo del rol?)
+        },
+        error: (err) => {                 //  REVISAR cómo manejar los errores
+          const backendMsg =
+            err.error?.message || err.error?.error || 'Error desconocido en el login';
+
+          console.error('Error en el login:', backendMsg);
+        }
+      })
+
+  }
+
+}
