@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
 /*Variables para los colores*/
 :root {
@@ -8,7 +7,7 @@
 
   --form-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
 
-  --form-bg: #f9f8f8; /*linear-gradient(90deg, #fff9ee 0%, #fcfaf7 100%)*/
+  --form-bg: #f9f8f8;
   --input-bg: #f9f8f8;
   --input-text: #444;
   --input-border: #e6e6e7;
@@ -50,7 +49,7 @@ html {
 
 body {
   background: var(--bg-color);
-  margin: 0 auto;
+  margin: 0;
   color: var(--text-color);
   font-family: 'Inria Sans', sans-serif;
 }
@@ -108,17 +107,12 @@ body {
 }
 
 .btn {
-  width: 30%;
   background-color: var(--button-bg);
   color: var(--button-text);
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 1rem 0;
   border: none;
   border-radius: 2rem;
   cursor: pointer;
   transition: 0.2s ease;
-  margin-top: 1.5rem;
   align-self: center;
 }
 
@@ -184,4 +178,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.modal-scrolleable .mat-mdc-dialog-title {
+  background-color: #ff8c00;
 }
