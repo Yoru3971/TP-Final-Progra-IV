@@ -14,7 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
-    MatButtonModule,
   ],
   templateUrl: './bases-condiciones-modal.html',
   styleUrl: './bases-condiciones-modal.css',

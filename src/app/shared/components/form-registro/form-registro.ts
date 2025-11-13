@@ -5,6 +5,7 @@ import { RegistroService } from '../../../services/registro-service';
 import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
 import { BasesCondicionesModal } from '../bases-condiciones-modal/bases-condiciones-modal';
 import { MatDialog } from '@angular/material/dialog';
+import { NormasComunidadModal } from '../normas-comunidad-modal/normas-comunidad-modal';
 
 @Component({
   selector: 'app-form-registro',
@@ -91,6 +92,18 @@ export class FormRegistro {
         this.formRegistro.get('aceptarTerminos')?.setValue(true);
       } else {
         this.formRegistro.get('aceptarTerminos')?.setValue(false);
+      }
+    });
+  }
+
+  openNormasComunidad(){
+    const dialogRef = this.dialog.open(NormasComunidadModal, { disableClose: true, panelClass:'modal-scrolleable' });
+
+    dialogRef.afterClosed().subscribe((resultado) => {
+      if (resultado === true) {
+        this.formRegistro.get('aceptarPoliticas')?.setValue(true);
+      } else {
+        this.formRegistro.get('aceptarPoliticas')?.setValue(false);
       }
     });
   }
