@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, EventEmitter, inject, input, Output, signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
 
-import { AuthService, UserRole } from '../../services/auth-service';
+import { AuthService, UserRole } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-header',
