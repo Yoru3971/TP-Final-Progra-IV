@@ -182,4 +182,35 @@ body {
 
 .modal-scrolleable .mat-mdc-dialog-title {
   background-color: #ff8c00;
+  color: white !important;
+  border: none;
+  margin: 0;
+  font-size: 2rem !important;
+}
+
+.modal-scrolleable .mat-mdc-dialog-actions .btn {
+  padding: 1rem;
+  font-size: 1.6rem;
+  margin: 1.5rem;
+  font-weight: bold;
+}
+
+.modal-scrolleable .mat-mdc-dialog-content {
+  background-color: rgb(238, 238, 238);
+  margin: 0;
+}
+
+.modal-scrolleable .mat-mdc-dialog-content p {
+  font-size: 1.2rem;
+  color: var(--input-text);
+}
+
+.modal-scrolleable .mat-mdc-dialog-actions {
+  background: linear-gradient(
+    to top,
+    #e0e0e0 0%,
+    #d5d5d5 80% /* gris medio-claro */
+  );
+  padding: 0;
+  border: none;
 }
