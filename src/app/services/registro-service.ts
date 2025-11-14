@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Usuario } from '../model/usuario.model';
+import { UsuarioRegistro } from '../model/usuario-registro.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class RegistroService {
 
   constructor(private http: HttpClient) {}
 
-  registrarUsuario(usuario: Usuario) {
-    return this.http.post<Usuario>(this.apiUrl, usuario);
+  registrarUsuario(usuario: UsuarioRegistro) {
+    return this.http.post<UsuarioRegistro>(this.apiUrl, usuario);
   }
 }
