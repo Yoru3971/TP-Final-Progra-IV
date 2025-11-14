@@ -40,11 +40,7 @@ export class FormLogin {
       .subscribe({
         next: (response: LoginResponse) => {
           alert('Login exitoso');
-          if (usuario.recordarme){
-            localStorage.setItem('authToken', response.token);      //  MOVER debería estar en el auth-service
-          } else {
-            sessionStorage.setItem('authToken', response.token);    //  MOVER debería estar en el auth-service
-          }
+          this.authService.handleLoginSuccess(response.token, usuario.recordarme!);
           this.router.navigate(['']);     //  AGREGAR debería redirigir a la página principal (páginas distintas dependiendo del rol?)
         },
         error: (err) => {                 //  REVISAR cómo manejar los errores

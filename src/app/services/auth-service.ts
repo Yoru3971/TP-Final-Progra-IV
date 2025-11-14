@@ -20,30 +20,40 @@ export class AuthService {
     console.log('AuthService inicializado. Rol actual', this.currentUserRole());
   }
 
-  // leo el TOKEN actual en el LocalStorage y extraigo el rol
+  // leo el TOKEN actual y extraigo el rol
   // (si no hay TOKEN, el rol es invitado)
   private getRolFromToken(): UserRole {
-    const token = localStorage.getItem(this.TOKEN_KEY);
+    const tokenLocal = localStorage.getItem(this.TOKEN_KEY);
+    const tokenSession = sessionStorage.getItem(this.TOKEN_KEY);
 
     // caso 1: no hay token
-    if(!token) {
+    if(!tokenLocal && !tokenSession) {
       return 'INVITADO';
     }
 
     // caso 2: existe un token, entonces lo decodifico
-    return this.decodeRolFrom(token);
+    if(tokenLocal){
+      return this.decodeRolFrom(tokenLocal);
+    }else{
+      return this.decodeRolFrom(tokenSession!);
+    }
+    
   }
 
   login(usuario: UsuarioLogin) {
         return this.http.post<LoginResponse>(this.apiUrlLogin, usuario);
   }
 
-  /* manejo la persistencia del TOKEN de la sesion.
-   * lo almaceno en el LocalStorage y actualizo el rol
-  */
-  public handleLoginSuccess(token: string): void {
-    // Guardo el token en el LocalStorage
-    localStorage.setItem(this.TOKEN_KEY, token);
+  // Si el usuario marca "Recordarme", se guarda el token en LocalStorage.
+  //   Caso contrario, se guarda en SessionStorage
+  public handleLoginSuccess(token: string, recordarme: boolean): void {
+
+    if (recordarme){
+      localStorage.setItem(this.TOKEN_KEY, token);
+    }else{
+      sessionStorage.setItem(this.TOKEN_KEY, token);
+    }
+    
     this.currentUserRole.set(this.decodeRolFrom(token));
     console.log('Login exitoso. Nuevo Rol', this.currentUserRole());
     
@@ -53,9 +63,10 @@ export class AuthService {
   public handleLogout(): void {
   
     localStorage.removeItem(this.TOKEN_KEY);
+    sessionStorage.removeItem(this.TOKEN_KEY);
+    
     this.currentUserRole.set('INVITADO');
     console.log('Logout exitoso. Rol:', this.currentUserRole());
-    
   }
 
   private decodeRolFrom(token: string): UserRole {
