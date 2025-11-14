@@ -16,11 +16,11 @@ export const routes: Routes = [
     data: { rol: 'CLIENTE' },
   },
   {
-     path: 'registro-exitoso',
+    path: 'registro-exitoso',
     component: RegisterSuccessPage,
   },
   {
-     path: 'login',
+    path: 'login',
     component: Login
   }
 ];

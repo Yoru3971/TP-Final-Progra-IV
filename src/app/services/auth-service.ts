@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { UsuarioLogin } from '../model/usuario-login.model';
 import { LoginResponse } from '../model/login-response.model';
+import { Usuario } from '../model/usuario.model';
 
 export type UserRole = 'ADMIN' | 'DUENO' | 'CLIENTE' | 'INVITADO';
 
@@ -15,6 +16,7 @@ export class AuthService {
   // Signal con rol del usuario
   public currentUserRole = signal<UserRole>(this.getRolFromToken())
   private apiUrlLogin = 'http://localhost:8080/api/public/login';
+  private apiUrlRegister = 'http://localhost:8080/api/public/register';
 
   constructor(private http: HttpClient) {
     console.log('AuthService inicializado. Rol actual', this.currentUserRole());
@@ -39,6 +41,10 @@ export class AuthService {
     }
     
   }
+
+  register(usuario: Usuario) {
+      return this.http.post<Usuario>(this.apiUrlRegister, usuario);
+    }
 
   login(usuario: UsuarioLogin) {
         return this.http.post<LoginResponse>(this.apiUrlLogin, usuario);
