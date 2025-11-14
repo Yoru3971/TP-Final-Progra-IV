@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginService } from '../../services/login-service';
 import { Router } from '@angular/router';
 import { LoginResponse } from '../../model/login-response.model';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-form-login',
@@ -14,7 +14,7 @@ export class FormLogin {
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private loginService = inject(LoginService);
+  private authService = inject(AuthService);
 
   formLogin = this.fb.group(
     {
@@ -32,7 +32,7 @@ export class FormLogin {
 
   login(){
     const usuario = this.formLogin.value;
-    this.loginService
+    this.authService
       .login({
         email: usuario.email || '',
         password: usuario.password || ''
@@ -40,11 +40,7 @@ export class FormLogin {
       .subscribe({
         next: (response: LoginResponse) => {
           alert('Login exitoso');
-          if (usuario.recordarme){
-            localStorage.setItem('authToken', response.token);      //  MOVER debería estar en el auth-service
-          } else {
-            sessionStorage.setItem('authToken', response.token);    //  MOVER debería estar en el auth-service
-          }
+          this.authService.handleLoginSuccess(response.token, usuario.recordarme!);
           this.router.navigate(['']);     //  AGREGAR debería redirigir a la página principal (páginas distintas dependiendo del rol?)
         },
         error: (err) => {                 //  REVISAR cómo manejar los errores
