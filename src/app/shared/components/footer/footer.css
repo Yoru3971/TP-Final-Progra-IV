@@ -1,7 +1,7 @@
 .app-footer {
     align-items: center;
     background-color: var(--bg-color);
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--footer-border-color);
     box-shadow: 0 -0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.1), 0 -0.2rem 0.4rem -0.2rem rgba(0, 0, 0, 0.1);
     color: var(--text-color);
     display: flex;
@@ -100,7 +100,7 @@ address p {
 }
 
 .footer-section a:hover {
-    color: #e07b3d;
+    color: var(--link-hover-color);
     text-decoration: underline;
 }
 
@@ -109,8 +109,8 @@ address p {
 .app-footer .footer-bottom-bar {
     align-items: center;
     background-color: var(--footer-bottom-bg-color);
-    border-top: 1px solid #e5e5e5;
-    color: #888;
+    border-top: 1px solid var(--footer-bottom-border-color);
+    color: var(--footer-bottom-text-color);
     display: flex;
     font-size: 1.2rem;
     justify-content: center;

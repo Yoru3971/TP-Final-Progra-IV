@@ -5,7 +5,10 @@
   --bg-color: #ffffff;
   --text-color: #000000;
 
+  --footer-border-color: #e5e7eb;
   --footer-bottom-bg-color: #f9f8f8;
+  --footer-bottom-text-color: #888888;
+  --footer-bottom-border-color: #e5e5e5;
 
   --form-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
 
@@ -21,6 +24,7 @@
   --button-hover-bg: #ff7d1a;
 
   --link-color: #fe9039;
+  --link-hover-color: #e07b3d;
 
   --checked-color: #fe9039;
 
