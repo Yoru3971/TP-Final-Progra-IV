@@ -3,11 +3,15 @@ import { Component, computed, EventEmitter, inject, input, Output, signal } from
 import { RouterLink } from "@angular/router";
 
 import { AuthService, UserRole } from '../../../services/auth-service';
+import { CitySelector } from '../../../components/city-selector/city-selector';
+import { SearchBar } from '../../../components/search-bar/search-bar';
 
 @Component({
   selector: 'app-header',
   imports: [RouterLink,
-    CommonModule
+    CommonModule,
+    CitySelector,
+    SearchBar
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',
