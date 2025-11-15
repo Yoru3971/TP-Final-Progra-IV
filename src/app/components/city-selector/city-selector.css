@@ -1,0 +1,9 @@
+.city-selector {
+    display: inline-block;
+}
+
+.city-selector .ubication-select {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+

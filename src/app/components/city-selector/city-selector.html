@@ -1,0 +1,10 @@
+<div class="city-selector">
+    <select class="ubication-select"
+          [value]="currentCity()"
+          (change)="onChange($any($event.target).value)">
+
+        @for (c of CITIES; track c) {
+            <option [value]="c">{{ c }}</option>
+        }
+    </select>
+</div>
