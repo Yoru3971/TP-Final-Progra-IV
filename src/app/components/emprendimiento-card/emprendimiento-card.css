@@ -73,13 +73,29 @@
   transform: translateX(0.5rem);
 }
 
-/* ------- VIANDAS ------- */
 .viandas-container {
   display: flex;
   flex-wrap: nowrap;
   gap: 2rem;
   padding: 2rem;
+  /*Aca esta el scrollbar que se aplica automaticamente al llenarse horizontalmente*/
   overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+  scroll-behavior: smooth;
+}
+
+.viandas-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.viandas-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+app-vianda-card {
+  flex-shrink: 0;
 }
 
 .no-viandas {
