@@ -1,0 +1,7 @@
+<div>
+    @for (emprendimiento of emprendimientos; track emprendimiento.id) {
+        <app-emprendimiento-card [emprendimiento]="emprendimiento"></app-emprendimiento-card>
+    }@empty {
+        <h1>No hay emprendimientos disponibles en tu zona.</h1>
+    }
+</div>
