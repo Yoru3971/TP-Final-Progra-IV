@@ -4,8 +4,10 @@
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
+  --inverse-text-color: #ffffff;
 
   --form-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+  --vianda-card-shadow: 0 0.5rem 1.2rem rgba(0, 0, 0, 0.15);
 
   --form-bg: #f9f8f8;
   --input-bg: #f9f8f8;
@@ -31,10 +33,13 @@
 
   --toggle-eye-color: #888;
   --toggle-eye-hover-color: #fe9039;
-
   --line-trough-color: gray;
 
   --modal-bg: #f9f8f8;
+
+  --precio-color: #fe9039;
+
+  --emprendimiento-card-header-bg: #fe9039;
 }
 
 html {
