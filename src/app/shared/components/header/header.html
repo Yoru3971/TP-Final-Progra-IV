@@ -41,36 +41,7 @@
             } @else {
                 <!-- Clientes o Dueño -->
 
-                <!-- Boton notificaciones -->
-                 <div class="notification-wrapper">
-                    <button (click)="toggleNotificationMenu()" class="btn notification-button">
-                        <!-- Icono campana -->
-                         <span>campana</span>
-                        @if (notifications().length > 0) {
-                            <span class="notification-badge">
-                                {{ notifications().length }}
-                            </span>
-                        }
-                    </button>
-                    
-                    <!-- Menu Desplegable de Notificaciones -->
-                     @if (notificationMenuOpen()) {
-                        <div class="notification-dropdown">
-                            <div class="dropdown-header">Notificaciones</div>
-                            <div class="dropdown-content">
-                                @if (notifications().length === 0){
-                                    <p class="empty-message">No hay notificaciones nuevas</p>
-                                } @else {
-                                    @for (notification of notifications(); track $index) {
-                                        <div class="notification-item">
-                                            {{ notification }}
-                                        </div>
-                                    }
-                                }
-                            </div>
-                        </div>
-                     }
-                 </div>
+                <app-dropdown-notificacion></app-dropdown-notificacion>
                 
                  <!-- Boton de Perfil -->
                  <button (click)="onProfileClick()" class="btn btn-profile">
