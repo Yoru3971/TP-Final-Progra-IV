@@ -33,6 +33,7 @@ export class SearchService {
 
           this.loading.set(true); //avisa que esta cargando mientras llega la respuesta
 
+          //REVISAR agregar apiUrl, y no asi hardcodeada
           return this.http
             .get<EmprendimientoResponse[]>(`http://localhost:8080/api/public/emprendimientos/nombre/${term}`)
             .pipe(
