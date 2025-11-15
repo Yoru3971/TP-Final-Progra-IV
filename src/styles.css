@@ -5,6 +5,11 @@
   --bg-color: #ffffff;
   --text-color: #000000;
 
+  --footer-border-color: #e5e7eb;
+  --footer-bottom-bg-color: #f9f8f8;
+  --footer-bottom-text-color: #888888;
+  --footer-bottom-border-color: #e5e5e5;
+
   --form-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
 
   --form-bg: #f9f8f8;
@@ -19,6 +24,7 @@
   --button-hover-bg: #ff7d1a;
 
   --link-color: #fe9039;
+  --link-hover-color: #e07b3d;
 
   --checked-color: #fe9039;
 
@@ -54,6 +60,16 @@ body {
   margin: 0;
   color: var(--text-color);
   font-family: 'Inria Sans', sans-serif;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1; /* Ocupa el espacio dejado por el header y el footer */
 }
 
 .form-label {
