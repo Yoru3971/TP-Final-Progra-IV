@@ -5,11 +5,12 @@ import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EmprendimientoCard } from '../../components/emprendimiento-card/emprendimiento-card';
 import { EmprendimientoConViandas } from '../../model/emprendimiento-con-viandas.model';
+import { EmprendimientoCardSkeleton } from '../../components/emprendimiento-card-skeleton/emprendimiento-card-skeleton';
 
 
 @Component({
   selector: 'app-home-page',
-  imports: [EmprendimientoCard],
+  imports: [EmprendimientoCard, EmprendimientoCardSkeleton],
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })

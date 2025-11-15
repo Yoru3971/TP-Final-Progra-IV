@@ -1,7 +1,8 @@
+/*REVISAR no se por que se ve ese espacio blanco entre img e info ni como sacarlo*/
+
 .vianda-card {
   width: 24rem;
   height: 24rem;
-  background: var(--emprendimiento-card-header-bg);
   border-radius: 1rem;
   box-shadow: var(--vianda-card-shadow);
   display: flex;
@@ -9,8 +10,6 @@
   cursor: pointer;
   transition: 0.15s ease;
   overflow: hidden;
-  transform-origin: center;
-  will-change: transform;
 }
 
 .vianda-card:hover {
