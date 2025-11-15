@@ -11,5 +11,5 @@ export interface ViandaResponse {
     esSinTacc: boolean;
     emprendimiento: EmprendimientoResponse;
     estaDisponible: boolean;
-    imgUrl: string;
+    imagenUrl: string;
 }
