@@ -56,6 +56,16 @@ body {
   font-family: 'Inria Sans', sans-serif;
 }
 
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1; /* Ocupa el espacio dejado por el header y el footer */
+}
+
 .form-label {
   display: block;
   font-size: 1.1rem;
