@@ -1,0 +1,33 @@
+<div class="search-container">
+  <input
+    type="text"
+    placeholder="Buscar emprendimiento..."
+    (input)="onInput($event)"
+    class="search-input"
+  />
+
+  @if (resultados().length > 0) {
+    <div class="search-results">
+      @for (item of resultados(); track item.id) {
+        <div
+          class="result-card"
+          [routerLink]="['/emprendimiento', item.id]"
+        >
+          @if (item.imgUrl) {
+            <img [src]="item.imgUrl" class="card-img" />
+          }
+
+          <div class="card-info">
+            <p class="card-title">{{ item.nombreEmprendimiento }}</p>
+            <p class="card-sub">{{ item.direccion }} - {{ item.telefono }}</p>
+            <p class="card-sub">Dueño: {{ item.dueno?.nombreCompleto}}</p>
+          </div>
+
+          <span class="city-tag">{{ item.ciudad }}</span>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+
