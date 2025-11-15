@@ -18,25 +18,12 @@
                 }
             </div>
             
-            <select class="ubication-select">
-                <option value="">Ubicación</option>
-                <option value="Mar del Plata">Mar del Plata</option>
-                <option value="Balcarce">Balcarce</option>
-                <option value="Miramar">Miramar</option>
-            </select>
+            <app-city-selector></app-city-selector>
         </div>
         
         <!-- Centro: Buscador y Opciones -->
         <div class="header-center">
-            <!-- Barra de busqueda -->
-            <form (submit)="onSearch($event, searchInput)" class="search-form">
-                <input 
-                #searchInput
-                type="text"
-                placeholder="Ingrese una vianda"
-                class="search-input"
-                >
-            </form>
+            <app-search-bar></app-search-bar>
         </div>
 
         <!-- Derecha: Navegacion y Acciones -->
