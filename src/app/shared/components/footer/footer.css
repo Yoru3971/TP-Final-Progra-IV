@@ -1,23 +1,23 @@
 .app-footer {
+    align-items: center;
     background-color: var(--bg-color);
-    color: var(--text-color);
-    padding: 3rem 2rem 0 2rem;
     border-top: 0.1rem solid black;
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    padding: 3rem 2rem 0 2rem;
     width: 100%;
 }
 
 .app-footer .footer-section {
+    align-items: flex-start;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
     gap: 8rem;
-    width: 100%;
-    max-width: 120rem;
+    justify-content: space-between;
     margin-bottom: 2rem;
+    max-width: 120rem;
+    width: 100%;
 }
 
 .footer-contact-info,
@@ -31,67 +31,65 @@
 
 /* titulos de las secciones */
 .app-footer .footer-section h3 {
-    font-size: 1.8rem;
     color: var(--text-color);
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
     display: inline-block;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0;
+    padding-bottom: 0.5rem;
 }
 
 .footer-section .footer-logo-container {
+    align-items: flex-start;
+    display: flex;
     flex-basis: 28rem;
     flex-grow: 1;
+    gap: 4rem;
     min-height: 20rem;
     padding: 0 1rem;
-    display: flex;
-    gap: 4rem;
-    align-items: flex-start;
-
 }
 
 /* estilos logo */
 .footer-section .footer-logo-container .footer-logo {
-    max-width: 15rem;
     height: auto;
     margin-bottom: 0.5rem;
+    max-width: 15rem;
 }
 
-.footer-section .footer-logo-container .footer-name-conteiner {
+.footer-section .footer-logo-container .footer-name-container {
     display: flex;
     flex-direction: column;
-    text-align: center;
     margin-top: 0;
+    text-align: center;
 }
 
-.footer-section .footer-logo-container .footer-name-conteiner .footer-name {
+.footer-section .footer-logo-container .footer-name-container .footer-name {
     font-size: 1.8rem;
     font-weight: bold;
     margin: 0;
 }
 
 /* estilos eslogan y contacto */
-.footer-section .footer-logo-container .footer-name-conteiner .footer-eslogan {
+.footer-section .footer-logo-container .footer-name-container .footer-eslogan {
+    color: var(--link-color);
     font-size: 1.9rem;
     margin: 0.8rem -3rem; /* acomodar en funcion del eslogan */
-    color: var(--link-color);
 }
-
 
 /* contacto */
 .footer-section .footer-contact-info p {
+    color: var(--link-color);
     font-size: 1.35rem;
     margin: 0;
-    color: var(--link-color);   
 }
 
 /* enlaces */
 .footer-section .footer-quick-links a {
+    color: var(--link-color);
     display: block; /* cada enlace en su propia línea */
+    font-size: 1.35rem;
     margin-bottom: 0.8rem;
     text-decoration: none;
-    font-size: 1.35rem;
-    color: var(--link-color);
     transition: color 0.3s ease;
 }
 
@@ -102,21 +100,18 @@
 
 /* barra inferior */
 .app-footer .footer-bottom-bar {
-    background-color: var(--form-bg);
-    color: #888;
-    text-align: center;
-    padding: 1.5rem 2rem;
-    font-size: 1.2rem;
-    border-top: 1px solid #e5e5e5;
-    width: 100%;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    background-color: var(--form-bg);
+    border-top: 1px solid #e5e5e5;
+    color: #888;
+    display: flex;
+    font-size: 1.2rem;
+    justify-content: center;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    width: 100%;
 }
 
 .app-footer .footer-bottom-bar .separador {
     margin: 0 1rem;
 }
-
-
-
