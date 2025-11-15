@@ -5,13 +5,15 @@ import { RouterLink } from "@angular/router";
 import { AuthService, UserRole } from '../../../services/auth-service';
 import { CitySelector } from '../../../components/city-selector/city-selector';
 import { SearchBar } from '../../../components/search-bar/search-bar';
+import { DropdownNotificacion } from '../../../components/dropdown-notificacion/dropdown-notificacion';
 
 @Component({
   selector: 'app-header',
   imports: [RouterLink,
     CommonModule,
     CitySelector,
-    SearchBar
+    SearchBar,
+    DropdownNotificacion
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',
