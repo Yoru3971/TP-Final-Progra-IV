@@ -1,38 +1,60 @@
 .vianda-card {
-  width: 20rem;
-  height: 20rem;
+  width: 18rem;
+  height: 22rem;
   background: white;
   border-radius: 1rem;
   box-shadow: var(--vianda-card-shadow);
-  padding: 1rem;
-  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   cursor: pointer;
   transition: 0.15s ease;
+  overflow: hidden;
 }
 
 .vianda-card:hover {
   transform: scale(1.03);
-  box-shadow: var(--vianda-card-shadow)
+  box-shadow: var(--vianda-card-shadow);
 }
 
-.img {
+.img-container {
   width: 100%;
-  object-fit: cover;
-  border-radius: 0.9rem;
+  height: 80%;
+  overflow: hidden;
 }
 
-h3 {
-  font-size: 1.4rem;
-  font-weight: bold;
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.info-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  background-color: var(--vianda-card-footer-bg);
+  height: 30%;
+  border-radius: 0;
   margin: 0;
+}
+
+.info-bottom span {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.nombre {
+  color: var(--text-color);
+  text-align: left;
+  max-width: 70%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .precio {
-  font-size: 1.4rem;
-  color: var(--precio-color);
-  font-weight: bold;
-  margin: 0;
+  color: var(--inverse-text-color);
+  text-align: right;
 }
