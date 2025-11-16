@@ -273,6 +273,21 @@ app-root {
   border: none;
 }
 
+.snackbar-panel {
+  background-color: var(--bg-color);
+  margin-bottom: 4rem !important;
+}
+
+.snackbar-panel .mat-mdc-snackbar-surface {
+  background: none !important;
+  color: inherit !important;
+}
+
+.snackbar-panel .mat-mdc-snackbar-label {
+  padding: 0 !important;
+  display: block !important;
+  width: 100% !important;
+
 /* --- MODAL VIANDA --- */
 .cdk-overlay-pane.modal-vianda {
   width: 95rem !important;
