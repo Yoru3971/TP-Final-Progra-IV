@@ -1,60 +1,65 @@
 <header class="main-header">
-    <nav class="header-nav">
+  <nav class="header-nav">
+    <!-- Izquierda: Logo y rol-->
+    <div class="header-left">
+      <a routerLink="/home">
+        <img src="logo-miviandita-removebg-preview.png" alt="MiViandita Logo" class="header-logo" />
+      </a>
 
-        <!-- Izquierda: Logo y rol-->
-        <div class="header-left">
-            <a routerLink="/home">
-                <img src="logo-miviandita-removebg-preview.png" alt="MiViandita Logo" class="header-logo">
-            </a>
+      <div class="role-tag">
+        <!-- MUestro 'menu dueño' si es el rol -->
+        @if (role() === 'DUENO') {
+        <span class="owner-tag">Menu Dueño</span>
+        }
+        <!-- NO IMPLEMENTADO EN CSS -->
+        @if (role() === 'ADMIN') {
+        <span class="admin-tag">Menu Admin</span>
+        }
+      </div>
 
-            <div class="role-tag">
-                <!-- MUestro 'menu dueño' si es el rol -->
-                @if (role() === 'DUENO') {
-                    <span class="owner-tag">Menu Dueño</span>
-                }
-                <!-- NO IMPLEMENTADO EN CSS -->
-                @if (role() === 'ADMIN') {
-                    <span class="admin-tag">Menu Admin</span>
-                }
-            </div>
-            
-            <app-city-selector></app-city-selector>
-        </div>
-        
-        <!-- Centro: Buscador y Opciones -->
-        <div class="header-center">
-            <app-search-bar></app-search-bar>
-        </div>
+      <app-city-selector></app-city-selector>
+    </div>
 
-        <!-- Derecha: Navegacion y Acciones -->
-         <div class="header-right">
-            <!-- Links Comunes -->
-            <a routerLink="/home" class="nav-link">Home</a>
-            <a routerLink="/sobre-nosotros" class="nav-link">Sobre nosotros</a>
+    <!-- Centro: Buscador y Opciones -->
+    <div class="header-center">
+      <app-search-bar></app-search-bar>
+    </div>
 
-            <!-- Botones condicionales -->
-            @if (!isLoggedIn()) {
-                <!-- Invitado -->
-                <button routerLink="/login" (click)="onLogin()" class="btn btn-primary">
-                    Iniciar Sesión
-                </button>
-            } @else {
-                <!-- Clientes o Dueño -->
+    <!-- Derecha: Navegacion y Acciones -->
+    <div class="header-right">
+      <!-- Links Comunes -->
+      <a routerLink="/home" class="nav-link">Home</a>
+      <a routerLink="/sobre-nosotros" class="nav-link">Sobre nosotros</a>
 
-                <app-dropdown-notificacion></app-dropdown-notificacion>
-                
-                 <!-- Boton de Perfil -->
-                 <button (click)="onProfileClick()" class="btn btn-profile">
-                    <!-- Icono usuario -->
-                    <span>Mi perfil</span>
-                 </button> 
+      <!-- Botones condicionales -->
 
-                 <!-- Boton de Logout -->
-                  <button (click)="onLogout()" title="Cerrar Sesion" class="btn btn-logout">
-                    <!-- Icono salir -->
-                     <span>Salir</span>
-                  </button>
-            }
-         </div>
-    </nav>
+      @if (!isLoggedIn()) {
+      <!-- Invitado -->
+      <button routerLink="/login" (click)="onLogin()" class="btn btn-primary">
+        Iniciar Sesión
+      </button>
+      } @else {
+      <!-- Clientes o Dueño -->
+
+      <app-dropdown-notificacion></app-dropdown-notificacion>
+
+      <!-- Boton de Perfil -->
+      <button (click)="onProfileClick()" class="btn btn-profile">
+        <!-- Icono usuario -->
+        <span>Mi perfil</span>
+      </button>
+
+      <!-- Boton "Mis pedidos" solo para CLIENTE -->
+      @if (role() === 'CLIENTE') {
+      <button routerLink="/me" class="btn btn-primary">Mis pedidos</button>
+      }
+
+      <!-- Boton de Logout -->
+      <button (click)="onLogout()" title="Cerrar Sesion" class="btn btn-primary">
+        <!-- Icono salir -->
+        <span>Salir</span>
+      </button>
+      }
+    </div>
+  </nav>
 </header>
