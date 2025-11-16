@@ -32,7 +32,10 @@ export class NotificacionService {
       .pipe(
         map((noti) => noti.slice(0, 10)),
         catchError((err) => {
-          console.error(err);
+          // Solo logueamos errores que no sean 404
+          if (err.status !== 404) {
+            console.error('Error al obtener notificaciones:', err);
+          }
           return of([]);
         })
       )
