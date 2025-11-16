@@ -1,14 +1,23 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EmprendimientoResponse } from '../model/emprendimiento-response.model';
 import { catchError, of, tap } from 'rxjs';
 import { AuthService, UserRole } from './auth-service';
+import { CityFilterService } from './city-filter-service';
 
 @Injectable({ providedIn: 'root' })
 export class EmprendimientoService {
 
-  //signal que almacena la lista de emprendimientos visibles en la app
-  public emprendimientos = signal<EmprendimientoResponse[]>([]);
+  private cityFilter = inject(CityFilterService);
+
+  //signal que almacena todos los emprendimientos traidos del backend
+  public allEmprendimientos = signal<EmprendimientoResponse[]>([]);
+  
+  //señal publica que siempre refleja los emprendimientos filtrados por ciudad
+  public emprendimientos = computed(() => {
+  const ciudadActual = this.cityFilter.city();
+  return this.allEmprendimientos().filter(e => e.ciudad.toUpperCase() === ciudadActual);
+  });
 
   //url según el rol del usuario
   private baseUrls = {
@@ -38,7 +47,7 @@ export class EmprendimientoService {
       )
       .subscribe(result => {
         // evita NG0100
-        setTimeout(() => this.emprendimientos.set(result));
+        setTimeout(() => this.allEmprendimientos.set(result));
       });
   }
 
@@ -50,7 +59,7 @@ export class EmprendimientoService {
     }
     return this.http.post<EmprendimientoResponse>(this.baseUrls.DUENO, formData)
       .pipe(
-        tap(nuevo => this.emprendimientos.update(list => [...list, nuevo]))
+        tap(nuevo => this.allEmprendimientos.update(list => [...list, nuevo]))
       );
   }
 
@@ -61,7 +70,7 @@ export class EmprendimientoService {
     }
     return this.http.put<EmprendimientoResponse>(`${this.baseUrls.DUENO}/id/${id}`, formData)
       .pipe(
-        tap(actualizado => this.emprendimientos.update(list =>
+        tap(actualizado => this.allEmprendimientos.update(list =>
           list.map(e => e.id === id ? actualizado : e)
         ))
       );
@@ -74,34 +83,8 @@ export class EmprendimientoService {
     }
     return this.http.delete<void>(`${this.baseUrls.DUENO}/id/${id}`)
       .pipe(
-        tap(() => this.emprendimientos.update(list => list.filter(e => e.id !== id)))
+        tap(() => this.allEmprendimientos.update(list => list.filter(e => e.id !== id)))
       );
-  }
-
-  // ---------------------- Filtros ----------------------
-  //filtro por nombre
-  getEmprendimientosByNombre(nombre: string) {
-    const rol: UserRole = this.authService.currentUserRole();
-    const url = rol === 'DUENO'
-      ? `${this.baseUrls.DUENO}/nombre/${nombre}`
-      : `${this.baseUrls.PUBLIC}/nombre/${nombre}`;
-    return this.http.get<EmprendimientoResponse[]>(url)
-      .pipe(catchError(() => of([])));
-  }
-
-  //filtro por ciudad
-  getEmprendimientosByCiudad(ciudad: string) {
-    const rol: UserRole = this.authService.currentUserRole();
-    const url = rol === 'DUENO'
-      ? `${this.baseUrls.DUENO}/ciudad/${ciudad}`
-      : `${this.baseUrls.PUBLIC}/ciudad/${ciudad}`;
-    return this.http.get<EmprendimientoResponse[]>(url)
-      .pipe(catchError(() => of([])));
-  }
-
-  //obtener un emprendimiento por su id
-  getEmprendimientoById(id: number) {
-    return this.http.get<EmprendimientoResponse>(`${this.getApiUrl()}/id/${id}`);
   }
 }
 
