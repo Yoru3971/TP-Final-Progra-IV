@@ -15,6 +15,8 @@ export class AuthService {
 
   // Signal con rol del usuario
   public currentUserRole = signal<UserRole>(this.getRolFromToken());
+  public usuarioId = signal<number | null>(this.getUsuarioIdFromStorage());
+
   private apiUrlLogin = 'http://localhost:8080/api/public/login';
   private apiUrlRegister = 'http://localhost:8080/api/public/register';
 
@@ -41,6 +43,13 @@ export class AuthService {
     }
   }
 
+  //funcion para leer el usuarioID del token o storage
+  private getUsuarioIdFromStorage(): number | null {
+  const id = localStorage.getItem('usuarioID') || sessionStorage.getItem('usuarioID');
+  return id ? Number(id) : null;
+}
+
+
   register(usuario: UsuarioRegistro) {
     return this.http.post<UsuarioResponse>(this.apiUrlRegister, usuario);
   }
@@ -51,16 +60,20 @@ export class AuthService {
 
   // Si el usuario marca "Recordarme", se guarda el token en LocalStorage.
   //   Caso contrario, se guarda en SessionStorage
-  public handleLoginSuccess(token: string, recordarme: boolean): void {
-    if (recordarme) {
-      localStorage.setItem(this.TOKEN_KEY, token);
-    } else {
-      sessionStorage.setItem(this.TOKEN_KEY, token);
-    }
-
-    this.currentUserRole.set(this.decodeRolFrom(token));
-    console.log('Login exitoso. Nuevo Rol', this.currentUserRole());
+  public handleLoginSuccess(token: string, usuarioID: number, recordarme: boolean): void {
+  if (recordarme) {
+    localStorage.setItem(this.TOKEN_KEY, token);
+    localStorage.setItem('usuarioID', usuarioID.toString());
+  } else {
+    sessionStorage.setItem(this.TOKEN_KEY, token);
+    sessionStorage.setItem('usuarioID', usuarioID.toString());
   }
+
+  this.currentUserRole.set(this.decodeRolFrom(token));
+  this.usuarioId.set(usuarioID);
+
+  console.log('Login exitoso. Rol:', this.currentUserRole(), 'UsuarioID:', this.usuarioId());
+}
 
   // Cierre de sesion y elimina la persistencia del token
   public handleLogout(): void {

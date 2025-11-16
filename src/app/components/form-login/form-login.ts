@@ -59,7 +59,7 @@ export class FormLogin {
             data: snackbarData
         });
 
-          this.authService.handleLoginSuccess(response.token, usuario.recordarme!);
+          this.authService.handleLoginSuccess(response.token, response.usuarioID, usuario.recordarme!);
           setTimeout(() => {
             this.router.navigate(['/home']);
           }, 1000);
