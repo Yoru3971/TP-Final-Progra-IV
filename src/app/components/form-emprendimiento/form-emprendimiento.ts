@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-form-emprendimiento',
@@ -16,6 +17,7 @@ export class FormEmprendimiento {
   private router = inject(Router);
   private dialog = inject(MatDialog);
   private emprendimientoService = inject(EmprendimientoService);
+  private authService = inject(AuthService);
 
   //maximos tamaño de la imagen
   maxWidth = 1920;
@@ -54,29 +56,37 @@ export class FormEmprendimiento {
   }
 
   onSubmit() {
-    if (this.formEmprendimiento.invalid) return;
+  if (this.formEmprendimiento.invalid) return;
 
-    const formData = new FormData();
-    const formValues = this.formEmprendimiento.value;
+  const formData = new FormData();
+  const formValues = this.formEmprendimiento.value;
 
-    // con ?? '' aseguro que no sea null o undefined antes de agregarlo
-    // ! le dice a TS que no es null
-    formData.append('nombreEmprendimiento', formValues.nombreEmprendimiento!);
-    formData.append('image', formValues.image!);
-    formData.append('ciudad', formValues.ciudad!);
-    formData.append('direccion', formValues.direccion || '');
-    formData.append('telefono', formValues.telefono!);
+  formData.append('nombreEmprendimiento', formValues.nombreEmprendimiento!);
+  formData.append('image', formValues.image!);
+  formData.append('ciudad', formValues.ciudad!);
+  formData.append('direccion', formValues.direccion || '');
+  formData.append('telefono', formValues.telefono!);
 
-    this.emprendimientoService.createEmprendimiento(formData).subscribe({
-      next: () => this.router.navigate(['/mis-emprendimientos']),
-      error: (err) => {
-        const backendMsg = err.error?.message || 'Error desconocido al crear el emprendimiento';
-        console.error(backendMsg);
-        this.dialog.open(ErrorDialogModal, {
-          data: { message: backendMsg },
-          panelClass: 'modal-error',
-        });
-      },
-    });
-  }
+  // 🔹 Agregamos el ID del usuario logueado desde el AuthService
+  const userId = this.authService.usuarioId();
+  if (!userId) {
+  this.dialog.open(ErrorDialogModal, {
+    data: { message: 'Error: no se pudo obtener el usuario logueado.' }
+  });
+  return; // <-- return vacío, devuelve void y se soluciona
+}
+
+  formData.append('idUsuario', String(userId));
+
+  this.emprendimientoService.createEmprendimiento(formData).subscribe({
+    next: () => this.router.navigate(['/mis-emprendimientos']),
+    error: (err) => {
+      const backendMsg = err.error?.message || 'Error desconocido al crear el emprendimiento';
+      this.dialog.open(ErrorDialogModal, {
+        data: { message: backendMsg }
+      });
+    },
+  });
+}
+
 }
