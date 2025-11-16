@@ -13,7 +13,8 @@ export class EmprendimientoService {
   //url según el rol del usuario
   private baseUrls = {
     PUBLIC: 'http://localhost:8080/api/public/emprendimientos',
-    DUENO: 'http://localhost:8080/api/dueno/emprendimientos'
+    DUENO: 'http://localhost:8080/api/dueno/emprendimientos',
+    CLIENTE: 'http://localhost:8080/api/cliente/emprendimientos'
   };
 
   constructor(private http: HttpClient, private authService: AuthService) {}
