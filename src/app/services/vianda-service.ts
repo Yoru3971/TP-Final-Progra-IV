@@ -21,7 +21,7 @@ export class ViandaService {
   }
 
   getViandasByEmprendimientoId(emprendimientoId: number) {
-    const url = `${this.apiUrl}/emprendimiento/${emprendimientoId}`;
+    const url = `${this.apiUrl}/idEmprendimiento/${emprendimientoId}`;
     return this.http.get<ViandaResponse[]>(url);
   }
 }
