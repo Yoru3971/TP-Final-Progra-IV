@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { ViandaService } from '../../services/vianda-service';
 import { forkJoin } from 'rxjs';
@@ -21,22 +21,30 @@ export class HomePage {
   emprendimientos: EmprendimientoConViandas[] = [];
 
   ngOnInit() {
-    // Traemos todos los emprendimientos
+    // Cargar emprendimientos desde el service (actualiza el signal)
+    this.emprendimientoService.fetchEmprendimientos();
 
-    this.emprendimientoService.getEmprendimientos().subscribe((emps) => {
-      // Por cada uno creamos un observable que trae sus viandas
-      const requests = emps.map((e) =>
+    // Crear un efecto que se dispara cuando cambia la lista de emprendimientos
+    effect(() => {
+      const emps = this.emprendimientoService.emprendimientos();
+
+      if (emps.length === 0) {
+        this.emprendimientos = [];
+        return;
+      }
+
+      // Crear requests para traer viandas de cada emprendimiento
+      const requests = emps.map(e =>
         this.viandaService.getViandasByEmprendimientoId(e.id).pipe(
-          // Cuando llegan las viandas, las combinamos con los datos del emprendimiento
-          map((viandas) => ({
-            ...e, // id, nombre, direccion, etc.
-            viandas, // agregamos la lista de viandas
+          map(viandas => ({
+            ...e,
+            viandas,
           }))
         )
       );
-      // forkJoin ejecuta todos los requests en paralelo y espera a que TODOS terminen
-      forkJoin(requests).subscribe((fullData) => {
-        this.emprendimientos = fullData; // Guardamos el resultado final en la variable que se usa en el HTML con @for
+
+      forkJoin(requests).subscribe(fullData => {
+        this.emprendimientos = fullData;
       });
     });
   }
