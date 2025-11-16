@@ -14,7 +14,6 @@ export class EmprendimientoCard {
 
   @Input() emprendimiento!: EmprendimientoConViandas;
 
-  //REVISAR Solo muestra las primeras 4 viandas, aca va la logica del slider
   get allViandas() {
     return this.emprendimiento.viandas;
   }
