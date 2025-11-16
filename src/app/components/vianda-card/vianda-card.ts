@@ -13,7 +13,7 @@ export class ViandaCard {
   @Input() vianda!: ViandaResponse;
   private dialog = inject(MatDialog);
 
-  onClick() {
+  openViandaModal() {
     this.dialog.open(ViandaExtendedModal, {
       data: this.vianda, 
       panelClass: 'modal-vianda',
