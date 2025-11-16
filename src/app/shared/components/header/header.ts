@@ -51,11 +51,6 @@ export class Header {
     this.authService.handleLogout();
   }
 
-  //emito el evento para el padre navegue al perfil
-  onProfileClick() {
-    this.profileClicked.emit();
-  }
-
   onSearch(event: Event, searchInput: HTMLInputElement) {
     event.preventDefault(); //evito que la pagina se recargue
     if (searchInput.value) {
