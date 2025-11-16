@@ -36,10 +36,10 @@ export class DropdownNotificacion {
     this.isOpen.set(false);
   }
 
-  //aca el metodo para tener el nombre del emprendimiento desde el id
+  /*aca el metodo para tener el nombre del emprendimiento desde el id
   getNombreEmprendimiento(id: number) {
-    return this.emprendimientoService.getEmprendimientos();
-  }
+    return this.emprendimientoService.fetchEmprendimientos();
+  }*/
 
   getCantidadNotificaciones() {
     return this.notificacionService.notificaciones().length;

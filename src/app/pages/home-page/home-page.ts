@@ -1,12 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, effect, signal, OnInit } from '@angular/core';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { ViandaService } from '../../services/vianda-service';
+import { AuthService } from '../../services/auth-service';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EmprendimientoCard } from '../../components/emprendimiento-card/emprendimiento-card';
 import { EmprendimientoConViandas } from '../../model/emprendimiento-con-viandas.model';
 import { EmprendimientoCardSkeleton } from '../../components/emprendimiento-card-skeleton/emprendimiento-card-skeleton';
-
 
 @Component({
   selector: 'app-home-page',
@@ -14,30 +14,40 @@ import { EmprendimientoCardSkeleton } from '../../components/emprendimiento-card
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })
-export class HomePage {
+export class HomePage implements OnInit {
   private emprendimientoService = inject(EmprendimientoService);
   private viandaService = inject(ViandaService);
+  authService = inject(AuthService);
 
-  emprendimientos: EmprendimientoConViandas[] = [];
+  emprendimientos = signal<EmprendimientoConViandas[]>([]);
 
-  ngOnInit() {
-    // Traemos todos los emprendimientos
+  constructor() {
+    //efecto que se dispara cuando cambia la signal de emprendimientos
+    effect(() => {
+      const emps = this.emprendimientoService.emprendimientos();
+      if (!emps || emps.length === 0) {
+        this.emprendimientos.set([]);
+        return;
+      }
 
-    this.emprendimientoService.getEmprendimientos().subscribe((emps) => {
-      // Por cada uno creamos un observable que trae sus viandas
+      //creamos las requests necesarias para traer viandas de cada emprendimiento
+      //para cada emprendimiento (e) creamos un observable que trae sus viandas
       const requests = emps.map((e) =>
-        this.viandaService.getViandasByEmprendimientoId(e.id).pipe(
-          // Cuando llegan las viandas, las combinamos con los datos del emprendimiento
-          map((viandas) => ({
-            ...e, // id, nombre, direccion, etc.
-            viandas, // agregamos la lista de viandas
-          }))
-        )
+        this.viandaService
+          .getViandasByEmprendimientoId(e.id)
+          .pipe(map((viandas) => ({ ...e, viandas })))
       );
-      // forkJoin ejecuta todos los requests en paralelo y espera a que TODOS terminen
+
+      //combina multiples obserbables y espera que todos terminen antes de emitir un resultado
+      //forkJoin espera a que todos los observables de viandas terminen.
+      //cuando todos terminan devuelve el array (fullData) con cada emprendimiento y sus viandas combinadas
       forkJoin(requests).subscribe((fullData) => {
-        this.emprendimientos = fullData; // Guardamos el resultado final en la variable que se usa en el HTML con @for
+        setTimeout(() => this.emprendimientos.set(fullData));
       });
     });
+  }
+
+  ngOnInit(): void {
+    this.emprendimientoService.fetchEmprendimientos();
   }
 }

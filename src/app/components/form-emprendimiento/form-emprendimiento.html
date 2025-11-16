@@ -1,0 +1,65 @@
+<form class="form-emprendimiento" [formGroup]="formEmprendimiento">
+
+  <!-- Nombre Emprendimiento -->
+  <div class="form-field">
+    <label class="form-label">Nombre del Emprendimiento</label>
+    <input formControlName="nombreEmprendimiento" type="text" class="form-input" placeholder="Ej: La Cocina de Ana"/>
+    @if (formEmprendimiento.get('nombreEmprendimiento')?.invalid &&
+        (formEmprendimiento.get('nombreEmprendimiento')?.dirty || formEmprendimiento.get('nombreEmprendimiento')?.touched)) {
+      <div class="error-messages">
+        @if (formEmprendimiento.get('nombreEmprendimiento')?.hasError('required')) {
+          <p>El nombre es obligatorio.</p>
+        }
+        @if (formEmprendimiento.get('nombreEmprendimiento')?.hasError('maxLength')) {
+          <p>Máximo 255 caracteres.</p>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Imagen -->
+  <div class="form-field">
+    <label class="form-label">Imagen del Emprendimiento</label>
+    <input type="file" (change)="onFileSelected($event)" accept="image/*"/>
+    @if (formEmprendimiento.get('image')?.invalid && 
+         (formEmprendimiento.get('image')?.dirty || formEmprendimiento.get('image')?.touched)) {
+      <div class="error-messages">
+        <p>La imagen es obligatoria y debe cumplir la resolución máxima de {{ maxWidth }}x{{ maxHeight }}px.</p>
+      </div>
+    }
+  </div>
+
+  <!-- Ciudad -->
+  <div class="form-field">
+    <label class="form-label">Ciudad</label>
+    <input formControlName="ciudad" type="text" class="form-input" placeholder="Ej: Mar del Plata"/>
+    @if (formEmprendimiento.get('ciudad')?.invalid &&
+         (formEmprendimiento.get('ciudad')?.dirty || formEmprendimiento.get('ciudad')?.touched)) {
+      <div class="error-messages">
+        <p>La ciudad es obligatoria.</p>
+      </div>
+    }
+  </div>
+
+  <!-- Dirección -->
+  <div class="form-field">
+    <label class="form-label">Dirección</label>
+    <input formControlName="direccion" type="text" class="form-input" placeholder="Opcional"/>
+  </div>
+
+  <!-- Teléfono -->
+  <div class="form-field">
+    <label class="form-label">Teléfono</label>
+    <input formControlName="telefono" type="text" class="form-input" placeholder="Ej: 1123456789"/>
+    @if (formEmprendimiento.get('telefono')?.invalid &&
+         (formEmprendimiento.get('telefono')?.dirty || formEmprendimiento.get('telefono')?.touched)) {
+      <div class="error-messages">
+        <p>El teléfono es obligatorio y debe tener entre 7 y 15 números.</p>
+      </div>
+    }
+  </div>
+
+  <button type="button" class="btn" (click)="onSubmit()" [disabled]="!formEmprendimiento.valid">
+    Crear Emprendimiento
+  </button>
+</form>
