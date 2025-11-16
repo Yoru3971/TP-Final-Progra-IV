@@ -1,4 +1,4 @@
-import { Component, effect, HostListener, inject, signal } from '@angular/core';
+import { Component, effect, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { NotificacionService } from '../../services/notificacion-service';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { Router } from '@angular/router';
@@ -15,7 +15,8 @@ export class DropdownNotificacion {
   router = inject(Router);
 
   isOpen = signal(false); //dropdown desplegado o cerrado
-  elementRef: any;
+  
+  private elementRef = inject(ElementRef);
 
   //cargo las notificaciones al montar el componente
   constructor() {
