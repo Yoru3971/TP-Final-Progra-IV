@@ -1,0 +1,126 @@
+/* Contenedor del dropdown */
+.notification-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Botón de la campana */
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-size: 2,4rem;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+/* Badge de cantidad de notificaciones */
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background: #ff3b3b;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  right: 0;
+  margin-top: 8px;
+  width: 280px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  padding: 10px;
+  z-index: 9999;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Animación suave al abrir */
+.animate {
+  animation: fadeSlide 0.15s ease-out;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Título */
+.titulo {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Lista de notificaciones */
+.lista {
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Cada notificación */
+.notificacion-item {
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+
+.notificacion-item:last-child {
+  border-bottom: none;
+}
+
+/* Mensaje */
+.msg {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Nombre del emprendimiento */
+.empr {
+  font-size: 13px;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* Fecha */
+small {
+  font-size: 12px;
+  color: #999;
+}
+
+/* Botón ver todas */
+.ver-todas {
+  margin-top: 10px;
+  width: 100%;
+  border: none;
+  background: #007bff;
+  color: white;
+  padding: 6px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.ver-todas:hover {
+  background: #005fcc;
+}

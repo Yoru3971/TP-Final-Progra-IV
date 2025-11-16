@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogTitle,
@@ -8,10 +8,10 @@ import {
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ErrorDialogData } from '../../../model/errorMessage.model';
+import { ViandaResponse } from '../../../model/vianda-response.model';
 
 @Component({
-  selector: 'app-error-dialog-modal',
+  selector: 'app-vianda-extended-modal',
   imports: [
     MatDialogTitle,
     MatDialogContent,
@@ -20,9 +20,11 @@ import { ErrorDialogData } from '../../../model/errorMessage.model';
     MatButtonModule,
     MatIconModule,
   ],
-  templateUrl: './error-dialog-modal.html',
-  styleUrl: './error-dialog-modal.css',
+  templateUrl: './vianda-extended-modal.html',
+  styleUrl: './vianda-extended-modal.css',
 })
-export class ErrorDialogModal {
-  data: ErrorDialogData = inject(MAT_DIALOG_DATA);
+export class ViandaExtendedModal {
+  constructor(
+  @Inject(MAT_DIALOG_DATA) public vianda: ViandaResponse
+) {}
 }

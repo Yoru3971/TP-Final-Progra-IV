@@ -1,0 +1,12 @@
+<div class="home-container">
+  @if (emprendimientos.length > 0) { @for (emprendimiento of emprendimientos; track
+  emprendimiento.id) {
+  <app-emprendimiento-card [emprendimiento]="emprendimiento"> </app-emprendimiento-card>
+  } } @else {
+
+  <app-emprendimiento-card-skeleton />
+  <app-emprendimiento-card-skeleton />
+  <app-emprendimiento-card-skeleton />
+
+  }
+</div>

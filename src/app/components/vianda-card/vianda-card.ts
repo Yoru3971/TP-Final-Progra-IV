@@ -1,0 +1,22 @@
+import { Component, Input, inject } from '@angular/core';
+import { ViandaResponse } from '../../model/vianda-response.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ViandaExtendedModal } from '../../shared/components/vianda-extended-modal/vianda-extended-modal';
+
+@Component({
+  selector: 'app-vianda-card',
+  imports: [],
+  templateUrl: './vianda-card.html',
+  styleUrl: './vianda-card.css',
+})
+export class ViandaCard {
+  @Input() vianda!: ViandaResponse;
+  private dialog = inject(MatDialog);
+
+  onClick() {
+    this.dialog.open(ViandaExtendedModal, {
+      data: this.vianda, 
+      panelClass: 'modal-vianda',
+    });
+  }
+}
