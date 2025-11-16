@@ -61,7 +61,7 @@ export class FormLogin {
 
           this.authService.handleLoginSuccess(response.token, usuario.recordarme!);
           setTimeout(() => {
-            this.router.navigate(['/registro/cliente']);
+            this.router.navigate(['/home']);
           }, 1000);
 
         },
@@ -75,6 +75,9 @@ export class FormLogin {
             data: { message: backendMsg },
             panelClass: 'modal-error'
           });
+
+          this.formLogin.get('password')?.reset();
+          this.formLogin.get('recordarme')?.reset();
         }
       })
 

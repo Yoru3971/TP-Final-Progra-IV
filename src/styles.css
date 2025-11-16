@@ -287,6 +287,7 @@ app-root {
   padding: 0 !important;
   display: block !important;
   width: 100% !important;
+}
 
 /* --- MODAL VIANDA --- */
 .cdk-overlay-pane.modal-vianda {
