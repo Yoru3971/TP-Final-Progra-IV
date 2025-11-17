@@ -1,0 +1,19 @@
+<div class="main-container">
+  <h2 class="titulo-perfil">
+    MI PERFIL — <span>{{ usuario()?.rolUsuario || '' }}</span>
+  </h2>
+
+  @if (usuario(); as u) {
+  <div class="perfil-grid">
+    @if (usuario(); as u) {
+
+    <app-notificaciones-card class="notificaciones"></app-notificaciones-card>
+
+    <app-datos-usuario-card class="datos" [usuario]="u"></app-datos-usuario-card>
+    <app-panel-acciones-cuenta class="cuenta"></app-panel-acciones-cuenta>
+
+    <app-pedidos-card class="pedidos"></app-pedidos-card>
+    }
+  </div>
+  }
+</div>
