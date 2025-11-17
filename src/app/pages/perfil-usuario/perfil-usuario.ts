@@ -5,7 +5,6 @@ import { PedidosCard } from '../../components/pedidos-card/pedidos-card';
 import { PanelAccionesCuenta } from '../../components/panel-acciones-cuenta/panel-acciones-cuenta';
 import { UsuarioResponse } from '../../model/usuario-response.model';
 import { UsuarioService } from '../../services/usuario-service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-perfil-usuario',
