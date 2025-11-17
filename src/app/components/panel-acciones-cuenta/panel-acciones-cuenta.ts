@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarData } from '../../model/snackbar-data.model';
 import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { EliminarCuentaPaso1 } from '../ModalEliminarCuenta/eliminar-cuenta-paso1/eliminar-cuenta-paso1';
+import { ConfirmarLogout } from '../../shared/components/logout-modal/logout-modal';
 
 @Component({
   selector: 'app-panel-acciones-cuenta',
@@ -31,22 +32,7 @@ export class PanelAccionesCuenta {
   }
 
   cerrarSesion() {
-    const snackbarData: SnackbarData = {
-      message: 'Sesión cerrada correctamente',
-      iconName: 'check_circle',
-    };
-
-    this.snackBar.openFromComponent(Snackbar, {
-      duration: 3000,
-      verticalPosition: 'bottom',
-      panelClass: 'snackbar-panel',
-      data: snackbarData,
-    });
-
-    this.authService.handleLogout();
-    setTimeout(() => {
-      this.router.navigate(['/home']);
-    }, 1000);
+    this.dialog.open(ConfirmarLogout);
   }
 
   eliminarCuenta() {

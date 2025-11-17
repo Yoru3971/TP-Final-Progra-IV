@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, EventEmitter, inject, input, Output, signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
-
 import { AuthService, UserRole } from '../../../services/auth-service';
 import { CitySelector } from '../../../components/city-selector/city-selector';
 import { SearchBar } from '../../../components/search-bar/search-bar';
 import { DropdownNotificacion } from '../../../components/dropdown-notificacion/dropdown-notificacion';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmarLogout } from '../logout-modal/logout-modal';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +21,7 @@ import { DropdownNotificacion } from '../../../components/dropdown-notificacion/
 })
 export class Header {
   private authService = inject(AuthService);
-
+  private dialog = inject(MatDialog);
   public role = this.authService.currentUserRole;
 
   // agrego un  signal que me diga si tengo algo logueado para mostrar
@@ -48,7 +49,7 @@ export class Header {
 
   //llamada al servicio de Auth para cerrar sesion
   onLogout() {
-    this.authService.handleLogout();
+    this.dialog.open(ConfirmarLogout);
   }
 
   onSearch(event: Event, searchInput: HTMLInputElement) {
