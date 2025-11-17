@@ -9,8 +9,6 @@ import { CityFilterService } from './city-filter-service';
 export class EmprendimientoService {
 
   private cityFilter = inject(CityFilterService);
-
-  //signal que almacena todos los emprendimientos traidos del backend
   public allEmprendimientos = signal<EmprendimientoResponse[]>([]);
   
   //señal publica que siempre refleja los emprendimientos filtrados por ciudad
@@ -19,7 +17,6 @@ export class EmprendimientoService {
   return this.allEmprendimientos().filter(e => e.ciudad.toUpperCase() === ciudadActual);
   });
 
-  //url según el rol del usuario
   private baseUrls = {
     PUBLIC: 'http://localhost:8080/api/public/emprendimientos',
     DUENO: 'http://localhost:8080/api/dueno/emprendimientos',
@@ -28,7 +25,6 @@ export class EmprendimientoService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  //devuelvo la url correspondiente según el rol del usuario
   private getApiUrl(): string {
     const rol: UserRole = this.authService.currentUserRole();
     return rol === 'DUENO' ? this.baseUrls.DUENO : this.baseUrls.PUBLIC;
@@ -52,7 +48,6 @@ export class EmprendimientoService {
   }
 
   //metodos del dueño, CRUD
-  //crear un emprendimiento
   createEmprendimiento(formData: FormData) {
     if (this.authService.currentUserRole() !== 'DUENO') {
       throw new Error('Solo dueños pueden crear emprendimientos');
@@ -63,7 +58,6 @@ export class EmprendimientoService {
       );
   }
 
-  //actualizar un emprendimiento existente propio
   updateEmprendimiento(id: number, formData: FormData) {
     if (this.authService.currentUserRole() !== 'DUENO') {
       throw new Error('Solo dueños pueden actualizar emprendimientos');
@@ -76,7 +70,6 @@ export class EmprendimientoService {
       );
   }
   
-  //borrar un emprendimiento propio
   deleteEmprendimiento(id: number) {
     if (this.authService.currentUserRole() !== 'DUENO') {
       throw new Error('Solo dueños pueden eliminar emprendimientos');

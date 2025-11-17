@@ -51,6 +51,9 @@
   --vianda-card-footer-bg: #fe9039;
 
   --skeleton-bg: #e0e0e0;
+
+  --scrollbar-color: #ccc;
+  --scrollbar-hover-color: #bbb;
 }
 
 html {
@@ -77,6 +80,8 @@ app-root {
   flex-direction: column;
   min-height: 100vh;
 }
+
+/* --- ESTILOS FORM --- */
 
 .main-content {
   flex: 1; /* Ocupa el espacio dejado por el header y el footer */
@@ -208,6 +213,8 @@ app-root {
   align-items: center;
 }
 
+/* --- MODAL ERROR --- */
+
 .modal-error .mat-mdc-dialog-title {
   background-color: var(--modal-bg);
   color: var(--error-color) !important;
@@ -244,6 +251,8 @@ app-root {
   margin: 0;
 }
 
+/* --- MODAL SCROLLEABLE--- */
+
 .modal-scrolleable .mat-mdc-dialog-title {
   background-color: #ff8c00;
   color: white !important;
@@ -274,6 +283,8 @@ app-root {
   padding: 0;
   border: none;
 }
+
+/* --- SNACKBAR --- */
 
 .snackbar-panel {
   background-color: var(--bg-color);
@@ -398,4 +409,18 @@ app-root {
 
 .modal-vianda * {
   font-family: 'Inria Sans', sans-serif !important;
+}
+
+/* --- SCROLLBAR GENERICO --- */
+*::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-color);
+  border-radius: 1rem;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover-color);
 }
