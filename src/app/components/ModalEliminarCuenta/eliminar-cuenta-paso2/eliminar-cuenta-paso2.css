@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  padding: 2.4rem;
+  border-radius: 1.2rem;
+}
+
+.titulo-rojo {
+  font-size: 2rem;
+  color: var(--eliminar-color);
+  font-weight: bold;
+  margin: 0 0 1.4rem 0;
+}
+
+.texto {
+  font-size: 1.45rem;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+}
+
+.texto span {
+  font-weight: bolder;
+  color: var(--eliminar-color);
+}
+
+.input-eliminar {
+  width: 100%;
+  padding: 1rem 1.4rem;
+  border: 1px solid #ccc;
+  border-radius: 0.6rem;
+  font-size: 1.5rem;
+  margin-bottom: 2.2rem;
+}
+
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-cancelar {
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+}
+
+.btn-rojo {
+  background: var(--eliminar-color);
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  color: var(--inverse-text-color);
+}
+
+.btn-rojo:hover {
+  background: var(--eliminar-hover-color);
+}

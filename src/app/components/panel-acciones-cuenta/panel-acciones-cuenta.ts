@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarData } from '../../model/snackbar-data.model';
 import { Snackbar } from '../../shared/components/snackbar/snackbar';
+import { EliminarCuentaPaso1 } from '../ModalEliminarCuenta/eliminar-cuenta-paso1/eliminar-cuenta-paso1';
 
 @Component({
   selector: 'app-panel-acciones-cuenta',
@@ -49,10 +50,6 @@ export class PanelAccionesCuenta {
   }
 
   eliminarCuenta() {
-    /*
-    this.dialog.open(EliminarCuentaModal, {
-      panelClass: 'modal-panel',
-    });
-    */
+    this.dialog.open(EliminarCuentaPaso1);
   }
 }
