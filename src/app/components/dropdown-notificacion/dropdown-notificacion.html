@@ -16,7 +16,7 @@
 
             <div class="lista">
                 @if (getCantidadNotificaciones() > 0) {
-                    @for (noti of notificacionService.notificaciones(); track noti.id) {
+                    @for (noti of notificacionService.allNotificaciones(); track noti.id) {
                     <div class="notificacion-card">
                         <!-- mensaje -->
                         <div class="mensaje">{{ noti.mensaje }}</div>

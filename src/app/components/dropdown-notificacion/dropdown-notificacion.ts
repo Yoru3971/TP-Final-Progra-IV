@@ -21,7 +21,7 @@ export class DropdownNotificacion {
   //cargo las notificaciones al montar el componente
   constructor() {
     effect( () => {
-      this.notificacionService.getNotificacionesUltimaSemana();
+      this.notificacionService.fetchNotificacionesUltimaSemana;
     });
   }
 
@@ -42,7 +42,7 @@ export class DropdownNotificacion {
   }*/
 
   getCantidadNotificaciones() {
-    return this.notificacionService.notificaciones().length;
+    return this.notificacionService.allNotificaciones().length;
   }
 
   // cerrar el dropdown si hago click afuera del mismo

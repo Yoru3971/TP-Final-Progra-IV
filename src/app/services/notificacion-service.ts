@@ -1,48 +1,77 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 import { Notificacion } from '../model/notificacion.model';
 import { catchError, map, of } from 'rxjs';
-import { AuthService } from './auth-service';
+import { AuthService, UserRole } from './auth-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificacionService {
-  private http = inject(HttpClient);
-  private auth = inject(AuthService);
 
-  //signal para almacenar notificaciones
-  public notificaciones = signal<Notificacion[]>([]);
+  public allNotificaciones = signal<Notificacion[]>([]);
 
-  getNotificacionesUltimaSemana() {
-    const url = this.getUrlNotificaciones();
-    if (!url) {
-      console.warn(
-        'No se pudo construir la URL de notificaciones. Rol actual:',
-        this.auth.currentUserRole()
-      );
-      this.notificaciones.set([]);
-      return;
+  // señal ordenada DESC por fecha (más nuevas primero)
+  public notificacionesOrdenadas = computed<Notificacion[]>(() => {
+    const list = this.allNotificaciones();
+
+    return [...list].sort((a, b) => {
+      const fa = new Date(a.fechaEnviado).getTime();
+      const fb = new Date(b.fechaEnviado).getTime();
+      return fb - fa;
+    });
+  });
+
+  private baseUrls = {
+    DUENO: 'http://localhost:8080/api/dueno/notificaciones',
+    CLIENTE: 'http://localhost:8080/api/cliente/notificaciones'
+  };
+
+  constructor(private http: HttpClient, private authService: AuthService) {}
+  
+    private getApiUrl(): string {
+      const rol: UserRole = this.authService.currentUserRole();
+      return rol === 'DUENO' ? this.baseUrls.DUENO : this.baseUrls.CLIENTE;
     }
 
-    const { desde, hasta } = this.getRangoUltimaSemana();
-
+  fetchNotificaciones() {
+    const url = this.getApiUrl();
     this.http
-      .get<Notificacion[]>(`${url}?desde=${desde}&hasta=${hasta}`)
+      .get<Notificacion[]>(url)
       .pipe(
-        map((noti) => noti.slice(0, 10)),
-        catchError((err) => {
-          // Solo logueamos errores que no sean 404
+        catchError(err => {
           if (err.status !== 404) {
-            console.error('Error al obtener notificaciones:', err);
+            console.error('Error al cargar notificaciones:', err);
           }
           return of([]);
         })
       )
-      .subscribe(this.notificaciones);
+      .subscribe(result => {
+        setTimeout(() => this.allNotificaciones.set(result));
+      });
   }
 
-  // devuelve el rango de fechas
+  fetchNotificacionesUltimaSemana() {
+    const url = this.getApiUrl();
+
+    const { desde, hasta } = this.getRangoUltimaSemana();
+    const finalUrl = `${url}/entre-fechas?desde=${desde}&hasta=${hasta}`;
+
+    this.http
+      .get<Notificacion[]>(finalUrl)
+      .pipe(
+        catchError(err => {
+          if (err.status !== 404) {
+            console.error('Error cargando notificaciones:', err);
+          }
+          return of([]);
+        })
+      )
+      .subscribe(list => {
+        setTimeout(() => this.allNotificaciones.set(list));
+      });
+  }
+
   private getRangoUltimaSemana() {
     const hoy = new Date();
     const hace7Dias = new Date();
@@ -52,20 +81,5 @@ export class NotificacionService {
       desde: hace7Dias.toISOString().split('T')[0],
       hasta: hoy.toISOString().split('T')[0],
     };
-  }
-
-  //devuelve URL segun el rol
-  private getUrlNotificaciones(): string | null {
-    const rol = this.auth.currentUserRole();
-
-    switch (rol) {
-      case 'DUENO':
-        return 'http://localhost:8080/api/dueno/notificaciones/entre-fechas';
-      case 'CLIENTE':
-        return 'http://localhost:8080/api/cliente/notificaciones/entre-fechas';
-      default:
-        console.warn('Rol sin permisos para obtener notificaciones:', rol);
-        return null;
-    }
   }
 }
