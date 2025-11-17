@@ -17,7 +17,6 @@ import { EmprendimientoCardSkeleton } from '../../components/emprendimiento-card
 export class HomePage implements OnInit {
   private emprendimientoService = inject(EmprendimientoService);
   private viandaService = inject(ViandaService);
-  authService = inject(AuthService);
 
   emprendimientos = signal<EmprendimientoConViandas[]>([]);
 
