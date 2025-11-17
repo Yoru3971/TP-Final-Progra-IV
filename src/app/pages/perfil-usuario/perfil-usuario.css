@@ -3,7 +3,7 @@
   margin: 4rem auto;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2.5rem;
 }
 
 .titulo-perfil {
@@ -12,6 +12,7 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  margin: 0;
 }
 
 .titulo-perfil span {
@@ -21,30 +22,49 @@
   letter-spacing: 0.05rem;
 }
 
-.perfil-grid {
-  height: 55rem;
-  display: grid;
-  grid-template-columns: 30% 35% 35%;
-  grid-template-rows: 28rem 1fr;
+.perfil-layout {
+  display: flex;
   gap: 2rem;
-  grid-template-areas:
-    'notificaciones datos cuenta'
-    'notificaciones pedidos pedidos';
+  align-items: stretch;
 }
 
-.notificaciones {
-  grid-area: notificaciones;
-  height: 100%;
+.col-izquierda {
+  flex: 0 0 30%;
+  display: flex;
 }
 
-.datos {
-  grid-area: datos;
+.col-derecha {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: 40rem;
 }
 
-.cuenta {
-  grid-area: cuenta;
+.fila-superior {
+  display: flex;
+  gap: 2rem;
 }
 
-.pedidos {
-  grid-area: pedidos;
+.fila-inferior {
+  flex: 1;
+  display: flex;
+}
+
+.fila-superior > app-datos-usuario-card,
+.fila-superior > app-panel-acciones-cuenta {
+  flex: 1;
+  display: block;
+}
+
+.fila-inferior > app-pedidos-card {
+  flex: 1;
+  display: block;
+}
+.col-izquierda app-notificaciones-card {
+  height: 68rem;
+}
+
+.fila-inferior app-pedidos-card {
+  height: 45rem;
 }

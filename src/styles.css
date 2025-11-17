@@ -54,6 +54,11 @@
 
   --scrollbar-color: #ccc;
   --scrollbar-hover-color: #bbb;
+
+  --estado-aceptado: #2ecc71;
+  --estado-pendiente: #f39c12;
+  --estado-rechazado: #e74c3c;
+  --estado-default: #6b7280;
 }
 
 html {
