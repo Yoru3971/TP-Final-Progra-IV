@@ -14,4 +14,15 @@ export class UsuarioService {
   getPerfilUsuario(): Observable<UsuarioResponse> {
     return this.http.get<UsuarioResponse>(`${this.apiUrl}/me`);
   }
+
+  cambiarPassword(passwordActual: string, passwordNueva: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/changePassword/me`, {
+      passwordActual,
+      passwordNueva,
+    });
+  }
+
+  eliminarCuenta(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

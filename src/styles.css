@@ -296,7 +296,7 @@ app-root {
 }
 
 .modal-vianda .mat-mdc-dialog-surface {
-  border-radius: 2rem !important; /* borde global */
+  border-radius: 2rem !important;
   overflow: hidden !important;
   background: var(--bg-color) !important;
 }
