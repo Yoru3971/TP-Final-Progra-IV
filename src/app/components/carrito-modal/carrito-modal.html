@@ -1,0 +1,56 @@
+<div class="modal-carrito">
+    <div class="modal-carrito-header">
+        <h2><span>Carrito:</span> {{ emprendimiento()?.nombreEmprendimiento ?? "vacío" }}</h2>
+
+        <button class="cerrar-button" (click)="cerrar()">
+            <i class="fa-solid fa-x"></i>
+        </button>
+    </div>
+
+    <div class="modal-carrito-content">
+        <div class="modal-carrito-lista">
+            @for (viandaCantidad of viandaCantidades(); track $index) {
+                <div class="modal-carrito-item">
+                    <div class="modal-carrito-item-img-container">
+                        <img [src]="viandaCantidad.vianda.imagenUrl">
+                    </div>
+
+                    <div class="modal-carrito-item-nombre-precio-container">
+                        <p class="item-nombre">{{ viandaCantidad.vianda.nombreVianda }}</p>
+                        <p class="item-precio">${{ viandaCantidad.vianda.precio.toFixed(2) }}</p>
+                    </div>
+
+                    <p class="item-subtotal">{{ (viandaCantidad.vianda.precio * viandaCantidad.cantidad).toFixed(2) }}</p>
+
+                    <div class="item-cantidad-buttons-container">
+                        <button class="item-cantidad-button" (click)="restarVianda(viandaCantidad.vianda)">
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+
+                        <div class="item-cantidad-container">
+                            <p class="item-cantidad">{{ viandaCantidad.cantidad }}</p>
+                        </div>
+
+                        <button class="item-cantidad-button" (click)="sumarVianda(viandaCantidad.vianda)">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            } @empty {
+                <p class="modal-carrito-lista-vacia">Agregá viandas de algún emprendimiento para realizar un pedido.</p>
+            }
+        </div>
+
+        <div class="modal-carrito-content-sub">
+            <p class="modal-carrito-total">Total: <span>${{ total.toFixed(2) }}</span></p>
+
+            <button class="modal-carrito-sub-button-cancelar" (click)="cancelarPedido()" [disabled]="vacio()">
+                Cancelar
+            </button>
+
+            <button class="modal-carrito-sub-button-confirmar" (click)="confirmarPedido()" [disabled]="vacio()">
+                Confirmar
+            </button>
+        </div>
+    </div>
+</div>
