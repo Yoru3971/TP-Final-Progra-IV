@@ -6,4 +6,5 @@ export interface EmprendimientoCreate {
   direccion?: string;
   //en el back solo tiene @Size, no tiene ni @notNull o @notBlank
   telefono: string;
+  idUsuario: number;
 }
