@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UsuarioResponse } from '../model/usuario-response.model';
 import { Observable } from 'rxjs';
+import { ChangePasswordRequest } from '../model/change-password-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +16,8 @@ export class UsuarioService {
     return this.http.get<UsuarioResponse>(`${this.apiUrl}/me`);
   }
 
-  cambiarPassword(passwordActual: string, passwordNueva: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/changePassword/me`, {
-      passwordActual,
-      passwordNueva,
-    });
+  cambiarPassword(body: ChangePasswordRequest): Observable<any> {
+    return this.http.put(`${this.apiUrl}/changePassword/me`, body);
   }
 
   eliminarCuenta(id: number): Observable<any> {

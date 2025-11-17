@@ -4,10 +4,9 @@ import { UsuarioService } from '../../services/usuario-service';
 import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarData } from '../../model/snackbar-data.model';
-import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { EliminarCuentaPaso1 } from '../ModalEliminarCuenta/eliminar-cuenta-paso1/eliminar-cuenta-paso1';
 import { ConfirmarLogout } from '../../shared/components/logout-modal/logout-modal';
+import { CambiarPasswordModal } from '../cambiar-password-modal/cambiar-password-modal';
 
 @Component({
   selector: 'app-panel-acciones-cuenta',
@@ -23,12 +22,11 @@ export class PanelAccionesCuenta {
   private snackBar = inject(MatSnackBar);
 
   cambiarPassword() {
-    /*
+    
     this.dialog.open(CambiarPasswordModal, {
       panelClass: 'modal-panel',
+      width: '80rem',
     });
-    */
-    alert('Funcionalidad de cambio de contraseña en desarrollo.');
   }
 
   cerrarSesion() {

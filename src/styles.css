@@ -33,6 +33,8 @@
   --invalid-border: #ff4b4b;
   --error-color: #ff4b4b;
   --invalid-focus-shadow: 0 0 0 0.3rem rgba(255, 75, 75, 0.25);
+  --eliminar-color: #d11;
+  --eliminar-hover-color: #b00;
 
   --btn-disabled: #ccc;
   --btn-disabled-text: #666;
