@@ -50,6 +50,11 @@ export class EmprendimientoService {
         setTimeout(() => this.allEmprendimientos.set(result));
       });
   }
+  
+  getEmprendimientoById(id: number) {
+    const url = this.getApiUrl();
+    return this.http.get<EmprendimientoResponse>(`${url}/id/${id}`);
+  }
 
   //metodos del dueño, CRUD
   //crear un emprendimiento

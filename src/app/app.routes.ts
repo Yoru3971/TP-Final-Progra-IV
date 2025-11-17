@@ -5,6 +5,7 @@ import { Login } from './pages/login/login';
 import { RegisterSuccessPage } from './pages/register-success-page/register-success-page';
 import { HomePage } from './pages/home-page/home-page';
 import { CrearEmprendimientoPageDueno } from './pages/crear-emprendimiento-page-dueno/crear-emprendimiento-page-dueno';
+import { EmprendimientoPage } from './pages/emprendimiento-page/emprendimiento-page';
 
 export const routes: Routes = [
   { path: 'home', component: HomePage },
@@ -29,6 +30,10 @@ export const routes: Routes = [
   { 
     path: 'crear-emprendimiento', 
     component: CrearEmprendimientoPageDueno
+  },
+  { 
+    path: 'emprendimiento/:id',
+    component: EmprendimientoPage
   },
   //REVISAR habria que ver que hacemos con la ruta vacia, tal vez podriamos redirigir a una pagina  de "OOPS" o algo asi 
   { 
