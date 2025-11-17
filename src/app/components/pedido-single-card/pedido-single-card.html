@@ -1,0 +1,27 @@
+<div class="pedido-item">
+
+  <div class="info">
+    <p class="id">#{{ pedido.id }}</p>
+
+    <p class="linea">
+      <span class="label">Entrega:</span>
+      {{ pedido.fechaEntrega | date:'dd/MM/yyyy' }}
+    </p>
+
+    <p class="linea">
+      <span class="label">Total:</span>
+      <span class="precio">${{ pedido.total }}</span>
+    </p>
+  </div>
+
+  <div class="estado">
+    <span [class]="pedido.estado.toLowerCase()">
+      {{ pedido.estado }}
+    </span>
+  </div>
+
+  <button class="btn btn-ver" (click)="verPedido()">
+    Ver pedido
+  </button>
+
+</div>
