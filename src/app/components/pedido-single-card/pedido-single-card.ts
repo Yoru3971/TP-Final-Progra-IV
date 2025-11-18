@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { PedidoResponse } from '../../model/pedido-response.model';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { PedidoExtendedModal } from '../pedido-extended-modal/pedido-extended-modal';
 
 @Component({
   selector: 'app-pedido-single-card',
@@ -10,6 +12,7 @@ import { DatePipe } from '@angular/common';
 })
 export class PedidoSingleCard {
   @Input() pedido!: PedidoResponse;
+  private dialog = inject(MatDialog);
 
   getFechaFormateada(): string {
     return new Date(this.pedido.fechaEntrega).toLocaleDateString('es-AR');
@@ -17,15 +20,21 @@ export class PedidoSingleCard {
 
   getEstadoColor(): string {
     switch (this.pedido.estado) {
-      case 'PENDIENTE': return '#eab308'; 
-      case 'ACEPTADO': return '#22c55e'; 
-      case 'RECHAZADO': return '#ef4444';
-      default: return '#6b7280';
+      case 'PENDIENTE':
+        return '#eab308';
+      case 'ACEPTADO':
+        return '#22c55e';
+      case 'RECHAZADO':
+        return '#ef4444';
+      default:
+        return '#6b7280';
     }
   }
 
-  // REVISAR falta armar el modal
-  verPedido(){
-    
+  openPedidoModal() {
+    this.dialog.open(PedidoExtendedModal, {
+      data: this.pedido,
+      panelClass: 'modal-pedido',
+    });
   }
 }

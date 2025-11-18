@@ -1,0 +1,53 @@
+<h2 mat-dialog-title cdkFocusInitial>
+  Pedido #{{ pedido.id }} — {{ pedido.emprendimiento.nombreEmprendimiento }}
+</h2>
+
+<mat-dialog-content>
+  <div class="left-panel scrolleable">
+    @for (detalle of pedido.viandas; track detalle.viandaId) {
+    <div class="item-vianda">
+      <div class="info">
+        <p class="nombre">{{ detalle.nombreVianda }}</p>
+
+        <p class="unitario">
+          Precio unitario:
+          <span class="precio">${{ detalle.precioUnitario }}</span>
+        </p>
+
+        <p class="cantidad">
+          Cantidad: <strong>{{ detalle.cantidad }}</strong>
+        </p>
+
+        <p class="subtotal">
+          Subtotal: <span class="precio">${{ detalle.subtotal }}</span>
+        </p>
+      </div>
+    </div>
+    } @empty {
+    <p class="sin-viandas">No hay viandas registradas en este pedido.</p>
+    }
+  </div>
+
+  <div class="right-panel">
+    <div class="detalle-general">
+      <p>
+        <span class="label">Fecha de entrega:</span> {{ pedido.fechaEntrega | date : 'dd/MM/yyyy' }}
+      </p>
+      <p>
+        <span class="label">Total:</span> <span class="precio">${{ pedido.total }}</span>
+      </p>
+      <p>
+        <span class="label">Estado:</span>
+        <span class="estado" [class]="pedido.estado.toLowerCase()">{{ pedido.estado }}</span>
+      </p>
+    </div>
+
+    <div class="acciones">
+      <button class="btn btn-aceptar">Aceptar</button>
+
+      <button class="btn btn-rechazar">Rechazar</button>
+
+      <button mat-dialog-close class="btn btn-cancelar">Cerrar</button>
+    </div>
+  </div>
+</mat-dialog-content>

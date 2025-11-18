@@ -3,26 +3,26 @@ import {
   MAT_DIALOG_DATA,
   MatDialogTitle,
   MatDialogContent,
-  MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ViandaResponse } from '../../../model/vianda-response.model';
+import { PedidoResponse } from '../../model/pedido-response.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-vianda-extended-modal',
+  selector: 'app-pedido-extended-modal',
   imports: [
     MatDialogTitle,
     MatDialogContent,
-    MatDialogActions,
     MatDialogClose,
     MatButtonModule,
     MatIconModule,
+    DatePipe
   ],
-  templateUrl: './vianda-extended-modal.html',
-  styleUrl: './vianda-extended-modal.css',
+  templateUrl: './pedido-extended-modal.html',
+  styleUrl: './pedido-extended-modal.css',
 })
-export class ViandaExtendedModal {
-  constructor(@Inject(MAT_DIALOG_DATA) public vianda: ViandaResponse) {}
+export class PedidoExtendedModal {
+    constructor(@Inject(MAT_DIALOG_DATA) public pedido: PedidoResponse) {}
 }
