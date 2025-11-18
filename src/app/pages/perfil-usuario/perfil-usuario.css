@@ -1,0 +1,50 @@
+.main-container {
+  width: 80%;
+  margin: 4rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.titulo-perfil {
+  font-size: 2.4rem;
+  color: var(--link-color);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.titulo-perfil span {
+  font-size: 1.8rem;
+  color: var(--text-color);
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+}
+
+.perfil-grid {
+  height: 55rem;
+  display: grid;
+  grid-template-columns: 30% 35% 35%;
+  grid-template-rows: 28rem 1fr;
+  gap: 2rem;
+  grid-template-areas:
+    'notificaciones datos cuenta'
+    'notificaciones pedidos pedidos';
+}
+
+.notificaciones {
+  grid-area: notificaciones;
+  height: 100%;
+}
+
+.datos {
+  grid-area: datos;
+}
+
+.cuenta {
+  grid-area: cuenta;
+}
+
+.pedidos {
+  grid-area: pedidos;
+}

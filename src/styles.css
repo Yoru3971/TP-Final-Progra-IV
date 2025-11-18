@@ -33,6 +33,8 @@
   --invalid-border: #ff4b4b;
   --error-color: #ff4b4b;
   --invalid-focus-shadow: 0 0 0 0.3rem rgba(255, 75, 75, 0.25);
+  --eliminar-color: #d11;
+  --eliminar-hover-color: #b00;
 
   --btn-disabled: #ccc;
   --btn-disabled-text: #666;
@@ -54,6 +56,9 @@
   --carrito-button-color: #e68033;
 
   --skeleton-bg: #e0e0e0;
+
+  --scrollbar-color: #ccc;
+  --scrollbar-hover-color: #bbb;
 }
 
 html {
@@ -80,6 +85,8 @@ app-root {
   flex-direction: column;
   min-height: 100vh;
 }
+
+/* --- ESTILOS FORM --- */
 
 .main-content {
   flex: 1; /* Ocupa el espacio dejado por el header y el footer */
@@ -211,6 +218,8 @@ app-root {
   align-items: center;
 }
 
+/* --- MODAL ERROR --- */
+
 .modal-error .mat-mdc-dialog-title {
   background-color: var(--modal-bg);
   color: var(--error-color) !important;
@@ -247,6 +256,8 @@ app-root {
   margin: 0;
 }
 
+/* --- MODAL SCROLLEABLE--- */
+
 .modal-scrolleable .mat-mdc-dialog-title {
   background-color: #ff8c00;
   color: white !important;
@@ -278,6 +289,8 @@ app-root {
   border: none;
 }
 
+/* --- SNACKBAR --- */
+
 .snackbar-panel {
   background-color: var(--bg-color);
   margin-bottom: 4rem !important;
@@ -301,7 +314,7 @@ app-root {
 }
 
 .modal-vianda .mat-mdc-dialog-surface {
-  border-radius: 2rem !important; /* borde global */
+  border-radius: 2rem !important;
   overflow: hidden !important;
   background: var(--bg-color) !important;
 }
@@ -401,4 +414,18 @@ app-root {
 
 .modal-vianda * {
   font-family: 'Inria Sans', sans-serif !important;
+}
+
+/* --- SCROLLBAR GENERICO --- */
+*::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-color);
+  border-radius: 1rem;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover-color);
 }

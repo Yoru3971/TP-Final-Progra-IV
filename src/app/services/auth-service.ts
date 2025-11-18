@@ -13,7 +13,6 @@ export type UserRole = 'ADMIN' | 'DUENO' | 'CLIENTE' | 'INVITADO';
 export class AuthService {
   private TOKEN_KEY = 'authToken';
 
-  // Signal con rol del usuario
   public currentUserRole = signal<UserRole>(this.getRolFromToken());
   public usuarioId = signal<number | null>(this.getUsuarioIdFromStorage());
 
@@ -24,18 +23,15 @@ export class AuthService {
     console.log('AuthService inicializado. Rol actual', this.currentUserRole());
   }
 
-  // leo el TOKEN actual y extraigo el rol
-  // (si no hay TOKEN, el rol es invitado)
+  // leo el TOKEN actual y extraigo el rol (si no hay TOKEN, el rol es invitado)
   private getRolFromToken(): UserRole {
     const tokenLocal = localStorage.getItem(this.TOKEN_KEY);
     const tokenSession = sessionStorage.getItem(this.TOKEN_KEY);
 
-    // caso 1: no hay token
     if (!tokenLocal && !tokenSession) {
       return 'INVITADO';
     }
 
-    // caso 2: existe un token, entonces lo decodifico
     if (tokenLocal) {
       return this.decodeRolFrom(tokenLocal);
     } else {
@@ -43,12 +39,10 @@ export class AuthService {
     }
   }
 
-  //funcion para leer el usuarioID del token o storage
   private getUsuarioIdFromStorage(): number | null {
-  const id = localStorage.getItem('usuarioID') || sessionStorage.getItem('usuarioID');
-  return id ? Number(id) : null;
-}
-
+    const id = localStorage.getItem('usuarioID') || sessionStorage.getItem('usuarioID');
+    return id ? Number(id) : null;
+  }
 
   register(usuario: UsuarioRegistro) {
     return this.http.post<UsuarioResponse>(this.apiUrlRegister, usuario);
@@ -61,19 +55,19 @@ export class AuthService {
   // Si el usuario marca "Recordarme", se guarda el token en LocalStorage.
   //   Caso contrario, se guarda en SessionStorage
   public handleLoginSuccess(token: string, usuarioID: number, recordarme: boolean): void {
-  if (recordarme) {
-    localStorage.setItem(this.TOKEN_KEY, token);
-    localStorage.setItem('usuarioID', usuarioID.toString());
-  } else {
-    sessionStorage.setItem(this.TOKEN_KEY, token);
-    sessionStorage.setItem('usuarioID', usuarioID.toString());
+    if (recordarme) {
+      localStorage.setItem(this.TOKEN_KEY, token);
+      localStorage.setItem('usuarioID', usuarioID.toString());
+    } else {
+      sessionStorage.setItem(this.TOKEN_KEY, token);
+      sessionStorage.setItem('usuarioID', usuarioID.toString());
+    }
+
+    this.currentUserRole.set(this.decodeRolFrom(token));
+    this.usuarioId.set(usuarioID);
+
+    console.log('Login exitoso. Rol:', this.currentUserRole(), 'UsuarioID:', this.usuarioId());
   }
-
-  this.currentUserRole.set(this.decodeRolFrom(token));
-  this.usuarioId.set(usuarioID);
-
-  console.log('Login exitoso. Rol:', this.currentUserRole(), 'UsuarioID:', this.usuarioId());
-}
 
   // Cierre de sesion y elimina la persistencia del token
   public handleLogout(): void {
@@ -85,34 +79,33 @@ export class AuthService {
   }
 
   private decodeRolFrom(token: string): UserRole {
-  try {
-    const payloadBase64Url = token.split('.')[1];
-    const payloadJson = this.decodeBase64Url(payloadBase64Url);
-    const payload = JSON.parse(payloadJson);
-    
-    const rawRole: string = payload.role; // <-- AQUÍ
+    try {
+      const payloadBase64Url = token.split('.')[1];
+      const payloadJson = this.decodeBase64Url(payloadBase64Url);
+      const payload = JSON.parse(payloadJson);
 
-    if (!rawRole) {
-      return 'CLIENTE'; // logueado sin rol -> cliente por defecto
+      const rawRole: string = payload.role; // <-- AQUÍ
+
+      if (!rawRole) {
+        return 'CLIENTE'; // logueado sin rol -> cliente por defecto
+      }
+
+      // rawRole llega como "ROLE_DUENO"
+      const cleanRole = rawRole.replace('ROLE_', '');
+
+      const upperRole = cleanRole.toUpperCase();
+
+      if (upperRole === 'ADMIN') return 'ADMIN';
+      if (upperRole === 'DUENO') return 'DUENO';
+      if (upperRole === 'CLIENTE') return 'CLIENTE';
+
+      return 'CLIENTE';
+    } catch (e) {
+      console.error('Error al decodificar el token, volviendo a INVITADO', e);
+      this.handleLogout();
+      return 'INVITADO';
     }
-
-    // rawRole llega como "ROLE_DUENO"
-    const cleanRole = rawRole.replace('ROLE_', '');
-
-    const upperRole = cleanRole.toUpperCase();
-
-    if (upperRole === 'ADMIN') return 'ADMIN';
-    if (upperRole === 'DUENO') return 'DUENO';
-    if (upperRole === 'CLIENTE') return 'CLIENTE';
-
-    return 'CLIENTE';
-
-  } catch (e) {
-    console.error('Error al decodificar el token, volviendo a INVITADO', e);
-    this.handleLogout();
-    return 'INVITADO';
   }
-}
 
   // Decodificador para decodificar Base64Url (el formato que tiene JWT)
   private decodeBase64Url(base64Url: string): string {
@@ -130,7 +123,6 @@ export class AuthService {
   }
 
   public getToken(): string | null {
-  return localStorage.getItem(this.TOKEN_KEY) || sessionStorage.getItem(this.TOKEN_KEY);
-}
-
+    return localStorage.getItem(this.TOKEN_KEY) || sessionStorage.getItem(this.TOKEN_KEY);
+  }
 }

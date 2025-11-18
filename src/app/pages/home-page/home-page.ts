@@ -1,7 +1,6 @@
 import { Component, inject, effect, signal, OnInit } from '@angular/core';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { ViandaService } from '../../services/vianda-service';
-import { AuthService } from '../../services/auth-service';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EmprendimientoCard } from '../../components/emprendimiento-card/emprendimiento-card';
@@ -17,7 +16,6 @@ import { EmprendimientoCardSkeleton } from '../../components/emprendimiento-card
 export class HomePage implements OnInit {
   private emprendimientoService = inject(EmprendimientoService);
   private viandaService = inject(ViandaService);
-  authService = inject(AuthService);
 
   emprendimientos = signal<EmprendimientoConViandas[]>([]);
 

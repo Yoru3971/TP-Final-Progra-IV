@@ -14,7 +14,7 @@ export class EmprendimientoCard {
 
   @Input() emprendimiento!: EmprendimientoConViandas;
 
-  get allViandas() {
+  getallViandas() {
     return this.emprendimiento.viandas;
   }
 }

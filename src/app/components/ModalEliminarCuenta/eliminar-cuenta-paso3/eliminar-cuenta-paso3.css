@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  padding: 2.6rem;
+  border-radius: 1.2rem;
+  text-align: center;
+}
+
+.icono {
+  font-size: 4rem;
+  color: var(--eliminar-color);
+  margin-bottom: 1.4rem;
+}
+
+.titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 1.2rem;
+}
+
+.mensaje {
+  font-size: 1.45rem;
+  color: var(--text-color);
+  line-height: 1.6;
+  margin-bottom: 2.8rem;
+}
+
+.acciones {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-volver {
+  background-color: var(--link-color);
+  padding: 1rem 2.8rem;
+  font-size: 1.55rem;
+  border-radius: 0.6rem;
+}
+
+.btn-volver:hover {
+  background-color: var(--button-hover-bg);
+}

@@ -5,9 +5,11 @@ import { Login } from './pages/login/login';
 import { RegisterSuccessPage } from './pages/register-success-page/register-success-page';
 import { HomePage } from './pages/home-page/home-page';
 import { CrearEmprendimientoPageDueno } from './pages/crear-emprendimiento-page-dueno/crear-emprendimiento-page-dueno';
+import { PerfilUsuario } from './pages/perfil-usuario/perfil-usuario';
 
 export const routes: Routes = [
   { path: 'home', component: HomePage },
+  {path: 'me', component: PerfilUsuario},
   {
     path: 'registro/dueno',
     component: RegisterPageDueno,
