@@ -45,7 +45,7 @@ export class PedidosService {
       .pipe(
         catchError(err => {
           if (err.status !== 404) {
-            console.error('Error al cargar pedidos:', err.status);
+            console.error('Error al cargar pedidos:', err);
           }
           return of([]);
         })

@@ -151,7 +151,7 @@ app-root {
   border-radius: 0.5rem;
   cursor: pointer;
   transition: 0.2s ease;
-  align-self: center;
+  text-align: center;
 }
 
 .btn:hover {

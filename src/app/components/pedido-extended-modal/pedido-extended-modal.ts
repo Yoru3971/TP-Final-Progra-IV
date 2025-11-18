@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogTitle,
@@ -9,20 +9,33 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PedidoResponse } from '../../model/pedido-response.model';
 import { DatePipe } from '@angular/common';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-pedido-extended-modal',
   imports: [
     MatDialogTitle,
     MatDialogContent,
-    MatDialogClose,
     MatButtonModule,
     MatIconModule,
-    DatePipe
+    MatDialogClose,
+    DatePipe,
   ],
   templateUrl: './pedido-extended-modal.html',
   styleUrl: './pedido-extended-modal.css',
 })
 export class PedidoExtendedModal {
-    constructor(@Inject(MAT_DIALOG_DATA) public pedido: PedidoResponse) {}
+  private authService = inject(AuthService);
+  public role = this.authService.currentUserRole;
+  constructor(@Inject(MAT_DIALOG_DATA) public pedido: PedidoResponse) {}
+
+  aceptarPedido() {}
+
+  RechazarPedido() {}
+
+  cancelarPedido() {}
+
+  verDatosDueno() {}
+
+  verDatosCliente() {}
 }

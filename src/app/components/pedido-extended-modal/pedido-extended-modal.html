@@ -23,8 +23,6 @@
         </p>
       </div>
     </div>
-    } @empty {
-    <p class="sin-viandas">No hay viandas registradas en este pedido.</p>
     }
   </div>
 
@@ -43,11 +41,24 @@
     </div>
 
     <div class="acciones">
-      <button class="btn btn-aceptar">Aceptar</button>
+      @if ((role() === 'CLIENTE') && (pedido.estado === 'PENDIENTE')) {
+      <button class="btn btn-rechazar">CANCELAR PEDIDO</button>
 
-      <button class="btn btn-rechazar">Rechazar</button>
+      } @if ((role() === 'DUENO') && (pedido.estado === 'PENDIENTE')) {
+      <button class="btn btn-aceptar">ACEPTAR PEDIDO</button>
+      <button class="btn btn-rechazar">RECHAZAR PEDIDO</button>
 
-      <button mat-dialog-close class="btn btn-cancelar">Cerrar</button>
+      } 
+      
+      @if (role() === 'CLIENTE') {
+      <button class="btn" (click)="verDatosDueno()">CONTACTAR</button>
+      } 
+      
+      @if (role() === 'DUENO') {
+      <button class="btn" (click)="verDatosCliente()">CONTACTAR</button>
+      }
+
+      <button mat-dialog-close class="btn btn-cancelar">CERRAR</button>
     </div>
   </div>
 </mat-dialog-content>
