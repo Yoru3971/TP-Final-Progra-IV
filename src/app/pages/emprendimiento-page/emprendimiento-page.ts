@@ -73,5 +73,13 @@ export class EmprendimientoPage implements OnInit {
       }
     });
   }
+
+  abrirModalEditarEmprendimiento() {
+    console.log('Abre modal de edición');   //  AGREGAR abrir modal de edición del emprendimiento
+  }
+
+  abrirModalCarrito() {
+    console.log('Abre carrito');    //  AGREGAR abrir modal carrito
+  }
   
 }

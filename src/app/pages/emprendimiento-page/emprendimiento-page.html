@@ -1,7 +1,10 @@
 
 @if (emprendimiento) {
 
-    <app-emprendimiento-info>
+    <app-emprendimiento-info
+        [datos]="emprendimiento"
+        [modo]="esDueno ? 'dueno' : 'cliente'"
+        (accionPrincipal)="esDueno ? abrirModalEditarEmprendimiento() : abrirModalCarrito()">
     </app-emprendimiento-info>
 
     <app-filtros-vianda>
@@ -15,5 +18,5 @@
     </div>
 
 } @else {
-    <p>Cargando...</p>      // AGREGAR esqueleto de carga
+    <p>Cargando...</p>      <!-- AGREGAR esqueleto de carga? o mensaje de "no hay emprendimientos?" -->
 }
