@@ -24,7 +24,5 @@ import { ViandaResponse } from '../../../model/vianda-response.model';
   styleUrl: './vianda-extended-modal.css',
 })
 export class ViandaExtendedModal {
-  constructor(
-  @Inject(MAT_DIALOG_DATA) public vianda: ViandaResponse
-) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public vianda: ViandaResponse) {}
 }
