@@ -27,7 +27,17 @@ export class EmprendimientoService {
 
   private getApiUrl(): string {
     const rol: UserRole = this.authService.currentUserRole();
-    return rol === 'DUENO' ? this.baseUrls.DUENO : this.baseUrls.PUBLIC;
+
+    switch (rol) {
+      case 'DUENO':
+        return this.baseUrls.DUENO;
+
+      case 'CLIENTE':
+        return this.baseUrls.CLIENTE;
+
+      default:
+        return this.baseUrls.PUBLIC;
+    }
   }
 
   //función para cargar todos los emprendimientos
