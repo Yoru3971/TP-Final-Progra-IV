@@ -4,16 +4,22 @@
   </h2>
 
   @if (usuario(); as u) {
-  <div class="perfil-grid">
-    @if (usuario(); as u) {
+  <div class="perfil-layout">
+    <section class="col-izquierda">
+      <app-notificaciones-card></app-notificaciones-card>
+    </section>
 
-    <app-notificaciones-card class="notificaciones"></app-notificaciones-card>
+    <section class="col-derecha">
+      <div class="fila-superior">
+        <app-datos-usuario-card [usuario]="u"> </app-datos-usuario-card>
 
-    <app-datos-usuario-card class="datos" [usuario]="u"></app-datos-usuario-card>
-    <app-panel-acciones-cuenta class="cuenta"></app-panel-acciones-cuenta>
+        <app-panel-acciones-cuenta></app-panel-acciones-cuenta>
+      </div>
 
-    <app-pedidos-card class="pedidos"></app-pedidos-card>
-    }
+      <div class="fila-inferior">
+        <app-pedidos-card></app-pedidos-card>
+      </div>
+    </section>
   </div>
   }
 </div>
