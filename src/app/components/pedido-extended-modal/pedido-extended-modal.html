@@ -42,20 +42,22 @@
 
     <div class="acciones">
       @if ((role() === 'CLIENTE') && (pedido.estado === 'PENDIENTE')) {
-      <button class="btn btn-rechazar">CANCELAR PEDIDO</button>
+      <button class="btn btn-rechazar" (click)="cambiarEstadoPedido(EstadoPedido.CANCELADO)">
+        CANCELAR PEDIDO
+      </button>
 
       } @if ((role() === 'DUENO') && (pedido.estado === 'PENDIENTE')) {
-      <button class="btn btn-aceptar">ACEPTAR PEDIDO</button>
-      <button class="btn btn-rechazar">RECHAZAR PEDIDO</button>
+      <button class="btn btn-aceptar" (click)="cambiarEstadoPedido(EstadoPedido.ACEPTADO)">
+        ACEPTAR PEDIDO
+      </button>
+      <button class="btn btn-rechazar" (click)="cambiarEstadoPedido(EstadoPedido.RECHAZADO)">
+        RECHAZAR PEDIDO
+      </button>
 
-      } 
-      
-      @if (role() === 'CLIENTE') {
-      <button class="btn" (click)="verDatosDueno()">CONTACTAR</button>
-      } 
-      
-      @if (role() === 'DUENO') {
-      <button class="btn" (click)="verDatosCliente()">CONTACTAR</button>
+      } @if (role() === 'CLIENTE') {
+      <button class="btn" >CONTACTAR</button>
+      } @if (role() === 'DUENO') {
+      <button class="btn" >CONTACTAR</button>
       }
 
       <button mat-dialog-close class="btn btn-cancelar">CERRAR</button>
