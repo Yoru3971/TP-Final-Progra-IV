@@ -1,43 +1,80 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ViandaResponse } from '../model/vianda-response.model';
+import { AuthService, UserRole } from './auth-service';
+import { ViandaCreate } from '../model/vianda-create.model';
 import { FiltrosViandas } from '../model/filtros-viandas.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ViandaService {
-  private apiUrlPublic = 'http://localhost:8080/api/public/viandas';
-  private apiUrlCliente = 'http://localhost:8080/api/cliente/viandas';
-  private apiUrlDueno = 'http://localhost:8080/api/dueno/viandas';
+  private apiUrl = 'http://localhost:8080/api/public/viandas';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
+  private baseUrls = {
+    PUBLIC: 'http://localhost:8080/api/public/viandas',
+    DUENO: 'http://localhost:8080/api/dueno/viandas',
+    CLIENTE: 'http://localhost:8080/api/cliente/viandas',
+  };
+
+  // Selecciona endpoint según el rol
+  private getApiUrl(): string {
+    const rol: UserRole = this.authService.currentUserRole();
+
+    switch (rol) {
+      case 'DUENO':
+        return this.baseUrls.DUENO;
+
+      case 'CLIENTE':
+        return this.baseUrls.CLIENTE;
+
+      default:
+        return this.baseUrls.PUBLIC;
+    }
+  }
+
+  //Crear vianda (DUENO)
+  createVianda(formData: FormData) {
+    if (this.authService.currentUserRole() !== 'DUENO') {
+      throw new Error('Solo los dueños pueden crear viandas');
+    }
+
+    return this.http.post<ViandaCreate>(this.baseUrls.DUENO, formData);
+  }
+
+  //Actualizar vianda (DUENO)
+
+  //Actualizar imagen vianda (DUENO)
+
+  //Eliminar vianda (DUENO)
+
+  //Implementado en emprendimientoService / card
   //REVISAR Por ahora va asi, mas adelante evaluar si hace falta usar signals para cuando hagamos POST/PUT/DELETE
   getViandas() {
-    return this.http.get<ViandaResponse[]>(this.apiUrlPublic);
+    return this.http.get<ViandaResponse[]>(this.apiUrl);
   }
 
   getViandaById(id: number) {
-    const url = `${this.apiUrlPublic}/${id}`;
+    const url = `${this.apiUrl}/${id}`;
     return this.http.get<ViandaResponse>(url);
   }
 
   getViandasByEmprendimientoId(emprendimientoId: number) {
-  const url = `${this.apiUrlPublic}/idEmprendimiento/${emprendimientoId}`;
-  return this.http.get<ViandaResponse[]>(url);
+    const url = `${this.apiUrl}/idEmprendimiento/${emprendimientoId}`;
+    return this.http.get<ViandaResponse[]>(url);
   }
 
-
-  // -----------------  Métodos de Emprendimiento Page  -----------------
+    // -----------------  Métodos de Emprendimiento Page  -----------------
 
   // El cliente solo ve las viandas disponibles (+ filtros)
   getViandasCliente(idEmprendimiento: number, filtros?: FiltrosViandas): Observable<ViandaResponse[]> {
     const params = this.construirParams(filtros);
     
     return this.http.get<ViandaResponse[]>(
-      `${this.apiUrlCliente}/idEmprendimiento/${idEmprendimiento}`, 
+      `${this.baseUrls.CLIENTE}/idEmprendimiento/${idEmprendimiento}`, 
       { params }
     );
   }
@@ -47,7 +84,7 @@ export class ViandaService {
     const params = this.construirParams(filtros);
 
     return this.http.get<ViandaResponse[]>(
-      `${this.apiUrlDueno}/idEmprendimiento/${idEmprendimiento}`, 
+      `${this.baseUrls.DUENO}/idEmprendimiento/${idEmprendimiento}`, 
       { params }
     );
   }
