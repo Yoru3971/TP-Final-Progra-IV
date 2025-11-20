@@ -80,18 +80,7 @@
   padding: 2rem;
   /*Aca esta el scrollbar que se aplica automaticamente al llenarse horizontalmente*/
   overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #ccc transparent;
   scroll-behavior: smooth;
-}
-
-.viandas-container::-webkit-scrollbar {
-  height: 8px;
-}
-
-.viandas-container::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
 }
 
 app-vianda-card {

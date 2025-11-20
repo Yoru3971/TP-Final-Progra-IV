@@ -1,0 +1,15 @@
+<div class="notificaciones-container">
+  <h3 class="titulo-seccion">NOTIFICACIONES</h3>
+
+  <div class="notificaciones-card">
+    @if (lista.length === 0) {
+    <p class="sin-notificaciones">No tenés notificaciones recientes.</p>
+    } @if (lista.length > 0) {
+    <div class="lista">
+      @for (noti of lista; track noti.id) {
+      <app-notificacion-single-card [notificacion]="noti"></app-notificacion-single-card>
+      }
+    </div>
+    }
+  </div>
+</div>

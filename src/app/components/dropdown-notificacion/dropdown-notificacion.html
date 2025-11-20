@@ -1,46 +1,25 @@
 <div class="notificacion-wrapper">
-    <!-- le puse un emoji bien de nenazo -->
-    <button class="icon-btn" (click)="toggleDropdown()">
-        🔔
+  <button class="icon-btn" (click)="toggleDropdown()">
+    <i class="fa-solid fa-bell"></i>
 
-        <!-- muestro el total de notificaciones -->
-        @if (getCantidadNotificaciones() > 0) {
-            <span class="badge">{{ getCantidadNotificaciones() }}</span>
-        }
-    </button>
-
-
-    @if (isOpen()) {
-        <div class="dropdown-animacion">
-            <h4 class="titulo">Mis notificaciones</h4>
-
-            <div class="lista">
-                @if (getCantidadNotificaciones() > 0) {
-                    @for (noti of notificacionService.notificaciones(); track noti.id) {
-                    <div class="notificacion-card">
-                        <!-- mensaje -->
-                        <div class="mensaje">{{ noti.mensaje }}</div>
-                    
-                        <!-- id del emprendimiento (luego poner nombre REVISAR) -->
-                        <div class="nombre-emprendimiento">
-                            {{ noti.emprendimientoId }}
-                        </div>
-
-                        <!-- fecha -->
-                        <div>
-                            {{ noti.fechaEnviado.toString() }}
-                        </div>
-                    </div>
-                    }
-                } @else {
-                    <div class="sin-notificaciones">
-                        <p>No tiene notificaciones.</p>
-                    </div>
-                }
-            </div>
-
-            <!-- boton para ir a ver todas -->
-             <button class="ver-todas" (click)="verTodasNotificaciones()">Ver todas</button>
-        </div>
+    @if (firstOpen() && getCantidadNotificaciones() > 0) {
+    <span class="badge">{{ getCantidadNotificaciones() }}</span>
     }
+  </button>
+
+  @if (isOpen()) {
+  <div class="dropdown animate">
+    <h4 class="titulo">Mis notificaciones</h4>
+
+    <div class="lista">
+      @if (getCantidadNotificaciones() === 0) {
+      <p class="sin-notificaciones">Sin notificaciones recientes.</p>
+      } @else { @for (n of notificacionService.notificacionesOrdenadas(); track n.id) {
+      <app-notificacion-single-card [notificacion]="n"></app-notificacion-single-card>
+      } }
+    </div>
+
+    <button class="btn btn-ver" (click)="verTodasNotificaciones()">Ver todas</button>
+  </div>
+  }
 </div>

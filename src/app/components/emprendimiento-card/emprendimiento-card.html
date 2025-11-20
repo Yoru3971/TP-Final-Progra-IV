@@ -16,7 +16,7 @@
   </div>
 
   <div class="viandas-container">
-    @for (vianda of allViandas; track vianda.id) {
+    @for (vianda of getallViandas(); track vianda.id) {
     <app-vianda-card [vianda]="vianda"/>
     } @empty {
     <h2 class="no-viandas">Este emprendimiento no tiene viandas disponibles.</h2>
