@@ -7,8 +7,10 @@
         (accionPrincipal)="esDueno ? abrirModalEditarEmprendimiento() : abrirModalCarrito()">
     </app-emprendimiento-info>
 
-    <app-filtros-vianda>
-    </app-filtros-vianda>
+    <app-emprendimiento-filtros-viandas
+        [viandasIniciales]="viandasTotales"
+        (filtrosChanged)="onFiltrosChanged($event)">>
+    </app-emprendimiento-filtros-viandas>
 
     <div class="viandas-detalladas-grid">
         @for (vianda of viandas; track vianda.id) {

@@ -1,0 +1,109 @@
+.filtros-container {
+  width: 80%;
+  margin: 0 auto 3rem auto;
+}
+
+/* --- CATEGORÍAS (Filtro de arriba) --- */
+.categorias-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.chip-categoria {
+  background-color: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  padding: 10px 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.chip-categoria:hover {
+  background-color: #f9f9f9;
+}
+
+.chip-categoria.active {
+  background-color: #FFDAB9;
+  border-color: #FFDAB9;
+  color: #333;
+}
+
+/* --- FILTROS INFERIORES --- */
+.controles-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-box .icon-lupa {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ff9f43;
+}
+
+.dietary-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.icon-btn {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.icon-btn.active {
+  border-color: #333;
+  background-color: #333; /* Se oscurece al activar */
+  color: white;
+}
+
+.price-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.price-inputs input {
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  width: 100px;
+  text-align: center;
+  outline: none;
+  color: #aaa;
+}

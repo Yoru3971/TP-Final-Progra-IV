@@ -6,14 +6,15 @@ import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { ViandaService } from '../../services/vianda-service';
 import { ViandaResponse } from '../../model/vianda-response.model';
 import { EmprendimientoInfo } from '../../components/emprendimiento-info/emprendimiento-info';
-import { FiltrosVianda } from '../../components/filtros-vianda/filtros-vianda';
 import { ViandaCardDetallada } from '../../components/vianda-card-detallada/vianda-card-detallada';
+import { EmprendimientoFiltrosViandas } from '../../components/emprendimiento-filtros-viandas/emprendimiento-filtros-viandas';
+import { FiltrosViandas } from '../../model/filtros-viandas.model';
 
 @Component({
   selector: 'app-emprendimiento-page',
   imports: [
     EmprendimientoInfo,
-    FiltrosVianda,
+    EmprendimientoFiltrosViandas,
     ViandaCardDetallada
   ],
   templateUrl: './emprendimiento-page.html',
@@ -27,9 +28,11 @@ export class EmprendimientoPage implements OnInit {
   private viandaService = inject(ViandaService);
 
   emprendimiento: EmprendimientoResponse | null = null;
-  viandas: ViandaResponse[] = [];
+  viandas: ViandaResponse[] = [];             //  Estas son las viandas que se muestran en pantalla
+  viandasTotales: ViandaResponse[] = [];      //  Estas son todas las viandas del emprendimiento (sin filtrar)
+  filtrosActuales: FiltrosViandas | null = null;
 
-  esDueno: boolean = false;   // lo uso para manejar distintos modos en los componentes (según si es dueño o cliente)
+  esDueno: boolean = false;   // cambia el comportamiento de los componentes (según si es dueño o cliente)
 
 
   ngOnInit(): void {
@@ -50,30 +53,28 @@ export class EmprendimientoPage implements OnInit {
         const usuarioIdLogueado = this.authService.usuarioId();
         const rolUsuario = this.authService.currentUserRole();
 
-        // Verifico que sea dueño y que el emprendimiento pertenezca a ese dueño
-        if (rolUsuario === 'DUENO' && this.emprendimiento.dueno.id === usuarioIdLogueado) {
-          this.esDueno = true;
+        // Verifico si es dueño o cliente
+        if (rolUsuario === 'DUENO') {
+          if (this.emprendimiento.dueno.id === usuarioIdLogueado){
+            this.esDueno = true;
+          }else{
+            // AGREGAR page error (no le pertenece el emprendimiento)
+          }
+          
         } else {
           this.esDueno = false;
-        }     //  AGREGAR debería separar las condiciones (si no es dueño, es cliente 
-              //  pero si es dueño y no le pertenece, tiro error o que hago?)
+        }
+        
+        this.cargarViandasFiltradas();  // Levanto las viandas (la primera vez sin filtros)
       },
-      error: (err) => {     // AGREGAR manejar error (emprendimiento no existe)
+      error: (err) => {     // AGREGAR page error (el emprendimiento no existe)
         console.error('Error cargando emprendimiento', err);
       }
     });
 
-    // Levanto la información de las viandas
-    this.viandaService.getViandasByEmprendimientoId(id).subscribe({
-      next: (viandasData) => {
-        this.viandas = viandasData;
-      },
-      error: (err) => {     // AGREGAR manejar error (viandas no existen)
-        console.error('Error cargando viandas', err)
-      }
-    });
   }
 
+  //  -------------------  Componente: emprendimiento-info -------------------
   abrirModalEditarEmprendimiento() {
     console.log('Abre modal de edición');   //  AGREGAR abrir modal de edición del emprendimiento
   }
@@ -81,5 +82,41 @@ export class EmprendimientoPage implements OnInit {
   abrirModalCarrito() {
     console.log('Abre carrito');    //  AGREGAR abrir modal carrito
   }
+
+  //  -------------------  Componente: emprendimiento-filtros-viandas -------------------
+  onFiltrosChanged(filtro: FiltrosViandas) {
+    this.filtrosActuales = filtro;
+    this.cargarViandasFiltradas();
+  }
+
+  cargarViandasFiltradas() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const filtrosParaEnviar = this.filtrosActuales || {} as FiltrosViandas; 
+    let llamadaApi;
+
+    if (this.esDueno) {
+        // CASO 1: DUEÑO (Trae todas sus viandas)
+        llamadaApi = this.viandaService.getViandasDueno(id, filtrosParaEnviar);
+    } else {
+        // CASO 2: CLIENTE (Trae solo viandas disponibles)
+        llamadaApi = this.viandaService.getViandasCliente(id, filtrosParaEnviar);
+    }
+    
+    llamadaApi.subscribe({
+        next: (data) => {
+            this.viandas = data;
+            
+            if (!this.filtrosActuales || Object.values(this.filtrosActuales).every(v => v === null || v === '' || v === false)) {
+            this.viandasTotales = data; 
+        }
+        },
+        error: (err) => {
+            const backendMsg =
+            err.error?.message || err.error?.error || 'Error desconocido al filtrar viandas';
+
+          console.error(backendMsg);
+        }
+    });
+}
   
 }
