@@ -151,7 +151,7 @@ app-root {
   border-radius: 0.5rem;
   cursor: pointer;
   transition: 0.2s ease;
-  align-self: center;
+  text-align: center;
 }
 
 .btn:hover {
@@ -428,4 +428,47 @@ app-root {
 
 *::-webkit-scrollbar-thumb:hover {
   background: var(--scrollbar-hover-color);
+}
+
+/* --- MODAL PEDIDO --- */
+
+.cdk-overlay-pane.modal-pedido {
+  width: 95rem !important;
+  max-width: 95rem !important;
+}
+
+.modal-pedido .mat-mdc-dialog-surface {
+  border-radius: 2rem !important;
+  overflow: hidden !important;
+  background: var(--bg-color) !important;
+}
+
+.modal-pedido .mat-mdc-dialog-container {
+  padding: 0 !important;
+  background: none !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+}
+
+.modal-pedido .mat-mdc-dialog-title {
+  font-size: 3rem !important;
+  font-weight: bolder !important;
+  margin: 0 !important;
+  background: var(--emprendimiento-card-header-bg) !important;
+  color: var(--inverse-text-color) !important;
+  padding: 2rem 3rem !important;
+}
+
+.modal-pedido .mat-mdc-dialog-content {
+  display: flex !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 1.6rem;
+  color: var(--text-color);
+  min-height: 32rem;
+  max-height: 32rem;
+}
+
+.modal-pedido * {
+  font-family: 'Inria Sans', sans-serif !important;
 }

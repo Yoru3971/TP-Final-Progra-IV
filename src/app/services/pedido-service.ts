@@ -2,11 +2,11 @@ import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService, UserRole } from './auth-service';
 import { PedidoResponse } from '../model/pedido-response.model';
-import { catchError, of } from 'rxjs';
-
+import { catchError, of, tap } from 'rxjs';
+import { PedidoUpdateRequest } from '../model/pedido-update-request.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PedidosService {
   // Lista completa de pedidos del backend
@@ -18,7 +18,7 @@ export class PedidosService {
     return [...list].sort((a, b) => {
       const fa = new Date(a.fechaEntrega).getTime();
       const fb = new Date(b.fechaEntrega).getTime();
-      return fb - fa; 
+      return fb - fa;
     });
   });
 
@@ -43,15 +43,27 @@ export class PedidosService {
     this.http
       .get<PedidoResponse[]>(url)
       .pipe(
-        catchError(err => {
+        catchError((err) => {
           if (err.status !== 404) {
-            console.error('Error al cargar pedidos:', err.status);
+            console.error('Error al cargar pedidos:', err);
           }
           return of([]);
         })
       )
-      .subscribe(result => {
+      .subscribe((result) => {
         setTimeout(() => this.allPedidos.set(result));
       });
+  }
+
+  updatePedido(id: number, pedidoUpdate: PedidoUpdateRequest) {
+    const url = `${this.getApiUrl()}/id/${id}`;
+
+    return this.http
+      .put<PedidoResponse>(url, pedidoUpdate)
+      .pipe(
+        tap((actualizado) =>
+          this.allPedidos.update((list) => list.map((p) => (p.id === id ? actualizado : p)))
+        )
+      );
   }
 }

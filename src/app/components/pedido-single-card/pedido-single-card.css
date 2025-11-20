@@ -4,11 +4,11 @@
 }
 
 .pedido-item {
-  padding: 1.4rem 0;
+  padding: 1.8rem 0;
   border-bottom: 0.1rem solid var(--input-border);
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
   transition: 0.15s ease;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .pedido-item:hover {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(0, 0, 0, 0.025);
 }
 
 .info {
@@ -25,29 +25,35 @@
 }
 
 .id {
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.8rem 0;
   color: var(--text-color);
-  font-weight: bold;
+  font-size: 1.55rem; 
+  font-weight: 700;
+}
+
+.id span.nombre-emprendimiento {
+  color: var(--link-color);
+  font-weight: 700;
 }
 
 .linea {
-  margin: 0.2rem 0;
+  margin: 0.6rem 0; 
   color: var(--text-color);
-  font-size: 1.4rem;
+  font-size: 1.45rem; 
 }
 
 .label {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .precio {
   color: var(--link-color);
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .estado span {
-  font-size: 1.3rem;
-  font-weight: bold;
+  font-size: 1.35rem;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -64,6 +70,7 @@
 }
 
 .btn-ver {
-  padding: 0.6rem 1.4rem;
-  font-size: 1.3rem;
+  padding: 0.65rem 1.6rem;
+  font-size: 1.35rem;
+  transition: transform 0.15s ease;
 }
