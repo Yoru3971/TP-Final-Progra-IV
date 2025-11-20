@@ -1,19 +1,19 @@
 
-@if (emprendimiento) {
+@if (emprendimiento(); as datosEmprendimiento) {
 
     <app-emprendimiento-info
-        [datos]="emprendimiento"
-        [modo]="esDueno ? 'dueno' : 'cliente'"
-        (accionPrincipal)="esDueno ? abrirModalEditarEmprendimiento() : abrirModalCarrito()">
+        [datos]="datosEmprendimiento"
+        [modo]="esDueno() ? 'dueno' : 'cliente'"
+        (accionPrincipal)="esDueno() ? abrirModalEditarEmprendimiento() : abrirModalCarrito()">
     </app-emprendimiento-info>
 
     <app-emprendimiento-filtros-viandas
-        [viandasIniciales]="viandasTotales"
+        [viandasIniciales]="viandasTotales()"
         (filtrosChanged)="onFiltrosChanged($event)">>
     </app-emprendimiento-filtros-viandas>
 
     <div class="viandas-detalladas-grid">
-        @for (vianda of viandas; track vianda.id) {
+        @for (vianda of viandas(); track vianda.id) {
         <app-vianda-card-detallada>
         </app-vianda-card-detallada>
         }

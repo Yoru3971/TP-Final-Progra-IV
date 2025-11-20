@@ -54,13 +54,13 @@
             type="number" 
             placeholder="precio minimo" 
             [ngModel]="precioMin()"
-            (ngModelChange)="precioMin.set($event)">
+            (ngModelChange)="updatePrecio('min', $event)">
         
         <input 
             type="number" 
             placeholder="precio maximo"
             [ngModel]="precioMax()"
-            (ngModelChange)="precioMax.set($event)">
+            (ngModelChange)="updatePrecio('max', $event)">
         </div>
 
     </div>

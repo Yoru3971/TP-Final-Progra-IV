@@ -33,7 +33,7 @@ export class EmprendimientoFiltrosViandas {
     return [...new Set(categorias)];    // Uso Set para eliminar duplicados
   });
 
-  // Leve retraso en la busqueda por nombre para evitar buscar pal instante al tipear
+  // Leve retraso en la busqueda por nombre para evitar buscar al instante al tipear
   private debounceTimer: any;
   onSearchInput(texto: string) {
     this.busqueda.set(texto);
@@ -71,10 +71,17 @@ export class EmprendimientoFiltrosViandas {
     this.emitirFiltros();
   }
 
-  updatePrecio(tipo: 'min' | 'max', valor: number) {
+  // Leve retraso en la busqueda por precio (igual al de nombre)
+  private precioDebounceTimer: any;
+  updatePrecio(tipo: 'min' | 'max', valor: number | null) {
+
       if (tipo === 'min') this.precioMin.set(valor);
       if (tipo === 'max') this.precioMax.set(valor);
-      this.emitirFiltros();
+
+      clearTimeout(this.precioDebounceTimer);
+      this.precioDebounceTimer = setTimeout(() => {
+        this.emitirFiltros();
+      }, 500);
   }
 
 }

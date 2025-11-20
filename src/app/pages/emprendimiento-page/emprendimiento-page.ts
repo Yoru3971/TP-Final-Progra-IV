@@ -1,14 +1,15 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
-import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { ViandaService } from '../../services/vianda-service';
-import { ViandaResponse } from '../../model/vianda-response.model';
 import { EmprendimientoInfo } from '../../components/emprendimiento-info/emprendimiento-info';
 import { ViandaCardDetallada } from '../../components/vianda-card-detallada/vianda-card-detallada';
 import { EmprendimientoFiltrosViandas } from '../../components/emprendimiento-filtros-viandas/emprendimiento-filtros-viandas';
 import { FiltrosViandas } from '../../model/filtros-viandas.model';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { catchError, Observable, of, switchMap } from 'rxjs';
+import { ViandaResponse } from '../../model/vianda-response.model';
 
 @Component({
   selector: 'app-emprendimiento-page',
@@ -20,59 +21,138 @@ import { FiltrosViandas } from '../../model/filtros-viandas.model';
   templateUrl: './emprendimiento-page.html',
   styleUrl: './emprendimiento-page.css',
 })
-export class EmprendimientoPage implements OnInit {
+export class EmprendimientoPage {
 
   private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
   private emprendimientoService = inject(EmprendimientoService);
   private viandaService = inject(ViandaService);
+  private routeParams = toSignal(this.route.paramMap);
 
-  emprendimiento: EmprendimientoResponse | null = null;
-  viandas: ViandaResponse[] = [];             //  Estas son las viandas que se muestran en pantalla
-  viandasTotales: ViandaResponse[] = [];      //  Estas son todas las viandas del emprendimiento (sin filtrar)
-  filtrosActuales: FiltrosViandas | null = null;
+  //  Uso signals para idEmprendimiento, emprendimiento y esDueno (si algo cambia, se actualiza todo automáticamente)
+  idEmprendimiento = computed(() => {
+    const id = this.routeParams()?.get('id');
+    return id ? Number(id) : null;
+  });
 
-  esDueno: boolean = false;   // cambia el comportamiento de los componentes (según si es dueño o cliente)
+  emprendimiento = toSignal(
+    toObservable(this.idEmprendimiento).pipe(
+      switchMap(id => {
+        if (!id) return of(null);
+        return this.emprendimientoService.getEmprendimientoById(id).pipe(
+          catchError(err => {
+            console.error('Error cargando emprendimiento', err);
+            return of(null);
+          })
+        );
+      })
+    )
+  );
 
+  esDueno = computed(() => {      // cambia el comportamiento de los componentes (según si es dueño o cliente)
+    const emp = this.emprendimiento();
+    const userId = this.authService.usuarioId();
+    const userRole = this.authService.currentUserRole();
 
-  ngOnInit(): void {
-    const idEmprendimiento = this.route.snapshot.paramMap.get('id');
-    
-    if (idEmprendimiento) {
-      this.cargarDatos(+idEmprendimiento);
+    if (emp && userRole === 'DUENO' && emp.dueno.id === userId) {
+      return true;
     }
-  }
+    return false;
+  });
 
-  cargarDatos(id: number) {
+  private esDuenoAjeno = computed(() => {
+    const emp = this.emprendimiento();
+    const userRole = this.authService.currentUserRole();
 
-    // Levanto la información del Emprendimiento
-    this.emprendimientoService.getEmprendimientoById(id).subscribe({
-      next: (data) => {
-        this.emprendimiento = data;
+    // Si todavía no cargó el emprendimiento, no puedo saber si es dueño ajeno (esto evita falsos positivos)
+    if (!emp) return false;
 
-        const usuarioIdLogueado = this.authService.usuarioId();
-        const rolUsuario = this.authService.currentUserRole();
+    // Es dueño PERO no es el dueño de este local
+    return userRole === 'DUENO' && !this.esDueno();     //  AGREGAR page de error 403 si intenta acceder siendo dueño ajeno (no sé donde va)
+  });
 
-        // Verifico si es dueño o cliente
-        if (rolUsuario === 'DUENO') {
-          if (this.emprendimiento.dueno.id === usuarioIdLogueado){
-            this.esDueno = true;
-          }else{
-            // AGREGAR page error (no le pertenece el emprendimiento)
-          }
-          
-        } else {
-          this.esDueno = false;
+  //  Signal que contiene los filtros actuales
+  filtrosSignal = signal<FiltrosViandas>({} as FiltrosViandas);
+  
+  // Uso un computed para agrupar todas las cosas que "disparan" una recarga
+  private triggerViandas = computed(() => {
+    return {
+      id: this.idEmprendimiento(),
+      filtros: this.filtrosSignal(),
+      esDueno: this.esDueno(),
+      esDuenoAjeno: this.esDuenoAjeno(),
+      emp: this.emprendimiento()
+    };
+  });
+
+  // Convierto el trigger en un Observable (llama a la API y devuelve las viandas que muestro en pantalla)
+  viandas = toSignal(
+    toObservable(this.triggerViandas).pipe(
+      switchMap(({ id, filtros, esDueno, esDuenoAjeno, emp }) => {
+
+        if (!id || !emp) return of([] as ViandaResponse[]);
+
+        if (esDuenoAjeno) {
+            console.warn('Bloqueando carga de viandas: Usuario es dueño de otro local.');
+            return of([] as ViandaResponse[]);
         }
-        
-        this.cargarViandasFiltradas();  // Levanto las viandas (la primera vez sin filtros)
-      },
-      error: (err) => {     // AGREGAR page error (el emprendimiento no existe)
-        console.error('Error cargando emprendimiento', err);
-      }
-    });
 
-  }
+        let request$: Observable<ViandaResponse[]>;
+        if (esDueno) {
+          request$ = this.viandaService.getViandasDueno(id, filtros);
+        } else {
+          request$ = this.viandaService.getViandasCliente(id, filtros);
+        }
+
+        return request$.pipe(
+          catchError(err => {
+            console.error('Error cargando viandas (posiblemente sin resultados)', err);
+            return of([] as ViandaResponse[]); 
+          })
+        );
+
+      }),
+      
+    ), 
+    { initialValue: [] as ViandaResponse[] }
+  );
+
+  private triggerViandasTotales = computed(() => {
+    return {
+      id: this.idEmprendimiento(),
+      esDueno: this.esDueno(),
+      esDuenoAjeno: this.esDuenoAjeno(),
+      emp: this.emprendimiento()
+    };
+  });
+
+  //  Uso viandasTotales para tener las categorías disponibles en los filtros
+  //  (Lo necesito porque las categorías se obtienen dinámicamente)
+  viandasTotales = toSignal(
+    toObservable(this.triggerViandasTotales).pipe(
+      switchMap(({ id, esDueno, esDuenoAjeno, emp }) => {
+
+        if (!id || !emp) return of([] as ViandaResponse[]);
+
+        if (esDuenoAjeno) {
+            return of([] as ViandaResponse[]); 
+        }
+
+        let request$: Observable<ViandaResponse[]>;
+        
+        if (esDueno) {
+            request$ = this.viandaService.getViandasDueno(id);
+        }else {
+            request$ = this.viandaService.getViandasCliente(id);
+        }
+
+        return request$.pipe(
+          catchError(() => of([] as ViandaResponse[])) 
+        );
+      })
+    ),
+    { initialValue: [] as ViandaResponse[] }
+  );
 
   //  -------------------  Componente: emprendimiento-info -------------------
   abrirModalEditarEmprendimiento() {
@@ -84,39 +164,8 @@ export class EmprendimientoPage implements OnInit {
   }
 
   //  -------------------  Componente: emprendimiento-filtros-viandas -------------------
-  onFiltrosChanged(filtro: FiltrosViandas) {
-    this.filtrosActuales = filtro;
-    this.cargarViandasFiltradas();
+  onFiltrosChanged(nuevosFiltros: FiltrosViandas) {
+    this.filtrosSignal.set(nuevosFiltros);
   }
-
-  cargarViandasFiltradas() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    const filtrosParaEnviar = this.filtrosActuales || {} as FiltrosViandas; 
-    let llamadaApi;
-
-    if (this.esDueno) {
-        // CASO 1: DUEÑO (Trae todas sus viandas)
-        llamadaApi = this.viandaService.getViandasDueno(id, filtrosParaEnviar);
-    } else {
-        // CASO 2: CLIENTE (Trae solo viandas disponibles)
-        llamadaApi = this.viandaService.getViandasCliente(id, filtrosParaEnviar);
-    }
-    
-    llamadaApi.subscribe({
-        next: (data) => {
-            this.viandas = data;
-            
-            if (!this.filtrosActuales || Object.values(this.filtrosActuales).every(v => v === null || v === '' || v === false)) {
-            this.viandasTotales = data; 
-        }
-        },
-        error: (err) => {
-            const backendMsg =
-            err.error?.message || err.error?.error || 'Error desconocido al filtrar viandas';
-
-          console.error(backendMsg);
-        }
-    });
-}
   
 }

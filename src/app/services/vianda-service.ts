@@ -29,12 +29,15 @@ export class ViandaService {
   return this.http.get<ViandaResponse[]>(url);
   }
 
+
+  // -----------------  Métodos de Emprendimiento Page  -----------------
+
   // El cliente solo ve las viandas disponibles (+ filtros)
   getViandasCliente(idEmprendimiento: number, filtros?: FiltrosViandas): Observable<ViandaResponse[]> {
     const params = this.construirParams(filtros);
     
     return this.http.get<ViandaResponse[]>(
-      `${this.apiUrlCliente}/${idEmprendimiento}`, 
+      `${this.apiUrlCliente}/idEmprendimiento/${idEmprendimiento}`, 
       { params }
     );
   }
