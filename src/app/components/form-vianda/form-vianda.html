@@ -27,10 +27,16 @@
       <div class="form-field">
         <label for="categoria" class="form-label">Categoría</label>
 
-        <select formControlName="categoria" class="form-input">
-          <option [ngValue]="null">--Seleccione--</option>
+        <select 
+          formControlName="categoria" 
+          class="form-input"
+          [class.placeholder-text]="formVianda.get('categoria')?.value === null"
+        >
+          <!-- Aplicamos la clase "placeholder-option" solo a esta opción -->
+          <option [ngValue]="null" class="placeholder-option">-- Seleccionar --</option>
 
           @for (cat of categorias; track cat.key) {
+          <!-- Las demás opciones NO deben tener la clase -->
           <option [value]="cat.key">{{ cat.label }}</option>
           }
         </select>

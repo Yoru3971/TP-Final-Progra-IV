@@ -41,6 +41,24 @@
     width: 100%;
 }
 
+/* --- ESTILOS DE PLACEHOLDER SELECT (FINAL) --- */
+.form-input.placeholder-text {
+    color: silver !important;
+    
+}
+
+.form-input:not(.placeholder-text) {
+    color: var(--input-text);
+}
+
+.form-input option.placeholder-option {
+    color: #888;
+}
+
+.form-input option:not(.placeholder-option) {
+    color: var(--input-text);
+}
+
 /* --- ESTILOS DE CARGA DE IMAGEN CON PREVIEW --- */
 
 /* Oculta el input de archivo nativo */
