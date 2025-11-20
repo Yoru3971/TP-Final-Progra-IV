@@ -1,8 +1,10 @@
 import { Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ViandaResponse } from '../model/vianda-response.model';
 import { AuthService, UserRole } from './auth-service';
 import { ViandaCreate } from '../model/vianda-create.model';
+import { FiltrosViandas } from '../model/filtros-viandas.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -63,5 +65,45 @@ export class ViandaService {
   getViandasByEmprendimientoId(emprendimientoId: number) {
     const url = `${this.apiUrl}/idEmprendimiento/${emprendimientoId}`;
     return this.http.get<ViandaResponse[]>(url);
+  }
+
+    // -----------------  Métodos de Emprendimiento Page  -----------------
+
+  // El cliente solo ve las viandas disponibles (+ filtros)
+  getViandasCliente(idEmprendimiento: number, filtros?: FiltrosViandas): Observable<ViandaResponse[]> {
+    const params = this.construirParams(filtros);
+    
+    return this.http.get<ViandaResponse[]>(
+      `${this.baseUrls.CLIENTE}/idEmprendimiento/${idEmprendimiento}`, 
+      { params }
+    );
+  }
+
+  // El dueño ve todas sus viandas (+ filtros)
+  getViandasDueno(idEmprendimiento: number, filtros?: FiltrosViandas): Observable<ViandaResponse[]> {
+    const params = this.construirParams(filtros);
+
+    return this.http.get<ViandaResponse[]>(
+      `${this.baseUrls.DUENO}/idEmprendimiento/${idEmprendimiento}`, 
+      { params }
+    );
+  }
+
+  //  Limpia basura del filtro y lo transforma a parámetros HTTP
+  private construirParams(filtros?: FiltrosViandas): HttpParams {
+    let params = new HttpParams();
+
+    if (filtros) {
+      if (filtros.nombreVianda) params = params.set('nombreVianda', filtros.nombreVianda);
+      if (filtros.categoria) params = params.set('categoria', filtros.categoria);
+      if (filtros.esVegano) params = params.set('esVegano', true);
+      if (filtros.esVegetariano) params = params.set('esVegetariano', true);
+      if (filtros.esSinTacc) params = params.set('esSinTacc', true);
+      if (filtros.precioMin != null) params = params.set('precioMin', filtros.precioMin);
+      if (filtros.precioMax != null) params = params.set('precioMax', filtros.precioMax);
+      if (filtros.estaDisponible != null) params = params.set('estaDisponible', filtros.estaDisponible);
+    }
+
+    return params;
   }
 }

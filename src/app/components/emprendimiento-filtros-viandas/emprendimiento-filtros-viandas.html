@@ -1,0 +1,67 @@
+
+<div class="filtros-container">
+
+    <div class="categorias-wrapper">
+        @for (cat of categoriasDisponibles(); track cat) {
+        <button 
+            class="chip-categoria"
+            [class.active]="categoriaSeleccionada() === cat"
+            (click)="toggleCategoria(cat)">
+            {{ cat }}
+        </button>
+        }
+    </div>
+
+    <div class="controles-bottom">
+        
+        <div class="search-box">
+        <i class="icon-lupa">🔍</i>
+        <input 
+            type="text" 
+            placeholder="Buscar..." 
+            [ngModel]="busqueda()"
+            (ngModelChange)="onSearchInput($event)">
+        </div>
+
+        <div class="dietary-icons">
+        <button 
+            class="icon-btn" 
+            [class.active]="esSinTacc()" 
+            (click)="toggleDietary('sintacc')"
+            title="Sin TACC">
+            🌾🚫
+        </button>
+        
+        <button 
+            class="icon-btn" 
+            [class.active]="esVegano()" 
+            (click)="toggleDietary('vegano')"
+            title="Vegano">
+            🥦
+        </button>
+
+        <button 
+            class="icon-btn" 
+            [class.active]="esVegetariano()" 
+            (click)="toggleDietary('vegetariano')"
+            title="Vegetariano">
+            🥬
+        </button>
+        </div>
+
+        <div class="price-inputs">
+        <input 
+            type="number" 
+            placeholder="precio minimo" 
+            [ngModel]="precioMin()"
+            (ngModelChange)="updatePrecio('min', $event)">
+        
+        <input 
+            type="number" 
+            placeholder="precio maximo"
+            [ngModel]="precioMax()"
+            (ngModelChange)="updatePrecio('max', $event)">
+        </div>
+
+    </div>
+</div>
