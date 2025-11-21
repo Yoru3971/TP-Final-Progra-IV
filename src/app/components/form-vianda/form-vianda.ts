@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ViandaService } from '../../services/vianda-service';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CategoriaVianda } from '../../shared/enums/categoriaVianda.enum';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -21,6 +21,7 @@ export class FormVianda {
   private router = inject(Router);
   private viandaService = inject(ViandaService);
   private dialog = inject(MatDialog);
+  private dialogRef = inject(MatDialogRef);
   private cdr = inject(ChangeDetectorRef); //agregado para forzar render
 
   public categorias = Object.entries(CategoriaVianda).map(([key, label]) => ({
@@ -144,6 +145,10 @@ export class FormVianda {
         });
       },
     });
+  }
+
+  cerrarModal(){
+    this.dialogRef.close();
   }
 }
 
