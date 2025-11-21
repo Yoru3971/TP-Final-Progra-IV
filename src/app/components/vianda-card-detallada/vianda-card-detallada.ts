@@ -1,6 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { ViandaResponse } from '../../model/vianda-response.model';
 import { CurrencyPipe } from '@angular/common';
+import { PageMode } from '../../pages/emprendimiento-page/emprendimiento-page';
 
 @Component({
   selector: 'app-vianda-card-detallada',
@@ -10,29 +11,19 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class ViandaCardDetallada {
 
-  // REVISAR si esto queda así o va en otro lado (carrito)
   vianda = input.required<ViandaResponse>();
-  modo = input.required<'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO'>();
+  modo = input.required<PageMode>();
   
-  cantidad = input<number>(0); 
+  // La cantidad la manda el carrito (creo)
+  cantidad = input<number>(0);
 
-  editar = output<ViandaResponse>(); 
-  cantidadChange = output<number>();
+  // Dueño
+  editar = output<void>();
+  // Cliente/Invitado
+  agregar = output<void>();
+  quitar = output<void>();
 
   esDueno() {
     return this.modo() === 'DUENO';
   }
-
-  incrementar() {
-    const nuevaCantidad = this.cantidad() + 1;
-    this.cantidadChange.emit(nuevaCantidad);
-  }
-
-  decrementar() {
-    if (this.cantidad() > 0) {
-      const nuevaCantidad = this.cantidad() - 1;
-      this.cantidadChange.emit(nuevaCantidad);
-    }
-  }
-
 }

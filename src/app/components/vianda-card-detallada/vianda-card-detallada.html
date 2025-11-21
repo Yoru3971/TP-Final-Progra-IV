@@ -67,12 +67,12 @@
             }
         </div>
 
-            <!-- DERECHA: Acciones (Dueño vs Cliente) -->
+            <!-- DERECHA: Acciones (Dueño vs Cliente/Invitado) -->
             <div>
             @if (esDueno()) {
                 <!-- MODO DUEÑO: Botón Editar (Lápiz) -->
                 <button 
-                    (click)="editar.emit(vianda())"
+                    (click)="editar.emit()"
                     class="btn-edit"
                     title="Editar plato">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -81,12 +81,12 @@
                 </button>
 
             } @else {
-                <!-- MODO CLIENTE: Selector de Cantidad (+ -) -->
+                <!-- MODO CLIENTE / INVITADO: Selector de Cantidad (+ -) -->
                 <div class="quantity-selector">
                 
                     <!-- Botón Menos -->
                     <button 
-                    (click)="decrementar()"
+                    (click)="quitar.emit()"
                     class="btn-qty"
                     [disabled]="cantidad() <= 0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -95,13 +95,11 @@
                     </button>
 
                     <!-- Número -->
-                    <span class="qty-value">
-                    {{ cantidad() }}
-                    </span>
+                    <span class="qty-value">{{ cantidad() }}</span>
 
                     <!-- Botón Más -->
                     <button 
-                    (click)="incrementar()"
+                    (click)="agregar.emit()"
                     class="btn-qty"
                     >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">

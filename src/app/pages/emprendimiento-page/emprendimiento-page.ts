@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { SnackbarData } from '../../model/snackbar-data.model';
 
-type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
+export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
 
 @Component({
   selector: 'app-emprendimiento-page',
@@ -213,6 +213,51 @@ export class EmprendimientoPage {
 
   //  -------------------  Componente: vianda-card-detallada -------------------
 
+  obtenerCantidadEnCarrito(idVianda: number): number {
+    // AGREGAR lógica para obtener la cantidad del carrito
+    // (Imagino que si no existe un carrito, devuelve 0)
+    // (Y que si existe, pero la vianda no está, también devuelve 0)
+    return 0;
+  }
+
+  handleAgregarVianda(vianda: ViandaResponse) {
+    const modo = this.modoVista();
+
+    if (modo === 'INVITADO') {
+      this.abrirSnackbarLoginRequerido();
+      return;
+    }
+
+    if (modo === 'CLIENTE') {
+      console.log('Agregando al carrito:', vianda.nombreVianda);    // AGREGAR lógica para agregar la vianda al carrito
+    }
+  }
+
+  handleQuitarVianda(vianda: ViandaResponse) {
+    const modo = this.modoVista();
+
+    if (modo === 'INVITADO') {
+      this.abrirSnackbarLoginRequerido();
+      return;
+    }
+
+    if (modo === 'CLIENTE') {
+      console.log('Quitando del carrito:', vianda.nombreVianda);    // AGREGAR lógica para quitar la vianda del carrito
+    }
+  }
+
+  handleEditarVianda(vianda: ViandaResponse) {
+    console.log('Abriendo modal editar vianda:', vianda.nombreVianda);  //  AGREGAR abrir modal edición vianda
+    
+    //  Esto de acá abajo es CINE: recargo las viandas si se cambió algo
+    /*
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              this.filtrosSignal.update(f => ({...f}));
+            }
+          });
+    */
+  }
 
   
 }
