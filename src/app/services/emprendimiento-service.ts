@@ -1,13 +1,15 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EmprendimientoResponse } from '../model/emprendimiento-response.model';
-import { catchError, of, tap } from 'rxjs';
+import { catchError, forkJoin, map, of, tap } from 'rxjs';
 import { AuthService, UserRole } from './auth-service';
 import { CityFilterService } from './city-filter-service';
+import { ViandaService } from './vianda-service';
 
 @Injectable({ providedIn: 'root' })
 export class EmprendimientoService {
   private cityFilter = inject(CityFilterService);
+  private viandaService = inject(ViandaService);
   public allEmprendimientos = signal<EmprendimientoResponse[]>([]);
 
   //señal publica que siempre refleja los emprendimientos filtrados por ciudad
@@ -57,7 +59,28 @@ export class EmprendimientoService {
         setTimeout(() => this.allEmprendimientos.set(result));
       });
   }
-  
+
+  public emprendimientosConViandas = computed(() => {
+    const emps = this.emprendimientos(); // ya está filtrado por ciudad
+    return emps;
+  });
+
+  loadEmprendimientosConViandas() {
+    const emps = this.emprendimientos();
+    if (emps.length === 0) {
+      return of([]);
+    }
+
+    const requests = emps.map((e) =>
+      this.viandaService.getViandasByEmprendimientoId(e.id).pipe(
+        catchError(() => of([])),
+        map((viandas) => ({ ...e, viandas }))
+      )
+    );
+
+    return forkJoin(requests);
+  }
+
   getEmprendimientoById(id: number) {
     const url = this.getApiUrl();
     return this.http.get<EmprendimientoResponse>(`${url}/id/${id}`);
