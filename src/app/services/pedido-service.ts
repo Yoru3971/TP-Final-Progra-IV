@@ -14,8 +14,8 @@ export class PedidosService {
 
   // Pedidos ordenados DESC por fechaEntrega (más reciente primero)
   public pedidosOrdenados = computed(() => {
-    const list = this.allPedidos();
-    return [...list].sort((a, b) => {
+    const list = [...this.allPedidos()];
+    return list.sort((a, b) => {
       const fa = new Date(a.fechaEntrega).getTime();
       const fb = new Date(b.fechaEntrega).getTime();
       return fb - fa;
@@ -51,7 +51,7 @@ export class PedidosService {
         })
       )
       .subscribe((result) => {
-        setTimeout(() => this.allPedidos.set(result));
+        this.allPedidos.set(result);
       });
   }
 
@@ -62,7 +62,7 @@ export class PedidosService {
       .put<PedidoResponse>(url, pedidoUpdate)
       .pipe(
         tap((actualizado) =>
-          this.allPedidos.update((list) => list.map((p) => (p.id === id ? actualizado : p)))
+          this.allPedidos.update((list) => list.map((p) => (p.id === id ? { ...actualizado } : p)))
         )
       );
   }
