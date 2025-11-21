@@ -24,7 +24,7 @@ export class FormEmprendimiento {
   private authService = inject(AuthService);
   private dialogRef = inject(MatDialogRef<FormEmprendimiento>);
   private snackBar = inject(MatSnackBar);
-  private cdr = inject(ChangeDetectorRef); // 👈 NECESARIO PARA FORZAR RENDER
+  private cdr = inject(ChangeDetectorRef); //NECESARIO PARA FORZAR RENDER
 
   selectedFileName: string | null = null;
   public imagePreviewUrl: string | ArrayBuffer | null = null;
@@ -57,7 +57,7 @@ export class FormEmprendimiento {
       this.imagePreviewUrl = null;
       this.formEmprendimiento.get('image')?.setValue(null);
       this.formEmprendimiento.get('image')?.markAsTouched();
-      this.cdr.detectChanges(); // 👈 asegura actualización al limpiar
+      this.cdr.detectChanges(); //asegura actualización al limpiar
       return;
     }
 
@@ -68,7 +68,7 @@ export class FormEmprendimiento {
     reader.onload = (e: any) => {
       this.imagePreviewUrl = e.target.result;
 
-      // 👇 esto evita que necesites "hacer click afuera" para ver el preview
+      //esto evita que necesites "hacer click afuera" para ver el preview
       this.cdr.detectChanges();
 
       // Validar dimensiones
@@ -90,7 +90,7 @@ export class FormEmprendimiento {
         }
 
         this.formEmprendimiento.get('image')?.markAsTouched();
-        this.cdr.detectChanges(); // 👈 asegura actualización final
+        this.cdr.detectChanges(); //asegura actualización final
       };
 
       img.src = e.target.result;
@@ -109,7 +109,7 @@ export class FormEmprendimiento {
       this.fileInputRef.value = '';
     }
 
-    this.cdr.detectChanges(); // 👈 asegura que desaparezca el preview inmediatamente
+    this.cdr.detectChanges(); //asegura que desaparezca el preview inmediatamente
   }
 
   onSubmit() {
