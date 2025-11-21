@@ -1,0 +1,21 @@
+export enum CategoriaVianda {
+  MENU_DEL_DIA = 'Menú del día',
+  MILANESA = 'Milanesa',
+  PASTA = 'Pastas',
+  PARRILLA = 'Parrilla',
+  WOK = 'Woks y salteados',
+  TARTA = 'Tartas',
+  EMPANADA = 'Empanadas',
+  ENSALADA = 'Ensaladas',
+  SOPA = 'Sopas',
+  PARA_COMPARTIR = 'Para compartir',
+  SUSHI = 'Sushi',
+  ARABE = 'Comida árabe',
+  JAPONESA = 'Comida japonesa',
+  CHINA = 'Comida china',
+  PESCADO = 'Pescados y mariscos',
+  HAMBURGUESA = 'Hamburguesas',
+  POSTRE = 'Postres',
+  PIZZA = 'Pizzas',
+  SANDWICH = 'Sandwiches'
+}
