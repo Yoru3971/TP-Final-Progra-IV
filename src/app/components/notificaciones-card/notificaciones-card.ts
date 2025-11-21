@@ -1,11 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NotificacionService } from '../../services/notificacion-service';
 import { NotificacionSingleCardComponent } from '../../shared/components/notificacion-single-card/notificacion-single-card';
+import { DateRangePickerComponent } from '../../shared/components/date-range-picker/date-range-picker';
 
 
 @Component({
   selector: 'app-notificaciones-card',
-  imports: [NotificacionSingleCardComponent],
+  imports: [NotificacionSingleCardComponent,
+    DateRangePickerComponent
+  ],
   templateUrl: './notificaciones-card.html',
   styleUrl: './notificaciones-card.css',
 })
@@ -20,6 +23,15 @@ export class NotificacionesCard implements OnInit {
   }
 
   get lista() {
-    return this.notiService.notificacionesOrdenadas();
+    return this.notiService.notificacionesFiltradas();
+  }
+
+  onFechasSeleccionadas(fechas: { desde: Date; hasta: Date }) {
+    // convertimos a ISO y seteamos en el service
+    const desde = fechas.desde.toISOString().split('T')[0];
+    const hasta = fechas.hasta.toISOString().split('T')[0];
+
+    this.notiService.filtroDesde.set(desde);
+    this.notiService.filtroHasta.set(hasta);
   }
 }
