@@ -14,7 +14,15 @@
 
     <div class="viandas-detalladas-grid">
         @for (vianda of viandas(); track vianda.id) {
-        <app-vianda-card-detallada>
+        <app-vianda-card-detallada
+            [vianda]="vianda"
+            [modo]="esDueno() ? 'dueno' : 'cliente'">
+            
+            <!-- Esto de abajo se agrega después para las funcionalidades del carrito (irían dentro del <app-vianda-card-detallada>) -->
+            <!--  [cantidad]="obtenerCantidadEnCarrito(vianda.id)"
+                (cantidadChange)="actualizarCarrito(vianda.id, $event)"
+            
+                (editar)="abrirModalEditarEmprendimiento(vianda)">> -->
         </app-vianda-card-detallada>
         }
     </div>
