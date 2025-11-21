@@ -50,10 +50,19 @@
   --emprendimiento-card-header-bg: #fe9039;
   --vianda-card-footer-bg: #fe9039;
 
-  --carrito-title-bg: #fe9039;
-  --carrito-content-bg: #e5e7eb;
+  --carrito-title-bg-color: #fe9039;
+  --carrito-content-bg-color: #e5e7eb;
   --carrito-item-subtotal-color: #fe9039;
-  --carrito-button-color: #e68033;
+  --carrito-btn-bg-color: #e68033;
+  --carrito-btn-border-color: #fe9039;
+  --carrito-btn-cerrar-color: #e68033;
+  --carrito-btn-cancelar-border-color: #ff4040;
+  --carrito-btn-cancelar-color: #ff4040;
+  --carrito-btn-confirmar-bg-color: #fe9039;
+
+  --carrito-submodal-border-color: #fe9039;
+  --carrito-submodal-header-bg-color: #fe9039;
+  --carrito-submodal-btn-color: #fe9039;
 
   --skeleton-bg: #e0e0e0;
 
@@ -112,7 +121,7 @@ app-root {
   display: block;
   padding: 1rem 1.4rem;
   border: 0.1rem solid var(--input-border);
-  border-radius: 1.1rem;
+  border-radius: 2.5rem;
   font-size: 1.4rem;
   color: var(--input-text);
   outline: none;

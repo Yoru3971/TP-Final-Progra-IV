@@ -1,6 +1,6 @@
 import { ViandaResponse } from "./vianda-response.model";
 
-export interface ViandaCantidad {
+export interface ViandaCantidadCarrito {
     vianda: ViandaResponse;
     cantidad: number;
 }
