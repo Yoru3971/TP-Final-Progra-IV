@@ -12,7 +12,7 @@ export class ViandaCardDetallada {
 
   // REVISAR si esto queda así o va en otro lado (carrito)
   vianda = input.required<ViandaResponse>();
-  modo = input.required<'dueno' | 'cliente'>();
+  modo = input.required<'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO'>();
   
   cantidad = input<number>(0); 
 
@@ -20,7 +20,7 @@ export class ViandaCardDetallada {
   cantidadChange = output<number>();
 
   esDueno() {
-    return this.modo() === 'dueno';
+    return this.modo() === 'DUENO';
   }
 
   incrementar() {

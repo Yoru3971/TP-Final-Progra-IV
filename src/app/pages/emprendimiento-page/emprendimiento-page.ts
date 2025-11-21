@@ -10,6 +10,11 @@ import { FiltrosViandas } from '../../model/filtros-viandas.model';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, Observable, of, switchMap } from 'rxjs';
 import { ViandaResponse } from '../../model/vianda-response.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Snackbar } from '../../shared/components/snackbar/snackbar';
+import { SnackbarData } from '../../model/snackbar-data.model';
+
+type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
 
 @Component({
   selector: 'app-emprendimiento-page',
@@ -25,9 +30,11 @@ export class EmprendimientoPage {
 
   private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
+  private snackBar = inject(MatSnackBar);
   private emprendimientoService = inject(EmprendimientoService);
   private viandaService = inject(ViandaService);
   private routeParams = toSignal(this.route.paramMap);
+
 
   //  Uso signals para idEmprendimiento, emprendimiento y esDueno (si algo cambia, se actualiza todo automáticamente)
   idEmprendimiento = computed(() => {
@@ -49,27 +56,64 @@ export class EmprendimientoPage {
     )
   );
 
-  esDueno = computed(() => {      // cambia el comportamiento de los componentes (según si es dueño o cliente)
+  modoVista = computed<PageMode>(() => {
     const emp = this.emprendimiento();
+    if (!emp) return 'CARGANDO';
     const userId = this.authService.usuarioId();
     const userRole = this.authService.currentUserRole();
 
-    if (emp && userRole === 'DUENO' && emp.dueno.id === userId) {
-      return true;
+    if (userRole === 'DUENO') {
+      return emp.dueno.id === userId ? 'DUENO' : 'PROHIBIDO';   //  AGREGAR page de error 403 si intenta acceder siendo dueño ajeno
     }
-    return false;
+
+    if (userRole === 'CLIENTE') {
+      return 'CLIENTE';
+    }
+
+    return 'INVITADO';
   });
 
-  private esDuenoAjeno = computed(() => {
-    const emp = this.emprendimiento();
-    const userRole = this.authService.currentUserRole();
 
-    // Si todavía no cargó el emprendimiento, no puedo saber si es dueño ajeno (esto evita falsos positivos)
-    if (!emp) return false;
+    //  -------------------  Componente: emprendimiento-info -------------------
 
-    // Es dueño PERO no es el dueño de este local
-    return userRole === 'DUENO' && !this.esDueno();     //  AGREGAR page de error 403 si intenta acceder siendo dueño ajeno (no sé donde va)
-  });
+  handleAccionInfo() {
+    const modo = this.modoVista();
+
+    if (modo === 'DUENO') {
+      this.abrirModalEditarEmprendimiento();
+    } 
+    else if (modo === 'CLIENTE') {
+      this.abrirModalCarrito();
+    } 
+    else if (modo === 'INVITADO') {
+      this.abrirSnackbarLoginRequerido();
+    }
+  }
+
+  abrirModalEditarEmprendimiento() {
+    console.log('Abre modal de edición');   //  AGREGAR abrir modal de edición del emprendimiento
+  }
+
+  abrirModalCarrito() {
+    console.log('Abre carrito');    //  AGREGAR abrir modal carrito
+  }
+
+  abrirSnackbarLoginRequerido() {
+    const snackbarData: SnackbarData = {
+      message: 'Inicie sesión para realizar realizar pedidos',
+      iconName: 'error'
+    }
+
+    this.snackBar.openFromComponent(Snackbar, {
+      duration: 3000,
+      verticalPosition: 'bottom',
+      panelClass: 'snackbar-panel',
+      data: snackbarData
+    });
+  }
+
+
+    //  -------------------  Componente: emprendimiento-filtros-viandas -------------------
 
   //  Signal que contiene los filtros actuales
   filtrosSignal = signal<FiltrosViandas>({} as FiltrosViandas);
@@ -79,29 +123,33 @@ export class EmprendimientoPage {
     return {
       id: this.idEmprendimiento(),
       filtros: this.filtrosSignal(),
-      esDueno: this.esDueno(),
-      esDuenoAjeno: this.esDuenoAjeno(),
-      emp: this.emprendimiento()
+      modo: this.modoVista()
     };
   });
 
   // Convierto el trigger en un Observable (llama a la API y devuelve las viandas que muestro en pantalla)
   viandas = toSignal(
     toObservable(this.triggerViandas).pipe(
-      switchMap(({ id, filtros, esDueno, esDuenoAjeno, emp }) => {
+      switchMap(({ id, filtros, modo }) => {
 
-        if (!id || !emp) return of([] as ViandaResponse[]);
-
-        if (esDuenoAjeno) {
-            console.warn('Bloqueando carga de viandas: Usuario es dueño de otro local.');
-            return of([] as ViandaResponse[]);
+        if (!id || modo === 'CARGANDO' || modo === 'PROHIBIDO') {
+          return of([] as ViandaResponse[]);
         }
 
         let request$: Observable<ViandaResponse[]>;
-        if (esDueno) {
-          request$ = this.viandaService.getViandasDueno(id, filtros);
-        } else {
-          request$ = this.viandaService.getViandasCliente(id, filtros);
+
+        switch (modo) {
+          case 'DUENO':
+            request$ = this.viandaService.getViandasDueno(id, filtros);
+            break;
+          case 'CLIENTE':
+            request$ = this.viandaService.getViandasCliente(id, filtros);
+            break;
+          case 'INVITADO':
+            request$ = this.viandaService.getViandasPublico(id, filtros);
+            break;
+          default:
+            return of([] as ViandaResponse[]);
         }
 
         return request$.pipe(
@@ -120,9 +168,7 @@ export class EmprendimientoPage {
   private triggerViandasTotales = computed(() => {
     return {
       id: this.idEmprendimiento(),
-      esDueno: this.esDueno(),
-      esDuenoAjeno: this.esDuenoAjeno(),
-      emp: this.emprendimiento()
+      modo: this.modoVista()
     };
   });
 
@@ -130,20 +176,26 @@ export class EmprendimientoPage {
   //  (Lo necesito porque las categorías se obtienen dinámicamente)
   viandasTotales = toSignal(
     toObservable(this.triggerViandasTotales).pipe(
-      switchMap(({ id, esDueno, esDuenoAjeno, emp }) => {
+      switchMap(({ id, modo }) => {
 
-        if (!id || !emp) return of([] as ViandaResponse[]);
-
-        if (esDuenoAjeno) {
-            return of([] as ViandaResponse[]); 
+        if (!id || modo === 'CARGANDO' || modo === 'PROHIBIDO') {
+            return of([] as ViandaResponse[]);
         }
 
         let request$: Observable<ViandaResponse[]>;
         
-        if (esDueno) {
+        switch (modo) {
+          case 'DUENO':
             request$ = this.viandaService.getViandasDueno(id);
-        }else {
+            break;
+          case 'CLIENTE':
             request$ = this.viandaService.getViandasCliente(id);
+            break;
+          case 'INVITADO':
+            request$ = this.viandaService.getViandasPublico(id);
+            break;
+          default:
+            return of([] as ViandaResponse[]);
         }
 
         return request$.pipe(
@@ -154,18 +206,13 @@ export class EmprendimientoPage {
     { initialValue: [] as ViandaResponse[] }
   );
 
-  //  -------------------  Componente: emprendimiento-info -------------------
-  abrirModalEditarEmprendimiento() {
-    console.log('Abre modal de edición');   //  AGREGAR abrir modal de edición del emprendimiento
-  }
-
-  abrirModalCarrito() {
-    console.log('Abre carrito');    //  AGREGAR abrir modal carrito
-  }
-
-  //  -------------------  Componente: emprendimiento-filtros-viandas -------------------
   onFiltrosChanged(nuevosFiltros: FiltrosViandas) {
     this.filtrosSignal.set(nuevosFiltros);
   }
+
+
+  //  -------------------  Componente: vianda-card-detallada -------------------
+
+
   
 }

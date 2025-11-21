@@ -3,8 +3,8 @@
 
     <app-emprendimiento-info
         [datos]="datosEmprendimiento"
-        [modo]="esDueno() ? 'dueno' : 'cliente'"
-        (accionPrincipal)="esDueno() ? abrirModalEditarEmprendimiento() : abrirModalCarrito()">
+        [modo]="modoVista()"
+        (accionPrincipal)="handleAccionInfo()">
     </app-emprendimiento-info>
 
     <app-emprendimiento-filtros-viandas
@@ -16,7 +16,7 @@
         @for (vianda of viandas(); track vianda.id) {
         <app-vianda-card-detallada
             [vianda]="vianda"
-            [modo]="esDueno() ? 'dueno' : 'cliente'">
+            [modo]="modoVista()">
             
             <!-- Esto de abajo se agrega después para las funcionalidades del carrito (irían dentro del <app-vianda-card-detallada>) -->
             <!--  [cantidad]="obtenerCantidadEnCarrito(vianda.id)"

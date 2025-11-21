@@ -74,6 +74,9 @@ export class AuthService {
     localStorage.removeItem(this.TOKEN_KEY);
     sessionStorage.removeItem(this.TOKEN_KEY);
 
+    localStorage.removeItem('usuarioID');
+    sessionStorage.removeItem('usuarioID');
+
     this.currentUserRole.set('INVITADO');
     console.log('Logout exitoso. Rol:', this.currentUserRole());
   }
