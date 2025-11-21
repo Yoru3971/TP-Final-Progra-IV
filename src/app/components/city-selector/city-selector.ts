@@ -21,6 +21,7 @@ export class CitySelector {
     'NECOCHEA',
     'BALCARCE',
     'SANTA CLARA',
+    'PINAMAR'
   ] as const;
   
   //signal que reactivo que muestra la ciudad actual
