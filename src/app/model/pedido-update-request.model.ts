@@ -1,4 +1,6 @@
+import { EstadoPedido } from "../shared/enums/estadoPedido.enum";
+
 export interface PedidoUpdateRequest {
-  estado: 'PENDIENTE' | 'ACEPTADO' | 'RECHAZADO' | 'CANCELADO';
+  estado: EstadoPedido
   fechaEntrega: string; // yyyy-MM-dd
 }

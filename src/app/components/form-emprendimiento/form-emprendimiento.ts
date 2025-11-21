@@ -67,17 +67,18 @@ export class FormEmprendimiento {
   formData.append('direccion', formValues.direccion || '');
   formData.append('telefono', formValues.telefono!);
 
-  // 🔹 Agregamos el ID del usuario logueado desde el AuthService
+  //agregamos el ID del usuario logueado desde el AuthService
   const userId = this.authService.usuarioId();
   if (!userId) {
   this.dialog.open(ErrorDialogModal, {
     data: { message: 'Error: no se pudo obtener el usuario logueado.' }
   });
-  return; // <-- return vacío, devuelve void y se soluciona
+  return; //return vacío, devuelve void y se soluciona
 }
 
   formData.append('idUsuario', String(userId));
 
+  //REVISAR acomodar la ruta y agregar snackbar
   this.emprendimientoService.createEmprendimiento(formData).subscribe({
     next: () => this.router.navigate(['/mis-emprendimientos']),
     error: (err) => {

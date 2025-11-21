@@ -112,7 +112,7 @@ app-root {
   display: block;
   padding: 1rem 1.4rem;
   border: 0.1rem solid var(--input-border);
-  border-radius: 2.5rem;
+  border-radius: 1.1rem;
   font-size: 1.4rem;
   color: var(--input-text);
   outline: none;
