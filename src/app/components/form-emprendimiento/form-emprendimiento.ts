@@ -2,13 +2,13 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 import { AuthService } from '../../services/auth-service';
-import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarData } from '../../model/snackbar-data.model';
 import { Snackbar } from '../../shared/components/snackbar/snackbar';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-form-emprendimiento',
@@ -24,21 +24,15 @@ export class FormEmprendimiento {
   private authService = inject(AuthService);
   private dialogRef = inject(MatDialogRef<FormEmprendimiento>);
   private snackBar = inject(MatSnackBar);
+  private cdr = inject(ChangeDetectorRef); // 👈 NECESARIO PARA FORZAR RENDER
 
   selectedFileName: string | null = null;
-  public imagePreviewUrl: string | ArrayBuffer | null = null; //Propiedad para la previsualización
+  public imagePreviewUrl: string | ArrayBuffer | null = null;
 
-  // Referencia al input de tipo file para poder resetearlo
-  // Esto es necesario para permitir la selección del mismo archivo de nuevo después de eliminarlo
   fileInputRef: any;
 
-  //maximos tamaño de la imagen
   maxWidth = 1920;
   maxHeight = 1080;
-
-  onFileInputReady(element: HTMLInputElement) {
-    this.fileInputRef = element;
-  }
 
   formEmprendimiento = this.fb.group({
     nombreEmprendimiento: [
@@ -51,27 +45,71 @@ export class FormEmprendimiento {
     telefono: ['', [Validators.required, Validators.pattern(/^\d{7,15}$/)]],
   });
 
+  onFileInputReady(element: HTMLInputElement) {
+    this.fileInputRef = element;
+  }
+
   onFileSelected(event: any) {
     const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const img = new Image();
-        img.onload = () => {
-          if (img.width <= this.maxWidth && img.height <= this.maxHeight) {
-            this.formEmprendimiento.patchValue({ image: file });
-          } else {
-            this.formEmprendimiento.patchValue({ image: null });
-            this.dialog.open(ErrorDialogModal, {
-              data: { message: `La imagen no debe superar ${this.maxWidth}x${this.maxHeight}px` },
-              panelClass: 'modal-error',
-            });
-          }
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
+
+    if (!file) {
+      this.selectedFileName = null;
+      this.imagePreviewUrl = null;
+      this.formEmprendimiento.get('image')?.setValue(null);
+      this.formEmprendimiento.get('image')?.markAsTouched();
+      this.cdr.detectChanges(); // 👈 asegura actualización al limpiar
+      return;
     }
+
+    this.selectedFileName = file.name;
+
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      this.imagePreviewUrl = e.target.result;
+
+      // 👇 esto evita que necesites "hacer click afuera" para ver el preview
+      this.cdr.detectChanges();
+
+      // Validar dimensiones
+      const img = new Image();
+      img.onload = () => {
+        if (img.width <= this.maxWidth && img.height <= this.maxHeight) {
+          this.formEmprendimiento.patchValue({ image: file });
+          this.formEmprendimiento.get('image')?.markAsPristine();
+          this.formEmprendimiento.get('image')?.markAsUntouched();
+        } else {
+          this.formEmprendimiento.patchValue({ image: null });
+          this.imagePreviewUrl = null;
+          this.selectedFileName = null;
+
+          this.dialog.open(ErrorDialogModal, {
+            data: { message: `La imagen no debe superar ${this.maxWidth}x${this.maxHeight}px` },
+            panelClass: 'modal-error',
+          });
+        }
+
+        this.formEmprendimiento.get('image')?.markAsTouched();
+        this.cdr.detectChanges(); // 👈 asegura actualización final
+      };
+
+      img.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  removeImage() {
+    this.selectedFileName = null;
+    this.imagePreviewUrl = null;
+    this.formEmprendimiento.get('image')?.setValue(null);
+    this.formEmprendimiento.get('image')?.markAsDirty();
+
+    if (this.fileInputRef) {
+      this.fileInputRef.value = '';
+    }
+
+    this.cdr.detectChanges(); // 👈 asegura que desaparezca el preview inmediatamente
   }
 
   onSubmit() {
@@ -122,16 +160,5 @@ export class FormEmprendimiento {
         });
       },
     });
-  }
-
-  removeImage() {
-    this.selectedFileName = null;
-    this.imagePreviewUrl = null;
-    this.formEmprendimiento.get('image')?.setValue(null);
-    this.formEmprendimiento.get('image')?.markAsDirty(); // Marca como dirty para que el required se muestre
-
-    if (this.fileInputRef) {
-      this.fileInputRef.value = '';
-    }
   }
 }
