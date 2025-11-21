@@ -41,6 +41,8 @@ export class HomePageDueno implements OnInit {
       .open(FormEmprendimiento, {
         width: '100rem',
         panelClass: 'form-modal',
+        autoFocus: false,
+        restoreFocus: false,
       })
       .afterClosed()
       .subscribe((exito) => {
