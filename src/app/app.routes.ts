@@ -4,7 +4,6 @@ import { RegisterPageCliente } from './pages/register-page-cliente/register-page
 import { Login } from './pages/login/login';
 import { RegisterSuccessPage } from './pages/register-success-page/register-success-page';
 import { HomePage } from './pages/home-page/home-page';
-import { CrearEmprendimientoPageDueno } from './pages/crear-emprendimiento-page-dueno/crear-emprendimiento-page-dueno';
 import { EmprendimientoPage } from './pages/emprendimiento-page/emprendimiento-page';
 import { PerfilUsuario } from './pages/perfil-usuario/perfil-usuario';
 import { HomeRouter } from './router/home-router/home-router';
@@ -32,11 +31,6 @@ export const routes: Routes = [
   },
 
   { path: 'login', component: Login },
-
-  {
-    path: 'crear-emprendimiento',
-    component: CrearEmprendimientoPageDueno,
-  },
 
   {
     path: 'emprendimiento/:id',
