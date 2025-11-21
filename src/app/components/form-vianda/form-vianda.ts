@@ -4,8 +4,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ViandaService } from '../../services/vianda-service';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
-import { CATEGORIAS_VIANDA } from '../../constants/categorias-viandas';
 import { MatDialog } from '@angular/material/dialog';
+import { CategoriaVianda } from '../../shared/enums/categoriaVianda.enum';
 
 @Component({
   selector: 'app-form-vianda',
@@ -22,7 +22,10 @@ export class FormVianda {
   private viandaService = inject(ViandaService);
   private dialog = inject(MatDialog);
 
-  public categorias = CATEGORIAS_VIANDA;
+  public categorias = Object.entries(CategoriaVianda).map(([key, label]) => ({
+    key,
+    label,
+  }));
 
   selectedFileName: string | null = null;
   public imagePreviewUrl: string | ArrayBuffer | null = null; //Propiedad para la previsualización
