@@ -1,6 +1,8 @@
+<button type="button" class="btn-icon-circle btn-close-modal" (click)="cerrarModal()">
+  <i class="fa-solid fa-xmark"></i>
+</button>
 <form class="form-emprendimiento" [formGroup]="formEmprendimiento">
   <div class="form-layout">
-    <!-- COLUMNA IZQUIERDA -->
     <div class="form-fields-left">
       <!-- Nombre -->
       <div class="form-field">
@@ -92,7 +94,7 @@
             class="btn-remove-image"
             (click)="removeImage(); $event.preventDefault()"
           >
-            🗑️
+            <i class="fa-solid fa-trash"></i>
           </button>
 
           } @else {
@@ -124,10 +126,8 @@
         </div>
       </div>
     </div>
-    <!-- FIN IMAGEN -->
   </div>
 
-  <!-- BOTÓN -->
   <button
     type="button"
     class="btn btn-crear"

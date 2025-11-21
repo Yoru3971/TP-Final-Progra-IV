@@ -40,9 +40,9 @@
 .upload-box-visual {
   width: 100%;
   aspect-ratio: 1 / 1;
-  border: 0.3rem dashed #ccc;
+  border: 0.3rem dashed var(--btn-disabled);
   border-radius: 1rem;
-  background-color: #f8f8f8;
+  background-color: var(--image-upload-bg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,7 +55,7 @@
 }
 
 .upload-box-visual:hover {
-  background-color: #e9e9e9;
+  background-color: var(--image-upload-bg-hover);
   border-color: var(--button-bg);
 }
 
@@ -78,34 +78,40 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background-color: rgba(255,255,255,0.9);
-  border: 1px solid var(--eliminar-color);
-  color: var(--eliminar-color);
-  width: 4rem;
-  height: 4rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 3.6rem;
+  height: 3.6rem;
   border-radius: 50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  font-size:2rem;
-  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--eliminar-color);
+  font-size: 1.6rem;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+  box-shadow: 0 0.25rem 0.6rem rgba(0, 0, 0, 0.25);
 }
 
 .btn-remove-image:hover {
   background-color: var(--eliminar-color);
-  color: white;
+  color: var(--inverse-text-color);
+  transform: scale(1.07);
+}
+
+.btn-remove-image i {
+  pointer-events: none;
 }
 
 .upload-icon {
   font-size: 4rem;
-  color: #888;
+  color: var(--toggle-eye-color);
 }
 
 .upload-text {
   font-size: 1.4rem;
   font-weight: 500;
-  color: #888;
+  color: var(--toggle-eye-color);
 }
 
 .image-placeholder-message {
@@ -115,7 +121,7 @@
 }
 
 .placeholder-info {
-  color: #888;
+  color: var(--toggle-eye-color);
 }
 
 .success-message {
@@ -129,4 +135,43 @@
   font-weight: bold;
   padding: 0.8rem 0;
   margin-top: 1.5rem;
+}
+
+.btn-icon-circle {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: var(--toggle-eye-color);
+  box-shadow: 0 0.25rem 0.6rem rgba(0, 0, 0, 0.25);
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+  z-index: 15;
+}
+
+.btn-icon-circle:hover {
+  background-color: var(--button-bg);
+  color: var(--bg-color);
+  transform: scale(1.07);
+}
+
+.btn-close-modal {
+  color: var(--toggle-eye-color);
+}
+
+.btn-close-modal:hover {
+  background-color: var(--button-bg);
+  color: var(--bg-color);
+}
+
+.form-field{
+    min-height: 9rem;
 }

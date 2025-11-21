@@ -18,7 +18,6 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class FormEmprendimiento {
   private fb = inject(FormBuilder);
-  private router = inject(Router);
   private dialog = inject(MatDialog);
   private emprendimientoService = inject(EmprendimientoService);
   private authService = inject(AuthService);
@@ -30,7 +29,6 @@ export class FormEmprendimiento {
   public imagePreviewUrl: string | ArrayBuffer | null = null;
 
   fileInputRef: any;
-
   maxWidth = 1920;
   maxHeight = 1080;
 
@@ -160,5 +158,9 @@ export class FormEmprendimiento {
         });
       },
     });
+  }
+
+  cerrarModal(){
+    this.dialogRef.close();
   }
 }
