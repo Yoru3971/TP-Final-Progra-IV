@@ -7,40 +7,44 @@ import { HomePage } from './pages/home-page/home-page';
 import { CrearEmprendimientoPageDueno } from './pages/crear-emprendimiento-page-dueno/crear-emprendimiento-page-dueno';
 import { EmprendimientoPage } from './pages/emprendimiento-page/emprendimiento-page';
 import { PerfilUsuario } from './pages/perfil-usuario/perfil-usuario';
+import { HomeRouter } from './router/home-router/home-router';
 
 export const routes: Routes = [
-  { path: 'home', component: HomePage },
-  {path: 'me', component: PerfilUsuario},
+  { path: 'home', component: HomeRouter },
+
+  { path: 'me', component: PerfilUsuario },
+
   {
     path: 'registro/dueno',
     component: RegisterPageDueno,
     data: { rol: 'DUENO' },
   },
+
   {
     path: 'registro/cliente',
     component: RegisterPageCliente,
     data: { rol: 'CLIENTE' },
   },
+
   {
     path: 'registro-exitoso',
     component: RegisterSuccessPage,
   },
+
+  { path: 'login', component: Login },
+
   {
-    path: 'login',
-    component: Login,
+    path: 'crear-emprendimiento',
+    component: CrearEmprendimientoPageDueno,
   },
-  { 
-    path: 'crear-emprendimiento', 
-    component: CrearEmprendimientoPageDueno
-  },
-  { 
+
+  {
     path: 'emprendimiento/:id',
-    component: EmprendimientoPage
+    component: EmprendimientoPage,
   },
-  //REVISAR habria que ver que hacemos con la ruta vacia, tal vez podriamos redirigir a una pagina  de "OOPS" o algo asi 
-  { 
-    path: '', redirectTo: '/home', 
-    pathMatch: 'full' }, // Redirige la ruta vacía a /home
-  
-    { path: '**', redirectTo: '/home' }, // Redirige cualquier otra ruta a home
+
+  //REVISAR que hacemos con esto y los guards
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+
+  { path: '**', redirectTo: '/home' },
 ];

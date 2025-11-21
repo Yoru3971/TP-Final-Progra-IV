@@ -11,7 +11,7 @@
   --footer-bottom-text-color: #888888;
   --footer-bottom-border-color: #e5e5e5;
 
-  --form-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+  --form-shadow: 0 0.6rem 1.2rem rgba(0, 0, 0, 0.3);
   --vianda-card-shadow: 0 0.5rem 1.2rem rgba(0, 0, 0, 0.15);
 
   --form-bg: #f9f8f8;
@@ -371,7 +371,7 @@ app-root {
 .restricciones {
   display: flex;
   gap: 1.4rem;
-  min-height: 4rem; 
+  min-height: 4rem;
   align-items: center;
 }
 
@@ -471,4 +471,19 @@ app-root {
 
 .modal-pedido * {
   font-family: 'Inria Sans', sans-serif !important;
+}
+
+/* MODAL FORM EMPRENDIMIENTO */
+.cdk-overlay-pane.form-modal {
+  max-width: 75rem !important;
+}
+
+.form-modal .mat-mdc-dialog-surface,
+.form-modal .mat-mdc-dialog-container,
+.form-modal .mat-mdc-dialog-content {
+  background: var(--form-bg) !important;
+  border-radius: 2rem !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }

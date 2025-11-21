@@ -1,65 +1,138 @@
 <form class="form-emprendimiento" [formGroup]="formEmprendimiento">
+  <div class="form-layout">
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="form-fields-left">
+      <!-- Nombre -->
+      <div class="form-field">
+        <label class="form-label">Nombre del Emprendimiento</label>
+        <input
+          formControlName="nombreEmprendimiento"
+          type="text"
+          class="form-input"
+          placeholder="Ej: La Cocina de Ana"
+        />
 
-  <!-- Nombre Emprendimiento -->
-  <div class="form-field">
-    <label class="form-label">Nombre del Emprendimiento</label>
-    <input formControlName="nombreEmprendimiento" type="text" class="form-input" placeholder="Ej: La Cocina de Ana"/>
-    @if (formEmprendimiento.get('nombreEmprendimiento')?.invalid &&
-        (formEmprendimiento.get('nombreEmprendimiento')?.dirty || formEmprendimiento.get('nombreEmprendimiento')?.touched)) {
-      <div class="error-messages">
-        @if (formEmprendimiento.get('nombreEmprendimiento')?.hasError('required')) {
+        @if (formEmprendimiento.get('nombreEmprendimiento')?.invalid &&
+        (formEmprendimiento.get('nombreEmprendimiento')?.touched)) {
+        <div class="error-messages">
+          @if (formEmprendimiento.get('nombreEmprendimiento')?.hasError('required')) {
           <p>El nombre es obligatorio.</p>
-        }
-        @if (formEmprendimiento.get('nombreEmprendimiento')?.hasError('maxLength')) {
+          } @if (formEmprendimiento.get('nombreEmprendimiento')?.hasError('maxlength')) {
           <p>Máximo 255 caracteres.</p>
+          }
+        </div>
         }
       </div>
-    }
-  </div>
 
-  <!-- Imagen -->
-  <div class="form-field">
-    <label class="form-label">Imagen del Emprendimiento</label>
-    <input type="file" (change)="onFileSelected($event)" accept="image/*"/>
-    @if (formEmprendimiento.get('image')?.invalid && 
-         (formEmprendimiento.get('image')?.dirty || formEmprendimiento.get('image')?.touched)) {
-      <div class="error-messages">
-        <p>La imagen es obligatoria y debe cumplir la resolución máxima de {{ maxWidth }}x{{ maxHeight }}px.</p>
+      <!-- Ciudad -->
+      <div class="form-field">
+        <label class="form-label">Ciudad</label>
+        <input
+          formControlName="ciudad"
+          type="text"
+          class="form-input"
+          placeholder="Ej: Mar del Plata"
+        />
+
+        @if (formEmprendimiento.get('ciudad')?.invalid && formEmprendimiento.get('ciudad')?.touched)
+        {
+        <div class="error-messages">
+          <p>La ciudad es obligatoria.</p>
+        </div>
+        }
       </div>
-    }
-  </div>
 
-  <!-- Ciudad -->
-  <div class="form-field">
-    <label class="form-label">Ciudad</label>
-    <input formControlName="ciudad" type="text" class="form-input" placeholder="Ej: Mar del Plata"/>
-    @if (formEmprendimiento.get('ciudad')?.invalid &&
-         (formEmprendimiento.get('ciudad')?.dirty || formEmprendimiento.get('ciudad')?.touched)) {
-      <div class="error-messages">
-        <p>La ciudad es obligatoria.</p>
+      <!-- Dirección -->
+      <div class="form-field">
+        <label class="form-label">Dirección</label>
+        <input formControlName="direccion" type="text" class="form-input" placeholder="Opcional" />
       </div>
-    }
-  </div>
 
-  <!-- Dirección -->
-  <div class="form-field">
-    <label class="form-label">Dirección</label>
-    <input formControlName="direccion" type="text" class="form-input" placeholder="Opcional"/>
-  </div>
+      <!-- Teléfono -->
+      <div class="form-field">
+        <label class="form-label">Teléfono</label>
+        <input
+          formControlName="telefono"
+          type="text"
+          class="form-input"
+          placeholder="Ej: 1123456789"
+        />
 
-  <!-- Teléfono -->
-  <div class="form-field">
-    <label class="form-label">Teléfono</label>
-    <input formControlName="telefono" type="text" class="form-input" placeholder="Ej: 1123456789"/>
-    @if (formEmprendimiento.get('telefono')?.invalid &&
-         (formEmprendimiento.get('telefono')?.dirty || formEmprendimiento.get('telefono')?.touched)) {
-      <div class="error-messages">
-        <p>El teléfono es obligatorio y debe tener entre 7 y 15 números.</p>
+        @if (formEmprendimiento.get('telefono')?.invalid &&
+        formEmprendimiento.get('telefono')?.touched) {
+        <div class="error-messages">
+          <p>Debe tener entre 7 y 15 números.</p>
+        </div>
+        }
       </div>
-    }
+    </div>
+
+    <div class="image-upload-right">
+      <div class="form-field custom-file-field">
+        <input
+          type="file"
+          id="imagen-file"
+          #fileInput
+          (change)="onFileSelected($event); onFileInputReady(fileInput)"
+          class="form-file-input"
+          accept="image/jpeg, image/png, image/webp"
+        />
+
+        <label for="imagen-file" class="upload-box-visual" [class.has-preview]="!!imagePreviewUrl">
+          @if (imagePreviewUrl) {
+
+          <div
+            class="image-preview"
+            [style.background-image]="'url(' + imagePreviewUrl + ')'"
+          ></div>
+
+          <button
+            type="button"
+            class="btn-remove-image"
+            (click)="removeImage(); $event.preventDefault()"
+          >
+            🗑️
+          </button>
+
+          } @else {
+
+          <span class="upload-icon">⤒</span>
+          <br />
+          <span class="upload-text">Cargar imagen</span>
+
+          }
+        </label>
+
+        <!-- Mensajes -->
+        <div class="image-placeholder-message">
+          @if (formEmprendimiento.get('image')?.invalid &&
+          (formEmprendimiento.get('image')?.touched)) {
+          <div class="error-messages">
+            <p>Imagen obligatoria y máx {{ maxWidth }}×{{ maxHeight }} px.</p>
+          </div>
+
+          } @else if (!imagePreviewUrl) {
+
+          <p class="placeholder-info">No hay archivo seleccionado.</p>
+
+          } @else {
+
+          <p class="success-message">Archivo cargado: {{ selectedFileName }}</p>
+
+          }
+        </div>
+      </div>
+    </div>
+    <!-- FIN IMAGEN -->
   </div>
 
-  <button type="button" class="btn" (click)="onSubmit()" [disabled]="!formEmprendimiento.valid">
+  <!-- BOTÓN -->
+  <button
+    type="button"
+    class="btn btn-crear"
+    (click)="onSubmit()"
+    [disabled]="!formEmprendimiento.valid"
+  >
     Crear Emprendimiento
   </button>
 </form>

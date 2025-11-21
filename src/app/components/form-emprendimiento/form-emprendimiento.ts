@@ -5,6 +5,10 @@ import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 import { AuthService } from '../../services/auth-service';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarData } from '../../model/snackbar-data.model';
+import { Snackbar } from '../../shared/components/snackbar/snackbar';
 
 @Component({
   selector: 'app-form-emprendimiento',
@@ -18,20 +22,35 @@ export class FormEmprendimiento {
   private dialog = inject(MatDialog);
   private emprendimientoService = inject(EmprendimientoService);
   private authService = inject(AuthService);
+  private dialogRef = inject(MatDialogRef<FormEmprendimiento>);
+  private snackBar = inject(MatSnackBar);
+
+  selectedFileName: string | null = null;
+  public imagePreviewUrl: string | ArrayBuffer | null = null; //Propiedad para la previsualización
+
+  // Referencia al input de tipo file para poder resetearlo
+  // Esto es necesario para permitir la selección del mismo archivo de nuevo después de eliminarlo
+  fileInputRef: any;
 
   //maximos tamaño de la imagen
   maxWidth = 1920;
   maxHeight = 1080;
 
+  onFileInputReady(element: HTMLInputElement) {
+    this.fileInputRef = element;
+  }
+
   formEmprendimiento = this.fb.group({
-    nombreEmprendimiento: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
+    nombreEmprendimiento: [
+      '',
+      [Validators.required, Validators.minLength(1), Validators.maxLength(255)],
+    ],
     image: [null, Validators.required],
     ciudad: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
     direccion: ['', Validators.maxLength(255)],
     telefono: ['', [Validators.required, Validators.pattern(/^\d{7,15}$/)]],
   });
 
-  //valido la imagen y una resolucion maxima
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -56,38 +75,63 @@ export class FormEmprendimiento {
   }
 
   onSubmit() {
-  if (this.formEmprendimiento.invalid) return;
+    if (this.formEmprendimiento.invalid) return;
 
-  const formData = new FormData();
-  const formValues = this.formEmprendimiento.value;
+    const formData = new FormData();
+    const formValues = this.formEmprendimiento.value;
 
-  formData.append('nombreEmprendimiento', formValues.nombreEmprendimiento!);
-  formData.append('image', formValues.image!);
-  formData.append('ciudad', formValues.ciudad!);
-  formData.append('direccion', formValues.direccion || '');
-  formData.append('telefono', formValues.telefono!);
+    formData.append('nombreEmprendimiento', formValues.nombreEmprendimiento!);
+    formData.append('image', formValues.image!);
+    formData.append('ciudad', formValues.ciudad!);
+    formData.append('direccion', formValues.direccion || '');
+    formData.append('telefono', formValues.telefono!);
 
-  //agregamos el ID del usuario logueado desde el AuthService
-  const userId = this.authService.usuarioId();
-  if (!userId) {
-  this.dialog.open(ErrorDialogModal, {
-    data: { message: 'Error: no se pudo obtener el usuario logueado.' }
-  });
-  return; //return vacío, devuelve void y se soluciona
-}
-
-  formData.append('idUsuario', String(userId));
-
-  //REVISAR acomodar la ruta y agregar snackbar
-  this.emprendimientoService.createEmprendimiento(formData).subscribe({
-    next: () => this.router.navigate(['/mis-emprendimientos']),
-    error: (err) => {
-      const backendMsg = err.error?.message || 'Error desconocido al crear el emprendimiento';
+    const userId = this.authService.usuarioId();
+    if (!userId) {
       this.dialog.open(ErrorDialogModal, {
-        data: { message: backendMsg }
+        data: { message: 'Error: no se pudo obtener el usuario logueado.' },
+        panelClass: 'modal-error',
       });
-    },
-  });
-}
+      return;
+    }
 
+    formData.append('idUsuario', String(userId));
+
+    this.emprendimientoService.createEmprendimiento(formData).subscribe({
+      next: () => {
+        const snackbarData: SnackbarData = {
+          message: 'Emprendimiento creado con éxito!',
+          iconName: 'check_circle',
+        };
+
+        this.snackBar.openFromComponent(Snackbar, {
+          data: snackbarData,
+          duration: 3000,
+          panelClass: 'snackbar-panel',
+          verticalPosition: 'bottom',
+        });
+
+        this.dialogRef.close(true);
+      },
+      error: (err) => {
+        const backendMsg = err.error?.message || 'Error desconocido al crear el emprendimiento';
+
+        this.dialog.open(ErrorDialogModal, {
+          data: { message: backendMsg },
+          panelClass: 'modal-error',
+        });
+      },
+    });
+  }
+
+  removeImage() {
+    this.selectedFileName = null;
+    this.imagePreviewUrl = null;
+    this.formEmprendimiento.get('image')?.setValue(null);
+    this.formEmprendimiento.get('image')?.markAsDirty(); // Marca como dirty para que el required se muestre
+
+    if (this.fileInputRef) {
+      this.fileInputRef.value = '';
+    }
+  }
 }
