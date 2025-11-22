@@ -29,7 +29,8 @@ export class DatosUsuarioCard implements OnInit{
   openUpdateModal() {
     const dialogRef = this.dialog.open(FormUserUpdate, {
           data: this.usuario,
-          panelClass: 'modal-vianda',
+          width:'60rem',
+          panelClass: 'form-modal',
           autoFocus: false,
           restoreFocus: false,
         });
