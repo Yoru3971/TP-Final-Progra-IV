@@ -25,21 +25,24 @@
 
 .dato-container {
   display: flex;
-  align-items: center;
-  gap: 2rem;
+  align-items: center; 
+  gap: 1.4rem;          
 }
 
-.dato-container .icon {
-  font-size: 1.6rem;
+.icon {
+  font-size: 1.8rem;
+  width: 2.2rem; /* margen estable */
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  justify-content: center;
   color: var(--link-color);
-  width: 1.8rem;
-  text-align: center;
 }
 
 .dato {
   font-size: 1.7rem;
   color: var(--input-text);
   margin: 0;
+  line-height: 1.2;
 }
 
 .edit-icon {
