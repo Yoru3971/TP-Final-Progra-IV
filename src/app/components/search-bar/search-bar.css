@@ -1,13 +1,13 @@
 .search-input {
-    width: 100%;
-    padding: 1rem 3rem 1rem 1.5rem;
     border: 2px solid #e0e0e0;
     border-radius: 12px;
-    font-size: 1.125rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
     box-sizing: border-box;
+    font-size: 1.125rem;
+    outline: none;
+    padding: 1rem 3rem 1rem 1.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
 }
 
 .search-input:focus {
@@ -16,27 +16,27 @@
 }
 
 .search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    margin-top: 0.5rem;
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 12px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    left: 0;
+    margin-top: 0.5rem;
     overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 10;
 }
 
 .result-card {
-    display: flex;
     align-items: center;
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    transition: background-color 0.15s;
     border-bottom: 1px solid #f3f4f6;
+    cursor: pointer;
+    display: flex;
+    padding: 0.75rem 1rem;
     position: relative;
+    transition: background-color 0.15s;
 }
 
 .result-card:last-child {
@@ -48,12 +48,12 @@
 }
 
 .card-img {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
     border-radius: 8px;
-    margin-right: 1rem;
     flex-shrink: 0;
+    height: 40px;
+    margin-right: 1rem;
+    object-fit: cover;
+    width: 40px;
 }
 
 .card-info {
@@ -61,23 +61,23 @@
 }
 
 .card-title {
-    font-weight: 600;
     color: #1f2937;
+    font-weight: 600;
     margin-bottom: 2px;
 }
 
 .card-sub {
-    font-size: 0.875rem;
     color: #6b7280;
+    font-size: 0.875rem;
 }
 
 .city-tag {
     background-color: #e0e7ff;
-    color: #4f46e5;
-    padding: 0.25rem 0.5rem;
     border-radius: 9999px;
+    color: #4f46e5;
+    flex-shrink: 0;
     font-size: 0.75rem;
     font-weight: 600;
-    flex-shrink: 0;
     margin-left: 1rem;
+    padding: 0.25rem 0.5rem;
 }
