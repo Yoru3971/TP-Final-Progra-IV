@@ -38,21 +38,23 @@ export class PedidoExtendedModal {
   constructor(@Inject(MAT_DIALOG_DATA) public pedido: PedidoResponse) {}
 
   cambiarEstadoPedido(estadoUpd: EstadoPedido) {
-  const body: PedidoUpdateRequest = {
-    estado: estadoUpd,
-    fechaEntrega: this.pedido.fechaEntrega, // debe ser yyyy-MM-dd
-  };
+    const body: PedidoUpdateRequest = {
+      estado: estadoUpd,
+      fechaEntrega: this.pedido.fechaEntrega, // debe ser yyyy-MM-dd
+    };
 
-  this.pedidosService.updatePedido(this.pedido.id, body)
-    .subscribe({
+    this.pedidosService.updatePedido(this.pedido.id, body).subscribe({
       next: () => {
+        setTimeout(() => {
+          this.pedidosService.fetchPedidos();
+        }, 500);
         this.dialogRef.close();
       },
       error: (err) => {
-        console.error("Error al actualizar pedido", err);
-      }
+        console.error('Error al actualizar pedido', err);
+      },
     });
-}
+  }
 
   // REVISAR para el boton de contactar, deberia abrir un modal
   verDatosUsuario(usuario: UsuarioResponse) {}
