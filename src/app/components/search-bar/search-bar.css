@@ -1,40 +1,55 @@
-.search-input {
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    box-sizing: border-box;
-    font-size: 1.125rem;
-    outline: none;
-    padding: 1rem 3rem 1rem 1.5rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    width: 100%;
+.search-input-container {
+    position: relative;
 }
 
-.search-input:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+.search-input {
+    border: 1px solid color-mix(in srgb, var(--bg-color) 75%, black);
+    border-radius: 15px;
+    font-family: inherit;
+    font-size: 1.4rem;
+    outline: none;
+    padding: 1rem 3rem 1rem 3.6rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 48rem;
+}
+
+.search-input:focus-within {
+    border-color: var(--search-bar-focus-color);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--search-bar-focus-color) 33%, transparent);
+}
+
+.search-input-container i {
+    color: var(--search-bar-icon-color);
+    font-size: 1.6rem;
+    position: absolute;
+    left: 1.2rem;
+    pointer-events: none;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .search-results {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
+    background-color: var(--bg-color);
+    border: 1px solid color-mix(in srgb, var(--bg-color) 85%, black);
     border-radius: 12px;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    left: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    left: 50%;
     margin-top: 0.5rem;
     overflow: hidden;
     position: absolute;
-    right: 0;
     top: 100%;
+    transform: translateX(-50%);
+    width: 64rem;
     z-index: 10;
 }
 
 .result-card {
     align-items: center;
-    border-bottom: 1px solid #f3f4f6;
+    border-bottom: 1px solid color-mix(in srgb, var(--bg-color) 90%, black);
     cursor: pointer;
     display: flex;
-    padding: 0.75rem 1rem;
+    flex-direction: row;
+    padding: 1.5rem 2rem;
     position: relative;
     transition: background-color 0.15s;
 }
@@ -44,40 +59,41 @@
 }
 
 .result-card:hover {
-    background-color: #f5f3ff; 
+    background-color: color-mix(in srgb, var(--bg-color) 92.5%, black);
 }
 
 .card-img {
+    aspect-ratio: 1/1;
     border-radius: 8px;
-    flex-shrink: 0;
-    height: 40px;
+    height: 8rem;
     margin-right: 1rem;
     object-fit: cover;
-    width: 40px;
 }
 
 .card-info {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
+    line-height: 1.8rem;
 }
 
 .card-title {
-    color: #1f2937;
+    color: var(--text-color);
+    font-size: 2rem;
     font-weight: 600;
-    margin-bottom: 2px;
+    margin: 0;
+    margin-bottom: 1rem;
 }
 
 .card-sub {
-    color: #6b7280;
-    font-size: 0.875rem;
+    color: color-mix(in srgb, var(--text-color) 50%, var(--inverse-text-color));
+    font-size: 1.6rem;
+    margin: 0;
 }
 
-.city-tag {
-    background-color: #e0e7ff;
-    border-radius: 9999px;
-    color: #4f46e5;
-    flex-shrink: 0;
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin-left: 1rem;
-    padding: 0.25rem 0.5rem;
+.no-results {
+    color: color-mix(in srgb, var(--text-color) 60%, var(--inverse-text-color));
+    font-size: 2rem;
+    padding: 2rem 2rem;
+    width: 100%;
 }

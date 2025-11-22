@@ -9,11 +9,23 @@ import { RouterLink } from "@angular/router";
   styleUrl: './search-bar.css',
 })
 export class SearchBar {
-  searchService = inject(SearchService);
+  private searchService = inject(SearchService);
 
-  resultados = this.searchService.resultados;
+  public resultados = this.searchService.resultados;
+  public buscadorSeleccionado = false;
+  public hayTextoEnBuscador = false;
 
-  onInput(event: any) {
-    this.searchService.buscar(event.target.value);
+  public onInput(event: any) {
+    const value: string = event.target.value;
+
+    this.hayTextoEnBuscador = value !== "";
+
+    this.searchService.buscar(value);
+  }
+
+  public onBlur() {
+    setTimeout(() => {
+      this.buscadorSeleccionado = false;
+    }, 0);
   }
 }

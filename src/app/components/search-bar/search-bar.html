@@ -1,12 +1,18 @@
 <div class="search-container">
-  <input
-    type="text"
-    placeholder="Buscar emprendimiento..."
-    (input)="onInput($event)"
-    class="search-input"
-  />
+  <div class="search-input-container">
+    <input
+      class="search-input"
+      type="text"
+      placeholder="Buscar emprendimiento..."
+      (input)="onInput($event)"
+      (blur)="onBlur()"
+      (focus)="buscadorSeleccionado = true"
+    />
 
-  @if (resultados().length > 0) {
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </div>
+
+  @if (buscadorSeleccionado && hayTextoEnBuscador) {
     <div class="search-results">
       @for (item of resultados(); track item.id) {
         <div
@@ -14,7 +20,7 @@
           [routerLink]="['/emprendimiento', item.id]"
         >
           @if (item.imgUrl) {
-            <img [src]="item.imgUrl" class="card-img" />
+            <img [src]="item.imgUrl" class="card-img">
           }
 
           <div class="card-info">
@@ -22,9 +28,9 @@
             <p class="card-sub">{{ item.direccion }} - {{ item.telefono }}</p>
             <p class="card-sub">Dueño: {{ item.dueno.nombreCompleto}}</p>
           </div>
-
-          <span class="city-tag">{{ item.ciudad }}</span>
         </div>
+      } @empty {
+        <p class="no-results">No se encontraron resultados.</p>
       }
     </div>
   }
