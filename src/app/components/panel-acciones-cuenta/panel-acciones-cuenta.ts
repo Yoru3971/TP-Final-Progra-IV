@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { EliminarCuentaPaso1 } from '../ModalEliminarCuenta/eliminar-cuenta-paso1/eliminar-cuenta-paso1';
 import { ConfirmarLogout } from '../../shared/components/logout-modal/logout-modal';
 import { CambiarPasswordModal } from '../cambiar-password-modal/cambiar-password-modal';
+import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 
 @Component({
   selector: 'app-panel-acciones-cuenta',
@@ -22,10 +23,28 @@ export class PanelAccionesCuenta {
   private snackBar = inject(MatSnackBar);
 
   cambiarPassword() {
-    
-    this.dialog.open(CambiarPasswordModal, {
+    const dialogRef = this.dialog.open(CambiarPasswordModal, {
       panelClass: 'modal-panel',
       width: '80rem',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
+      if (result.passwordCambiada) {
+        // Logout
+        this.authService.handleLogout();
+
+        // Modal informando que debe entrar nuevamente
+        this.dialog.open(ErrorDialogModal, {
+          data: { message: 'Tu contraseña fue actualizada. Volvé a iniciar sesión.' },
+          panelClass: 'modal-error',
+        });
+
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 1500);
+      }
     });
   }
 
