@@ -1,45 +1,63 @@
-.search-input-container {
+.search-container {
     position: relative;
 }
 
 .search-input {
     border: 1px solid color-mix(in srgb, var(--bg-color) 75%, black);
-    border-radius: 15px;
+    border-radius: 0.8rem;
     font-family: inherit;
     font-size: 1.4rem;
     outline: none;
-    padding: 1rem 3rem 1rem 3.6rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    padding: 1rem 3.4rem 1rem 3.6rem;
+    transition: 0.2s;
     width: 48rem;
+}
+
+.mostrando-resultados {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    transition: none;
 }
 
 .search-input:focus-within {
     border-color: var(--search-bar-focus-color);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--search-bar-focus-color) 33%, transparent);
 }
 
-.search-input-container i {
-    color: var(--search-bar-icon-color);
-    font-size: 1.6rem;
+.icon-search, .btn-clear {
     position: absolute;
-    left: 1.2rem;
-    pointer-events: none;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.icon-search {
+    color: var(--search-bar-icon-color);
+    font-size: 1.6rem;
+    left: 1.2rem;
+    pointer-events: none;
+}
+
+.btn-clear {
+    background: none;
+    border: none;
+    color: color-mix(in srgb, var(--text-color) 33%, white);
+    font-size: 1.4rem;
+    right: 1.2rem;
+    transition-duration: 0.1s;
+}
+
+.btn-clear:focus-within, .btn-clear:hover {
+    color: color-mix(in srgb, var(--text-color) 66%, white);
 }
 
 .search-results {
     background-color: var(--bg-color);
     border: 1px solid color-mix(in srgb, var(--bg-color) 85%, black);
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    left: 50%;
-    margin-top: 0.5rem;
+    border-radius: 0 0 1.2rem 1.2rem;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     position: absolute;
     top: 100%;
-    transform: translateX(-50%);
-    width: 64rem;
+    width: 48rem;
     z-index: 10;
 }
 
@@ -64,7 +82,7 @@
 
 .card-img {
     aspect-ratio: 1/1;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     height: 8rem;
     margin-right: 1rem;
     object-fit: cover;

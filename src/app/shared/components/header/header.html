@@ -2,19 +2,21 @@
   <nav class="header-nav">
 
     <div class="header-left">
-      <a routerLink="/home">
-        <img src="logo-miviandita-removebg-preview.png" alt="MiViandita Logo" class="header-logo" />
-      </a>
+      <div class="logo-rol-container">
+        <a class="logo-container" routerLink="/home">
+          <img class="header-logo" src="logo-miviandita-removebg-preview.png" alt="MiViandita Logo">
+        </a>
 
-      @if (role() === 'DUENO') {
-        <span class="owner-tag">Menu Dueño</span>
-      }
-      @else {
-        <!-- NO IMPLEMENTADO EN CSS -->
-        @if (role() === 'ADMIN') {
-          <span class="admin-tag">Menu Admin</span>
+        @if (role() === 'DUENO') {
+          <p class="rol">DUEÑO</p>
         }
-      }
+        @else {
+          <!-- NO IMPLEMENTADO EN CSS -->
+          @if (role() === 'ADMIN') {
+            <p class="rol">ADMIN</p>
+          }
+        }
+      </div>
 
       <app-city-selector></app-city-selector>
     </div>
@@ -32,7 +34,7 @@
       @if (!isLoggedIn()) {
         <!-- Invitado -->
         <button routerLink="/login" (click)="onLogin()" class="btn btn-primary">
-          Iniciar Sesión
+          INICIAR SESIÓN
         </button>
       } @else {
         <!-- Clientes o Dueño -->
