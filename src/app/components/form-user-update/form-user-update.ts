@@ -43,7 +43,6 @@ export class FormUserUpdate {
   }
 
   actualizarUsuario() {
-    // Si no hay id o form inválido, salir
     const id = this.data?.id;
     if (this.form.invalid || !id) return;
 
@@ -55,10 +54,12 @@ export class FormUserUpdate {
 
     this.usuarioService.updateUsuario(id, payload).subscribe({
       next: (resp) => {
+        const emailCambio = this.data?.email !== payload.email;
+
         this.exito.set('Datos actualizados correctamente');
         this.cargando.set(false);
-        // opcional: cerrar modal pasando la respuesta
-        this.dialogRef.close(resp);
+
+        this.dialogRef.close({ resp, emailCambio });
       },
       error: (err) => {
         this.error.set(err.error?.message || 'Error al actualizar usuario');
