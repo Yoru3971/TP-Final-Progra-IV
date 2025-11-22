@@ -15,8 +15,10 @@ export class ViandaCard {
 
   openViandaModal() {
     this.dialog.open(ViandaExtendedModal, {
-      data: this.vianda, 
+      data: this.vianda,
       panelClass: 'modal-vianda',
+      autoFocus: false,
+      restoreFocus: false,
     });
   }
 }
