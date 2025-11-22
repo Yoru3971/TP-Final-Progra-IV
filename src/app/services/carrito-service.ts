@@ -14,6 +14,7 @@ import { PedidosService } from './pedido-service';
 import { ComponentType } from '@angular/cdk/overlay';
 import { MatDialog } from '@angular/material/dialog';
 import { CarritoNuevoModal } from '../components/carrito-nuevo-modal/carrito-nuevo-modal';
+import { CarritoModal } from '../components/carrito-modal/carrito-modal';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,8 @@ export class CarritoService {
   public constructor() {
     this.cargarDeLocalStorage();
   }
+
+  // Modificación de datos ====================================================
 
   public async agregarVianda(vianda: ViandaResponse): Promise<void> {
     if (!this._emprendimiento())
@@ -74,23 +77,26 @@ export class CarritoService {
   }
 
   public quitarVianda(vianda: ViandaResponse): void {
-    const indiceViandaCantidad =
-      this._viandaCantidades()
-        .findIndex((viandaCantidad) => viandaCantidad.vianda.id === vianda.id);
+    const indiceViandaCantidad = this.encontrarIndiceVianda(vianda);
 
     if (indiceViandaCantidad < 0) return;
+
+    let quitada = false;
 
     this._viandaCantidades.update(arr => {
       const viandaCantidad = arr[indiceViandaCantidad];
 
       if (viandaCantidad.cantidad > 0) {
+        quitada = true;
         viandaCantidad.cantidad--;
       }
 
       return arr;
     });
 
-    this.guardarViandasEnLocalStorage();
+    if (quitada) {
+      this.guardarViandasEnLocalStorage();
+    }
   }
 
   public eliminarViandasEnCero() {
@@ -137,35 +143,6 @@ export class CarritoService {
     return seQuitaronViandas;
   }
 
-  public crearPedido() {
-    this.eliminarViandasEnCero();
-
-    const viandaCantidades = this.viandaCantidades();
-
-    const pedido: PedidoRequest = {
-      fechaEntrega: this.fechaEntrega(),
-      clienteId: this.authService.usuarioId()!,
-      emprendimientoId: viandaCantidades[0].vianda.emprendimiento.id,
-      viandas: viandaCantidades.map(
-        (viandaCantidad) => {
-          return {
-            viandaId: viandaCantidad.vianda.id,
-            cantidad: viandaCantidad.cantidad
-          } as ViandaCantidadRequest;
-        }
-      )
-    };
-
-    this.pedidoService.createPedido(pedido);
-    this.abrirSnackBar("Pedido confirmado.");
-    this.vaciar(false);
-  }
-
-  public setFechaEntrega(fecha: string) {
-    this._fechaEntrega.set(fecha);
-    this.guardarFechaEnLocalStorage();
-  }
-
   public vaciar(anunciar: boolean) {
     this._fechaEntrega.set("");
     this.vaciarViandasYEmprendimiento();
@@ -182,8 +159,66 @@ export class CarritoService {
     this._viandaCantidades.set([]);
   }
 
+  public setFechaEntrega(fecha: string) {
+    this._fechaEntrega.set(fecha);
+    this.guardarFechaEnLocalStorage();
+  }
+
+  // Consulta de datos ========================================================
+
+  public cantidadViandaEnCarrito(vianda: ViandaResponse): number {
+    const indiceVianda = this.encontrarIndiceVianda(vianda);
+
+    return (indiceVianda >= 0) ? this.viandaCantidades().at(indiceVianda)!.cantidad : 0;
+  }
+
+  private encontrarIndiceVianda(vianda: ViandaResponse): number {
+    const emprendimientoId = this.emprendimiento() ? this.emprendimiento()!.id : null;
+
+    return (emprendimientoId && emprendimientoId == vianda.emprendimiento.id)
+           ? this._viandaCantidades().findIndex((viandaCantidad) => viandaCantidad.vianda.id === vianda.id)
+           : -1;
+  }
+
   public vacio() {
     return !this._viandaCantidades().length;
+  }
+
+  // Pedidos ==================================================================
+
+  public crearPedido() {
+    this.eliminarViandasEnCero();
+
+    const pedido: PedidoRequest = {
+      fechaEntrega: this.fechaEntrega()!,
+      clienteId: this.authService.usuarioId()!,
+      emprendimientoId: this.emprendimiento()!.id,
+      viandas: this.viandaCantidades().map(
+        (viandaCantidad) => {
+          return {
+            viandaId: viandaCantidad.vianda.id,
+            cantidad: viandaCantidad.cantidad
+          } as ViandaCantidadRequest;
+        }
+      )
+    };
+
+    this.pedidoService.createPedido(pedido);
+    this.abrirSnackBar("Pedido confirmado.");
+    this.vaciar(false);
+  }
+
+  // Modales ==================================================================
+
+  public abrirModalCarrito() {
+      this.dialog.open(
+        CarritoModal,
+        {
+          maxHeight: "90vh",
+          maxWidth: "80rem",
+          width: "80rem"
+        }
+      );
   }
 
   public abrirModalConfirmacion<T>(componente: ComponentType<T>) {

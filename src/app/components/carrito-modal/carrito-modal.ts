@@ -6,6 +6,7 @@ import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Va
 import { CarritoConfirmarModal } from '../carrito-confirmar-modal/carrito-confirmar-modal';
 import { CarritoCancelarModal } from '../carrito-cancelar-modal/carrito-cancelar-modal';
 import { firstValueFrom } from 'rxjs';
+import { ComponentType } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-carrito-modal',
@@ -18,7 +19,6 @@ import { firstValueFrom } from 'rxjs';
 export class CarritoModal implements OnInit {
   private carritoService = inject(CarritoService);
   private changeDetectorRef = inject(ChangeDetectorRef);
-  private dialog = inject(MatDialog);
   private dialogRef = inject(MatDialogRef<CarritoModal>);
   private formBuilder = inject(FormBuilder);
 
@@ -86,8 +86,9 @@ export class CarritoModal implements OnInit {
   public async cancelarPedido() {
     this.modalBloqueado = true;
     
-    const dialogRef = this.carritoService.abrirModalConfirmacion(CarritoCancelarModal);
-    const confirmado = await firstValueFrom(dialogRef.afterClosed());
+    const confirmado = await firstValueFrom(
+      this.confirmar(CarritoCancelarModal)
+    );
 
     setTimeout(() => {
       if (confirmado) {
@@ -108,8 +109,9 @@ export class CarritoModal implements OnInit {
       const errorRevision = await this.carritoService.revisarViandas();
 
       if (!errorRevision) {
-        const dialogRef = this.carritoService.abrirModalConfirmacion(CarritoConfirmarModal);
-        const confirmado = await firstValueFrom(dialogRef.afterClosed());
+        const confirmado = await firstValueFrom(
+          this.confirmar(CarritoConfirmarModal)
+        );
 
         setTimeout(() => {
           if (confirmado) {
@@ -131,6 +133,10 @@ export class CarritoModal implements OnInit {
     }
 
     this.modalBloqueado = false;
+  }
+
+  private confirmar<T>(componente: ComponentType<T>) {
+    return this.carritoService.abrirModalConfirmacion(componente).afterClosed();
   }
 
   public cerrar() {
