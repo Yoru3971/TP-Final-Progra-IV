@@ -33,7 +33,7 @@ export class DatosUsuarioCard implements OnInit{
           autoFocus: false,
           restoreFocus: false,
         });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       this.usuarioService.getPerfilUsuario().subscribe({
       next: (data) => {
         this.usuarioSignal.set(data);
