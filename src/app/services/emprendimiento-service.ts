@@ -96,19 +96,6 @@ export class EmprendimientoService {
       .pipe(tap((nuevo) => this.allEmprendimientos.update((list) => [...list, nuevo])));
   }
 
-  updateEmprendimiento(id: number, formData: FormData) {
-    if (this.authService.currentUserRole() !== 'DUENO') {
-      throw new Error('Solo dueños pueden actualizar emprendimientos');
-    }
-    return this.http
-      .put<EmprendimientoResponse>(`${this.baseUrls.DUENO}/id/${id}`, formData)
-      .pipe(
-        tap((actualizado) =>
-          this.allEmprendimientos.update((list) => list.map((e) => (e.id === id ? actualizado : e)))
-        )
-      );
-  }
-
   //borrar un emprendimiento propio
   deleteEmprendimiento(id: number) {
     if (this.authService.currentUserRole() !== 'DUENO') {
@@ -121,7 +108,38 @@ export class EmprendimientoService {
 
   //verificar que un emprendimiento le corresponde a un dueño (para guards)
   esDuenoDelEmprendimiento(emprendimientoId: number, usuarioId: number): boolean {
-  const emprendimiento = this.emprendimientos().find(e => e.id === emprendimientoId);
-  return emprendimiento ? emprendimiento.dueno.id === usuarioId : false;
-}
+    const emprendimiento = this.emprendimientos().find((e) => e.id === emprendimientoId);
+    return emprendimiento ? emprendimiento.dueno.id === usuarioId : false;
+  }
+
+  //----- Metodos update -----
+  //Actualizar los campos del emprendimiento
+  updateEmprendimiento(id: number, dto: any) {
+    if (this.authService.currentUserRole() !== 'DUENO') {
+      throw new Error('Solo dueños pueden actualizar emprendimientos');
+    }
+
+    return this.http
+      .put<EmprendimientoResponse>(`${this.baseUrls.DUENO}/id/${id}`, dto)
+      .pipe(
+        tap((actualizado) =>
+          this.allEmprendimientos.update((list) => list.map((e) => (e.id === id ? actualizado : e)))
+        )
+      );
+  }
+
+  //actualizar la imagen del emprendimiento
+  updateImagenEmprendimiento(id: number, formData: FormData) {
+    if (this.authService.currentUserRole() !== 'DUENO') {
+      throw new Error('Solo dueños pueden actualizar imágenes de emprendimientos');
+    }
+
+    return this.http
+      .put<EmprendimientoResponse>(`${this.baseUrls.DUENO}/id/${id}/imagen`, formData)
+      .pipe(
+        tap((actualizado) =>
+          this.allEmprendimientos.update((list) => list.map((e) => (e.id === id ? actualizado : e)))
+        )
+      );
+  }
 }
