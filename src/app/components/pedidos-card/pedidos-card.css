@@ -4,20 +4,56 @@
   height: 100%;
 }
 
+.titulo-con-filtros {
+  margin-bottom: 3rem;
+}
+
 .pedidos-container {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
+/* título */
 .titulo-seccion {
   font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: 0.18rem;
   color: var(--text-color);
-  margin: 0 0 1rem 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
+/* ===========================
+   CONTENEDOR DE FILTROS
+=========================== */
+.filtros-container {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.6rem;
+
+  /* para evitar que estiren raro */
+  flex-wrap: nowrap;
+}
+
+/* estilo uniforme para select */
+.filtros-container select {
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.8rem;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--input-text);
+  font-size: 1.4rem;
+  outline: none;
+  cursor: pointer;
+  height: 4rem;
+}
+
+.filtros-container select:focus {
+  border-color: var(--input-focus-outline);
+  box-shadow: var(--input-focus-shadow);
+}
+
+/* contenedor principal del card */
 .pedidos-card {
   background: var(--form-bg);
   border-radius: 1.2rem;
@@ -29,6 +65,7 @@
   overflow: hidden;
 }
 
+/* texto cuando no hay pedidos */
 .sin-pedidos {
   font-size: 2rem;
   color: var(--input-text);
@@ -36,6 +73,7 @@
   opacity: 0.8;
 }
 
+/* lista scrolleable */
 .lista {
   flex: 1;
   overflow-y: auto;

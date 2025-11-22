@@ -74,9 +74,8 @@
   --estado-rechazado: #e74c3c;
   --estado-default: #6b7280;
 
-   --image-upload-bg:#f8f8f8;
-  --image-upload-bg-hover:#e9e9e9;
- 
+  --image-upload-bg: #f8f8f8;
+  --image-upload-bg-hover: #e9e9e9;
 }
 
 html {
@@ -107,7 +106,7 @@ app-root {
 /* --- ESTILOS FORM --- */
 
 .main-content {
-  flex: 1; /* Ocupa el espacio dejado por el header y el footer */
+  flex: 1;
 }
 
 .form-label {
@@ -134,7 +133,6 @@ app-root {
 
 .form-input:focus {
   border-color: var(--input-focus-outline);
-  outline: none;
   box-shadow: var(--invalid-focus-shadow);
 }
 
@@ -159,8 +157,9 @@ app-root {
   font-size: 1.2rem;
   margin-top: 0.1rem;
   margin-bottom: 0;
-  font-weight: lighter;
 }
+
+/* --- BOTONES --- */
 
 .btn {
   background-color: var(--button-bg);
@@ -181,19 +180,9 @@ app-root {
   background-color: var(--btn-disabled);
   color: var(--btn-disabled-text);
   cursor: not-allowed;
-  box-shadow: none;
 }
 
-.checkbox-container {
-  width: 100%;
-  font-size: 1.2rem;
-  color: var(--text-color);
-  line-height: 1.4;
-}
-
-.checkbox-container input {
-  margin-right: 0.5rem;
-}
+/* --- CHECKBOX --- */
 
 .checkbox-container input[type='checkbox'] {
   accent-color: var(--checked-color);
@@ -218,223 +207,26 @@ app-root {
   color: var(--toggle-eye-color);
   font-size: 1.6rem;
   cursor: pointer;
-  transition: color 0.2s ease;
 }
 
 .toggle-eye:hover {
   color: var(--toggle-eye-hover-color);
 }
 
-.main-form-container {
-  width: 60%;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: var(--bg-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.icon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--btn-disabled);
+  transition: color 0.25s ease;
 }
 
-/* --- MODAL ERROR --- */
-
-.modal-error .mat-mdc-dialog-title {
-  background-color: var(--modal-bg);
-  color: var(--error-color) !important;
-  padding: 1.2rem 1.6rem;
-  margin: 0;
+.icon.active,
+.icon:hover {
+  color: var(--button-bg);
 }
 
-.modal-error .mat-icon {
-  color: var(--error-color) !important;
-  vertical-align: middle;
-}
+/* --- SCROLLBAR --- */
 
-.modal-error .mat-mdc-dialog-content {
-  background-color: var(--modal-bg);
-  padding: 2rem;
-  max-height: none !important;
-  overflow: visible !important;
-}
-
-.modal-error .mat-mdc-dialog-content p {
-  font-size: 1.4rem;
-  color: var(--input-text);
-  margin: 0;
-}
-
-.modal-error .mat-mdc-dialog-actions {
-  background-color: var(--modal-bg);
-  padding: 1.6rem;
-}
-
-.modal-error .mat-mdc-dialog-actions .btn {
-  padding: 1rem 3rem;
-  font-size: 1.6rem;
-  margin: 0;
-}
-
-/* --- MODAL SCROLLEABLE--- */
-
-.modal-scrolleable .mat-mdc-dialog-title {
-  background-color: #ff8c00;
-  color: white !important;
-  border: none;
-  margin: 0;
-  font-size: 2rem !important;
-}
-
-.modal-scrolleable .mat-mdc-dialog-actions .btn {
-  padding: 1rem;
-  font-size: 1.6rem;
-  margin: 1.5rem;
-  font-weight: bold;
-}
-
-.modal-scrolleable .mat-mdc-dialog-content {
-  background-color: rgb(238, 238, 238);
-  margin: 0;
-}
-
-.modal-scrolleable .mat-mdc-dialog-content p {
-  font-size: 1.2rem;
-  color: var(--input-text);
-}
-
-.modal-scrolleable .mat-mdc-dialog-actions {
-  background: linear-gradient(to top, #e0e0e0 0%, #d5d5d5 80%);
-  padding: 0;
-  border: none;
-}
-
-/* --- SNACKBAR --- */
-
-.snackbar-panel {
-  background-color: var(--bg-color);
-  margin-bottom: 4rem !important;
-}
-
-.snackbar-panel .mat-mdc-snackbar-surface {
-  background: none !important;
-  color: inherit !important;
-}
-
-.snackbar-panel .mat-mdc-snackbar-label {
-  padding: 0 !important;
-  display: block !important;
-  width: 100% !important;
-}
-
-/* --- MODAL VIANDA --- */
-.cdk-overlay-pane.modal-vianda {
-  width: 95rem !important;
-  max-width: 95rem !important;
-}
-
-.modal-vianda .mat-mdc-dialog-surface {
-  border-radius: 2rem !important;
-  overflow: hidden !important;
-  background: var(--bg-color) !important;
-}
-
-.modal-vianda .mat-mdc-dialog-container {
-  padding: 0 !important;
-  background: none !important;
-  border-radius: 0 !important;
-  overflow: hidden !important;
-}
-
-.modal-vianda .mat-mdc-dialog-title {
-  font-size: 3rem !important;
-  font-weight: bolder !important;
-  margin: 0 !important;
-  background: var(--emprendimiento-card-header-bg) !important;
-  color: var(--inverse-text-color) !important;
-}
-
-.modal-vianda .mat-mdc-dialog-content {
-  display: flex !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  font-size: 1.6rem;
-  color: var(--text-color);
-}
-
-.left-panel {
-  padding: 3rem 4rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-.left-panel label {
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  color: var(--text-color);
-  margin-bottom: 0.4rem;
-}
-
-.left-panel p {
-  font-size: 1.5rem;
-  margin: 0;
-  line-height: 2.2rem;
-}
-
-.left-panel .precio {
-  color: var(--precio-color);
-  font-weight: bold;
-}
-
-.restricciones {
-  display: flex;
-  gap: 1.4rem;
-  min-height: 4rem;
-  align-items: center;
-}
-
-.restriccion {
-  width: 4rem;
-  height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.right-panel {
-  width: 45%;
-  min-width: 42rem;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.right-panel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.modal-vianda .mat-mdc-dialog-actions {
-  padding: 2rem 3rem !important;
-  display: flex !important;
-  justify-content: center !important;
-}
-
-.modal-vianda .btn {
-  padding: 1.4rem 2.8rem !important;
-  font-size: 2rem !important;
-  border-radius: 0.7rem !important;
-  font-weight: bold !important;
-}
-
-.modal-vianda * {
-  font-family: 'Inria Sans', sans-serif !important;
-}
-
-/* --- SCROLLBAR GENERICO --- */
 *::-webkit-scrollbar {
   width: 0.8rem;
 }
@@ -448,76 +240,36 @@ app-root {
   background: var(--scrollbar-hover-color);
 }
 
-/* --- MODAL PEDIDO --- */
+/* --- FILTROS PEDIDOS Y NOTIFCIACIONES --- */
 
-.cdk-overlay-pane.modal-pedido {
-  width: 95rem !important;
-  max-width: 95rem !important;
+.titulo-con-filtros {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
-.modal-pedido .mat-mdc-dialog-surface {
-  border-radius: 2rem !important;
-  overflow: hidden !important;
-  background: var(--bg-color) !important;
+.filtros-layout {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: nowrap;
 }
 
-.modal-pedido .mat-mdc-dialog-container {
-  padding: 0 !important;
-  background: none !important;
-  border-radius: 0 !important;
-  overflow: hidden !important;
+.filtros-layout select {
+  height: 4rem;
+  padding: 0 1.2rem;
+  border-radius: 0.8rem;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--input-text);
+  font-size: 1.4rem;
+  outline: none;
+  cursor: pointer;
 }
 
-.modal-pedido .mat-mdc-dialog-title {
-  font-size: 3rem !important;
-  font-weight: bolder !important;
-  margin: 0 !important;
-  background: var(--emprendimiento-card-header-bg) !important;
-  color: var(--inverse-text-color) !important;
-  padding: 2rem 3rem !important;
-}
-
-.modal-pedido .mat-mdc-dialog-content {
-  display: flex !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  font-size: 1.6rem;
-  color: var(--text-color);
-  min-height: 32rem;
-  max-height: 32rem;
-}
-
-.modal-pedido * {
-  font-family: 'Inria Sans', sans-serif !important;
-}
-
-/* MODAL FORM EMPRENDIMIENTO */
-.cdk-overlay-pane.form-modal {
-  max-width: 75rem !important;
-}
-
-.form-modal .mat-mdc-dialog-surface,
-.form-modal .mat-mdc-dialog-container,
-.form-modal .mat-mdc-dialog-content {
-  background: var(--form-bg) !important;
-  border-radius: 2rem !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-/* ICONOS RESTRICCIONES DE ALIMENTOS */
-.icon {
-  width: 3rem;
-  height: 3rem;
-  color: var(--btn-disabled);
-  transition: color .25s ease;
-}
-
-.icon.active {
-  color: var(--button-bg);
-}
-
-.icon:hover {
-  color: var(--button-bg);
+.filtros-layout select:focus {
+  border-color: var(--input-focus-outline);
+  box-shadow: var(--input-focus-shadow);
 }

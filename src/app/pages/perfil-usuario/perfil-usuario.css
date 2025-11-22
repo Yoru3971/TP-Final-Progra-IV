@@ -9,9 +9,6 @@
 .titulo-perfil {
   font-size: 2.4rem;
   color: var(--link-color);
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
   margin: 0;
 }
 
@@ -62,9 +59,9 @@
   display: block;
 }
 .col-izquierda app-notificaciones-card {
-  height: 68rem;
+  height: 75rem;
 }
 
 .fila-inferior app-pedidos-card {
-  height: 45rem;
+  height: 47.5rem;
 }

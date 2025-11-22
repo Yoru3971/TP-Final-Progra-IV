@@ -1,11 +1,12 @@
 <div class="notificaciones-container">
-  <h3 class="titulo-seccion">NOTIFICACIONES</h3>
+  <div class="titulo-con-filtros">
+    <h3 class="titulo-seccion">NOTIFICACIONES</h3>
 
-  <!-- FILTROS -->
-  <div class="filtros">
-    <app-date-range-picker
-    (fechasSeleccionadas)="onFechasSeleccionadas($event)">
-    </app-date-range-picker>
+    <!-- FILTROS -->
+    <div class="filtros-layout">
+      <app-date-range-picker (fechasSeleccionadas)="onFechasSeleccionadas($event)">
+      </app-date-range-picker>
+    </div>
   </div>
 
   <div class="notificaciones-card">

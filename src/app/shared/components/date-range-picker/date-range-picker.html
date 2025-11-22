@@ -1,45 +1,47 @@
 <div class="picker-container">
-  
-  <div class="header-actions">
-    <button mat-stroked-button (click)="toggleMode()" color="primary">
-      {{ isRangeMode() ? 'Modo: Rango de Fechas' : 'Modo: Día Único' }}
-    </button>
-    
-    <span class="current-selection">{{ displayLabel() }}</span>
-  </div>
+  <!-- Toggle de modo -->
+  <label class="switch-toggle">
+    <input type="checkbox" [checked]="isRangeMode()" (change)="toggleMode()" />
+    <span class="slider"></span>
+    <span class="toggle-label">{{ isRangeMode() ? 'Rango' : 'Día único' }}</span>
+  </label>
 
+  <!-- Campo de fecha -->
   @if (isRangeMode()) {
-    <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Ingrese un rango</mat-label>
-      
-      <mat-date-range-input [rangePicker]="rangePicker">
-        <input matStartDate 
-               [value]="startDate()" 
-               (dateChange)="onRangeStartChange($event)" 
-               placeholder="Desde">
-        <input matEndDate 
-               [value]="endDate()" 
-               (dateChange)="onRangeEndChange($event)" 
-               placeholder="Hasta">
-      </mat-date-range-input>
-      
-      <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
-      <mat-date-range-picker #rangePicker></mat-date-range-picker>
-    </mat-form-field>
-  } 
-  
-  @else {
-    <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Seleccione una fecha</mat-label>
-      
-      <input matInput 
-             [matDatepicker]="singlePicker" 
-             [value]="startDate()" 
-             (dateChange)="onSingleDateChange($event)">
-      
-      <mat-datepicker-toggle matIconSuffix [for]="singlePicker"></mat-datepicker-toggle>
-      <mat-datepicker #singlePicker></mat-datepicker>
-    </mat-form-field>
-  }
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="picker-field">
+    <mat-label>Rango de fechas</mat-label>
 
+    <mat-date-range-input [rangePicker]="rangePicker">
+      <input
+        matStartDate
+        [value]="startDate()"
+        (dateChange)="onRangeStartChange($event)"
+        placeholder="Desde"
+      />
+      <input
+        matEndDate
+        [value]="endDate()"
+        (dateChange)="onRangeEndChange($event)"
+        placeholder="Hasta"
+      />
+    </mat-date-range-input>
+
+    <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #rangePicker></mat-date-range-picker>
+  </mat-form-field>
+  } @else {
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="picker-field">
+    <mat-label>Seleccione una fecha</mat-label>
+
+    <input
+      matInput
+      [matDatepicker]="singlePicker"
+      [value]="startDate()"
+      (dateChange)="onSingleDateChange($event)"
+    />
+
+    <mat-datepicker-toggle matIconSuffix [for]="singlePicker"></mat-datepicker-toggle>
+    <mat-datepicker #singlePicker></mat-datepicker>
+  </mat-form-field>
+  }
 </div>
