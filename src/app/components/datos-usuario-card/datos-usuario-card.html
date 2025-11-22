@@ -3,18 +3,18 @@
 <div class="datos-card">
   <div class="dato-container">
     <i class="fa-solid fa-user icon"></i>
-    <p class="dato">{{ usuario.nombreCompleto }}</p>
+    <p class="dato">{{ usuarioSignal().nombreCompleto }}</p>
   </div>
 
   <div class="dato-container">
     <i class="fa-solid fa-phone icon"></i>
-    <p class="dato">{{ usuario.telefono }}</p>
+    <p class="dato">{{ usuarioSignal().telefono }}</p>
   </div>
 
   <div class="dato-container">
     <i class="fa-solid fa-envelope icon"></i>
-    <p class="dato">{{ usuario.email }}</p>
+    <p class="dato">{{ usuarioSignal().email }}</p>
   </div>
 
-  <i class="fa-solid fa-pen edit-icon"></i>
+  <i class="fa-solid fa-pen edit-icon" (click)="openUpdateModal()"></i>
 </div>
