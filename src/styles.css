@@ -49,6 +49,9 @@
   --vianda-card-footer-bg: #fe9039;
 
   --skeleton-bg: #e0e0e0;
+
+  --sobre-nosotros-card-bg-color: #f9f8f8;
+  --sobre-nosotros-card-border-color: #e5e5e5;
 }
 
 html {
@@ -380,4 +383,14 @@ app-root {
 
 .modal-vianda * {
   font-family: 'Inria Sans', sans-serif !important;
+}
+
+.info-page-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0 auto;
+  padding: 3rem 0;
+  width: 120rem;
 }

@@ -4,6 +4,11 @@ import { RegisterPageCliente } from './pages/register-page-cliente/register-page
 import { Login } from './pages/login/login';
 import { RegisterSuccessPage } from './pages/register-success-page/register-success-page';
 import { HomePage } from './pages/home-page/home-page';
+import { SobreNosotrosPage } from './pages/sobre-nosotros-page/sobre-nosotros-page';
+import { SobreMivianditaPage } from './pages/sobre-miviandita-page/sobre-miviandita-page';
+import { RecuperarPasswordPage } from './pages/recuperar-password-page/recuperar-password-page';
+import { NormasComunidadPage } from './pages/normas-comunidad-page/normas-comunidad-page';
+import { BasesCondicionesPage } from './pages/bases-condiciones-page/bases-condiciones-page';
 
 export const routes: Routes = [
   { path: 'home', component: HomePage },
@@ -25,10 +30,32 @@ export const routes: Routes = [
     path: 'login',
     component: Login,
   },
-  //REVISAR habria que ver que hacemos con la ruta vacia, tal vez podriamos redirigir a una pagina  de "OOPS" o algo asi 
+  {
+    path: 'sobre-miviandita',
+    component: SobreMivianditaPage,
+  },
+  {
+    path: 'sobre-nosotros',
+    component: SobreNosotrosPage,
+  },
+  {
+    path: 'recuperar-password',
+    component: RecuperarPasswordPage,
+  },
+  {
+    path: 'normas-comunidad',
+    component: NormasComunidadPage,
+  },
+  {
+    path: 'bases-condiciones',
+    component: BasesCondicionesPage,
+  },
+  //REVISAR habria que ver que hacemos con la ruta vacia, tal vez podriamos redirigir a una pagina de "OOPS" o algo asi 
   { 
-    path: '', redirectTo: '/home', 
-    pathMatch: 'full' }, // Redirige la ruta vacía a /home
-  
-    { path: '**', redirectTo: '/home' }, // Redirige cualquier otra ruta a home
+    // Redirige la ruta vacía a /home
+    path: '',
+    redirectTo: '/home', 
+    pathMatch: 'full'
+  },
+  { path: '**', redirectTo: '/home' }, // Redirige cualquier otra ruta a home
 ];
