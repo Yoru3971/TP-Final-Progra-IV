@@ -255,8 +255,10 @@ export class EmprendimientoPage {
 
   
   openViandaForm() {
+    const emprendimientoId = this.idEmprendimiento();
     this.dialog
       .open(FormVianda, {
+        data: { idEmprendimiento: emprendimientoId },
         width: '100rem',
         panelClass: 'form-modal',
         autoFocus: false,
@@ -265,7 +267,7 @@ export class EmprendimientoPage {
       .afterClosed()
       .subscribe((exito) => {
         if (exito) {
-          // ACA VA LA LINEA PARA ACTUALIZAR LAS VIANDAS DE LA VISTA
+          this.filtrosSignal.update(f => ({...f}));
         }
       });
   }

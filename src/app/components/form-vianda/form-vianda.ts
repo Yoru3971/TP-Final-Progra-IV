@@ -1,10 +1,10 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, Inject, inject, Input, signal } from '@angular/core';
 import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ViandaService } from '../../services/vianda-service';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CategoriaVianda } from '../../shared/enums/categoriaVianda.enum';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -15,7 +15,6 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './form-vianda.css',
 })
 export class FormVianda {
-  @Input() emprendimiento!: EmprendimientoResponse;
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -24,11 +23,16 @@ export class FormVianda {
   private dialogRef = inject(MatDialogRef);
   private cdr = inject(ChangeDetectorRef); //agregado para forzar render
 
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { idEmprendimiento: number }
+  ) {}
+
   public categorias = Object.entries(CategoriaVianda).map(([key, label]) => ({
     key,
     label,
   }));
 
+  loading = false;
   selectedFileName: string | null = null;
   public imagePreviewUrl: string | ArrayBuffer | null = null;
 
@@ -116,13 +120,14 @@ export class FormVianda {
   onSubmit() {
     if (this.formVianda.invalid) return;
 
-    if (!this.emprendimiento?.id) {
+    if (!this.data?.idEmprendimiento) {
       this.dialog.open(ErrorDialogModal, {
         data: { message: 'Error: no se recibió el emprendimiento.' },
       });
       return;
     }
 
+    this.loading = true;
     const formData = new FormData();
     const formValues = this.formVianda.value;
 
@@ -134,11 +139,15 @@ export class FormVianda {
     formData.append('esVegano', String(formValues.esVegano!));
     formData.append('esVegetariano', String(formValues.esVegetariano!));
     formData.append('esSinTacc', String(formValues.esSinTacc!));
-    formData.append('emprendimientoId', String(this.emprendimiento.id));
+    formData.append('emprendimientoId', String(this.data.idEmprendimiento));
 
     this.viandaService.createVianda(formData).subscribe({
-      next: () => this.router.navigate(['/mis-viandas']),
+      next: () => {
+        this.loading = false;
+        this.dialogRef.close(true);             //  AGREGAR snackbar de éxito
+      },
       error: (err) => {
+        this.loading = false;
         const backendMsg = err.error?.message || 'Error desconocido al crear la vianda';
         this.dialog.open(ErrorDialogModal, {
           data: { message: backendMsg },
