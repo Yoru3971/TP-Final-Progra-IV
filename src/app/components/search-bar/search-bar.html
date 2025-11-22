@@ -1,12 +1,33 @@
 <div class="search-container">
-  <input
-    type="text"
-    placeholder="Buscar emprendimiento..."
-    (input)="onInput($event)"
-    class="search-input"
-  />
+  <div class="search-input-container">
+    <input
+      #searchInput
+      class="search-input"
+      [class.mostrando-resultados]="mostrarResultados()"
+      type="text"
+      placeholder="Buscar emprendimiento..."
+      (input)="onInput($event)"
+      (blur)="onBlur()"
+      (focus)="buscadorSeleccionado.set(true)"
+      (mouseenter)="sobreBuscador.set(true)"
+      (mouseleave)="sobreBuscador.set(false)"
+    />
 
-  @if (resultados().length > 0) {
+    <i class="icon-search fa-solid fa-magnifying-glass"></i>
+
+    @if ((buscadorSeleccionado() || sobreBuscador() || sobreBotonVaciar()) && hayTextoEnBuscador()) {
+      <button
+        class="btn-clear"
+        (click)="vaciarBuscador(searchInput)"
+        (mouseenter)="sobreBotonVaciar.set(true)"
+        (mouseleave)="sobreBotonVaciar.set(false)"
+      >
+        <i class="fa-solid fa-x"></i>
+      </button>
+    }
+  </div>
+
+  @if (mostrarResultados()) {
     <div class="search-results">
       @for (item of resultados(); track item.id) {
         <div
@@ -22,12 +43,10 @@
             <p class="card-sub">{{ item.direccion }} - {{ item.telefono }}</p>
             <p class="card-sub">Dueño: {{ item.dueno.nombreCompleto}}</p>
           </div>
-
-          <span class="city-tag">{{ item.ciudad }}</span>
         </div>
+      } @empty {
+        <p class="no-results">No se encontraron resultados.</p>
       }
     </div>
   }
 </div>
-
-
