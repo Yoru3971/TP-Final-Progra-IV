@@ -69,7 +69,17 @@ export class ViandaService {
 
     // -----------------  Métodos de Emprendimiento Page  -----------------
 
-  // El cliente solo ve las viandas disponibles (+ filtros)
+  // El invitado solo ve las viandas disponibles (+ filtros)
+  getViandasPublico(idEmprendimiento: number, filtros?: FiltrosViandas): Observable<ViandaResponse[]> {
+    const params = this.construirParams(filtros);
+    
+    return this.http.get<ViandaResponse[]>(
+      `${this.baseUrls.PUBLIC}/idEmprendimiento/${idEmprendimiento}`, 
+      { params }
+    );
+  }
+
+  // El cliente ve lo mismo que el invitado (pero el  back lo diferencia)
   getViandasCliente(idEmprendimiento: number, filtros?: FiltrosViandas): Observable<ViandaResponse[]> {
     const params = this.construirParams(filtros);
     

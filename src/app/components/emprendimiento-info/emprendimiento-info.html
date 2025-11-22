@@ -5,28 +5,39 @@
         @if (datos().imgUrl) {
             <img [src]="datos().imgUrl" alt="Logo">
         } @else {
-            <i class="placeholder-icon">🏠</i> 
+            <i class="fa-solid fa-store placeholder-icon"></i>
         }
         </div>
         <h1 class="titulo">{{ datos().nombreEmprendimiento }}</h1>
     </div>
 
     <div class="info-center">
-        @if (modo() === 'dueno') {
-        <button class="btn-accion" (click)="onButtonClick()">
-            EDITAR DATOS
+        @if (modo() === 'DUENO') {
+        <button class="btn btn-accion" (click)="onButtonClick()">
+            Configurar <i class="fa-solid fa-gear"></i>
         </button>
         } @else {
-        <button class="btn-accion" (click)="onButtonClick()">
-            VER CARRITO
+        <button class="btn btn-accion" (click)="onButtonClick()">
+            Carrito <i class="fa-solid fa-cart-shopping"></i>
         </button>
         }
     </div>
 
     <div class="info-right">
-        <p class="direccion">{{ datos().direccion }}</p>
-        <p class="telefono">{{ datos().telefono }}</p>
-        <p class="dueno">{{ datos().dueno.nombreCompleto }}</p>
+        <div class="text-icon-container">
+            <p class="direccion">{{ datos().direccion }}</p>
+            <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <div class="text-icon-container">
+            <p class="telefono">{{ datos().telefono }}</p>
+            <i class="fa-solid fa-phone"></i>
+        </div>
+        <div class="text-icon-container">
+            <p class="dueno">{{ datos().dueno.nombreCompleto }}</p>
+            <i class="fa-solid fa-user"></i>
+        </div>
+        
+        
     </div>
 
 </div>

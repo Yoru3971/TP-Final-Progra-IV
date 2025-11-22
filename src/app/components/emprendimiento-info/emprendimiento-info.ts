@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Input, output, Output } from '@angular/core';
+import { Component, EventEmitter, inject, input, Input, output, Output } from '@angular/core';
 import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
 
 @Component({
@@ -10,7 +10,7 @@ import { EmprendimientoResponse } from '../../model/emprendimiento-response.mode
 export class EmprendimientoInfo {
 
   datos = input.required<EmprendimientoResponse>();
-  modo = input.required<'cliente' | 'dueno'>();
+  modo = input.required<'CLIENTE' | 'DUENO'| 'INVITADO' | 'PROHIBIDO' | 'CARGANDO'>();
 
   accionPrincipal = output<void>();
 

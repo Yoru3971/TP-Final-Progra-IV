@@ -1,60 +1,10 @@
-/*ACA HAY QUE COPIAR EL ESTILO DE LAS VIANDA CARD*/
-.card-crear {
-  background: var(--form-bg);
-  width: 10rem;
-  border-radius: 1.5rem;
-  box-shadow: var(--form-shadow);
-  margin: 3rem auto;
-  padding: 4rem 2rem;
-  cursor: pointer;
-  transition: 0.25s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
 
-.card-crear:hover {
-  background-color: #dcdcdc;
-}
-
-.card-crear i {
-  font-size: 4rem;
-  color: var(--link-color);
-}
-
-.card-crear span {
-  font-size: 1.7rem;
-  font-weight: bold;
-  color: var(--text-color);
-}
-
-.estado-vacio {
-  width: 100%;
-  text-align: center;
-  margin-top: 2rem;
-  color: var(--input-text);
-  font-size: 1.8rem;
-  opacity: 0.8;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.estado-vacio i {
-  font-size: 3rem;
-  color: var(--link-color);
-  animation: rebote 1.2s infinite;
-}
-
-@keyframes rebote {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(-0.6rem);
-  }
-  100% {
-    transform: translateX(0);
-  }
+.viandas-detalladas-grid {
+    display: grid;
+    /* MAGIA: Crea columnas automáticas de mínimo 280px y máximo 1 fracción del espacio */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem; /* Espacio generoso entre tarjetas */
+    width: 80%;
+    margin: 0 auto 3rem auto;
+    padding: 1rem 0;
 }

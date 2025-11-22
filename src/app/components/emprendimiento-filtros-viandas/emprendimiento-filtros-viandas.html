@@ -15,52 +15,51 @@
     <div class="controles-bottom">
         
         <div class="search-box">
-        <i class="icon-lupa">🔍</i>
-        <input 
-            type="text" 
-            placeholder="Buscar..." 
-            [ngModel]="busqueda()"
-            (ngModelChange)="onSearchInput($event)">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input 
+                type="text"
+                [ngModel]="busqueda()"
+                (ngModelChange)="onSearchInput($event)">
         </div>
 
         <div class="dietary-icons">
-        <button 
-            class="icon-btn" 
-            [class.active]="esSinTacc()" 
-            (click)="toggleDietary('sintacc')"
-            title="Sin TACC">
-            🌾🚫
-        </button>
-        
-        <button 
-            class="icon-btn" 
-            [class.active]="esVegano()" 
-            (click)="toggleDietary('vegano')"
-            title="Vegano">
-            🥦
-        </button>
+            <button 
+                class="icon-btn" 
+                [class.active]="esSinTacc()" 
+                (click)="toggleDietary('sintacc')"
+                title="Sin TACC">
+                <i class="fa-solid fa-wheat-awn-circle-exclamation"></i>
+            </button>
+            
+            <button 
+                class="icon-btn" 
+                [class.active]="esVegano()" 
+                (click)="toggleDietary('vegano')"
+                title="Vegano">
+                <i class="fa-solid fa-carrot"></i>
+            </button>
 
-        <button 
-            class="icon-btn" 
-            [class.active]="esVegetariano()" 
-            (click)="toggleDietary('vegetariano')"
-            title="Vegetariano">
-            🥬
-        </button>
+            <button 
+                class="icon-btn" 
+                [class.active]="esVegetariano()" 
+                (click)="toggleDietary('vegetariano')"
+                title="Vegetariano">
+                <i class="fa-solid fa-leaf"></i>
+            </button>
         </div>
 
         <div class="price-inputs">
-        <input 
-            type="number" 
-            placeholder="precio minimo" 
-            [ngModel]="precioMin()"
-            (ngModelChange)="updatePrecio('min', $event)">
-        
-        <input 
-            type="number" 
-            placeholder="precio maximo"
-            [ngModel]="precioMax()"
-            (ngModelChange)="updatePrecio('max', $event)">
+            <input 
+                type="number" 
+                placeholder="Precio Min." 
+                [ngModel]="precioMin()"
+                (ngModelChange)="updatePrecio('min', $event)">
+            
+            <input 
+                type="number" 
+                placeholder="Precio Max."
+                [ngModel]="precioMax()"
+                (ngModelChange)="updatePrecio('max', $event)">
         </div>
 
     </div>

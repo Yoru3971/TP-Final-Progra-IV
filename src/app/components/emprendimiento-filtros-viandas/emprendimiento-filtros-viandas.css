@@ -1,109 +1,157 @@
+
 .filtros-container {
   width: 80%;
-  margin: 0 auto 3rem auto;
+  margin: 1rem auto 3rem auto;
 }
 
-/* --- CATEGORÍAS (Filtro de arriba) --- */
 .categorias-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 1rem;
+  margin-bottom: 2rem;
   justify-content: center;
 }
 
 .chip-categoria {
+  display: inline-flex;
+  align-items: center; 
+  justify-content: center;
   background-color: white;
-  border: 1px solid #f0f0f0;
-  border-radius: 8px;
-  padding: 10px 25px;
-  font-size: 0.9rem;
+  border: none;
+  border-radius: 1rem;
+  padding: 1.2rem 3.2rem;
+  font-family: inherit;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #555;
+  color: #777;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s ease-in-out;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.25rem;
+  user-select: none; 
 }
 
 .chip-categoria:hover {
   background-color: #f9f9f9;
+  color: #333;
 }
 
 .chip-categoria.active {
   background-color: #FFDAB9;
   border-color: #FFDAB9;
-  color: #333;
+  color: #4a3b32;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.12); 
+  transform: translateY(1px);
 }
 
 /* --- FILTROS INFERIORES --- */
 .controles-bottom {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 0;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .search-box {
   position: relative;
   flex: 1;
-  min-width: 200px;
+  min-width: 25rem;
 }
 
 .search-box input {
-  width: 100%;
-  padding: 12px 12px 12px 40px;
-  border-radius: 25px;
-  border: 1px solid #ddd;
+  width: 80%;
+  padding: 1rem 2rem 1rem 5rem;
+  border-radius: 50px;
+  border: 1px solid #e0e0e0;
   outline: none;
-  font-size: 1rem;
+  font-family: inherit;
+  font-size: 1.4rem;
+  color: #555;
+  transition: border-color 0.3s;
 }
 
-.search-box .icon-lupa {
+.search-box input:focus {
+  border-color: #ff9f43;
+  box-shadow: 0 0 0 2px rgba(255, 159, 67, 0.1); 
+}
+
+.search-box .fa-magnifying-glass {
   position: absolute;
-  left: 15px;
+  left: 1.8rem;
   top: 50%;
   transform: translateY(-50%);
   color: #ff9f43;
+  font-size: 1.8rem;
+  pointer-events: none;
 }
 
+
+/* --- BOTONES DE DIETA --- */
 .dietary-icons {
+  flex: 1;
   display: flex;
+  justify-content: center; 
   gap: 15px;
 }
 
 .icon-btn {
   background: white;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  border: 1px solid #e0e0e0;
+  border-radius: 50%; /* Círculo perfecto */
+  width: 45px;  /* Un poco más grandes para que sean cómodos */
+  height: 45px;
+  
+  /* CENTRADO PERFECTO (Funciona para Emojis y para <i>) */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  
+  font-size: 1.2rem; /* Tamaño del icono */
+  color: #555;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 
+.icon-btn:hover {
+  background-color: #f9f9f9;
+  transform: scale(1.05); /* Pequeño efecto visual al pasar el mouse */
+}
+
+/* Estado Activo */
 .icon-btn.active {
   border-color: #333;
-  background-color: #333; /* Se oscurece al activar */
+  background-color: #333;
   color: white;
 }
 
 .price-inputs {
+  /* NUEVO: Toma la misma cantidad de espacio base que el del medio */
+  flex: 1;
   display: flex;
+  /* CLAVE: Empuja los inputs hacia la derecha de su espacio asignado */
+  justify-content: flex-end;
   gap: 10px;
 }
 
 .price-inputs input {
-  padding: 10px 15px;
-  border-radius: 20px;
-  border: 1px solid #ddd;
-  width: 100px;
+  padding: 10px 20px;
+  border-radius: 50px; /* FORMA DE PÍLDORA */
+  border: 1px solid #e0e0e0;
+  width: 140px; /* Un poco más anchos para que entre el texto placeholder */
   text-align: center;
   outline: none;
-  color: #aaa;
+  color: #555;
+  transition: border-color 0.3s;
+}
+
+.price-inputs input:focus {
+  border-color: #ff9f43;
+}
+
+/* Opcional: Estilo para el placeholder (el texto gris "precio minimo") */
+::placeholder {
+  color: #ccc;
+  font-weight: 300;
 }
