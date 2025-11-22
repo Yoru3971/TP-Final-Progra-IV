@@ -135,7 +135,6 @@ app-root {
   flex-direction: column;
 }
 
-
 .invalid {
   border-color: var(--invalid-border);
   box-shadow: var(--invalid-focus-shadow);

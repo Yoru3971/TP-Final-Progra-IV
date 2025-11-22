@@ -16,8 +16,7 @@ import { DatePipe } from '@angular/common';
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule,
-    DatePipe
+    MatIconModule
   ],
   templateUrl: './date-range-picker.html',
   styleUrls: ['./date-range-picker.css'],

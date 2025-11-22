@@ -15,6 +15,7 @@ export class ViandaCard {
 
   openViandaModal() {
     this.dialog.open(ViandaExtendedModal, {
+      width: '100rem',
       data: this.vianda,
       panelClass: 'modal-vianda',
       autoFocus: false,

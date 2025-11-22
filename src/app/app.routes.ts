@@ -7,38 +7,39 @@ import { HomePage } from './pages/home-page/home-page';
 import { EmprendimientoPage } from './pages/emprendimiento-page/emprendimiento-page';
 import { PerfilUsuario } from './pages/perfil-usuario/perfil-usuario';
 import { HomeRouter } from './router/home-router/home-router';
+import { authGuardFn } from './guards/auth.guard.fn';
+import { invitadoGuardFn } from './guards/invitado.guard.fn';
+import { emprendimientoDuenoGuardFn } from './guards/emprendimiento.dueno.guard.fn';
+import { Error403Page } from './pages/redirects/error403-page/error403-page';
+import { Error404Page } from './pages/redirects/error404-page/error404-page';
 
 export const routes: Routes = [
+
+  /* -------------------- HOME -------------------- */
   { path: 'home', component: HomeRouter },
 
-  { path: 'me', component: PerfilUsuario },
+  /* -------------------- PERFIL (solo logeados) -------------------- */
+  { path: 'me', component: PerfilUsuario, canActivate: [authGuardFn] },
 
-  {
-    path: 'registro/dueno',
-    component: RegisterPageDueno,
-    data: { rol: 'DUENO' },
-  },
+  /* -------------------- REGISTROS (solo invitados) -------------------- */
+  { path: 'registro/dueno', component: RegisterPageDueno, canActivate: [invitadoGuardFn] },
+  { path: 'registro/cliente', component: RegisterPageCliente, canActivate: [invitadoGuardFn] },
+  { path: 'registro-exitoso', component: RegisterSuccessPage, canActivate: [invitadoGuardFn] },
 
-  {
-    path: 'registro/cliente',
-    component: RegisterPageCliente,
-    data: { rol: 'CLIENTE' },
-  },
+  /* -------------------- LOGIN (solo invitados) -------------------- */
+  { path: 'login', component: Login, canActivate: [invitadoGuardFn] },
 
-  {
-    path: 'registro-exitoso',
-    component: RegisterSuccessPage,
-  },
+  /* -------------------- EMPRENDIMIENTO -------------------- */
+  // Invitado → puede ver
+  // Cliente → puede ver
+  // Dueño → solo si es suyo
+  { path: 'emprendimiento/:id', component: EmprendimientoPage, canActivate: [emprendimientoDuenoGuardFn] },
 
-  { path: 'login', component: Login },
+  /* -------------------- ERRORES -------------------- */
+  { path: 'error/403', component: Error403Page },
+  { path: 'error/404', component: Error404Page },
 
-  {
-    path: 'emprendimiento/:id',
-    component: EmprendimientoPage,
-  },
-
-  //REVISAR que hacemos con esto y los guards
+  /* -------------------- REDIRECTS BASICOS -------------------- */
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-
-  { path: '**', redirectTo: '/home' },
+  { path: '**', redirectTo: '/error/404' },
 ];
