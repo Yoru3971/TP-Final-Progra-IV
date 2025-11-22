@@ -21,22 +21,16 @@
 
     <div class="restricciones">
       @if (vianda.esVegano) {
-      <div class="restriccion active">
-        <img src="vegan.png" alt="Vegano" />
-      </div>
+      <app-icon-vegan class="icon active"></app-icon-vegan>
       } @if (vianda.esVegetariano) {
-      <div class="restriccion active">
-        <img src="vegetarian.png" alt="Vegetariano" />
-      </div>
+      <app-icon-veggie class="icon active"></app-icon-veggie>
       } @if (vianda.esSinTacc) {
-      <div class="restriccion active">
-        <img src="stacc.png" alt="Sin TACC" />
-      </div>
+      <app-icon-tacc class="icon active"></app-icon-tacc>
       }
     </div>
 
     <mat-dialog-actions>
-      <button mat-dialog-close class="btn">Ver emprendimiento</button>
+      <button class="btn" (click)="irAlEmprendimiento()">Ver emprendimiento</button>
     </mat-dialog-actions>
   </div>
 

@@ -1,0 +1,33 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.notificacion-item {
+  padding: 1.4rem 0;
+  border-bottom: 0.1rem solid var(--input-border);
+  cursor: default;
+  transition: 0.15s ease;
+}
+
+:host(:last-child) .notificacion-item {
+  /* SOLO el último componente no tiene borde */
+  border-bottom: none;
+}
+
+.notificacion-item:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.mensaje {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  line-height: 1.5;
+  margin: 0 0 0.4rem 0;
+}
+
+.fecha {
+  font-size: 1.2rem;
+  color: var(--toggle-eye-color);
+  margin: 0;
+}

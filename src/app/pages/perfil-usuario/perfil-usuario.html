@@ -1,0 +1,25 @@
+<div class="main-container">
+  <h2 class="titulo-perfil">
+    MI PERFIL — <span>{{ usuario()?.rolUsuario || '' }}</span>
+  </h2>
+
+  @if (usuario(); as u) {
+  <div class="perfil-layout">
+    <section class="col-izquierda">
+      <app-notificaciones-card></app-notificaciones-card>
+    </section>
+
+    <section class="col-derecha">
+      <div class="fila-superior">
+        <app-datos-usuario-card [usuario]="u"> </app-datos-usuario-card>
+
+        <app-panel-acciones-cuenta></app-panel-acciones-cuenta>
+      </div>
+
+      <div class="fila-inferior">
+        <app-pedidos-card></app-pedidos-card>
+      </div>
+    </section>
+  </div>
+  }
+</div>

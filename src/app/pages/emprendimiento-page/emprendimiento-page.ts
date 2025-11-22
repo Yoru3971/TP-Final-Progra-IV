@@ -1,0 +1,272 @@
+import { Component, computed, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth-service';
+import { EmprendimientoService } from '../../services/emprendimiento-service';
+import { ViandaService } from '../../services/vianda-service';
+import { EmprendimientoInfo } from '../../components/emprendimiento-info/emprendimiento-info';
+import { ViandaCardDetallada } from '../../components/vianda-card-detallada/vianda-card-detallada';
+import { EmprendimientoFiltrosViandas } from '../../components/emprendimiento-filtros-viandas/emprendimiento-filtros-viandas';
+import { FiltrosViandas } from '../../model/filtros-viandas.model';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { catchError, Observable, of, switchMap } from 'rxjs';
+import { ViandaResponse } from '../../model/vianda-response.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Snackbar } from '../../shared/components/snackbar/snackbar';
+import { SnackbarData } from '../../model/snackbar-data.model';
+
+export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
+import { MatDialog } from '@angular/material/dialog';
+import { FormVianda } from '../../components/form-vianda/form-vianda';
+
+@Component({
+  selector: 'app-emprendimiento-page',
+  imports: [EmprendimientoInfo, EmprendimientoFiltrosViandas, ViandaCardDetallada],
+  templateUrl: './emprendimiento-page.html',
+  styleUrl: './emprendimiento-page.css',
+})
+export class EmprendimientoPage {
+  private authService = inject(AuthService);
+  private route = inject(ActivatedRoute);
+  private snackBar = inject(MatSnackBar);
+  private emprendimientoService = inject(EmprendimientoService);
+  private viandaService = inject(ViandaService);
+  private routeParams = toSignal(this.route.paramMap);
+  private dialog = inject(MatDialog);
+
+
+  //  Uso signals para idEmprendimiento, emprendimiento y esDueno (si algo cambia, se actualiza todo automáticamente)
+  idEmprendimiento = computed(() => {
+    const id = this.routeParams()?.get('id');
+    return id ? Number(id) : null;
+  });
+
+  emprendimiento = toSignal(
+    toObservable(this.idEmprendimiento).pipe(
+      switchMap((id) => {
+        if (!id) return of(null);
+        return this.emprendimientoService.getEmprendimientoById(id).pipe(
+          catchError((err) => {
+            console.error('Error cargando emprendimiento', err);
+            return of(null);
+          })
+        );
+      })
+    )
+  );
+
+  modoVista = computed<PageMode>(() => {
+    const emp = this.emprendimiento();
+    if (!emp) return 'CARGANDO';
+    const userId = this.authService.usuarioId();
+    const userRole = this.authService.currentUserRole();
+
+    if (userRole === 'DUENO') {
+      return emp.dueno.id === userId ? 'DUENO' : 'PROHIBIDO';   //  AGREGAR page de error 403 si intenta acceder siendo dueño ajeno
+    }
+
+    if (userRole === 'CLIENTE') {
+      return 'CLIENTE';
+    }
+
+    return 'INVITADO';
+  });
+
+
+    //  -------------------  Componente: emprendimiento-info -------------------
+
+  handleAccionInfo() {
+    const modo = this.modoVista();
+
+    if (modo === 'DUENO') {
+      this.abrirModalEditarEmprendimiento();
+    } 
+    else if (modo === 'CLIENTE') {
+      this.abrirModalCarrito();
+    } 
+    else if (modo === 'INVITADO') {
+      this.abrirSnackbarLoginRequerido();
+    }
+  }
+
+  abrirModalEditarEmprendimiento() {
+    console.log('Abre modal de edición');   //  AGREGAR abrir modal de edición del emprendimiento
+  }
+
+  abrirModalCarrito() {
+    console.log('Abre carrito');    //  AGREGAR abrir modal carrito
+  }
+
+  abrirSnackbarLoginRequerido() {
+    const snackbarData: SnackbarData = {
+      message: 'Inicie sesión para realizar realizar pedidos',
+      iconName: 'error'
+    }
+
+    this.snackBar.openFromComponent(Snackbar, {
+      duration: 3000,
+      verticalPosition: 'bottom',
+      panelClass: 'snackbar-panel',
+      data: snackbarData
+    });
+  }
+
+
+    //  -------------------  Componente: emprendimiento-filtros-viandas -------------------
+
+  //  Signal que contiene los filtros actuales
+  filtrosSignal = signal<FiltrosViandas>({} as FiltrosViandas);
+
+  // Uso un computed para agrupar todas las cosas que "disparan" una recarga
+  private triggerViandas = computed(() => {
+    return {
+      id: this.idEmprendimiento(),
+      filtros: this.filtrosSignal(),
+      modo: this.modoVista()
+    };
+  });
+
+  // Convierto el trigger en un Observable (llama a la API y devuelve las viandas que muestro en pantalla)
+  viandas = toSignal(
+    toObservable(this.triggerViandas).pipe(
+      switchMap(({ id, filtros, modo }) => {
+
+        if (!id || modo === 'CARGANDO' || modo === 'PROHIBIDO') {
+          return of([] as ViandaResponse[]);
+        }
+
+        let request$: Observable<ViandaResponse[]>;
+
+        switch (modo) {
+          case 'DUENO':
+            request$ = this.viandaService.getViandasDueno(id, filtros);
+            break;
+          case 'CLIENTE':
+            request$ = this.viandaService.getViandasCliente(id, filtros);
+            break;
+          case 'INVITADO':
+            request$ = this.viandaService.getViandasPublico(id, filtros);
+            break;
+          default:
+            return of([] as ViandaResponse[]);
+        }
+
+        return request$.pipe(
+          catchError((err) => {
+            console.error('Error cargando viandas (posiblemente sin resultados)', err);
+            return of([] as ViandaResponse[]);
+          })
+        );
+      })
+    ),
+    { initialValue: [] as ViandaResponse[] }
+  );
+
+  private triggerViandasTotales = computed(() => {
+    return {
+      id: this.idEmprendimiento(),
+      modo: this.modoVista()
+    };
+  });
+
+  //  Uso viandasTotales para tener las categorías disponibles en los filtros
+  //  (Lo necesito porque las categorías se obtienen dinámicamente)
+  viandasTotales = toSignal(
+    toObservable(this.triggerViandasTotales).pipe(
+      switchMap(({ id, modo }) => {
+
+        if (!id || modo === 'CARGANDO' || modo === 'PROHIBIDO') {
+            return of([] as ViandaResponse[]);
+        }
+
+        let request$: Observable<ViandaResponse[]>;
+        
+        switch (modo) {
+          case 'DUENO':
+            request$ = this.viandaService.getViandasDueno(id);
+            break;
+          case 'CLIENTE':
+            request$ = this.viandaService.getViandasCliente(id);
+            break;
+          case 'INVITADO':
+            request$ = this.viandaService.getViandasPublico(id);
+            break;
+          default:
+            return of([] as ViandaResponse[]);
+        }
+
+        return request$.pipe(catchError(() => of([] as ViandaResponse[])));
+      })
+    ),
+    { initialValue: [] as ViandaResponse[] }
+  );
+
+  onFiltrosChanged(nuevosFiltros: FiltrosViandas) {
+    this.filtrosSignal.set(nuevosFiltros);
+  }
+
+
+  //  -------------------  Componente: vianda-card-detallada -------------------
+
+  obtenerCantidadEnCarrito(idVianda: number): number {
+    // AGREGAR lógica para obtener la cantidad del carrito
+    // (Imagino que si no existe un carrito, devuelve 0)
+    // (Y que si existe, pero la vianda no está, también devuelve 0)
+    return 0;
+  }
+
+  handleAgregarVianda(vianda: ViandaResponse) {
+    const modo = this.modoVista();
+
+    if (modo === 'INVITADO') {
+      this.abrirSnackbarLoginRequerido();
+      return;
+    }
+
+    if (modo === 'CLIENTE') {
+      console.log('Agregando al carrito:', vianda.nombreVianda);    // AGREGAR lógica para agregar la vianda al carrito
+    }
+  }
+
+  handleQuitarVianda(vianda: ViandaResponse) {
+    const modo = this.modoVista();
+
+    if (modo === 'INVITADO') {
+      this.abrirSnackbarLoginRequerido();
+      return;
+    }
+
+    if (modo === 'CLIENTE') {
+      console.log('Quitando del carrito:', vianda.nombreVianda);    // AGREGAR lógica para quitar la vianda del carrito
+    }
+  }
+
+  handleEditarVianda(vianda: ViandaResponse) {
+    console.log('Abriendo modal editar vianda:', vianda.nombreVianda);  //  AGREGAR abrir modal edición vianda
+    
+    //  Esto de acá abajo es CINE: recargo las viandas si se cambió algo
+    /*
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              this.filtrosSignal.update(f => ({...f}));
+            }
+          });
+    */
+  }
+
+  
+  openViandaForm() {
+    this.dialog
+      .open(FormVianda, {
+        width: '100rem',
+        panelClass: 'form-modal',
+        autoFocus: false,
+        restoreFocus: false,
+      })
+      .afterClosed()
+      .subscribe((exito) => {
+        if (exito) {
+          // ACA VA LA LINEA PARA ACTUALIZAR LAS VIANDAS DE LA VISTA
+        }
+      });
+  }
+}

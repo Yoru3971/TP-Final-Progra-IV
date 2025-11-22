@@ -1,0 +1,18 @@
+<div class="main-container">
+  <h1>OOPS!</h1>
+  <div class="error-container">
+    <div class="error-content">
+      <img [src]="imgUrl" alt="Not Found Error" class="imagen-error" />
+
+      <h2 class="titulo">{{ titulo }}</h2>
+
+      <p class="mensaje">
+        {{ mensajeError }}
+      </p>
+    </div>
+  </div>
+  <div class="link-container">
+    <a class="link" (click)="volverAtras()">Volver atrás</a>
+    <a class="link" (click)="volverInicio()">Volver al inicio</a>
+  </div>
+</div>

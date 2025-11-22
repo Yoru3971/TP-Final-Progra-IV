@@ -2,50 +2,51 @@ import { Component, effect, ElementRef, HostListener, inject, signal } from '@an
 import { NotificacionService } from '../../services/notificacion-service';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { Router } from '@angular/router';
+import { NotificacionSingleCardComponent } from '../../shared/components/notificacion-single-card/notificacion-single-card';
 
 @Component({
   selector: 'app-dropdown-notificacion',
-  imports: [],
+  imports: [NotificacionSingleCardComponent],
   templateUrl: './dropdown-notificacion.html',
   styleUrl: './dropdown-notificacion.css',
 })
 export class DropdownNotificacion {
   notificacionService = inject(NotificacionService);
-  emprendimientoService = inject(EmprendimientoService); //lo uso luego
+  emprendimientoService = inject(EmprendimientoService);
   router = inject(Router);
 
-  isOpen = signal(false); //dropdown desplegado o cerrado
-  
+  isOpen = signal(false);
+  // REVISAR Esto es para que desaparezca el numerito de notificaciones, pero hay que ver como manejarlo bien, porque al recargar se resetea esto
+  firstOpen = signal(true);
+
   private elementRef = inject(ElementRef);
 
-  //cargo las notificaciones al montar el componente
   constructor() {
-    effect( () => {
-      this.notificacionService.getNotificacionesUltimaSemana();
+    effect(() => {
+      this.notificacionService.fetchNotificacionesUltimaSemana();
     });
   }
 
-  //cambio el estado
   toggleDropdown() {
-    this.isOpen.set(!this.isOpen());
+    const newState = !this.isOpen();
+
+    this.isOpen.set(newState);
+
+    // Si abre por primera vez -> limpiar badge
+    if (newState && this.firstOpen()) {
+      this.firstOpen.set(false);
+    }
   }
 
-  //redirijo al perfil del usuario, y ahi las mira
   verTodasNotificaciones() {
-    this.router.navigate(['/me']);// nose cual es la ruta del perfil
+    this.router.navigate(['/me']);
     this.isOpen.set(false);
   }
 
-  //aca el metodo para tener el nombre del emprendimiento desde el id
-  getNombreEmprendimiento(id: number) {
-    return this.emprendimientoService.getEmprendimientos();
-  }
-
   getCantidadNotificaciones() {
-    return this.notificacionService.notificaciones().length;
+    return this.notificacionService.notificacionesOrdenadas().length;
   }
 
-  // cerrar el dropdown si hago click afuera del mismo
   @HostListener('document:click', ['$event'])
   clickPorFuera(event: MouseEvent) {
     if (!this.elementRef.nativeElement.contains(event.target)) {

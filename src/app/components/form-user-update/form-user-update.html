@@ -1,0 +1,51 @@
+<h2>Actualizar datos</h2>
+
+<form [formGroup]="form" (ngSubmit)="actualizarUsuario()" class="form-container">
+  <!-- Nombre -->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Nombre completo</mat-label>
+    <input matInput type="text" formControlName="nombreCompleto" />
+
+    @if (form.get('nombreCompleto')?.invalid && form.get('nombreCompleto')?.touched) {
+    <mat-error>El nombre es obligatorio</mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Email -->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" />
+
+    @if (form.get('email')?.invalid && form.get('email')?.touched) {
+    <mat-error>Ingresá un email válido</mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Teléfono -->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Teléfono</mat-label>
+    <input matInput type="text" formControlName="telefono" />
+
+    @if (form.get('telefono')?.invalid && form.get('telefono')?.touched) {
+    <mat-error>Debe tener entre 8 y 15 dígitos</mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Feedback -->
+  @if (error()) {
+  <p class="error-global">{{ error() }}</p>
+  } @if (exito()) {
+  <p class="success-global">{{ exito() }}</p>
+  }
+
+  <!-- Botones -->
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="closeDialog()" [disabled]="cargando()">
+      Cancelar
+    </button>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || cargando()">
+      @if (cargando()) { Actualizando... } @else { Guardar cambios }
+    </button>
+  </div>
+</form>

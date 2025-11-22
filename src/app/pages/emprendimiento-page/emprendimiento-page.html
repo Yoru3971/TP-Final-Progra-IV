@@ -1,0 +1,43 @@
+@if (emprendimiento(); as datosEmprendimiento) {
+
+    <app-emprendimiento-info
+        [datos]="datosEmprendimiento"
+        [modo]="modoVista()"
+        (accionPrincipal)="handleAccionInfo()">
+    </app-emprendimiento-info>
+
+    <app-emprendimiento-filtros-viandas
+        [viandasIniciales]="viandasTotales()"
+        (filtrosChanged)="onFiltrosChanged($event)"
+        >>
+    </app-emprendimiento-filtros-viandas>
+
+    <div class="viandas-detalladas-grid">
+        <div class="card-crear" (click)="openViandaForm()">
+            <i class="fa-solid fa-plus"></i>
+            <span>Agrega una vianda</span>
+        </div>
+        @for (vianda of viandas(); track vianda.id) {
+        <app-vianda-card-detallada
+            [vianda]="vianda"
+            [modo]="modoVista()"
+            
+            [cantidad]="obtenerCantidadEnCarrito(vianda.id)"
+            
+            (agregar)="handleAgregarVianda(vianda)"
+            (quitar)="handleQuitarVianda(vianda)"
+            (editar)="handleEditarVianda(vianda)">
+        </app-vianda-card-detallada>
+        } @empty {
+            <div class="no-results">
+                <p>No se encontraron viandas.</p>
+            </div>
+        }
+    </div>
+
+} @else {
+<div class="estado-vacio">
+    <p>Esto está un poco vacío... deberías crear una vianda</p>
+    <i class="fa-solid fa-arrow-left"></i>
+</div>
+}
