@@ -118,4 +118,10 @@ export class EmprendimientoService {
       .delete<void>(`${this.baseUrls.DUENO}/id/${id}`)
       .pipe(tap(() => this.allEmprendimientos.update((list) => list.filter((e) => e.id !== id))));
   }
+
+  //verificar que un emprendimiento le corresponde a un dueño (para guards)
+  esDuenoDelEmprendimiento(emprendimientoId: number, usuarioId: number): boolean {
+  const emprendimiento = this.emprendimientos().find(e => e.id === emprendimientoId);
+  return emprendimiento ? emprendimiento.dueno.id === usuarioId : false;
+}
 }
