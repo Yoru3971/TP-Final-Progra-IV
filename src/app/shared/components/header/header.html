@@ -1,64 +1,53 @@
 <header class="main-header">
   <nav class="header-nav">
-    <!-- Izquierda: Logo y rol-->
+
     <div class="header-left">
       <a routerLink="/home">
         <img src="logo-miviandita-removebg-preview.png" alt="MiViandita Logo" class="header-logo" />
       </a>
 
-      <div class="role-tag">
-        <!-- MUestro 'menu dueño' si es el rol -->
-        @if (role() === 'DUENO') {
+      @if (role() === 'DUENO') {
         <span class="owner-tag">Menu Dueño</span>
-        }
+      }
+      @else {
         <!-- NO IMPLEMENTADO EN CSS -->
         @if (role() === 'ADMIN') {
-        <span class="admin-tag">Menu Admin</span>
+          <span class="admin-tag">Menu Admin</span>
         }
-      </div>
+      }
 
       <app-city-selector></app-city-selector>
     </div>
 
-    <!-- Centro: Buscador y Opciones -->
     <div class="header-center">
       <app-search-bar></app-search-bar>
     </div>
 
-    <!-- Derecha: Navegacion y Acciones -->
     <div class="header-right">
-      <!-- Links Comunes -->
-      <a routerLink="/home" class="nav-link">Home</a>
-      <a routerLink="/sobre-nosotros" class="nav-link">Sobre nosotros</a>
+      <a routerLink="/home" class="nav-link">HOME</a>
+      <a routerLink="/sobre-nosotros" class="nav-link">SOBRE NOSOTROS</a>
 
       <!-- Botones condicionales -->
 
       @if (!isLoggedIn()) {
-      <!-- Invitado -->
-      <button routerLink="/login" (click)="onLogin()" class="btn btn-primary">
-        Iniciar Sesión
-      </button>
+        <!-- Invitado -->
+        <button routerLink="/login" (click)="onLogin()" class="btn btn-primary">
+          Iniciar Sesión
+        </button>
       } @else {
-      <!-- Clientes o Dueño -->
+        <!-- Clientes o Dueño -->
 
-      <app-dropdown-notificacion></app-dropdown-notificacion>
+        <div class="btns-logged">
+          <app-dropdown-notificacion></app-dropdown-notificacion>
 
-      <!-- Boton de Perfil -->
-      <button routerLink="/me" class="btn btn-profile">
-        <!-- Icono usuario -->
-        <span>Mi perfil</span>
-      </button>
+          <button class="btn btn-profile" routerLink="/me" title="Mi perfil">
+            <i class="fa-regular fa-user"></i>
+          </button>
 
-      <!-- Boton "Mis pedidos" solo para CLIENTE -->
-      @if (role() === 'CLIENTE') {
-      <button routerLink="/me" class="btn btn-primary">Mis pedidos</button>
-      }
-
-      <!-- Boton de Logout -->
-      <button (click)="onLogout()" title="Cerrar Sesion" class="btn btn-primary">
-        <!-- Icono salir -->
-        <span>Salir</span>
-      </button>
+          <button class="btn btn-logout" (click)="onLogout()" title="Cerrar sesión">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
       }
     </div>
   </nav>

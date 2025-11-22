@@ -6,6 +6,8 @@
   --text-color: #000000;
   --inverse-text-color: #ffffff;
 
+  --header-btn-logout-color: #ff4b4b;
+
   --footer-border-color: #e5e7eb;
   --footer-bottom-bg-color: #f9f8f8;
   --footer-bottom-text-color: #888888;
@@ -60,7 +62,7 @@
   --estado-rechazado: #e74c3c;
   --estado-default: #6b7280;
 
-   --image-upload-bg:#f8f8f8;
+  --image-upload-bg:#f8f8f8;
   --image-upload-bg-hover:#e9e9e9;
  
 }
