@@ -492,3 +492,19 @@ app-root {
   padding: 0 !important;
   margin: 0 !important;
 }
+
+/* ICONOS RESTRICCIONES DE ALIMENTOS */
+.icon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--btn-disabled);
+  transition: color .25s ease;
+}
+
+.icon.active {
+  color: var(--button-bg);
+}
+
+.icon:hover {
+  color: var(--button-bg);
+}
