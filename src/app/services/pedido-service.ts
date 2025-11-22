@@ -5,6 +5,7 @@ import { PedidoResponse } from '../model/pedido-response.model';
 import { catchError, of, tap } from 'rxjs';
 import { PedidoUpdateRequest } from '../model/pedido-update-request.model';
 import { EstadoPedido } from '../shared/enums/estadoPedido.enum';
+import { PedidoRequest } from '../model/pedido-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -70,6 +71,18 @@ export class PedidosService {
   private getApiUrl(): string {
     const rol: UserRole = this.authService.currentUserRole();
     return rol === 'DUENO' ? this.baseUrls.DUENO : this.baseUrls.CLIENTE;
+  }
+
+  createPedido(pedido: PedidoRequest) {
+    this.http
+      .post<PedidoResponse>(this.getApiUrl(), pedido)
+      .subscribe(
+        pedidoResponse => {
+          this.allPedidos.update(
+            pedidos => [...pedidos, pedidoResponse]
+          )
+        }
+      );
   }
 
   //función para cargar todos los pedidos

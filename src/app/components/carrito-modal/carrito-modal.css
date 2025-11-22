@@ -1,0 +1,259 @@
+.carrito {
+    background-color: var(--carrito-title-bg-color);
+}
+
+.bloqueado {
+    pointer-events: none;
+}
+
+.carrito-header {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    padding: 2rem 4rem;
+}
+
+.carrito-header h2 {
+    color: var(--inverse-text-color);
+    flex: 1;
+    font-size: 3rem;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+.carrito-header h2 span {
+    font-weight: 600;
+}
+
+.cerrar-btn {
+    aspect-ratio: 1/1;
+    background-color: color-mix(in srgb, var(--carrito-btn-bg-color) 20%, var(--bg-color));
+    border: 1px solid color-mix(in srgb, var(--bg-color) 50%, black);
+    border-radius: 30%;
+    color: var(--carrito-btn-cerrar-color);
+    font-size: 2rem;
+    padding: 0.5rem;
+    width: 4rem;
+}
+
+.cerrar-btn:focus-within, .cerrar-btn:hover {
+    background-color: var(--bg-color);
+}
+
+.cerrar-btn:active {
+    background-color: color-mix(in srgb, var(--bg-color) 80%, black);
+    transition: none;
+}
+
+.carrito-content {
+    background-color: var(--carrito-content-bg-color);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 2rem;
+}
+
+.carrito-lista {
+    align-items: center;
+    background-color: var(--bg-color);
+    border-radius: 30px;
+    box-shadow: 0 0 1px 1px rgb(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.carrito-lista-vacia {
+    color: color-mix(in srgb, var(--text-color) 50%, white);
+    font-size: 2rem;
+}
+
+.carrito-item {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    width: 100%;
+}
+
+.carrito-item-img-container {
+    align-items: center;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    display: flex;
+    height: 10rem;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.carrito-item-img-container img {
+    height: auto;
+    width: 100%;
+}
+
+.carrito-item-nombre-precio-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.carrito-item-nombre-precio-container p {
+    margin: 0;
+    padding: 0;
+}
+
+.item-nombre {
+    font-size: 2.4rem;
+}
+
+.item-precio {
+    color: color-mix(in srgb, var(--text-color) 50%, white);
+    font-size: 2.0rem;
+}
+
+.item-subtotal {
+    color: var(--carrito-item-subtotal-color);
+    font-size: 2.4rem;
+}
+
+.item-cantidad-btns-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.item-cantidad-btn {
+    background-color: var(--bg-color);
+    border: 1px solid color-mix(in srgb, var(--bg-color) 50%, black);
+    border-radius: 50%;
+    color: var(--carrito-btn-bg-color);
+}
+
+.item-cantidad-btn:focus-within, .item-cantidad-btn:hover {
+    background-color: color-mix(in srgb, var(--bg-color) 90%, black);
+}
+
+.item-cantidad-btn:active {
+    background-color: color-mix(in srgb, var(--bg-color) 80%, black);
+    transition: none;
+}
+
+.item-cantidad-container {
+    min-width: 3rem;
+    text-align: center;
+}
+
+.item-cantidad {
+    font-size: 2.4rem;
+}
+
+.carrito-content-sub {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.carrito-total-fecha-container,
+.carrito-btns-container
+{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 0 2rem;
+}
+
+.carrito-total {
+    color: color-mix(in srgb, var(--text-color) 70%, white);
+    font-size: 2.4rem;
+}
+
+.carrito-total-highlight {
+    color: var(--carrito-item-subtotal-color);
+    font-weight: 700;
+}
+
+.carrito-fecha-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.carrito-fecha-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    text-align: right;
+}
+
+.fecha-label {
+    color: color-mix(in srgb, var(--text-color) 70%, white);
+    font-size: 1.6rem;
+    margin: 0;
+    padding: 0;
+}
+
+.fecha-warning {
+    color: red;
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.carrito-fecha-container form input {
+    border: 1px solid #a8a8a8;
+    border-radius: 10px;
+    font-family: inherit;
+    min-width: 13rem;
+    padding: 1rem 0.5rem;
+    text-align: center;
+}
+
+.carrito-btn {
+    border: 1px solid var(--carrito-btn-border-color);
+    border-radius: 15px;
+    font-family: inherit;
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 1rem;
+}
+
+.carrito-btn-cancelar {
+    background-color: color-mix(in srgb, var(--bg-color) 95%, var(--carrito-btn-cancelar-color));
+    border-color: var(--carrito-btn-cancelar-border-color);
+    color: var(--carrito-btn-cancelar-color);
+}
+
+.carrito-btn-cancelar:focus-within, .carrito-btn-cancelar:hover {
+    background-color: color-mix(in srgb, var(--bg-color) 80%, var(--carrito-btn-cancelar-color));
+}
+
+.carrito-btn-cancelar:active {
+    background-color: color-mix(in srgb, var(--bg-color) 80%, black);
+    transition: none;
+}
+
+.carrito-btn-confirmar {
+    background-color: var(--carrito-btn-border-color);
+    color: var(--bg-color);
+}
+
+.carrito-btn-confirmar:focus-within, .carrito-btn-confirmar:hover {
+    background-color: color-mix(in srgb, var(--carrito-btn-border-color) 90%, black);
+}
+
+.carrito-btn-confirmar:active {
+    background-color: color-mix(in srgb, var(--carrito-btn-border-color) 80%, black);
+    transition: none;
+}
