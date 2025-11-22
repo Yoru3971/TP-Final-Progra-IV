@@ -1,65 +1,64 @@
 .main-header {
     background-color: var(--bg-color);
-    color: var(--text-color);
-    box-shadow: 0 0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.1), 0 0.2rem 0.4rem -0.2rem rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.1), 0 0.2rem 0.4rem -0.2rem rgba(0, 0, 0, 0.1);
+    color: var(--text-color);
     position: sticky;
     top: 0;
     z-index: 50;
 }
 
 .main-header .header-nav {
-    max-width: 128rem; 
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
     margin-left: auto;
     margin-right: auto;
+    max-width: 128rem;
+    min-height: 4rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 4rem; 
 }
 
 /* Header left */
 .main-header .header-nav .header-left {
-    display: flex;
     align-items: center;
+    display: flex;
     gap: 1rem;
 }
 
 .main-header .header-nav .header-left .header-logo {
+    flex-shrink: 0;
     height: 2.5rem;
     width: auto;
-    flex-shrink: 0;
 }
 
 .main-header .header-nav .header-left .role-tag {
-    padding: 1rem 2rem;
     font-size: 1.7rem;
     font-weight: bolder;
+    padding: 1rem 2rem;
 }
 
 .main-header .header-nav .header-left .role-tag .owner-tag {
-    background-color: #fef3c7; 
-    color: #b45309; 
+    background-color: #fef3c7;
     border: 1px solid #fcd34d;
+    color: #b45309; 
     padding: 0.2rem;
 } 
 
 /* Header Right */
 .main-header .header-nav .header-right {
-    display: flex;
     align-items: center;
+    display: flex;
     gap: 2rem;
 }
 
 .main-header .header-nav .header-right .nav-link {
-    padding: 0.5rem 0.75rem;
-    font-size: 1.5rem;
     color: black; 
-    transition: background-color 150ms;
-    text-decoration: none;
+    font-size: 1.5rem;
+    padding: 0.5rem 0.75rem;
     transition: color 0.3s ease;
+    text-decoration: none;
 }
 
 .main-header .header-nav .header-right .nav-link:hover {
@@ -68,10 +67,9 @@
 }
 
 .btn {
+    display: flex;
     font-size: 1.4rem;
+    gap: 0.25rem;
     font-weight: 500;
     padding: 0.5rem 1rem;
-    display: flex;
-    gap: 0.25rem;
 }
-
