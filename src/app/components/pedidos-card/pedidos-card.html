@@ -1,15 +1,42 @@
 <div class="pedidos-container">
   <h3 class="titulo-seccion">MIS PEDIDOS</h3>
 
-  <div class="pedidos-card">
-    @if (pedidoService.pedidosOrdenados().length === 0) {
-    <p class="sin-pedidos">No tenés pedidos todavía.</p>
-    } @else {
-    <div class="lista">
-      @for (p of pedidoService.pedidosOrdenados(); track p.id) {
-      <app-pedido-single-card [pedido]="p"></app-pedido-single-card>
+  <div class="filtros-container" style="display: flex; gap: 16px; align-items: center; margin-bottom: 16px">
+
+    <!-- FILTRO POR ESTADO -->
+    <select [value]="pedidoService.filtroEstado()" (change)="actualizarEstado($event)">
+      <option value="null">Todos</option>
+      @for (estado of estados; track estado) {
+        <option [value]="estado">{{ estado }}</option>
       }
-    </div>
+    </select>
+
+    <!-- FILTRO POR EMPRENDIMIENTO -->
+    <select [value]="pedidoService.filtroEmprendimiento()" (change)="actualizarEmprendimiento($event)">
+      <option value="null">Todos los emprendimientos</option>
+
+      @for (emp of pedidoService.emprendimientosUnicos(); track emp) {
+        <option [value]="emp">{{ emp }}</option>
+      }
+    </select>
+
+    <!-- FILTRO POR FECHA -->
+    <app-date-range-picker
+      (fechasSeleccionadas)="pedidoService.filtroFechas.set($event)">
+    </app-date-range-picker>
+
+  </div>
+
+  <!-- LISTA -->
+  <div class="pedidos-card">
+    @if (pedidoService.pedidosFiltrados().length === 0) {
+      <p class="sin-pedidos">No tenés pedidos todavía.</p>
+    } @else {
+      <div class="lista">
+        @for (p of pedidoService.pedidosFiltrados(); track p.id) {
+          <app-pedido-single-card [pedido]="p"></app-pedido-single-card>
+        }
+      </div>
     }
   </div>
 </div>
