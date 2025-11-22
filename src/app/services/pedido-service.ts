@@ -4,6 +4,7 @@ import { AuthService, UserRole } from './auth-service';
 import { PedidoResponse } from '../model/pedido-response.model';
 import { catchError, of, tap } from 'rxjs';
 import { PedidoUpdateRequest } from '../model/pedido-update-request.model';
+import { EstadoPedido } from '../shared/enums/estadoPedido.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -11,15 +12,51 @@ import { PedidoUpdateRequest } from '../model/pedido-update-request.model';
 export class PedidosService {
   // Lista completa de pedidos del backend
   public allPedidos = signal<PedidoResponse[]>([]);
+  public filtroFechas = signal<{ desde: Date; hasta: Date } | null>(null);
+  public filtroEstado = signal<EstadoPedido | null>(null);
+  public filtroEmprendimiento = signal<string | null>(null);
+
+  //capturo los emprendimientos unicos cuando cambian los pedidos
+  public emprendimientosUnicos = computed(() => {
+    const pedidos = this.allPedidos();
+
+    const nombres = pedidos.map((p) => p.emprendimiento.nombreEmprendimiento);
+
+    return Array.from(new Set(nombres)); // elimina duplicados
+  });
 
   // Pedidos ordenados DESC por fechaEntrega (más reciente primero)
-  public pedidosOrdenados = computed(() => {
-    const list = this.allPedidos();
-    return [...list].sort((a, b) => {
-      const fa = new Date(a.fechaEntrega).getTime();
-      const fb = new Date(b.fechaEntrega).getTime();
-      return fb - fa;
-    });
+  public pedidosFiltrados = computed(() => {
+    let list = [...this.allPedidos()];
+
+    const filtro = this.filtroFechas();
+    if (filtro) {
+      // Formatear fechas del filtro a YYYY-MM-DD
+      const desdeStr = filtro.desde.toISOString().split('T')[0];
+      const hastaStr = filtro.hasta.toISOString().split('T')[0];
+
+      list = list.filter((p) => {
+        const fechaEntregaStr = p.fechaEntrega.split('T')[0]; // extrae solo YYYY-MM-DD
+        return fechaEntregaStr >= desdeStr && fechaEntregaStr <= hastaStr;
+      });
+    }
+
+    // Filtro por el estado
+    const estado = this.filtroEstado();
+    if (estado) {
+      list = list.filter((p) => p.estado === estado);
+    }
+
+    // Filtro por emprendimiento
+    const emp = this.filtroEmprendimiento();
+    if (emp) {
+      list = list.filter((p) => p.emprendimiento.nombreEmprendimiento === emp);
+    }
+
+    // Orden descendente
+    return list.sort(
+      (a, b) => new Date(b.fechaEntrega).getTime() - new Date(a.fechaEntrega).getTime()
+    );
   });
 
   // URLs base según rol
@@ -51,7 +88,7 @@ export class PedidosService {
         })
       )
       .subscribe((result) => {
-        setTimeout(() => this.allPedidos.set(result));
+        this.allPedidos.set(result);
       });
   }
 
@@ -62,7 +99,7 @@ export class PedidosService {
       .put<PedidoResponse>(url, pedidoUpdate)
       .pipe(
         tap((actualizado) =>
-          this.allPedidos.update((list) => list.map((p) => (p.id === id ? actualizado : p)))
+          this.allPedidos.update((list) => list.map((p) => (p.id === id ? { ...actualizado } : p)))
         )
       );
   }

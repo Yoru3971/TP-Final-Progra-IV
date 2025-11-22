@@ -15,25 +15,23 @@ import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { SnackbarData } from '../../model/snackbar-data.model';
 
 export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
+import { MatDialog } from '@angular/material/dialog';
+import { FormVianda } from '../../components/form-vianda/form-vianda';
 
 @Component({
   selector: 'app-emprendimiento-page',
-  imports: [
-    EmprendimientoInfo,
-    EmprendimientoFiltrosViandas,
-    ViandaCardDetallada
-  ],
+  imports: [EmprendimientoInfo, EmprendimientoFiltrosViandas, ViandaCardDetallada],
   templateUrl: './emprendimiento-page.html',
   styleUrl: './emprendimiento-page.css',
 })
 export class EmprendimientoPage {
-
   private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
   private snackBar = inject(MatSnackBar);
   private emprendimientoService = inject(EmprendimientoService);
   private viandaService = inject(ViandaService);
   private routeParams = toSignal(this.route.paramMap);
+  private dialog = inject(MatDialog);
 
 
   //  Uso signals para idEmprendimiento, emprendimiento y esDueno (si algo cambia, se actualiza todo automáticamente)
@@ -44,10 +42,10 @@ export class EmprendimientoPage {
 
   emprendimiento = toSignal(
     toObservable(this.idEmprendimiento).pipe(
-      switchMap(id => {
+      switchMap((id) => {
         if (!id) return of(null);
         return this.emprendimientoService.getEmprendimientoById(id).pipe(
-          catchError(err => {
+          catchError((err) => {
             console.error('Error cargando emprendimiento', err);
             return of(null);
           })
@@ -117,7 +115,7 @@ export class EmprendimientoPage {
 
   //  Signal que contiene los filtros actuales
   filtrosSignal = signal<FiltrosViandas>({} as FiltrosViandas);
-  
+
   // Uso un computed para agrupar todas las cosas que "disparan" una recarga
   private triggerViandas = computed(() => {
     return {
@@ -153,15 +151,13 @@ export class EmprendimientoPage {
         }
 
         return request$.pipe(
-          catchError(err => {
+          catchError((err) => {
             console.error('Error cargando viandas (posiblemente sin resultados)', err);
-            return of([] as ViandaResponse[]); 
+            return of([] as ViandaResponse[]);
           })
         );
-
-      }),
-      
-    ), 
+      })
+    ),
     { initialValue: [] as ViandaResponse[] }
   );
 
@@ -198,9 +194,7 @@ export class EmprendimientoPage {
             return of([] as ViandaResponse[]);
         }
 
-        return request$.pipe(
-          catchError(() => of([] as ViandaResponse[])) 
-        );
+        return request$.pipe(catchError(() => of([] as ViandaResponse[])));
       })
     ),
     { initialValue: [] as ViandaResponse[] }
@@ -260,4 +254,19 @@ export class EmprendimientoPage {
   }
 
   
+  openViandaForm() {
+    this.dialog
+      .open(FormVianda, {
+        width: '100rem',
+        panelClass: 'form-modal',
+        autoFocus: false,
+        restoreFocus: false,
+      })
+      .afterClosed()
+      .subscribe((exito) => {
+        if (exito) {
+          // ACA VA LA LINEA PARA ACTUALIZAR LAS VIANDAS DE LA VISTA
+        }
+      });
+  }
 }

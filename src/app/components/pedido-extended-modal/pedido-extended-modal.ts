@@ -43,9 +43,17 @@ export class PedidoExtendedModal {
       fechaEntrega: this.pedido.fechaEntrega, // debe ser yyyy-MM-dd
     };
 
-    this.pedidosService.updatePedido(this.pedido.id, body);
-
-    this.dialogRef.close();
+    this.pedidosService.updatePedido(this.pedido.id, body).subscribe({
+      next: () => {
+        setTimeout(() => {
+          this.pedidosService.fetchPedidos();
+        }, 500);
+        this.dialogRef.close();
+      },
+      error: (err) => {
+        console.error('Error al actualizar pedido', err);
+      },
+    });
   }
 
   // REVISAR para el boton de contactar, deberia abrir un modal

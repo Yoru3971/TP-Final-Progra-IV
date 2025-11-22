@@ -8,7 +8,6 @@ import { AuthService, UserRole } from './auth-service';
   providedIn: 'root',
 })
 export class NotificacionService {
-
   public allNotificaciones = signal<Notificacion[]>([]);
 
   // señal ordenada DESC por fecha (más nuevas primero)
@@ -22,31 +21,35 @@ export class NotificacionService {
     });
   });
 
+  //filtros por fecha
+  public filtroDesde = signal<string | null>(null);
+  public filtroHasta = signal<string | null>(null);
+
   private baseUrls = {
     DUENO: 'http://localhost:8080/api/dueno/notificaciones',
-    CLIENTE: 'http://localhost:8080/api/cliente/notificaciones'
+    CLIENTE: 'http://localhost:8080/api/cliente/notificaciones',
   };
 
   constructor(private http: HttpClient, private authService: AuthService) {}
-  
-    private getApiUrl(): string {
-      const rol: UserRole = this.authService.currentUserRole();
-      return rol === 'DUENO' ? this.baseUrls.DUENO : this.baseUrls.CLIENTE;
-    }
+
+  private getApiUrl(): string {
+    const rol: UserRole = this.authService.currentUserRole();
+    return rol === 'DUENO' ? this.baseUrls.DUENO : this.baseUrls.CLIENTE;
+  }
 
   fetchNotificaciones() {
     const url = this.getApiUrl();
     this.http
       .get<Notificacion[]>(url)
       .pipe(
-        catchError(err => {
+        catchError((err) => {
           if (err.status !== 404) {
             console.error('Error al cargar notificaciones:', err);
           }
           return of([]);
         })
       )
-      .subscribe(result => {
+      .subscribe((result) => {
         setTimeout(() => this.allNotificaciones.set(result));
       });
   }
@@ -60,14 +63,14 @@ export class NotificacionService {
     this.http
       .get<Notificacion[]>(finalUrl)
       .pipe(
-        catchError(err => {
+        catchError((err) => {
           if (err.status !== 404) {
             console.error('Error cargando notificaciones:', err);
           }
           return of([]);
         })
       )
-      .subscribe(list => {
+      .subscribe((list) => {
         setTimeout(() => this.allNotificaciones.set(list));
       });
   }
@@ -82,4 +85,28 @@ export class NotificacionService {
       hasta: hoy.toISOString().split('T')[0],
     };
   }
+
+  //lista filtrada por fecha + ordenada
+  public notificacionesFiltradas = computed(() => {
+    const lista = this.allNotificaciones();
+    const desde = this.filtroDesde();
+    const hasta = this.filtroHasta();
+
+    return lista
+      .filter(noti => {
+        let ok = true;
+
+        if (desde)
+          ok = ok && new Date(noti.fechaEnviado) >= new Date(desde);
+
+        if (hasta)
+          ok = ok && new Date(noti.fechaEnviado) <= new Date(hasta);
+
+        return ok;
+      })
+      .sort((a, b) =>
+        new Date(b.fechaEnviado).getTime() -
+        new Date(a.fechaEnviado).getTime()
+      );
+  });
 }
