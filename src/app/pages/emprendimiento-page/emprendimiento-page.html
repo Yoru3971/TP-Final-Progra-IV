@@ -1,24 +1,32 @@
-
 @if (emprendimiento(); as datosEmprendimiento) {
 
-    <app-emprendimiento-info
-        [datos]="datosEmprendimiento"
-        [modo]="esDueno() ? 'dueno' : 'cliente'"
-        (accionPrincipal)="esDueno() ? abrirModalEditarEmprendimiento() : abrirModalCarrito()">
-    </app-emprendimiento-info>
+<app-emprendimiento-info
+  [datos]="datosEmprendimiento"
+  [modo]="esDueno() ? 'dueno' : 'cliente'"
+  (accionPrincipal)="esDueno() ? abrirModalEditarEmprendimiento() : abrirModalCarrito()"
+>
+</app-emprendimiento-info>
 
-    <app-emprendimiento-filtros-viandas
-        [viandasIniciales]="viandasTotales()"
-        (filtrosChanged)="onFiltrosChanged($event)">>
-    </app-emprendimiento-filtros-viandas>
+<app-emprendimiento-filtros-viandas
+  [viandasIniciales]="viandasTotales()"
+  (filtrosChanged)="onFiltrosChanged($event)"
+  >>
+</app-emprendimiento-filtros-viandas>
 
-    <div class="viandas-detalladas-grid">
-        @for (vianda of viandas(); track vianda.id) {
-        <app-vianda-card-detallada>
-        </app-vianda-card-detallada>
-        }
-    </div>
+<div class="viandas-detalladas-grid">
+  <div class="card-crear" (click)="openViandaForm()">
+    <i class="fa-solid fa-plus"></i>
+    <span>Agrega una vianda</span>
+  </div>
+
+  @for (vianda of viandas(); track vianda.id) {
+  <app-vianda-card-detallada> </app-vianda-card-detallada>
+  }
+</div>
 
 } @else {
-    <p>Cargando...</p>      <!-- AGREGAR esqueleto de carga? o mensaje de "no hay emprendimientos?" -->
+<div class="estado-vacio">
+  <p>Esto está un poco vacío... deberías crear una vianda</p>
+  <i class="fa-solid fa-arrow-left"></i>
+</div>
 }

@@ -4,43 +4,42 @@ import { RegisterPageCliente } from './pages/register-page-cliente/register-page
 import { Login } from './pages/login/login';
 import { RegisterSuccessPage } from './pages/register-success-page/register-success-page';
 import { HomePage } from './pages/home-page/home-page';
-import { CrearEmprendimientoPageDueno } from './pages/crear-emprendimiento-page-dueno/crear-emprendimiento-page-dueno';
 import { EmprendimientoPage } from './pages/emprendimiento-page/emprendimiento-page';
 import { PerfilUsuario } from './pages/perfil-usuario/perfil-usuario';
+import { HomeRouter } from './router/home-router/home-router';
+import { authGuardFn } from './guards/auth.guard.fn';
+import { invitadoGuardFn } from './guards/invitado.guard.fn';
+import { emprendimientoDuenoGuardFn } from './guards/emprendimiento.dueno.guard.fn';
+import { Error403Page } from './pages/redirects/error403-page/error403-page';
+import { Error404Page } from './pages/redirects/error404-page/error404-page';
 
 export const routes: Routes = [
-  { path: 'home', component: HomePage },
-  {path: 'me', component: PerfilUsuario},
-  {
-    path: 'registro/dueno',
-    component: RegisterPageDueno,
-    data: { rol: 'DUENO' },
-  },
-  {
-    path: 'registro/cliente',
-    component: RegisterPageCliente,
-    data: { rol: 'CLIENTE' },
-  },
-  {
-    path: 'registro-exitoso',
-    component: RegisterSuccessPage,
-  },
-  {
-    path: 'login',
-    component: Login,
-  },
-  { 
-    path: 'crear-emprendimiento', 
-    component: CrearEmprendimientoPageDueno
-  },
-  { 
-    path: 'emprendimiento/:id',
-    component: EmprendimientoPage
-  },
-  //REVISAR habria que ver que hacemos con la ruta vacia, tal vez podriamos redirigir a una pagina  de "OOPS" o algo asi 
-  { 
-    path: '', redirectTo: '/home', 
-    pathMatch: 'full' }, // Redirige la ruta vacía a /home
-  
-    { path: '**', redirectTo: '/home' }, // Redirige cualquier otra ruta a home
+
+  /* -------------------- HOME -------------------- */
+  { path: 'home', component: HomeRouter },
+
+  /* -------------------- PERFIL (solo logeados) -------------------- */
+  { path: 'me', component: PerfilUsuario, canActivate: [authGuardFn] },
+
+  /* -------------------- REGISTROS (solo invitados) -------------------- */
+  { path: 'registro/dueno', component: RegisterPageDueno, canActivate: [invitadoGuardFn] },
+  { path: 'registro/cliente', component: RegisterPageCliente, canActivate: [invitadoGuardFn] },
+  { path: 'registro-exitoso', component: RegisterSuccessPage, canActivate: [invitadoGuardFn] },
+
+  /* -------------------- LOGIN (solo invitados) -------------------- */
+  { path: 'login', component: Login, canActivate: [invitadoGuardFn] },
+
+  /* -------------------- EMPRENDIMIENTO -------------------- */
+  // Invitado → puede ver
+  // Cliente → puede ver
+  // Dueño → solo si es suyo
+  { path: 'emprendimiento/:id', component: EmprendimientoPage, canActivate: [emprendimientoDuenoGuardFn] },
+
+  /* -------------------- ERRORES -------------------- */
+  { path: 'error/403', component: Error403Page },
+  { path: 'error/404', component: Error404Page },
+
+  /* -------------------- REDIRECTS BASICOS -------------------- */
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/error/404' },
 ];
