@@ -1,4 +1,4 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogTitle,
@@ -20,22 +20,15 @@ import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
-import { DatosUsuarioCard } from '../datos-usuario-card/datos-usuario-card';
 import { DatosUsuarioModal } from '../datos-usuario-modal/datos-usuario-modal';
 
 @Component({
   selector: 'app-pedido-extended-modal',
-  imports: [
-    MatButtonModule,
-    MatIconModule,
-    DatePipe,
-    FormsModule,
-    CommonModule,
-  ],
+  imports: [MatButtonModule, MatIconModule, DatePipe, FormsModule, CommonModule],
   templateUrl: './pedido-extended-modal.html',
   styleUrl: './pedido-extended-modal.css',
 })
-export class PedidoExtendedModal {
+export class PedidoExtendedModal implements OnInit {
   EstadoPedido = EstadoPedido;
   private authService = inject(AuthService);
   private pedidosService = inject(PedidosService);
@@ -44,9 +37,54 @@ export class PedidoExtendedModal {
   private snackBar = inject(MatSnackBar);
 
   public role = this.authService.currentUserRole;
+
   nuevaFechaSeleccionada: string | null = null;
+  minDate: string = '';
+  esDemasiadoTarde: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public pedido: PedidoResponse) {}
+
+  ngOnInit(): void {
+    this.calcularValidacionesFecha();
+  }
+
+  calcularValidacionesFecha() {
+    if (this.role() !== 'CLIENTE') return;
+
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    
+    const [year, month, day] = this.pedido.fechaEntrega.split('-').map(Number);
+    const fechaEntregaActual = new Date(year, month - 1, day);
+    fechaEntregaActual.setHours(0, 0, 0, 0);
+
+    const manana = new Date(hoy);
+    manana.setDate(hoy.getDate() + 1);
+
+    if (fechaEntregaActual.getTime() === manana.getTime()) {
+      this.esDemasiadoTarde = true;
+    }
+
+    // Mínimo debe ser Hoy + 2 días (ej: Si hoy es 23 -> min 25)
+    const fechaMinimaPolitica = new Date(hoy);
+    fechaMinimaPolitica.setDate(hoy.getDate() + 2);
+
+    const minPoliticaStr = this.formatDate(fechaMinimaPolitica);
+    const fechaOriginalStr = this.pedido.fechaEntrega;
+
+    if (minPoliticaStr > fechaOriginalStr) {
+      this.minDate = minPoliticaStr;
+    } else {
+      this.minDate = fechaOriginalStr;
+    }
+  }
+
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 
   cambiarEstado(estadoNuevo: EstadoPedido) {
     const estadoActual = this.pedido.estado;
@@ -77,15 +115,27 @@ export class PedidoExtendedModal {
 
   cambiarFechaEntrega(fecha: string | null) {
     if (this.role() !== 'CLIENTE') {
-      return this.mostrarError('Solo el cliente puede modificar la fecha de entrega.');
+      this.mostrarError('Solo el cliente puede modificar la fecha de entrega.');
+      return;
+    }
+
+    if (this.esDemasiadoTarde) {
+      this.mostrarError('No podés modificar el pedido un día antes de la entrega.');
+      return;
     }
 
     if (!fecha) {
-      return this.mostrarError('Seleccioná una fecha.');
+      this.mostrarError('Seleccioná una fecha.');
+      return;
+    }
+
+    if (fecha! < this.pedido.fechaEntrega) {
+      this.mostrarError('La nueva fecha no puede ser anterior a la fecha original.');
+      return;
     }
 
     const body: PedidoUpdateRequest = {
-      fechaEntrega: fecha, // ya viene como YYYY-MM-DD
+      fechaEntrega: fecha,
     };
 
     this.sendUpdate(body);
@@ -116,13 +166,13 @@ export class PedidoExtendedModal {
   }
 
   verDatosUsuario(usuario: UsuarioResponse) {
-     this.dialog.open(DatosUsuarioModal, {
-      autoFocus:false,
-      restoreFocus:false,
+    this.dialog.open(DatosUsuarioModal, {
+      autoFocus: false,
+      restoreFocus: false,
     });
   }
 
-  cerrar(){
+  cerrar() {
     this.dialogRef.close();
   }
 
@@ -130,11 +180,8 @@ export class PedidoExtendedModal {
     this.dialog.open(ErrorDialogModal, {
       data: { message },
       panelClass: 'modal-error',
-      autoFocus:false,
-      restoreFocus:false,
+      autoFocus: false,
+      restoreFocus: false,
     });
   }
-
-  
 }
-
