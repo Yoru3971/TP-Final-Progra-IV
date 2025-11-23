@@ -21,6 +21,7 @@ import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/err
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { DatosUsuarioModal } from '../datos-usuario-modal/datos-usuario-modal';
 
 @Component({
   selector: 'app-pedido-extended-modal',

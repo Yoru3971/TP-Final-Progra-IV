@@ -1,17 +1,19 @@
-import { Component, inject, effect, signal, OnInit } from '@angular/core';
+import { Component, inject, effect, signal, OnInit, computed } from '@angular/core';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { EmprendimientoCard } from '../../components/emprendimiento-card/emprendimiento-card';
 import { EmprendimientoConViandas } from '../../model/emprendimiento-con-viandas.model';
-import { EmprendimientoCardSkeleton } from '../../components/emprendimiento-card-skeleton/emprendimiento-card-skeleton';
+import { CityFilterService } from '../../services/city-filter-service';
 
 @Component({
   selector: 'app-home-page',
-  imports: [EmprendimientoCard, EmprendimientoCardSkeleton],
+  imports: [EmprendimientoCard],
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })
 export class HomePage implements OnInit {
   private emprendimientoService = inject(EmprendimientoService);
+  private cityFilter = inject(CityFilterService);
+  ciudadActual = computed(() => (this.cityFilter.city() ?? '').toUpperCase());
 
   emprendimientos = signal<EmprendimientoConViandas[]>([]);
 

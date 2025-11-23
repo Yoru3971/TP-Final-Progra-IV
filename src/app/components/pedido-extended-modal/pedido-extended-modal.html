@@ -35,15 +35,12 @@
       </p>
 
       <p>
-        <span class="label">Total:</span>
-        <span class="precio">${{ pedido.total }}</span>
+        <span class="label">Total: </span> <span class="precio">${{ pedido.total }}</span>
       </p>
 
       <p>
-        <span class="label">Estado:</span>
-        <span class="estado" [class]="pedido.estado.toLowerCase()">
-          {{ pedido.estado }}
-        </span>
+        <span class="label">Estado: </span>
+        <span class="estado" [class]="pedido.estado.toLowerCase()">{{ pedido.estado }}</span>
       </p>
     </div>
 

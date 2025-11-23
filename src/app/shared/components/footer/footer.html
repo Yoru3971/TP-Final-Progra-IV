@@ -21,7 +21,10 @@
         <div class="footer-quick-links">
             <h3>Enlaces Rápidos</h3><br>
 
-            <a routerLink="/registro/dueno">Registrate como Dueño</a><br>
+            @if (esInvitado()) {
+                <a routerLink="/registro/dueno">Registrate como Dueño</a><br>
+            }
+
             <a routerLink="/normas-comunidad">Normas de la Comunidad</a><br>
             <a routerLink="/bases-condiciones">Bases y Condiciones</a>
         </div>
