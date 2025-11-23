@@ -18,20 +18,4 @@ export class EmprendimientoInfo {
     this.accionPrincipal.emit();
   }
 
-/*  openEmprendimientoForm() {
-    this.dialog
-      .open(FormUpdateEmprendimiento, {
-        width: '100rem',
-        panelClass: 'form-modal',
-        autoFocus: false,
-        restoreFocus: false,
-        data: this.datos
-      })
-      .afterClosed()
-      .subscribe((exito) => {
-        if (exito) {
-          this.emprendimientoService.fetchEmprendimientos();
-        }
-      });
-  } */
 }

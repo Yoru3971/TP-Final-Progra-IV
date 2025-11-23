@@ -1,11 +1,13 @@
 import { Component, input, output } from '@angular/core';
 import { ViandaResponse } from '../../model/vianda-response.model';
-import { CurrencyPipe } from '@angular/common';
 import { PageMode } from '../../pages/emprendimiento-page/emprendimiento-page';
+import { IconTacc } from "../../shared/components/iconos/icon-tacc/icon-tacc";
+import { IconVegan } from "../../shared/components/iconos/icon-vegan/icon-vegan";
+import { IconVeggie } from "../../shared/components/iconos/icon-veggie/icon-veggie";
 
 @Component({
   selector: 'app-vianda-card-detallada',
-  imports: [CurrencyPipe],
+  imports: [IconTacc, IconVegan, IconVeggie],
   templateUrl: './vianda-card-detallada.html',
   styleUrl: './vianda-card-detallada.css',
 })

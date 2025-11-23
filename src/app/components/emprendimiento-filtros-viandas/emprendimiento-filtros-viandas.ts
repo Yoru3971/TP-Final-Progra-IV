@@ -2,10 +2,13 @@ import { Component, computed, effect, input, output, signal } from '@angular/cor
 import { FiltrosViandas } from '../../model/filtros-viandas.model';
 import { ViandaResponse } from '../../model/vianda-response.model';
 import { FormsModule } from '@angular/forms';
+import { IconTacc } from "../../shared/components/iconos/icon-tacc/icon-tacc";
+import { IconVegan } from "../../shared/components/iconos/icon-vegan/icon-vegan";
+import { IconVeggie } from "../../shared/components/iconos/icon-veggie/icon-veggie";
 
 @Component({
   selector: 'app-emprendimiento-filtros-viandas',
-  imports: [FormsModule],
+  imports: [FormsModule, IconTacc, IconVegan, IconVeggie],
   templateUrl: './emprendimiento-filtros-viandas.html',
   styleUrl: './emprendimiento-filtros-viandas.css',
 })

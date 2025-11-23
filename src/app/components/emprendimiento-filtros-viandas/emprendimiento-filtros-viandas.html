@@ -28,7 +28,7 @@
                 [class.active]="esSinTacc()" 
                 (click)="toggleDietary('sintacc')"
                 title="Sin TACC">
-                <i class="fa-solid fa-wheat-awn-circle-exclamation"></i>
+                <app-icon-tacc class="icon active"></app-icon-tacc>
             </button>
             
             <button 
@@ -36,7 +36,7 @@
                 [class.active]="esVegano()" 
                 (click)="toggleDietary('vegano')"
                 title="Vegano">
-                <i class="fa-solid fa-carrot"></i>
+                <app-icon-vegan class="icon active"></app-icon-vegan>
             </button>
 
             <button 
@@ -44,7 +44,7 @@
                 [class.active]="esVegetariano()" 
                 (click)="toggleDietary('vegetariano')"
                 title="Vegetariano">
-                <i class="fa-solid fa-leaf"></i>
+                <app-icon-veggie class="icon active"></app-icon-veggie>
             </button>
         </div>
 
