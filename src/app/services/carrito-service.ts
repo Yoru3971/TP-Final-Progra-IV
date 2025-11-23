@@ -197,6 +197,9 @@ export class CarritoService {
 
   public cantidadViandaEnCarrito(idVianda: number) {
     return computed(() => {
+      if (this.noEsCliente())
+        return 0;
+
       const indiceVianda = this.encontrarIndiceVianda(idVianda);
 
       return (indiceVianda >= 0) ? this.viandaCantidades()[indiceVianda].cantidad : 0;
@@ -209,6 +212,10 @@ export class CarritoService {
 
   public vacio() {
     return !this._viandaCantidades().length;
+  }
+
+  private noEsCliente() {
+    return this.authService.currentUserRole() !== "CLIENTE";
   }
 
   // Pedidos ==================================================================
