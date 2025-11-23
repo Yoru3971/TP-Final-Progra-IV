@@ -1,12 +1,10 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CarritoService } from '../../services/carrito-service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ViandaResponse } from '../../model/vianda-response.model';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-import { CarritoConfirmarModal } from '../carrito-confirmar-modal/carrito-confirmar-modal';
-import { CarritoCancelarModal } from '../carrito-cancelar-modal/carrito-cancelar-modal';
 import { firstValueFrom } from 'rxjs';
-import { ComponentType } from '@angular/cdk/overlay';
+import { CarritoConfirmarModalData } from '../../model/carrito-confirmar-modal-data.model';
 
 @Component({
   selector: 'app-carrito-modal',
@@ -87,7 +85,10 @@ export class CarritoModal implements OnInit {
     this.modalBloqueado = true;
     
     const confirmado = await firstValueFrom(
-      this.confirmar(CarritoCancelarModal)
+      this.confirmar({
+        titulo: "Cancelar Pedido",
+        texto: "¿Seguro de que querés cancelar el pedido?\nEl carrito se va a vaciar."
+      })
     );
 
     setTimeout(() => {
@@ -110,7 +111,10 @@ export class CarritoModal implements OnInit {
 
       if (!errorRevision) {
         const confirmado = await firstValueFrom(
-          this.confirmar(CarritoConfirmarModal)
+          this.confirmar({
+            titulo: "Confirmar Pedido",
+            texto: "¿Seguro de que querés confirmar el pedido?"
+          })
         );
 
         setTimeout(() => {
@@ -135,8 +139,8 @@ export class CarritoModal implements OnInit {
     this.modalBloqueado = false;
   }
 
-  private confirmar<T>(componente: ComponentType<T>) {
-    return this.carritoService.abrirModalConfirmacion(componente).afterClosed();
+  private confirmar(data: CarritoConfirmarModalData) {
+    return this.carritoService.abrirModalConfirmacion(data).afterClosed();
   }
 
   public cerrar() {

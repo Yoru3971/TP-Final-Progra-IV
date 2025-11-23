@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { EmprendimientoResponse } from '../model/emprendimiento-response.model';
 import { ViandaCantidadCarrito } from '../model/vianda-cantidad-carrito.model';
 import { ViandaResponse } from '../model/vianda-response.model';
@@ -11,10 +11,10 @@ import { PedidoRequest } from '../model/pedido-request.model';
 import { AuthService } from './auth-service';
 import { ViandaCantidadRequest } from '../model/vianda-cantidad-request.model';
 import { PedidosService } from './pedido-service';
-import { ComponentType } from '@angular/cdk/overlay';
 import { MatDialog } from '@angular/material/dialog';
-import { CarritoNuevoModal } from '../components/carrito-nuevo-modal/carrito-nuevo-modal';
 import { CarritoModal } from '../components/carrito-modal/carrito-modal';
+import { CarritoConfirmarModalData } from '../model/carrito-confirmar-modal-data.model';
+import { CarritoConfirmarModal } from '../components/carrito-confirmar-modal/carrito-confirmar-modal';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +41,32 @@ export class CarritoService {
 
   // Modificación de datos ====================================================
 
+  public async abrirCarrito(emprendimiento: EmprendimientoResponse) {
+    if (this._emprendimiento()) {
+      if (this._emprendimiento()!.id !== emprendimiento.id) {
+        const dialogRef = this.abrirModalConfirmacion({
+          titulo: "Nuevo Carrito",
+          texto:
+            "El carrito actual corresponde a otro emprendimiento, " +
+            "¿querés vaciar el carrito y empezar desde cero?"
+        });
+
+        const confirmado = await firstValueFrom(dialogRef.afterClosed());
+
+        if (confirmado) {
+          this.vaciar(true);
+          this._emprendimiento.set(emprendimiento);
+        }
+        else return;
+      }
+    }
+    else {
+      this._emprendimiento.set(emprendimiento);
+    }
+
+    this.abrirModalCarrito();
+  }
+
   public async agregarVianda(vianda: ViandaResponse): Promise<void> {
     if (!this._emprendimiento())
     {
@@ -48,11 +74,18 @@ export class CarritoService {
       this.guardarEmprendimientoEnLocalStorage();
     }
     else if (vianda.emprendimiento.id !== this._emprendimiento()?.id) {
-      const dialogRef = this.abrirModalConfirmacion(CarritoNuevoModal);
+      const dialogRef = this.abrirModalConfirmacion({
+        titulo: "Nuevo Carrito",
+        texto:
+            "El carrito actual contiene viandas de un emprendimiento distinto al de la vianda que querés agregar, " +
+            "¿querés vaciar el carrito y empezar desde cero?"
+      });
+
       const confirmado = await firstValueFrom(dialogRef.afterClosed());
 
       if (confirmado) {
         this.vaciar(true);
+        this._emprendimiento.set(vianda.emprendimiento);
       }
       else return;
     }
@@ -77,7 +110,7 @@ export class CarritoService {
   }
 
   public quitarVianda(vianda: ViandaResponse): void {
-    const indiceViandaCantidad = this.encontrarIndiceVianda(vianda);
+    const indiceViandaCantidad = this.encontrarIndiceVianda(vianda.id);
 
     if (indiceViandaCantidad < 0) return;
 
@@ -105,10 +138,6 @@ export class CarritoService {
         (viandaCantidad) => viandaCantidad.cantidad > 0
       )
     );
-
-    if (!this._viandaCantidades().length) {
-      this.vaciarViandasYEmprendimiento();
-    }
   }
 
   // Devuelve `true` si se quitaron viandas del carrito, o si ocurre algún otro error
@@ -166,18 +195,16 @@ export class CarritoService {
 
   // Consulta de datos ========================================================
 
-  public cantidadViandaEnCarrito(vianda: ViandaResponse): number {
-    const indiceVianda = this.encontrarIndiceVianda(vianda);
+  public cantidadViandaEnCarrito(idVianda: number) {
+    return computed(() => {
+      const indiceVianda = this.encontrarIndiceVianda(idVianda);
 
-    return (indiceVianda >= 0) ? this.viandaCantidades().at(indiceVianda)!.cantidad : 0;
+      return (indiceVianda >= 0) ? this.viandaCantidades()[indiceVianda].cantidad : 0;
+    });
   }
 
-  private encontrarIndiceVianda(vianda: ViandaResponse): number {
-    const emprendimientoId = this.emprendimiento() ? this.emprendimiento()!.id : null;
-
-    return (emprendimientoId && emprendimientoId == vianda.emprendimiento.id)
-           ? this._viandaCantidades().findIndex((viandaCantidad) => viandaCantidad.vianda.id === vianda.id)
-           : -1;
+  private encontrarIndiceVianda(idVianda: number): number {
+    return this._viandaCantidades().findIndex((viandaCantidad) => viandaCantidad.vianda.id === idVianda);
   }
 
   public vacio() {
@@ -210,21 +237,22 @@ export class CarritoService {
 
   // Modales ==================================================================
 
-  public abrirModalCarrito() {
+  private abrirModalCarrito() {
       this.dialog.open(
         CarritoModal,
         {
           maxHeight: "90vh",
-          maxWidth: "80rem",
-          width: "80rem"
+          maxWidth: "90rem",
+          width: "90rem"
         }
       );
   }
 
-  public abrirModalConfirmacion<T>(componente: ComponentType<T>) {
+  public abrirModalConfirmacion(data: CarritoConfirmarModalData) {
     return this.dialog.open(
-      componente,
+      CarritoConfirmarModal,
       {
+        data: data,
         disableClose: true,
         width: "40rem"
       }
