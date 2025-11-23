@@ -273,6 +273,42 @@ app-root {
   margin: 0;
 }
 
+.modal-exito .mat-mdc-dialog-title {
+  background-color: var(--modal-bg);
+  color: var(--estado-aceptado) !important;
+  padding: 1.2rem 1.6rem;
+  margin: 0;
+}
+
+.modal-exito .mat-icon {
+  color: var(--estado-aceptado) !important;
+  vertical-align: middle;
+}
+
+.modal-exito .mat-mdc-dialog-content {
+  background-color: var(--modal-bg);
+  padding: 2rem;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.modal-exito .mat-mdc-dialog-content p {
+  font-size: 1.4rem;
+  color: var(--input-text);
+  margin: 0;
+}
+
+.modal-exito .mat-mdc-dialog-actions {
+  background-color: var(--modal-bg);
+  padding: 1.6rem;
+}
+
+.modal-exito .mat-mdc-dialog-actions .btn {
+  padding: 1rem 3rem;
+  font-size: 1.6rem;
+  margin: 0;
+}
+
 /* --- MODAL SCROLLEABLE--- */
 
 .modal-scrolleable .mat-mdc-dialog-title {

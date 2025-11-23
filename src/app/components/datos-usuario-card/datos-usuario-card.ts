@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { SnackbarData } from '../../model/snackbar-data.model';
 import { Snackbar } from '../../shared/components/snackbar/snackbar';
-import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
+import { SuccessDialogModal } from '../../shared/components/success-dialog-modal/success-dialog-modal';
 
 @Component({
   selector: 'app-datos-usuario-card',
@@ -50,9 +50,9 @@ export class DatosUsuarioCard implements OnInit {
       if (emailCambio) {
         this.authService.handleLogout();
 
-        this.dialog.open(ErrorDialogModal, {
+        this.dialog.open(SuccessDialogModal, {
           data: { message: 'Tu email fue actualizado. Por favor iniciá sesión nuevamente.' },
-          panelClass: 'modal-error',
+          panelClass: 'modal-exito',
         });
 
         setTimeout(() => {
