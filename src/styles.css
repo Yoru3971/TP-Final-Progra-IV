@@ -598,6 +598,8 @@ app-root {
 .filtros-layout select:focus {
   border-color: var(--input-focus-outline);
   box-shadow: var(--input-focus-shadow);
+}
+
 .info-page-container {
   align-items: center;
   display: flex;
