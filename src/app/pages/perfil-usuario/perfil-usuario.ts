@@ -5,6 +5,9 @@ import { PedidosCard } from '../../components/pedidos-card/pedidos-card';
 import { PanelAccionesCuenta } from '../../components/panel-acciones-cuenta/panel-acciones-cuenta';
 import { UsuarioResponse } from '../../model/usuario-response.model';
 import { UsuarioService } from '../../services/usuario-service';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -14,16 +17,29 @@ import { UsuarioService } from '../../services/usuario-service';
 })
 export class PerfilUsuario implements OnInit {
   private usuarioService = inject(UsuarioService);
+  private authService = inject(AuthService);
+  private dialog = inject(MatDialog);
+
 
   usuario = signal<UsuarioResponse | null>(null);
 
-  //REVISAR manejo de errores con modal
   ngOnInit(): void {
     this.usuarioService.getPerfilUsuario().subscribe({
       next: (data) => {
         this.usuario.set(data);
       },
-      error: (err) => console.error(err),
+      error: (err) => {
+        const backendMsg =
+            err.error?.message || err.error?.error || 'Error desconocido con el usuario';
+        
+        this.authService.handleLogout();
+        this.dialog.open(ErrorDialogModal, {
+          data: { message: backendMsg},
+          panelClass: 'modal-error',
+          autoFocus: false,
+          restoreFocus: false,
+        });
+      },
     });
   }
 }
