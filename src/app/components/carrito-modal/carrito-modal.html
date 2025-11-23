@@ -1,94 +1,78 @@
 <div class="carrito" [class.bloqueado]="modalBloqueado">
-    <div class="carrito-header">
-        <h2><span>Carrito:</span> {{ emprendimiento()?.nombreEmprendimiento ?? "vacío" }}</h2>
+  <div class="carrito-header">
+    <h2><span>Carrito:</span> {{ emprendimiento()?.nombreEmprendimiento ?? 'vacío' }}</h2>
 
-        <button class="btn cerrar-btn" (click)="cerrar()">
-            <i class="fa-solid fa-x"></i>
+    <button class="btn btn-close-icon" (click)="cerrar()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="carrito-layout">
+    <div class="left-panel scrolleable">
+      @for (viandaCantidad of viandaCantidades(); track $index) {
+      <div class="carrito-item">
+        <img class="item-img" [src]="viandaCantidad.vianda.imagenUrl" />
+
+        <div class="item-info">
+          <p class="item-nombre">{{ viandaCantidad.vianda.nombreVianda }}</p>
+          <p class="item-precio-unit">${{ viandaCantidad.vianda.precio.toFixed(2) }}</p>
+        </div>
+
+        <p class="item-subtotal">
+          ${{ (viandaCantidad.vianda.precio * viandaCantidad.cantidad).toFixed(2) }}
+        </p>
+
+        <div class="item-cantidad-btns">
+          <button class="btn btn-circle" (click)="restarVianda(viandaCantidad.vianda)">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+
+          <p class="item-cantidad">{{ viandaCantidad.cantidad }}</p>
+
+          <button class="btn btn-circle" (click)="sumarVianda(viandaCantidad.vianda)">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+
+        </div>
+      </div>
+      } @empty {
+       <p class="carrito-lista-vacia">Agregá viandas del emprendimiento para realizar un pedido.</p>
+      }
+    </div>
+
+    <div class="right-panel">
+      <div class="detalle-general">
+        <p>
+          <span class="label">Total:</span>
+          <span class="precio-total">${{ total.toFixed(2) }}</span>
+        </p>
+
+        <div class="fecha-container">
+          <label>Fecha de entrega:</label>
+
+          <form [formGroup]="formFecha">
+            <input type="date" formControlName="fechaEntrega" />
+          </form>
+
+          @let fecha = formFecha.get('fechaEntrega'); @if (fecha?.invalid && fecha?.dirty) {
+          <p class="fecha-warning">Ingrese una fecha válida</p>
+          }
+        </div>
+      </div>
+
+      <div class="acciones">
+        <button
+          class="btn btn-confirmar"
+          (click)="confirmarPedido()"
+          [disabled]="vacio() || (formFecha.invalid && formFecha.touched)"
+        >
+          CONFIRMAR PEDIDO
         </button>
+
+        <button class="btn btn-cancelar" (click)="cancelarPedido()" [disabled]="vacio()">
+          VACIAR CARRITO
+        </button>
+      </div>
     </div>
-
-    <div class="carrito-content">
-        <div class="carrito-lista">
-            @for (viandaCantidad of viandaCantidades(); track $index) {
-                <div class="carrito-item">
-                    <div class="carrito-item-img-container">
-                        <img [src]="viandaCantidad.vianda.imagenUrl">
-                    </div>
-
-                    <div class="carrito-item-nombre-precio-container">
-                        <p class="item-nombre">{{ viandaCantidad.vianda.nombreVianda }}</p>
-                        <p class="item-precio">${{ viandaCantidad.vianda.precio.toFixed(2) }}</p>
-                    </div>
-
-                    <p class="item-subtotal">
-                        {{ (viandaCantidad.vianda.precio * viandaCantidad.cantidad).toFixed(2) }}
-                    </p>
-
-                    <div class="item-cantidad-btns-container">
-                        <button class="btn item-cantidad-btn" (click)="restarVianda(viandaCantidad.vianda)">
-                            <i class="fa-solid fa-minus"></i>
-                        </button>
-
-                        <div class="item-cantidad-container">
-                            <p class="item-cantidad">{{ viandaCantidad.cantidad }}</p>
-                        </div>
-
-                        <button class="btn item-cantidad-btn" (click)="sumarVianda(viandaCantidad.vianda)">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
-            } @empty {
-                <p class="carrito-lista-vacia">Agregá viandas del emprendimiento para realizar un pedido.</p>
-            }
-        </div>
-
-        <div class="carrito-content-sub">
-            <div class="carrito-total-fecha-container">
-                <p class="carrito-total">
-                    Total: <span [class.carrito-total-highlight]="!vacio()">${{ total.toFixed(2) }}</span>
-                </p>
-
-                <div class="carrito-fecha-container">
-                    <div class="carrito-fecha-text-container">
-                        <label class="fecha-label">Fecha de Entrega:</label>
-
-                        @let fecha = formFecha.get('fechaEntrega');
-                        @if (fecha?.invalid && fecha?.dirty) {
-                            @if (fecha?.hasError('required')) {
-                                <p class="fecha-warning">Ingrese una fecha.</p>
-                            }
-                            @else {
-                                @if (fecha?.errors?.['invalidValue']) {
-                                    <p class="fecha-warning">Ingrese la fecha de hoy o posterior.</p>
-                                }
-                            }
-                        }
-                    </div>
-
-                    <form [formGroup]="formFecha">
-                        <input formControlName="fechaEntrega" type="date">
-                    </form>
-                </div>
-            </div>
-
-            <div class="carrito-btns-container">
-                <button
-                    class="btn carrito-btn carrito-btn-cancelar"
-                    (click)="cancelarPedido()"
-                    [disabled]="vacio()"
-                >
-                    Cancelar
-                </button>
-
-                <button
-                    class="btn carrito-btn carrito-btn-confirmar"
-                    (click)="confirmarPedido()"
-                    [disabled]="vacio() || (formFecha.invalid && formFecha.touched)"
-                >
-                    Confirmar
-                </button>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>

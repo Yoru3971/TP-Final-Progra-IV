@@ -78,7 +78,7 @@ export class AuthService {
     sessionStorage.removeItem('usuarioID');
 
     this.currentUserRole.set('INVITADO');
-    console.log('Logout exitoso. Rol:', this.currentUserRole());
+    window.location.reload();
   }
 
   private decodeRolFrom(token: string): UserRole {
