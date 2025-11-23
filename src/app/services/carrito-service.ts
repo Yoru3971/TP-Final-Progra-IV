@@ -243,7 +243,9 @@ export class CarritoService {
         {
           maxHeight: "90vh",
           maxWidth: "90rem",
-          width: "90rem"
+          width: "90rem",
+          autoFocus:false,
+          restoreFocus: false,
         }
       );
   }
