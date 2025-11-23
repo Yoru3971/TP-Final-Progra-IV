@@ -1,7 +1,7 @@
 @if (emprendimiento(); as datosEmprendimiento) {
 
     <app-emprendimiento-info
-        [datos]="datosEmprendimiento"
+        [emprendimiento]="datosEmprendimiento"
         [modo]="modoVista()"
         (accionPrincipal)="handleAccionInfo()">
     </app-emprendimiento-info>
@@ -14,7 +14,7 @@
 
     <div class="viandas-detalladas-grid">
         @if (modoVista() === "DUENO") {
-            <div class="card-crear" (click)="openViandaForm()">
+            <div class="card-crear" (click)="abrirViandaForm()">
                 <i class="fa-solid fa-plus"></i>
                 <span>Agrega una vianda</span>
             </div>
@@ -40,7 +40,7 @@
 
 } @else {
 <div class="estado-vacio">
-    <p>Esto está un poco vacío... deberías crear una vianda</p>
+    <p>Esto está un poco vacío... deberías crear una vianda</p>     <!-- REVISAR qué debería mostrar si no hay emprendimiento? -->
     <i class="fa-solid fa-arrow-left"></i>
 </div>
 }

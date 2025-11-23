@@ -1,17 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  inject,
-  input,
-  Input,
-  output,
-  Output,
-  signal,
-} from '@angular/core';
+import {Component,input,output,} from '@angular/core';
 import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
-import { MatDialog } from '@angular/material/dialog';
-import { FormUpdateEmprendimiento } from '../form-emprendimiento-update/form-emprendimiento-update';
-import { EmprendimientoService } from '../../services/emprendimiento-service';
 
 @Component({
   selector: 'app-emprendimiento-info',
@@ -20,20 +8,9 @@ import { EmprendimientoService } from '../../services/emprendimiento-service';
   styleUrl: './emprendimiento-info.css',
 })
 export class EmprendimientoInfo {
-  private emprendimientoService = inject(EmprendimientoService);
 
-  @Input() datos!: EmprendimientoResponse;
-  public emprendimientoSignal = signal<EmprendimientoResponse | null>(null);
-
-  ngOnInit(): void {
-    if (this.datos) {
-      this.emprendimientoSignal.set(this.datos);
-    }
-  }
-
-  modo = input.required<'CLIENTE' | 'DUENO' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO'>();
-
-  private dialog = inject(MatDialog);
+  emprendimiento = input.required<EmprendimientoResponse>();
+  modo = input.required<'CLIENTE' | 'DUENO'| 'INVITADO' | 'PROHIBIDO' | 'CARGANDO'>();
 
   accionPrincipal = output<void>();
 
@@ -41,7 +18,7 @@ export class EmprendimientoInfo {
     this.accionPrincipal.emit();
   }
 
-  openEmprendimientoForm() {
+/*  openEmprendimientoForm() {
     this.dialog
       .open(FormUpdateEmprendimiento, {
         width: '100rem',
@@ -56,5 +33,5 @@ export class EmprendimientoInfo {
           this.emprendimientoService.fetchEmprendimientos();
         }
       });
-  }
+  } */
 }
