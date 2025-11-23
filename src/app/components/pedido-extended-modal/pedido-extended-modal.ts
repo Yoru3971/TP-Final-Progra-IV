@@ -20,22 +20,17 @@ import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { DatosUsuarioCard } from '../datos-usuario-card/datos-usuario-card';
 import { DatosUsuarioModal } from '../datos-usuario-modal/datos-usuario-modal';
 
 @Component({
   selector: 'app-pedido-extended-modal',
   imports: [
-    MatDialogTitle,
-    MatDialogContent,
     MatButtonModule,
     MatIconModule,
-    MatDialogClose,
     DatePipe,
     FormsModule,
     CommonModule,
-    MatFormField,
-    MatLabel,
   ],
   templateUrl: './pedido-extended-modal.html',
   styleUrl: './pedido-extended-modal.css',
@@ -49,11 +44,10 @@ export class PedidoExtendedModal {
   private snackBar = inject(MatSnackBar);
 
   public role = this.authService.currentUserRole;
-  nuevaFechaSeleccionada: string | null = null; // <--- ahora es string YYYY-MM-DD
+  nuevaFechaSeleccionada: string | null = null;
 
   constructor(@Inject(MAT_DIALOG_DATA) public pedido: PedidoResponse) {}
 
-  // CAMBIAR ESTADO
   cambiarEstado(estadoNuevo: EstadoPedido) {
     const estadoActual = this.pedido.estado;
 
@@ -81,7 +75,6 @@ export class PedidoExtendedModal {
     this.sendUpdate(body);
   }
 
-  // CLIENTE — CAMBIAR FECHA
   cambiarFechaEntrega(fecha: string | null) {
     if (this.role() !== 'CLIENTE') {
       return this.mostrarError('Solo el cliente puede modificar la fecha de entrega.');
@@ -122,13 +115,26 @@ export class PedidoExtendedModal {
     });
   }
 
+  verDatosUsuario(usuario: UsuarioResponse) {
+     this.dialog.open(DatosUsuarioModal, {
+      autoFocus:false,
+      restoreFocus:false,
+    });
+  }
+
+  cerrar(){
+    this.dialogRef.close();
+  }
+
   private mostrarError(message: string) {
     this.dialog.open(ErrorDialogModal, {
       data: { message },
       panelClass: 'modal-error',
+      autoFocus:false,
+      restoreFocus:false,
     });
   }
 
-  verDatosUsuario(usuario: UsuarioResponse) {}
+  
 }
 

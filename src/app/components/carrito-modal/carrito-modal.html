@@ -32,11 +32,10 @@
           <button class="btn btn-circle" (click)="sumarVianda(viandaCantidad.vianda)">
             <i class="fa-solid fa-plus"></i>
           </button>
-
         </div>
       </div>
       } @empty {
-       <p class="carrito-lista-vacia">Agregá viandas del emprendimiento para realizar un pedido.</p>
+      <p class="carrito-lista-vacia">Agregá viandas del emprendimiento para realizar un pedido.</p>
       }
     </div>
 
@@ -44,7 +43,7 @@
       <div class="detalle-general">
         <p>
           <span class="label">Total:</span>
-          <span class="precio-total">${{ total.toFixed(2) }}</span>
+          <span class="precio-total"> ${{ total.toFixed(2) }}</span>
         </p>
 
         <div class="fecha-container">
@@ -69,7 +68,7 @@
           CONFIRMAR PEDIDO
         </button>
 
-        <button class="btn btn-cancelar" (click)="cancelarPedido()" [disabled]="vacio()">
+        <button class="btn btn-rechazar" (click)="cancelarPedido()" [disabled]="vacio()">
           VACIAR CARRITO
         </button>
       </div>

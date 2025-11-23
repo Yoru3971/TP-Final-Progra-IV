@@ -1,22 +1,13 @@
-/* ------------------------- */
-/* CONTENEDOR PRINCIPAL      */
-/* ------------------------- */
-
 .carrito {
   background: var(--modal-bg);
   display: flex;
   flex-direction: column;
 }
 
-/* Bloqueo */
 .bloqueado {
   pointer-events: none;
   opacity: 0.6;
 }
-
-/* ------------------------- */
-/* HEADER                    */
-/* ------------------------- */
 
 .carrito-header {
   background: var(--carrito-title-bg-color);
@@ -36,9 +27,8 @@
   font-weight: bold;
 }
 
-/* Botón cerrar */
 .btn-close-icon {
-  background: white;
+  background: var(--inverse-text-color);
   color: var(--carrito-title-bg-color);
   border-radius: 50%;
   width: 3.6rem;
@@ -51,22 +41,14 @@
 }
 
 .btn-close-icon:hover {
-  background: color-mix(in srgb, white 90%, black);
-  color: color-mix(in srgb, var(--carrito-title-bg-color) 80%, black);
+  background: color-mix(in srgb, var(--inverse-text-color) 90%, var(--text-color));
+  color: color-mix(in srgb, var(--carrito-title-bg-color) 80%, var(--text-color));
 }
-
-/* ------------------------- */
-/* LAYOUT PRINCIPAL          */
-/* ------------------------- */
 
 .carrito-layout {
   display: flex;
   height: 45rem;
 }
-
-/* ------------------------- */
-/* LEFT PANEL (VIANDAS)     */
-/* ------------------------- */
 
 .left-panel {
   flex: 1;
@@ -123,7 +105,6 @@
   gap: 0.8rem;
 }
 
-/* Botones + y - */
 .btn-circle {
   background: var(--input-bg);
   border: 1px solid var(--input-border);
@@ -148,10 +129,6 @@
   min-width: 2rem;
   text-align: center;
 }
-
-/* ------------------------- */
-/* RIGHT PANEL (TOTAL / FECHA / BOTONES) */
-/* ------------------------- */
 
 .right-panel {
   width: 40%;
@@ -196,7 +173,7 @@
 }
 
 .fecha-warning {
-  color: red;
+  color: var(--error-color);
   font-size: 1.3rem;
 }
 
@@ -213,7 +190,7 @@
   font-size: 1.5rem !important;
 }
 
-.btn-cancelar {
+.btn-rechazar {
   background: var(--estado-rechazado);
   color: var(--inverse-text-color);
 }
