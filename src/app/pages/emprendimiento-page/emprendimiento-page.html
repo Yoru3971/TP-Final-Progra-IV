@@ -25,7 +25,7 @@
             [vianda]="vianda"
             [modo]="modoVista()"
             
-            [cantidad]="obtenerCantidadEnCarrito(vianda.id)"
+            [cantidad]="obtenerCantidadEnCarrito(vianda.id)()"
             
             (agregar)="handleAgregarVianda(vianda)"
             (quitar)="handleQuitarVianda(vianda)"

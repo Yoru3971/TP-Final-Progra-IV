@@ -16,6 +16,7 @@ import { SnackbarData } from '../../model/snackbar-data.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FormVianda } from '../../components/form-vianda/form-vianda';
 import { FormUpdateEmprendimiento } from '../../components/form-emprendimiento-update/form-emprendimiento-update';
+import { CarritoService } from '../../services/carrito-service';
 
 export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
 
@@ -33,6 +34,7 @@ export class EmprendimientoPage {
   private viandaService = inject(ViandaService);
   private routeParams = toSignal(this.route.paramMap);
   private dialog = inject(MatDialog);
+  private carritoService = inject(CarritoService);
 
   emprendimientoEditado = signal(0);   //  Signal para forzar recarga de emprendimiento al editarlo
 
@@ -113,7 +115,11 @@ export class EmprendimientoPage {
   }
 
   abrirModalCarrito() {
-    console.log('Abre carrito');    //  AGREGAR abrir modal carrito
+    const modo = this.modoVista();
+
+    if (modo === 'CLIENTE') {
+      this.carritoService.abrirCarrito(this.emprendimiento()!);
+    }
   }
 
   abrirSnackbarLoginRequerido() {
@@ -245,11 +251,8 @@ export class EmprendimientoPage {
       });
   }
 
-  obtenerCantidadEnCarrito(idVianda: number): number {
-    // AGREGAR lógica para obtener la cantidad del carrito
-    // (Imagino que si no existe un carrito, devuelve 0)
-    // (Y que si existe, pero la vianda no está, también devuelve 0)
-    return 0;
+  obtenerCantidadEnCarrito(idVianda: number) {
+    return this.carritoService.cantidadViandaEnCarrito(idVianda);
   }
 
   handleAgregarVianda(vianda: ViandaResponse) {
@@ -261,7 +264,7 @@ export class EmprendimientoPage {
     }
 
     if (modo === 'CLIENTE') {
-      console.log('Agregando al carrito:', vianda.nombreVianda);    // AGREGAR lógica para agregar la vianda al carrito
+      this.carritoService.agregarVianda(vianda);
     }
   }
 
@@ -274,7 +277,7 @@ export class EmprendimientoPage {
     }
 
     if (modo === 'CLIENTE') {
-      console.log('Quitando del carrito:', vianda.nombreVianda);    // AGREGAR lógica para quitar la vianda del carrito
+      this.carritoService.quitarVianda(vianda);
     }
   }
 
