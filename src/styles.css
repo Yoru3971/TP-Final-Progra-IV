@@ -540,3 +540,21 @@ app-root {
   padding: 3rem 0;
   width: 120rem;
 }
+
+.info-page-container h1 {
+  font-size: 1.8rem;
+  line-height: 2rem;
+}
+
+.info-page-container content {
+    width: 100rem;
+}
+
+.info-page-container p {
+    font-size: 1.6rem;
+    line-height: 2rem;
+}
+
+.info-page-container a {
+    color: var(--link-color);
+}
