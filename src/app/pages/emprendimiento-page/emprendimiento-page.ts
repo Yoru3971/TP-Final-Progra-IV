@@ -8,15 +8,16 @@ import { ViandaCardDetallada } from '../../components/vianda-card-detallada/vian
 import { EmprendimientoFiltrosViandas } from '../../components/emprendimiento-filtros-viandas/emprendimiento-filtros-viandas';
 import { FiltrosViandas } from '../../model/filtros-viandas.model';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { catchError, Observable, of, switchMap } from 'rxjs';
+import { catchError, combineLatest, map, Observable, of, switchMap } from 'rxjs';
 import { ViandaResponse } from '../../model/vianda-response.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { SnackbarData } from '../../model/snackbar-data.model';
-
-export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
 import { MatDialog } from '@angular/material/dialog';
 import { FormVianda } from '../../components/form-vianda/form-vianda';
+import { FormUpdateEmprendimiento } from '../../components/form-emprendimiento-update/form-emprendimiento-update';
+
+export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
 
 @Component({
   selector: 'app-emprendimiento-page',
@@ -33,6 +34,8 @@ export class EmprendimientoPage {
   private routeParams = toSignal(this.route.paramMap);
   private dialog = inject(MatDialog);
 
+  emprendimientoEditado = signal(0);   //  Signal para forzar recarga de emprendimiento al editarlo
+
 
   //  Uso signals para idEmprendimiento, emprendimiento y esDueno (si algo cambia, se actualiza todo automáticamente)
   idEmprendimiento = computed(() => {
@@ -41,7 +44,11 @@ export class EmprendimientoPage {
   });
 
   emprendimiento = toSignal(
-    toObservable(this.idEmprendimiento).pipe(
+    combineLatest([
+    toObservable(this.idEmprendimiento),
+    toObservable(this.emprendimientoEditado)
+  ]).pipe(
+    map(([id, _]) => id),
       switchMap((id) => {
         if (!id) return of(null);
         return this.emprendimientoService.getEmprendimientoById(id).pipe(
@@ -89,7 +96,20 @@ export class EmprendimientoPage {
   }
 
   abrirModalEditarEmprendimiento() {
-    console.log('Abre modal de edición');   //  AGREGAR abrir modal de edición del emprendimiento
+    this.dialog
+      .open(FormUpdateEmprendimiento, {
+        width: '100rem',
+        panelClass: 'form-modal',
+        autoFocus: false,
+        restoreFocus: false,
+        data: this.emprendimiento()
+      })
+      .afterClosed()
+      .subscribe((exito) => {
+        if (exito) {
+          this.emprendimientoEditado.update(v => v + 1);
+        }
+      });
   }
 
   abrirModalCarrito() {
@@ -207,6 +227,24 @@ export class EmprendimientoPage {
 
   //  -------------------  Componente: vianda-card-detallada -------------------
 
+  abrirViandaForm() {
+    const emprendimientoId = this.idEmprendimiento();
+    this.dialog
+      .open(FormVianda, {
+        data: { idEmprendimiento: emprendimientoId },
+        width: '100rem',
+        panelClass: 'form-modal',
+        autoFocus: false,
+        restoreFocus: false,
+      })
+      .afterClosed()
+      .subscribe((exito) => {
+        if (exito) {
+          this.filtrosSignal.update(f => ({...f}));
+        }
+      });
+  }
+
   obtenerCantidadEnCarrito(idVianda: number): number {
     // AGREGAR lógica para obtener la cantidad del carrito
     // (Imagino que si no existe un carrito, devuelve 0)
@@ -254,19 +292,4 @@ export class EmprendimientoPage {
   }
 
   
-  openViandaForm() {
-    this.dialog
-      .open(FormVianda, {
-        width: '100rem',
-        panelClass: 'form-modal',
-        autoFocus: false,
-        restoreFocus: false,
-      })
-      .afterClosed()
-      .subscribe((exito) => {
-        if (exito) {
-          // ACA VA LA LINEA PARA ACTUALIZAR LAS VIANDAS DE LA VISTA
-        }
-      });
-  }
 }

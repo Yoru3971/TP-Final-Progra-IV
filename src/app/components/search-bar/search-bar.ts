@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { SearchService } from '../../services/search-service';
 import { RouterLink } from "@angular/router";
 
@@ -9,11 +9,34 @@ import { RouterLink } from "@angular/router";
   styleUrl: './search-bar.css',
 })
 export class SearchBar {
-  searchService = inject(SearchService);
+  private searchService = inject(SearchService);
 
-  resultados = this.searchService.resultados;
+  public resultados = this.searchService.resultados;
+  public buscadorSeleccionado = signal<boolean>(false);
+  public sobreBuscador = signal<boolean>(false);
+  public sobreBotonVaciar = signal<boolean>(false);
+  public hayTextoEnBuscador = signal<boolean>(false);
 
-  onInput(event: any) {
-    this.searchService.buscar(event.target.value);
+  public onInput(event: any) {
+    const value: string = event.target.value;
+
+    this.hayTextoEnBuscador.set(value !== "");
+
+    this.searchService.buscar(value);
+  }
+
+  public onBlur() {
+    setTimeout(() => {
+      this.buscadorSeleccionado.set(false);
+    }, 0);
+  }
+
+  public mostrarResultados() {
+    return this.buscadorSeleccionado() && this.hayTextoEnBuscador();
+  }
+
+  public vaciarBuscador(elemento: HTMLInputElement) {
+    elemento.value = "";
+    this.hayTextoEnBuscador.set(false);
   }
 }

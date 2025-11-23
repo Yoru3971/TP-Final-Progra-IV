@@ -6,6 +6,13 @@
   --text-color: #000000;
   --inverse-text-color: #ffffff;
 
+  --header-rol-color: #eb8334;
+  --header-link-hover-color: #e07b3d;
+  --header-icon-color: #fe9039;
+
+  --search-bar-focus-color: #fe9039;
+  --search-bar-icon-color: #fe9039;
+
   --footer-border-color: #e5e7eb;
   --footer-bottom-bg-color: #f9f8f8;
   --footer-bottom-text-color: #888888;
@@ -74,8 +81,11 @@
   --estado-rechazado: #e74c3c;
   --estado-default: #6b7280;
 
-  --image-upload-bg: #f8f8f8;
-  --image-upload-bg-hover: #e9e9e9;
+  --image-upload-bg:#f8f8f8;
+  --image-upload-bg-hover:#e9e9e9;
+ 
+  --sobre-nosotros-card-bg-color: #f9f8f8;
+  --sobre-nosotros-card-border-color: #e5e5e5;
 }
 
 html {
@@ -588,4 +598,30 @@ app-root {
 .filtros-layout select:focus {
   border-color: var(--input-focus-outline);
   box-shadow: var(--input-focus-shadow);
+.info-page-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0 auto;
+  padding: 3rem 0;
+  width: 120rem;
+}
+
+.info-page-container h1 {
+  font-size: 1.8rem;
+  line-height: 2rem;
+}
+
+.info-page-container content {
+    width: 100rem;
+}
+
+.info-page-container p {
+    font-size: 1.6rem;
+    line-height: 2rem;
+}
+
+.info-page-container a {
+    color: var(--link-color);
 }

@@ -170,7 +170,7 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-crear" (click)="onSubmit()" [disabled]="!formVianda.valid">
-    Crear Vianda
+  <button type="button" class="btn btn-crear" (click)="onSubmit()" [disabled]="loading || !formVianda.valid">
+    {{ loading ? 'Guardando...' : 'Crear Vianda' }}
   </button>
 </form>

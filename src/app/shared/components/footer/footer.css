@@ -119,6 +119,10 @@ address p {
     width: 100%;
 }
 
+.app-footer .footer-bottom-bar a {
+    color: var(--link-color);
+}
+
 .app-footer .footer-bottom-bar .separador {
     margin: 0 0.5rem;
 }

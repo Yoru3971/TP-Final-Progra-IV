@@ -1,42 +1,75 @@
-.search-input {
-    width: 100%;
-    padding: 1rem 3rem 1rem 1.5rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    font-size: 1.125rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-    box-sizing: border-box;
+.search-container {
+    position: relative;
 }
 
-.search-input:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+.search-input {
+    border: 1px solid color-mix(in srgb, var(--bg-color) 75%, black);
+    border-radius: 0.8rem;
+    font-family: inherit;
+    font-size: 1.4rem;
+    outline: none;
+    padding: 1rem 3.4rem 1rem 3.6rem;
+    transition: 0.2s;
+    width: 48rem;
+}
+
+.mostrando-resultados {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    transition: none;
+}
+
+.search-input:focus-within {
+    border-color: var(--search-bar-focus-color);
+}
+
+.icon-search, .btn-clear {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.icon-search {
+    color: var(--search-bar-icon-color);
+    font-size: 1.6rem;
+    left: 1.2rem;
+    pointer-events: none;
+}
+
+.btn-clear {
+    background: none;
+    border: none;
+    color: color-mix(in srgb, var(--text-color) 33%, white);
+    font-size: 1.4rem;
+    right: 1.2rem;
+    transition-duration: 0.1s;
+}
+
+.btn-clear:focus-within, .btn-clear:hover {
+    color: color-mix(in srgb, var(--text-color) 66%, white);
 }
 
 .search-results {
+    background-color: var(--bg-color);
+    border: 1px solid color-mix(in srgb, var(--bg-color) 85%, black);
+    border-radius: 0 0 1.2rem 1.2rem;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
     position: absolute;
     top: 100%;
-    left: 0;
-    right: 0;
+    width: 48rem;
     z-index: 10;
-    margin-top: 0.5rem;
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
 }
 
 .result-card {
-    display: flex;
     align-items: center;
-    padding: 0.75rem 1rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--bg-color) 90%, black);
     cursor: pointer;
-    transition: background-color 0.15s;
-    border-bottom: 1px solid #f3f4f6;
+    display: flex;
+    flex-direction: row;
+    padding: 1.5rem 2rem;
     position: relative;
+    transition: background-color 0.15s;
 }
 
 .result-card:last-child {
@@ -44,40 +77,41 @@
 }
 
 .result-card:hover {
-    background-color: #f5f3ff; 
+    background-color: color-mix(in srgb, var(--bg-color) 92.5%, black);
 }
 
 .card-img {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 8px;
+    aspect-ratio: 1/1;
+    border-radius: 0.8rem;
+    height: 8rem;
     margin-right: 1rem;
-    flex-shrink: 0;
+    object-fit: cover;
 }
 
 .card-info {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
+    line-height: 1.8rem;
 }
 
 .card-title {
+    color: var(--text-color);
+    font-size: 2rem;
     font-weight: 600;
-    color: #1f2937;
-    margin-bottom: 2px;
+    margin: 0;
+    margin-bottom: 1rem;
 }
 
 .card-sub {
-    font-size: 0.875rem;
-    color: #6b7280;
+    color: color-mix(in srgb, var(--text-color) 50%, var(--inverse-text-color));
+    font-size: 1.6rem;
+    margin: 0;
 }
 
-.city-tag {
-    background-color: #e0e7ff;
-    color: #4f46e5;
-    padding: 0.25rem 0.5rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    flex-shrink: 0;
-    margin-left: 1rem;
+.no-results {
+    color: color-mix(in srgb, var(--text-color) 60%, var(--inverse-text-color));
+    font-size: 2rem;
+    padding: 2rem 2rem;
+    width: 100%;
 }
