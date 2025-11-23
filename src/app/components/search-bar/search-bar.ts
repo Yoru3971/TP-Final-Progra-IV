@@ -11,11 +11,13 @@ import { RouterLink } from "@angular/router";
 export class SearchBar {
   private searchService = inject(SearchService);
 
-  public resultados = this.searchService.resultados;
   public buscadorSeleccionado = signal<boolean>(false);
   public sobreBuscador = signal<boolean>(false);
   public sobreBotonVaciar = signal<boolean>(false);
+  public sobreResultado = signal<boolean>(false);
   public hayTextoEnBuscador = signal<boolean>(false);
+
+  public resultados = this.searchService.resultados;
 
   public onInput(event: any) {
     const value: string = event.target.value;
@@ -32,7 +34,12 @@ export class SearchBar {
   }
 
   public mostrarResultados() {
-    return this.buscadorSeleccionado() && this.hayTextoEnBuscador();
+    return (this.buscadorSeleccionado() || this.sobreResultado()) && this.hayTextoEnBuscador();
+  }
+
+  public ocultarResultados() {
+    this.buscadorSeleccionado.set(false);
+    this.sobreResultado.set(false);
   }
 
   public vaciarBuscador(elemento: HTMLInputElement) {
