@@ -113,7 +113,21 @@ app-root {
   min-height: 100vh;
 }
 
-/* --- ESTILOS FORM --- */
+.main-h1-title{
+font-size: 3rem;
+margin: 2rem auto;
+text-align: center;
+}
+
+.main-h1-title span{
+  color: var(--link-color);
+}
+
+.main-h1-subtitle{
+  font-size: 2rem;
+  color: var(--link-color);
+  margin: 0;
+}
 
 .main-content {
   flex: 1; /* Ocupa el espacio dejado por el header y el footer */
@@ -604,15 +618,9 @@ app-root {
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   margin: 0 auto;
   padding: 3rem 0;
   width: 120rem;
-}
-
-.info-page-container h1 {
-  font-size: 1.8rem;
-  line-height: 2rem;
 }
 
 .info-page-container content {
