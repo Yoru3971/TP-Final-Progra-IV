@@ -4,4 +4,3 @@ export interface PedidoUpdateRequest {
   estado?: EstadoPedido | null;
   fechaEntrega?: string | null;
 }
-

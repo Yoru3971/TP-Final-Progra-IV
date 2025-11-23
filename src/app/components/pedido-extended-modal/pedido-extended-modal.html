@@ -51,28 +51,53 @@
 
       <div class="acciones">
         @if (role() === 'CLIENTE' && pedido.estado === 'PENDIENTE') {
-        <div class="grupo-fecha">
-          <label>Nueva fecha</label>
-          <input type="date" [(ngModel)]="nuevaFechaSeleccionada" class="input-date" />
-        </div>
+            
+            <div class="grupo-fecha">
+                <label>Nueva fecha</label>
+                <input 
+                    type="date" 
+                    [(ngModel)]="nuevaFechaSeleccionada" 
+                    class="input-date"
+                    [min]="minDate"
+                    [disabled]="esDemasiadoTarde"
+                    title="Seleccioná una fecha posterior a la actual del pedido"
+                />
+            </div>
 
-        <button class="btn btn-cambiar-fecha" (click)="cambiarFechaEntrega(nuevaFechaSeleccionada)">
-          CAMBIAR FECHA
-        </button>
-        } @if (role() === 'CLIENTE' && pedido.estado === 'PENDIENTE') {
-        <button class="btn btn-rechazar" (click)="cambiarEstado(EstadoPedido.CANCELADO)">
-          CANCELAR PEDIDO
-        </button>
-        } @if (role() === 'DUENO' && pedido.estado === 'PENDIENTE') {
-        <button class="btn btn-confirmar" (click)="cambiarEstado(EstadoPedido.ACEPTADO)">
-          ACEPTAR PEDIDO
-        </button>
+            @if (esDemasiadoTarde) {
+                <div class="alerta-bloqueo">
+                    <i class="fa-solid fa-clock"></i>
+                    <small>Ya no se puede modificar (entrega mañana).</small>
+                </div>
+            }
 
-        <button class="btn btn-rechazar" (click)="cambiarEstado(EstadoPedido.RECHAZADO)">
-          RECHAZAR PEDIDO
-        </button>
-        } @if (role() === 'CLIENTE' || role() === 'DUENO') {
-        <button class="btn btn-contactar">CONTACTAR</button>
+            <button 
+                class="btn btn-cambiar-fecha" 
+                [disabled]="esDemasiadoTarde || !nuevaFechaSeleccionada"
+                [class.btn-disabled]="esDemasiadoTarde"
+                (click)="cambiarFechaEntrega(nuevaFechaSeleccionada)">
+                CAMBIAR FECHA
+            </button>
+        } 
+        
+        @if (role() === 'CLIENTE' && pedido.estado === 'PENDIENTE') {
+            <button class="btn btn-rechazar" (click)="cambiarEstado(EstadoPedido.CANCELADO)">
+                CANCELAR PEDIDO
+            </button>
+        } 
+        
+        @if (role() === 'DUENO' && pedido.estado === 'PENDIENTE') {
+            <button class="btn btn-confirmar" (click)="cambiarEstado(EstadoPedido.ACEPTADO)">
+                ACEPTAR PEDIDO
+            </button>
+
+            <button class="btn btn-rechazar" (click)="cambiarEstado(EstadoPedido.RECHAZADO)">
+                RECHAZAR PEDIDO
+            </button>
+        } 
+        
+        @if (role() === 'CLIENTE' || role() === 'DUENO') {
+            <button class="btn btn-contactar">CONTACTAR</button>
         }
       </div>
     </div>
