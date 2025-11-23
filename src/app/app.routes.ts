@@ -2,8 +2,6 @@ import { Routes } from '@angular/router';
 import { RegisterPageDueno } from './pages/register-page-dueno/register-page-dueno';
 import { RegisterPageCliente } from './pages/register-page-cliente/register-page-cliente';
 import { Login } from './pages/login/login';
-import { RegisterSuccessPage } from './pages/register-success-page/register-success-page';
-import { HomePage } from './pages/home-page/home-page';
 import { EmprendimientoPage } from './pages/emprendimiento-page/emprendimiento-page';
 import { PerfilUsuario } from './pages/perfil-usuario/perfil-usuario';
 import { HomeRouter } from './router/home-router/home-router';
@@ -24,7 +22,6 @@ export const routes: Routes = [
   /* -------------------- REGISTROS (solo invitados) -------------------- */
   { path: 'registro/dueno', component: RegisterPageDueno, canActivate: [invitadoGuardFn] },
   { path: 'registro/cliente', component: RegisterPageCliente, canActivate: [invitadoGuardFn] },
-  { path: 'registro-exitoso', component: RegisterSuccessPage, canActivate: [invitadoGuardFn] },
 
   /* -------------------- LOGIN (solo invitados) -------------------- */
   { path: 'login', component: Login, canActivate: [invitadoGuardFn] },
