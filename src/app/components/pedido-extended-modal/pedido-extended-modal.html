@@ -27,43 +27,65 @@
   </div>
 
   <div class="right-panel">
+    <!-- Detalle general -->
     <div class="detalle-general">
       <p>
-        <span class="label">Fecha de entrega:</span> {{ pedido.fechaEntrega | date : 'dd/MM/yyyy' }}
+        <span class="label">Fecha de entrega:</span>
+        {{ pedido.fechaEntrega | date : 'dd/MM/yyyy' }}
       </p>
+
       <p>
-        <span class="label">Total:</span> <span class="precio">${{ pedido.total }}</span>
+        <span class="label">Total:</span>
+        <span class="precio">${{ pedido.total }}</span>
       </p>
+
       <p>
         <span class="label">Estado:</span>
-        <span class="estado" [class]="pedido.estado.toLowerCase()">{{ pedido.estado }}</span>
+        <span class="estado" [class]="pedido.estado.toLowerCase()">
+          {{ pedido.estado }}
+        </span>
       </p>
     </div>
 
+    <!-- Acciones -->
     <div class="acciones">
-      @if ((role() === 'CLIENTE') && (pedido.estado === 'PENDIENTE')) {
-      <button class="btn btn-cambiar-fecha">
+      <!-- CLIENTE — Pedido pendiente -->
+      @if (role() === 'CLIENTE' && pedido.estado === 'PENDIENTE') {
+
+      <!-- Selector de fecha -->
+      <div class="grupo-fecha">
+        <label>Nueva fecha</label>
+        <input type="date" [(ngModel)]="nuevaFechaSeleccionada" class="input-date" />
+      </div>
+
+      <!-- Botón cambiar fecha -->
+      <button class="btn btn-cambiar-fecha" (click)="cambiarFechaEntrega(nuevaFechaSeleccionada)">
         CAMBIAR FECHA
       </button>
-      } @if ((role() === 'CLIENTE') && (pedido.estado === 'PENDIENTE')) {
-      <button class="btn btn-rechazar" (click)="cambiarEstadoPedido(EstadoPedido.CANCELADO)">
+
+      <!-- Botón cancelar pedido -->
+      <button class="btn btn-rechazar" (click)="cambiarEstado(EstadoPedido.CANCELADO)">
         CANCELAR PEDIDO
       </button>
+      }
 
-      } @if ((role() === 'DUENO') && (pedido.estado === 'PENDIENTE')) {
-      <button class="btn btn-aceptar" (click)="cambiarEstadoPedido(EstadoPedido.ACEPTADO)">
+      <!-- DUEÑO — Pedido pendiente -->
+      @if (role() === 'DUENO' && pedido.estado === 'PENDIENTE') {
+      <button class="btn btn-aceptar" (click)="cambiarEstado(EstadoPedido.ACEPTADO)">
         ACEPTAR PEDIDO
       </button>
-      <button class="btn btn-rechazar" (click)="cambiarEstadoPedido(EstadoPedido.RECHAZADO)">
+
+      <button class="btn btn-rechazar" (click)="cambiarEstado(EstadoPedido.RECHAZADO)">
         RECHAZAR PEDIDO
       </button>
+      }
 
-      } @if (role() === 'CLIENTE') {
-      <button class="btn">CONTACTAR</button>
-      } @if (role() === 'DUENO') {
+      <!-- Botón contactar -->
+      @if (role() === 'CLIENTE' || role() === 'DUENO') {
       <button class="btn">CONTACTAR</button>
       }
 
+      <!-- Cerrar -->
       <button mat-dialog-close class="btn btn-cancelar">CERRAR</button>
     </div>
   </div>
