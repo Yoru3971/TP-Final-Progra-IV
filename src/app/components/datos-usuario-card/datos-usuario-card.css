@@ -7,7 +7,8 @@
 .titulo-seccion {
   font-size: 2rem;
   color: var(--text-color);
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
 }
 
 .datos-card {
@@ -25,15 +26,17 @@
 
 .dato-container {
   display: flex;
-  align-items: center;
-  gap: 2rem;
+  align-items: center; 
+  gap: 1.4rem;          
 }
 
-.dato-container .icon {
-  font-size: 1.6rem;
+.icon {
+  font-size: 1.8rem;
+  width: 2.2rem;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
   color: var(--link-color);
-  width: 1.8rem;
-  text-align: center;
 }
 
 .dato {

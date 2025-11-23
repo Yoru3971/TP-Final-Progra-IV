@@ -1,0 +1,103 @@
+.titulo-form {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* Contenedor principal */
+.form-emprendimiento {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 55rem;
+  margin: 3rem auto;
+  background: var(--form-bg);
+  border-radius: 1rem;
+}
+
+/* Campos */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-height: 9rem;
+}
+
+.form-label {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--input-text);
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  background-color: var(--input-bg);
+  border: 0.1rem solid var(--input-border);
+  border-radius: 0.6rem;
+  font-size: 1.4rem;
+  color: var(--input-text);
+}
+
+.form-input:focus {
+  outline: 0.2rem solid var(--input-focus-outline);
+  box-shadow: var(--input-focus-shadow);
+}
+
+/* Mensajes de error */
+.error-messages p {
+  color: var(--estado-rechazado);
+  font-size: 1.3rem;
+}
+
+.error-global {
+  color: var(--estado-rechazado);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: -1rem;
+}
+
+.success-global {
+  color: var(--estado-aceptado);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: -1rem;
+}
+
+/* Botones */
+.actions-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.btn {
+  width: 45%;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 0.9rem 0;
+  cursor: pointer;
+  border-radius: 0.6rem;
+}
+
+.btn-crear {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+}
+
+.btn-crear:disabled {
+  background-color: var(--btn-disabled);
+}
+
+.btn-cancelar {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+}

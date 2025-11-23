@@ -73,7 +73,9 @@ export class FormLogin {
 
           this.dialog.open(ErrorDialogModal, {
             data: { message: backendMsg },
-            panelClass: 'modal-error'
+            panelClass: 'modal-error',
+            autoFocus: false,
+            restoreFocus: false,
           });
 
           this.formLogin.get('password')?.reset();

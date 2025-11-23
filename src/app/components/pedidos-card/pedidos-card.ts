@@ -15,8 +15,7 @@ export class PedidosCard implements OnInit {
   pedidoService = inject(PedidosService);
 
   estados = Object.values(EstadoPedido);
-
-  //saco el constructor pq el effect no trabaja sobre ningun signal
+  
   ngOnInit() {
     this.pedidoService.fetchPedidos();
   }

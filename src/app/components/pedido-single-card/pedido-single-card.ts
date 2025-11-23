@@ -35,6 +35,8 @@ export class PedidoSingleCard {
     this.dialog.open(PedidoExtendedModal, {
       data: this.pedido,
       panelClass: 'modal-pedido',
+      autoFocus:false,
+      restoreFocus: false,
     });
   }
 }

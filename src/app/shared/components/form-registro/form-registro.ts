@@ -6,6 +6,9 @@ import { BasesCondicionesModal } from '../bases-condiciones-modal/bases-condicio
 import { MatDialog } from '@angular/material/dialog';
 import { NormasComunidadModal } from '../normas-comunidad-modal/normas-comunidad-modal';
 import { AuthService } from '../../../services/auth-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarData } from '../../../model/snackbar-data.model';
+import { Snackbar } from '../snackbar/snackbar';
 
 @Component({
   selector: 'app-form-registro',
@@ -20,6 +23,8 @@ export class FormRegistro {
   private dialog = inject(MatDialog);
   showPassword = false;
   showConfirmPassword = false;
+    private snackBar = inject(MatSnackBar);
+
 
   //Como este form va dentro de una pagina (componente padre) que define el rol desde la URL, lo recibo por Input, luego desde la pagina padre le paso el rol correspondiente.
   @Input() rolUsuario: string = '';
@@ -60,7 +65,20 @@ export class FormRegistro {
       })
       .subscribe({
         next: () => {
-          this.router.navigate(['/registro-exitoso']);
+          
+
+          const snackbarData: SnackbarData = {
+            message: 'Cuenta creada con exito! Inicia sesion',
+            iconName: 'check_circle',
+          };
+
+          this.snackBar.openFromComponent(Snackbar, {
+            duration: 3000,
+            verticalPosition: 'bottom',
+            panelClass: 'snackbar-panel',
+            data: snackbarData,
+          });
+          this.router.navigate(['/login']);
         },
         error: (err) => {
           // Por si el backend devuelve un mensaje dentro de error.error (estructura del back)

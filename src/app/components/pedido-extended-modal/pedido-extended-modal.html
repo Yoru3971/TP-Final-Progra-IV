@@ -42,6 +42,10 @@
 
     <div class="acciones">
       @if ((role() === 'CLIENTE') && (pedido.estado === 'PENDIENTE')) {
+      <button class="btn btn-cambiar-fecha">
+        CAMBIAR FECHA
+      </button>
+      } @if ((role() === 'CLIENTE') && (pedido.estado === 'PENDIENTE')) {
       <button class="btn btn-rechazar" (click)="cambiarEstadoPedido(EstadoPedido.CANCELADO)">
         CANCELAR PEDIDO
       </button>
@@ -55,9 +59,9 @@
       </button>
 
       } @if (role() === 'CLIENTE') {
-      <button class="btn" >CONTACTAR</button>
+      <button class="btn">CONTACTAR</button>
       } @if (role() === 'DUENO') {
-      <button class="btn" >CONTACTAR</button>
+      <button class="btn">CONTACTAR</button>
       }
 
       <button mat-dialog-close class="btn btn-cancelar">CERRAR</button>
