@@ -35,17 +35,18 @@
                     </div>
                 }
 
+                @if (vianda().esVegetariano) {
+                    <div class="icon-badge" title="Vegetariano">
+                        <app-icon-veggie class="icon active"></app-icon-veggie>
+                    </div>
+                }
+
                 @if (vianda().esVegano) {
                     <div class="icon-badge" title="Vegano">
                         <app-icon-vegan class="icon active"></app-icon-vegan>
                     </div>
                 }
 
-                @if (vianda().esVegetariano) {
-                    <div class="icon-badge" title="Vegetariano">
-                        <app-icon-veggie class="icon active"></app-icon-veggie>
-                    </div>
-                }
             </div>
 
             <!-- DERECHA: Acciones (Dueño vs Cliente/Invitado) -->

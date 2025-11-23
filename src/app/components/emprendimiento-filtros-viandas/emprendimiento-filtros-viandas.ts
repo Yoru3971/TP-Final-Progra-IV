@@ -47,6 +47,11 @@ export class EmprendimientoFiltrosViandas {
     }, 500);
   }
 
+  borrarBusqueda() {
+    this.busqueda.set('');
+    this.onSearchInput('');
+  }
+
   emitirFiltros() {
     const dto: FiltrosViandas = {
       nombreVianda: this.busqueda(),
@@ -66,6 +71,7 @@ export class EmprendimientoFiltrosViandas {
     this.categoriaSeleccionada.update(current => current === cat ? null : cat);
     this.emitirFiltros();
   }
+  
 
   toggleDietary(tipo: 'vegano' | 'vegetariano' | 'sintacc') {
     if (tipo === 'vegano') this.esVegano.update(v => !v);
