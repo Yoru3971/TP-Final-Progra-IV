@@ -30,7 +30,6 @@ export class DatosUsuarioCard implements OnInit {
   ngOnInit(): void {
     if (this.usuario) {
       this.usuarioSignal.set(this.usuario);
-      console.log(this.usuarioSignal()); //REVISAR quitar este log, solo de test
     }
   }
 
