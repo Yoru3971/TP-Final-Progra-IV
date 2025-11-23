@@ -5,6 +5,7 @@ import { AuthService, UserRole } from './auth-service';
 import { ViandaCreate } from '../model/vianda-create.model';
 import { FiltrosViandas } from '../model/filtros-viandas.model';
 import { Observable } from 'rxjs';
+import { ViandaUpdate } from '../model/vianda-update.model';
 
 @Injectable({
   providedIn: 'root',
@@ -46,10 +47,28 @@ export class ViandaService {
   }
 
   //Actualizar vianda (DUENO)
+  updateVianda(id: number, dto: ViandaUpdate): Observable<any> {
+    if (this.authService.currentUserRole() !== 'DUENO') {
+      throw new Error('Solo los dueños pueden actualizar viandas');
+    }
 
+    const url = `${this.baseUrls.DUENO}/id/${id}`;
+    return this.http.put<any>(url, dto);
+  }
   //Actualizar imagen vianda (DUENO)
+  updateImagenVianda(id: number, file: File): Observable<ViandaResponse> {
+    if (this.authService.currentUserRole() !== 'DUENO') {
+      throw new Error('Solo los dueños pueden actualizar imágenes');
+    }
 
-  //Eliminar vianda (DUENO)
+    const url = `${this.baseUrls.DUENO}/id/${id}/imagen`;
+    
+    // Creamos el FormData manualmente aquí, ya que solo enviamos el archivo
+    const formData = new FormData();
+    formData.append('image', file); 
+
+    return this.http.put<ViandaResponse>(url, formData);
+  }
 
   //Implementado en emprendimientoService / card
   //REVISAR Por ahora va asi, mas adelante evaluar si hace falta usar signals para cuando hagamos POST/PUT/DELETE

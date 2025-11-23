@@ -1,5 +1,4 @@
 import { Component, Inject, inject, Input, signal } from '@angular/core';
-import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ViandaService } from '../../services/vianda-service';
