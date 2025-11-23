@@ -32,10 +32,8 @@ export class PanelAccionesCuenta {
       if (!result) return;
 
       if (result.passwordCambiada) {
-        // Logout
         this.authService.handleLogout();
 
-        // Modal informando que debe entrar nuevamente
         this.dialog.open(SuccessDialogModal, {
           data: { message: 'Tu contraseña fue actualizada. Volvé a iniciar sesión.' },
           panelClass: 'modal-exito',
