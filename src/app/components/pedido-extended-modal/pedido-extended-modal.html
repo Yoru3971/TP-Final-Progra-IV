@@ -32,24 +32,27 @@
         <span class="label">Fecha de entrega:</span> {{ pedido.fechaEntrega | date : 'dd/MM/yyyy' }}
       </p>
       <p>
-        <span class="label">Total:</span> <span class="precio">${{ pedido.total }}</span>
+        <span class="label">Total: </span> <span class="precio">${{ pedido.total }}</span>
       </p>
       <p>
-        <span class="label">Estado:</span>
+        <span class="label">Estado: </span>
         <span class="estado" [class]="pedido.estado.toLowerCase()">{{ pedido.estado }}</span>
       </p>
     </div>
 
     <div class="acciones">
-      @if ((role() === 'CLIENTE') && (pedido.estado === 'PENDIENTE')) {
-      <button class="btn btn-cambiar-fecha">
-        CAMBIAR FECHA
+      @if (role() === 'CLIENTE') {
+      <button class="btn" (click)="verDatosUsuario(pedido.emprendimiento.dueno)">
+        CONTACTAR DUEÑO
       </button>
+      } @if (role() === 'DUENO') {
+      <button class="btn" (click)="verDatosUsuario(pedido.cliente)">CONTACTAR CLIENTE</button>
+      } @if ((role() === 'CLIENTE') && (pedido.estado === 'PENDIENTE')) {
+      <button class="btn btn-cambiar-fecha">CAMBIAR FECHA</button>
       } @if ((role() === 'CLIENTE') && (pedido.estado === 'PENDIENTE')) {
       <button class="btn btn-rechazar" (click)="cambiarEstadoPedido(EstadoPedido.CANCELADO)">
         CANCELAR PEDIDO
       </button>
-
       } @if ((role() === 'DUENO') && (pedido.estado === 'PENDIENTE')) {
       <button class="btn btn-aceptar" (click)="cambiarEstadoPedido(EstadoPedido.ACEPTADO)">
         ACEPTAR PEDIDO
@@ -57,11 +60,6 @@
       <button class="btn btn-rechazar" (click)="cambiarEstadoPedido(EstadoPedido.RECHAZADO)">
         RECHAZAR PEDIDO
       </button>
-
-      } @if (role() === 'CLIENTE') {
-      <button class="btn">CONTACTAR</button>
-      } @if (role() === 'DUENO') {
-      <button class="btn">CONTACTAR</button>
       }
 
       <button mat-dialog-close class="btn btn-cancelar">CERRAR</button>

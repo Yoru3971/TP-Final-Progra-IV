@@ -19,6 +19,7 @@ import { UsuarioResponse } from '../../model/usuario-response.model';
 import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DatosUsuarioModal } from '../datos-usuario-modal/datos-usuario-modal';
 
 @Component({
   selector: 'app-pedido-extended-modal',
@@ -42,13 +43,13 @@ export class PedidoExtendedModal {
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
   constructor(@Inject(MAT_DIALOG_DATA) public pedido: PedidoResponse) {}
-  
+
   cambiarEstadoPedido(estadoUpd: EstadoPedido) {
     const body: PedidoUpdateRequest = {
       estado: estadoUpd,
       fechaEntrega: this.pedido.fechaEntrega,
     };
-    console.log("ID:", this.pedido.id, "Estado:", estadoUpd);
+    console.log('ID:', this.pedido.id, 'Estado:', estadoUpd);
 
     this.pedidosService.updatePedido(this.pedido.id, body).subscribe({
       next: () => {
@@ -81,6 +82,11 @@ export class PedidoExtendedModal {
     });
   }
 
-  // REVISAR para el boton de contactar, deberia abrir un modal
-  verDatosUsuario(usuario: UsuarioResponse) {}
+  verDatosUsuario(usuario: UsuarioResponse) {
+    this.dialog.open(DatosUsuarioModal, {
+      data: usuario,
+      autoFocus: false,
+      restoreFocus: false,
+    });
+  }
 }
