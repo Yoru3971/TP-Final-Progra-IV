@@ -17,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormVianda } from '../../components/form-vianda/form-vianda';
 import { FormUpdateEmprendimiento } from '../../components/form-emprendimiento-update/form-emprendimiento-update';
 import { CarritoService } from '../../services/carrito-service';
+import { FormViandaUpdate } from '../../components/form-vianda-update/form-vianda-update';
 
 export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
 
@@ -36,7 +37,8 @@ export class EmprendimientoPage {
   private dialog = inject(MatDialog);
   private carritoService = inject(CarritoService);
 
-  emprendimientoEditado = signal(0);   //  Signal para forzar recarga de emprendimiento al editarlo
+  emprendimientoEditado = signal(0);   //  Signal para forzar recarga de info de emprendimiento al editarlo
+  viandaEditada = signal(0);           //  Signal para forzar recarga de viandas y categorias al editar una vianda
 
 
   //  Uso signals para idEmprendimiento, emprendimiento y esDueno (si algo cambia, se actualiza todo automáticamente)
@@ -188,6 +190,7 @@ export class EmprendimientoPage {
   );
 
   private triggerViandasTotales = computed(() => {
+    this.viandaEditada();
     return {
       id: this.idEmprendimiento(),
       modo: this.modoVista()
@@ -282,16 +285,22 @@ export class EmprendimientoPage {
   }
 
   handleEditarVianda(vianda: ViandaResponse) {
-    console.log('Abriendo modal editar vianda:', vianda.nombreVianda);  //  AGREGAR abrir modal edición vianda
     
-    //  Esto de acá abajo es CINE: recargo las viandas si se cambió algo
-    /*
-          dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-              this.filtrosSignal.update(f => ({...f}));
-            }
-          });
-    */
+    this.dialog
+      .open(FormViandaUpdate, {
+        data: { vianda: vianda },
+        width: '100rem',
+        panelClass: 'form-modal',
+        autoFocus: false,
+        restoreFocus: false,
+      })
+      .afterClosed()
+      .subscribe((exito) => {
+        if (exito) {
+          this.viandaEditada.update(v => v + 1);
+          this.filtrosSignal.update(f => ({...f}));
+        }
+      });
   }
 
   
