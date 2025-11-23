@@ -33,6 +33,7 @@ export class PanelAccionesCuenta {
 
       if (result.passwordCambiada) {
         this.authService.handleLogout();
+        setTimeout(() => window.location.reload(), 100);
 
         this.dialog.open(SuccessDialogModal, {
           data: { message: 'Tu contraseña fue actualizada. Volvé a iniciar sesión.' },
