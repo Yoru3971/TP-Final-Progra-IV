@@ -49,6 +49,7 @@ export class DatosUsuarioCard implements OnInit {
 
       if (emailCambio) {
         this.authService.handleLogout();
+        setTimeout(() => window.location.reload(), 100);
 
         this.dialog.open(SuccessDialogModal, {
           data: { message: 'Tu email fue actualizado. Por favor iniciá sesión nuevamente.' },
