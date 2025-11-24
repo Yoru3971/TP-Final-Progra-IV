@@ -1,4 +1,4 @@
-import {Component,computed,inject,input,output,} from '@angular/core';
+import { Component, computed, inject, input, output} from '@angular/core';
 import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
 import { CarritoService } from '../../services/carrito-service';
 
@@ -9,9 +9,10 @@ import { CarritoService } from '../../services/carrito-service';
   styleUrl: './emprendimiento-info.css',
 })
 export class EmprendimientoInfo {
-
   emprendimiento = input.required<EmprendimientoResponse>();
-  modo = input.required<'CLIENTE' | 'DUENO'| 'INVITADO' | 'PROHIBIDO' | 'CARGANDO'>();
+  modo = input.required<'CLIENTE' | 'DUENO' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO'>();
+  showImagenModal = false;
+  imagenModalUrl?: String;
 
   accionPrincipal = output<void>();
 
@@ -19,11 +20,23 @@ export class EmprendimientoInfo {
 
   public cantidadViandasUnicasEnCarrito = this.carritoService.cantidadViandasUnicas;
 
+  public hayCarrito = computed(() =>
+    this.modo() === 'CLIENTE' && this.carritoService.emprendimiento()?.id === this.emprendimiento().id
+  );
+
   onButtonClick() {
     this.accionPrincipal.emit();
   }
 
-  public hayCarrito = computed(() =>
-    this.modo() === 'CLIENTE' && this.carritoService.emprendimiento()?.id === this.emprendimiento().id
-  );
+  openImagenModal() {
+    const url = this.emprendimiento().imagenUrl;
+    if (!url) return;
+
+    this.imagenModalUrl = url;
+    this.showImagenModal = true;
+  }
+
+  closeImagenModal() {
+    this.showImagenModal = false;
+  }
 }
