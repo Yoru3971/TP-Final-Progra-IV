@@ -91,6 +91,7 @@
   --sobre-nosotros-card-border-color: #e5e5e5;
 }
 
+/* --- TODA LA WEB --- */
 html {
   box-sizing: border-box;
   font-size: 62.5%;
@@ -116,6 +117,7 @@ app-root {
   min-height: 100vh;
 }
 
+/* --- TITULOS DE CADA PAGE --- */
 .main-h1-title {
   font-size: 3rem;
   margin: 2rem auto;
@@ -132,6 +134,7 @@ app-root {
   margin: 0;
 }
 
+/* --- FORMULARIOS --- */
 .main-content {
   flex: 1; /* Ocupa el espacio dejado por el header y el footer */
 }
@@ -189,6 +192,7 @@ app-root {
   font-weight: lighter;
 }
 
+/* --- BOTONES --- */
 .btn {
   background-color: var(--button-bg);
   color: var(--button-text);
@@ -212,6 +216,7 @@ app-root {
   box-shadow: none;
 }
 
+/* --- CHECKBOX GENERICO --- */
 .checkbox-container {
   width: 100%;
   font-size: 1.2rem;
@@ -227,6 +232,7 @@ app-root {
   accent-color: var(--checked-color);
 }
 
+/* --- INPUT CON OJITO --- */
 .input-with-icon {
   position: relative;
   width: 100%;
@@ -262,6 +268,50 @@ app-root {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+/* --- MODALES ELIMINAR CUENTA --- */
+
+.titulo-rojo {
+  font-size: 2rem;
+  color: var(--eliminar-color);
+  font-weight: bold;
+  margin: 0 0 1.4rem 0;
+}
+
+.texto span {
+  font-weight: bolder;
+  color: var(--eliminar-color);
+}
+
+.acciones {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.acciones.center {
+  justify-content: center;
+}
+
+.btn-cancelar {
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+}
+
+.btn-rojo {
+  background: var(--eliminar-color);
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  color: var(--inverse-text-color);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-rojo:hover {
+  background: var(--eliminar-hover-color);
 }
 
 /* --- MODAL ERROR --- */
