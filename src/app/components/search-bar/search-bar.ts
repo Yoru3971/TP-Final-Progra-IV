@@ -46,4 +46,9 @@ export class SearchBar {
     elemento.value = '';
     this.hayTextoEnBuscador.set(false);
   }
+
+  public emprendimientoClickeado(elemento: HTMLInputElement){
+    this.ocultarResultados();
+    this.vaciarBuscador(elemento);
+  }
 }
