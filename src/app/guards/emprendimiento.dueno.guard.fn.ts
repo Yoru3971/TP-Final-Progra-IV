@@ -1,7 +1,7 @@
-import { inject } from "@angular/core";
-import { Router, ActivatedRouteSnapshot } from "@angular/router";
-import { AuthService } from "../services/auth-service";
-import { EmprendimientoService } from "../services/emprendimiento-service";
+import { inject } from '@angular/core';
+import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import { AuthService } from '../services/auth-service';
+import { EmprendimientoService } from '../services/emprendimiento-service';
 
 export const emprendimientoDuenoGuardFn = (route: ActivatedRouteSnapshot) => {
   const router = inject(Router);
@@ -23,10 +23,7 @@ export const emprendimientoDuenoGuardFn = (route: ActivatedRouteSnapshot) => {
     return false;
   }
 
-  const esDueno = emprendimientoService.esDuenoDelEmprendimiento(
-    emprendimientoId,
-    usuarioId
-  );
+  const esDueno = emprendimientoService.esDuenoDelEmprendimiento(emprendimientoId, usuarioId);
 
   if (esDueno) {
     return true;
