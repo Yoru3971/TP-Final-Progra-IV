@@ -1,0 +1,83 @@
+@if (emprendimiento(); as datosEmprendimiento) {
+
+    <!-- Datos del emprendimiento -->
+    <app-emprendimiento-info
+        [emprendimiento]="datosEmprendimiento"
+        [modo]="modoVista()"
+        (accionPrincipal)="handleAccionInfo()">
+    </app-emprendimiento-info>
+
+    <!-- Filtros de viandas -->
+    <app-emprendimiento-filtros-viandas
+        [viandasIniciales]="viandasTotales()"
+        (filtrosChanged)="onFiltrosChanged($event)"
+        >>
+    </app-emprendimiento-filtros-viandas>
+
+    <!-- Lista de viandas -->
+    <div class="viandas-detalladas-grid">
+
+        <!-- Card "Agregar vianda" (solo dueño) -->
+        @if (modoVista() === "DUENO" && (!filtrosActivos() || viandas().length > 0)) {
+            <div class="card-crear" (click)="abrirViandaForm()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Agrega una vianda</span>
+            </div>
+        }
+        
+        <!-- Viandas -->
+        @for (vianda of viandas(); track vianda.id) {
+        <app-vianda-card-detallada
+            [vianda]="vianda"
+            [modo]="modoVista()"
+            
+            [cantidad]="obtenerCantidadEnCarrito(vianda)()"
+            
+            (agregar)="handleAgregarVianda(vianda)"
+            (quitar)="handleQuitarVianda(vianda)"
+            (editar)="handleEditarVianda(vianda)">
+        </app-vianda-card-detallada>
+        } @empty {
+            <!-- Si no hay viandas, muestro errores distintos según rol y filtros activos -->
+            <div class="no-results" [class.owner-empty]="modoVista() === 'DUENO' && !filtrosActivos()">
+                @if (filtrosActivos()) {
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <h3>No encontramos viandas con esos filtros</h3>
+                    <p>Intentá cambiando los términos de búsqueda.</p>
+
+                } @else {
+                    @if (modoVista() === 'DUENO') {
+                        <div class="estado-vacio">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <p>Esto está un poco vacío...<br>¡Creá tu primera vianda!</p>
+                        </div>
+                    } @else {
+                        <i class="fa-solid fa-utensils"></i> 
+                        <h3>No hay viandas disponibles</h3>
+                        <p>Intente nuevamente más tarde o contacte al dueño del emprendimiento.</p>
+                    }
+                }
+            </div>
+        }
+    </div>
+
+} @else {
+    <!-- Si no hay emprendimiento (por algún error) -->
+    <div class="not-found-container">
+        
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-store-slash"></i>
+        </div>
+
+        <h1>¡Ups! No encontramos el emprendimiento</h1>
+        <p>
+            Parece que el emprendimiento que buscas no existe, 
+            fue eliminado o el enlace es incorrecto.
+        </p>
+
+        <button routerLink="/home" class="btn-home">
+            <i class="fa-solid fa-arrow-left"></i>
+            Volver al inicio
+        </button>
+    </div>
+}

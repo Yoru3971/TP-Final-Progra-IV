@@ -1,0 +1,40 @@
+<div class="pedidos-container">
+  <div class="titulo-con-filtros">
+    <h3 class="titulo-seccion">PEDIDOS</h3>
+
+    <div class="filtros-layout">
+      <select [value]="pedidoService.filtroEstado()" (change)="actualizarEstado($event)">
+        <option value="null">Todos</option>
+        @for (estado of estados; track estado) {
+        <option [value]="estado">{{ estado }}</option>
+        }
+      </select>
+
+      <select
+        [value]="pedidoService.filtroEmprendimiento()"
+        (change)="actualizarEmprendimiento($event)"
+      >
+        <option value="null">Todos los emprendimientos</option>
+        @for (emp of pedidoService.emprendimientosUnicos(); track emp) {
+        <option [value]="emp">{{ emp }}</option>
+        }
+      </select>
+
+      <app-date-range-picker (fechasSeleccionadas)="pedidoService.filtroFechas.set($event)">
+      </app-date-range-picker>
+    </div>
+  </div>
+
+  <!-- LISTA -->
+  <div class="pedidos-card">
+    @if (pedidoService.pedidosFiltrados().length === 0) {
+    <p class="sin-pedidos">No tenés pedidos todavía.</p>
+    } @else {
+    <div class="lista">
+      @for (p of pedidoService.pedidosFiltrados(); track p.id) {
+      <app-pedido-single-card [pedido]="p"></app-pedido-single-card>
+      }
+    </div>
+    }
+  </div>
+</div>

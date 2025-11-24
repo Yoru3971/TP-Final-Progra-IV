@@ -1,0 +1,77 @@
+<div class="carrito" [class.bloqueado]="modalBloqueado">
+  <div class="carrito-header">
+    <h2><span>Carrito:</span> {{ emprendimiento()?.nombreEmprendimiento ?? 'vacío' }}</h2>
+
+    <button class="btn btn-close-icon" (click)="cerrar()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="carrito-layout">
+    <div class="left-panel scrolleable">
+      @for (viandaCantidad of viandaCantidades(); track $index) {
+      <div class="carrito-item">
+        <img class="item-img" [src]="viandaCantidad.vianda.imagenUrl" />
+
+        <div class="item-info">
+          <p class="item-nombre">{{ viandaCantidad.vianda.nombreVianda }}</p>
+          <p class="item-precio-unit">${{ viandaCantidad.vianda.precio.toFixed(2) }}</p>
+        </div>
+
+        <p class="item-subtotal">
+          ${{ (viandaCantidad.vianda.precio * viandaCantidad.cantidad).toFixed(2) }}
+        </p>
+
+        <div class="item-cantidad-btns">
+          <button class="btn btn-circle" (click)="restarVianda(viandaCantidad.vianda)">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+
+          <p class="item-cantidad">{{ viandaCantidad.cantidad }}</p>
+
+          <button class="btn btn-circle" (click)="sumarVianda(viandaCantidad.vianda)">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      } @empty {
+      <p class="carrito-lista-vacia">Agregá viandas del emprendimiento para realizar un pedido.</p>
+      }
+    </div>
+
+    <div class="right-panel">
+      <div class="detalle-general">
+        <p>
+          <span class="label">Total:</span>
+          <span class="precio-total"> ${{ total.toFixed(2) }}</span>
+        </p>
+
+        <div class="fecha-container">
+          <label>Fecha de entrega:</label>
+
+          <form [formGroup]="formFecha">
+            <input type="date" formControlName="fechaEntrega" />
+          </form>
+
+          @let fecha = formFecha.get('fechaEntrega'); @if (fecha?.invalid && fecha?.dirty) {
+          <p class="fecha-warning">Ingrese una fecha válida</p>
+          }
+        </div>
+      </div>
+
+      <div class="acciones">
+        <button
+          class="btn btn-confirmar"
+          (click)="confirmarPedido()"
+          [disabled]="vacio() || (formFecha.invalid && formFecha.touched)"
+        >
+          CONFIRMAR PEDIDO
+        </button>
+
+        <button class="btn btn-rechazar" (click)="cancelarPedido()">
+          VACIAR CARRITO
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<h1 class="main-h1-title">
+  EMPRENDIMIENTOS DE <span>{{ ciudadActual() }}</span>
+</h1>
+<div class="home-container">
+  @if (emprendimientos().length > 0) { @for (emprendimiento of emprendimientos(); track
+  emprendimiento.id) {
+  <app-emprendimiento-card [emprendimiento]="emprendimiento"> </app-emprendimiento-card>
+  } } @else {
+
+  <div class="estado-vacio">
+    <p>Parece que no hay emprendimientos en {{ ciudadActual() }}</p>
+  </div>
+
+  }
+</div>

@@ -1,0 +1,196 @@
+.modal-pedido-container {
+  background: var(--bg-color);
+  border-radius: 2rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 95rem;
+}
+
+.pedido-header {
+  background: var(--carrito-title-bg-color);
+  color: var(--inverse-text-color);
+  padding: 2rem 3rem;
+  display: flex;
+  align-items: center;
+}
+
+.pedido-header h2 {
+  flex: 1;
+  margin: 0;
+  font-size: 2.6rem;
+  font-weight: bold;
+}
+
+.btn-close-icon {
+  background: var(--inverse-text-color);
+  color: var(--carrito-title-bg-color);
+  border-radius: 50%;
+  width: 3.6rem;
+  height: 3.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  transition: 0.2s ease;
+}
+
+.btn-close-icon:hover {
+  background: color-mix(in srgb, var(--inverse-text-color) 90%, var(--text-color));
+  color: color-mix(in srgb, var(--carrito-title-bg-color) 80%, var(--text-color));
+  cursor: pointer;
+}
+
+.pedido-content {
+  display: flex;
+  height: 45rem;
+}
+
+.left-panel {
+  flex: 1;
+  padding: 3rem;
+  overflow-y: auto;
+}
+
+.item-vianda {
+  padding: 0;
+  border-bottom: 0.1rem solid var(--input-border);
+}
+
+.item-vianda:last-child {
+  border-bottom: none;
+}
+
+.info p {
+  margin: 0.2rem 0;
+  font-size: 1.6rem;
+}
+
+.nombre {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.right-panel {
+  width: 40%;
+  min-width: 36rem;
+  border-left: 0.1rem solid var(--input-border);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.8rem;
+}
+
+.detalle-general {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.detalle-general p {
+  margin: 0;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detalle-general .label {
+  font-weight: 700;
+  color: var(--text-color);
+  font-size: 1.8rem;
+}
+
+.detalle-general .precio {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--precio-color);
+}
+
+.estado {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.9rem;
+}
+
+.estado.aceptado {
+  color: var(--estado-aceptado);
+}
+
+.estado.rechazado {
+  color: var(--estado-rechazado);
+}
+
+.estado.pendiente {
+  color: var(--estado-pendiente);
+}
+
+.grupo-fecha {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.grupo-fecha label {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.04rem;
+}
+
+.input-date {
+  padding: 1rem 1.4rem;
+  border: 1px solid var(--input-border);
+  border-radius: 0.8rem;
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+
+.input-date:focus {
+  outline: none;
+  border-color: var(--input-focus-outline);
+  box-shadow: var(--invalid-focus-shadow);
+}
+
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.acciones .btn {
+  width: 22rem !important;
+  padding: 1.4rem 0 !important;
+  font-size: 1.8rem !important;
+  border-radius: 0.9rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+}
+
+.btn-cambiar-fecha {
+  background: var(--estado-pendiente);
+  color: var(--inverse-text-color);
+}
+
+.btn-rechazar {
+  background: var(--estado-rechazado);
+  color: var(--inverse-text-color);
+}
+
+.btn-confirmar {
+  background: var(--estado-aceptado);
+  color: var(--inverse-text-color);
+}
+
+.btn-contactar {
+  background: var(--estado-default);
+  color: var(--inverse-text-color);
+}
+
+.acciones .btn:hover {
+  filter: brightness(0.92);
+  cursor: pointer;
+}

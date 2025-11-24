@@ -1,0 +1,26 @@
+<div class="modal-container">
+  <h2 class="modal-title">Datos de contacto</h2>
+
+  <div class="modal-content">
+    <div class="dato">
+      <span class="label">Nombre</span>
+      <span class="valor">{{ usuario.nombreCompleto }}</span>
+    </div>
+
+    <div class="dato">
+      <span class="label">Email</span>
+      <span class="valor">{{ usuario.email }}</span>
+    </div>
+
+    <div class="dato">
+      <span class="label">Teléfono</span>
+      <span class="valor">{{ usuario.telefono }}</span>
+    </div>
+
+    <div class="alerta">⚠️ Recomendación: reunite siempre en un lugar público y concurrido.</div>
+  </div>
+
+  <div class="acciones">
+    <button class=" btn btn-cerrar" (click)="cerrar()">Cerrar</button>
+  </div>
+</div>

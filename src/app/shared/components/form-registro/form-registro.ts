@@ -1,11 +1,14 @@
 import { Component, inject, Input } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RegistroService } from '../../../services/registro-service';
 import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
 import { BasesCondicionesModal } from '../bases-condiciones-modal/bases-condiciones-modal';
 import { MatDialog } from '@angular/material/dialog';
 import { NormasComunidadModal } from '../normas-comunidad-modal/normas-comunidad-modal';
+import { AuthService } from '../../../services/auth-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarData } from '../../../model/snackbar-data.model';
+import { Snackbar } from '../snackbar/snackbar';
 
 @Component({
   selector: 'app-form-registro',
@@ -16,10 +19,12 @@ import { NormasComunidadModal } from '../normas-comunidad-modal/normas-comunidad
 export class FormRegistro {
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private registroService = inject(RegistroService);
+  private authService = inject(AuthService);
   private dialog = inject(MatDialog);
   showPassword = false;
   showConfirmPassword = false;
+    private snackBar = inject(MatSnackBar);
+
 
   //Como este form va dentro de una pagina (componente padre) que define el rol desde la URL, lo recibo por Input, luego desde la pagina padre le paso el rol correspondiente.
   @Input() rolUsuario: string = '';
@@ -50,8 +55,8 @@ export class FormRegistro {
 
   onSubmit() {
     const usuario = this.formRegistro.value;
-    this.registroService
-      .registrarUsuario({
+    this.authService
+      .register({
         nombreCompleto: usuario.nombreCompleto || '',
         email: usuario.email || '',
         password: usuario.password || '',
@@ -60,7 +65,20 @@ export class FormRegistro {
       })
       .subscribe({
         next: () => {
-          this.router.navigate(['/registro-exitoso']);
+          
+
+          const snackbarData: SnackbarData = {
+            message: 'Cuenta creada con exito! Inicia sesion',
+            iconName: 'check_circle',
+          };
+
+          this.snackBar.openFromComponent(Snackbar, {
+            duration: 3000,
+            verticalPosition: 'bottom',
+            panelClass: 'snackbar-panel',
+            data: snackbarData,
+          });
+          this.router.navigate(['/login']);
         },
         error: (err) => {
           // Por si el backend devuelve un mensaje dentro de error.error (estructura del back)

@@ -1,0 +1,17 @@
+<div class="contenedor-home">
+  <h1 class="main-h1-title">MIS EMPRENDIMIENTOS DE {{ciudadActual()}}</h1>
+  <div class="card-crear" (click)="openEmprendimientoForm()">
+    <i class="fa-solid fa-plus"></i>
+    <span>Agrega un emprendimiento</span>
+  </div>
+
+  @if (emprendimientos().length > 0) { @for (emprendimiento of emprendimientos(); track
+  emprendimiento.id) {
+  <app-emprendimiento-card [emprendimiento]="emprendimiento"></app-emprendimiento-card>
+  } } @if (emprendimientos().length === 0) {
+  <div class="estado-vacio">
+    <p>Esto está un poco vacío... deberías crear un emprendimiento</p>
+    <i class="fa-solid fa-arrow-up"></i>
+  </div>
+  }
+</div>

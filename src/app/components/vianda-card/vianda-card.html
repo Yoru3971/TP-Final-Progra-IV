@@ -1,0 +1,10 @@
+<div class="vianda-card" (click)="openViandaModal()">
+  <div class="img-container">
+    <img [src]="vianda.imagenUrl" alt="{{ vianda.nombreVianda }}" />
+  </div>
+
+  <div class="info-bottom">
+    <span class="nombre">{{ vianda.nombreVianda }}</span>
+    <span class="precio">$ {{ vianda.precio }}</span>
+  </div>
+</div>

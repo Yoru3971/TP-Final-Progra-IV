@@ -1,0 +1,27 @@
+<div class="pedido-item">
+  <div class="info">
+    <p class="id">
+      Pedido #{{ pedido.id }} —
+      <span class="nombre-emprendimiento">
+        {{ pedido.emprendimiento.nombreEmprendimiento }}
+      </span>
+    </p>
+    <p class="linea">
+      <span class="label">Entrega:</span>
+      {{ pedido.fechaEntrega | date : 'dd/MM/yyyy' }}
+    </p>
+
+    <p class="linea">
+      <span class="label">Total:</span>
+      <span class="precio"> ${{ pedido.total }}</span>
+    </p>
+  </div>
+
+  <div class="estado">
+    <span [class]="pedido.estado.toLowerCase()">
+      {{ pedido.estado }}
+    </span>
+  </div>
+
+  <button class="btn btn-ver" (click)="openPedidoModal()">Ver pedido</button>
+</div>

@@ -1,0 +1,67 @@
+<h2 class="titulo-form">Actualizar datos</h2>
+
+<form class="form-emprendimiento" [formGroup]="form" (ngSubmit)="actualizarUsuario()">
+  <!-- Campos -->
+  <div class="form-field">
+    <label class="form-label">Nombre completo</label>
+
+    <input
+      type="text"
+      class="form-input"
+      formControlName="nombreCompleto"
+      placeholder="Ej: Juan Pérez"
+    />
+
+    @if (form.get('nombreCompleto')?.invalid && form.get('nombreCompleto')?.touched) {
+    <div class="error-messages">
+      <p>El nombre es obligatorio.</p>
+    </div>
+    }
+  </div>
+
+  <div class="form-field">
+    <label class="form-label">Email</label>
+
+    <input type="email" class="form-input" formControlName="email" placeholder="ejemplo@mail.com" />
+
+    @if (form.get('email')?.invalid && form.get('email')?.touched) {
+    <div class="error-messages">
+      <p>Ingresá un email válido.</p>
+    </div>
+    }
+  </div>
+
+  <div class="form-field">
+    <label class="form-label">Teléfono</label>
+
+    <input
+      type="text"
+      class="form-input"
+      formControlName="telefono"
+      placeholder="Entre 8 y 15 dígitos"
+    />
+
+    @if (form.get('telefono')?.invalid && form.get('telefono')?.touched) {
+    <div class="error-messages">
+      <p>Debe tener entre 8 y 15 dígitos.</p>
+    </div>
+    }
+  </div>
+
+  <!-- Mensajes globales -->
+  @if (error()) {
+  <p class="error-global">{{ error() }}</p>
+  } @if (exito()) {
+  <p class="success-global">{{ exito() }}</p>
+  }
+
+  <!-- Botones -->
+  <div class="actions-row">
+    <button type="submit" class="btn btn-crear" [disabled]="form.invalid || cargando()">
+      @if (cargando()) { Actualizando... } @else { Guardar cambios }
+    </button>
+    <button type="button" class="btn btn-cancelar" (click)="closeDialog()" [disabled]="cargando()">
+      Cancelar
+    </button>
+  </div>
+</form>

@@ -1,0 +1,40 @@
+<h2 mat-dialog-title cdkFocusInitial>
+  {{ vianda.nombreVianda }}
+</h2>
+
+<mat-dialog-content>
+  <div class="left-panel">
+    <div>
+      <label>Categoría</label>
+      <p>{{ vianda.categoria }}</p>
+    </div>
+
+    <div>
+      <label>Descripción</label>
+      <p>{{ vianda.descripcion }}</p>
+    </div>
+
+    <div>
+      <label>Precio</label>
+      <p class="precio">${{ vianda.precio }}</p>
+    </div>
+
+    <div class="restricciones">
+      @if (vianda.esVegano) {
+      <app-icon-vegan class="icon active"></app-icon-vegan>
+      } @if (vianda.esVegetariano) {
+      <app-icon-veggie class="icon active"></app-icon-veggie>
+      } @if (vianda.esSinTacc) {
+      <app-icon-tacc class="icon active"></app-icon-tacc>
+      }
+    </div>
+
+    <mat-dialog-actions>
+      <button class="btn" (click)="irAlEmprendimiento()">Ver emprendimiento</button>
+    </mat-dialog-actions>
+  </div>
+
+  <div class="right-panel">
+    <img [src]="vianda.imagenUrl" alt="vianda.nombreVianda" />
+  </div>
+</mat-dialog-content>

@@ -1,102 +1,56 @@
 <header class="main-header">
-    <nav class="header-nav">
+  <nav class="header-nav">
 
-        <!-- Izquierda: Logo y rol-->
-        <div class="header-left">
-            <a routerLink="/home">
-                <img src="logo-miviandita-removebg-preview.png" alt="MiViandita Logo" class="header-logo">
-            </a>
+    <div class="header-left">
+      <div class="logo-rol-container">
+        <a class="logo-container" routerLink="/home">
+          <img class="header-logo" src="logo-miviandita-removebg-preview.png" alt="MiViandita Logo">
+        </a>
 
-            <div class="role-tag">
-                <!-- MUestro 'menu dueño' si es el rol -->
-                @if (role() === 'DUENO') {
-                    <span class="owner-tag">Menu Dueño</span>
-                }
-                <!-- NO IMPLEMENTADO EN CSS -->
-                @if (role() === 'ADMIN') {
-                    <span class="admin-tag">Menu Admin</span>
-                }
-            </div>
-            
-            <select class="ubication-select">
-                <option value="">Ubicación</option>
-                <option value="Mar del Plata">Mar del Plata</option>
-                <option value="Balcarce">Balcarce</option>
-                <option value="Miramar">Miramar</option>
-            </select>
+        @if (role() === 'DUENO') {
+          <p class="rol">DUEÑO</p>
+        }
+        @else {
+          <!-- NO IMPLEMENTADO EN CSS -->
+          @if (role() === 'ADMIN') {
+            <p class="rol">ADMIN</p>
+          }
+        }
+      </div>
+
+      <app-city-selector></app-city-selector>
+    </div>
+
+    <div class="header-center">
+      <app-search-bar></app-search-bar>
+    </div>
+
+    <div class="header-right">
+      <a routerLink="/home" class="nav-link">INICIO</a>
+      <a routerLink="/sobre-miviandita" class="nav-link">SOBRE MIVIANDITA</a>
+
+      <!-- Botones condicionales -->
+
+      @if (!isLoggedIn()) {
+        <!-- Invitado -->
+        <button routerLink="/login" (click)="onLogin()" class="btn btn-primary">
+          INICIAR SESIÓN
+        </button>
+      } @else {
+        <!-- Clientes o Dueño -->
+
+        <div class="btns-logged">
+          <app-dropdown-notificacion></app-dropdown-notificacion>
+
+          <button class="btn btn-profile" routerLink="/me" title="Mi perfil">
+            <i class="fa-regular fa-user"></i>
+          </button>
+
+          <button class="btn btn-logout" (click)="onLogout()" title="Cerrar sesión">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
         </div>
-        
-        <!-- Centro: Buscador y Opciones -->
-        <div class="header-center">
-            <!-- Barra de busqueda -->
-            <form (submit)="onSearch($event, searchInput)" class="search-form">
-                <input 
-                #searchInput
-                type="text"
-                placeholder="Ingrese una vianda"
-                class="search-input"
-                >
-            </form>
-        </div>
-
-        <!-- Derecha: Navegacion y Acciones -->
-         <div class="header-right">
-            <!-- Links Comunes -->
-            <a routerLink="/home" class="nav-link">Home</a>
-            <a routerLink="/sobre-nosotros" class="nav-link">Sobre nosotros</a>
-
-            <!-- Botones condicionales -->
-            @if (!isLoggedIn()) {
-                <!-- Invitado -->
-                <button routerLink="/login" (click)="onLogin()" class="btn btn-primary">
-                    Iniciar Sesión
-                </button>
-            } @else {
-                <!-- Clientes o Dueño -->
-
-                <!-- Boton notificaciones -->
-                 <div class="notification-wrapper">
-                    <button (click)="toggleNotificationMenu()" class="btn notification-button">
-                        <!-- Icono campana -->
-                         <span>campana</span>
-                        @if (notifications().length > 0) {
-                            <span class="notification-badge">
-                                {{ notifications().length }}
-                            </span>
-                        }
-                    </button>
-                    
-                    <!-- Menu Desplegable de Notificaciones -->
-                     @if (notificationMenuOpen()) {
-                        <div class="notification-dropdown">
-                            <div class="dropdown-header">Notificaciones</div>
-                            <div class="dropdown-content">
-                                @if (notifications().length === 0){
-                                    <p class="empty-message">No hay notificaciones nuevas</p>
-                                } @else {
-                                    @for (notification of notifications(); track $index) {
-                                        <div class="notification-item">
-                                            {{ notification }}
-                                        </div>
-                                    }
-                                }
-                            </div>
-                        </div>
-                     }
-                 </div>
-                
-                 <!-- Boton de Perfil -->
-                 <button (click)="onProfileClick()" class="btn btn-profile">
-                    <!-- Icono usuario -->
-                    <span>Mi perfil</span>
-                 </button> 
-
-                 <!-- Boton de Logout -->
-                  <button (click)="onLogout()" title="Cerrar Sesion" class="btn btn-logout">
-                    <!-- Icono salir -->
-                     <span>Salir</span>
-                  </button>
-            }
-         </div>
-    </nav>
+      }
+    </div>
+  </nav>
 </header>

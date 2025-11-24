@@ -1,0 +1,377 @@
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { EmprendimientoResponse } from '../model/emprendimiento-response.model';
+import { ViandaCantidadCarrito } from '../model/vianda-cantidad-carrito.model';
+import { ViandaResponse } from '../model/vianda-response.model';
+import { ViandaService } from './vianda-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarData } from '../model/snackbar-data.model';
+import { Snackbar } from '../shared/components/snackbar/snackbar';
+import { firstValueFrom, forkJoin, map } from 'rxjs';
+import { PedidoRequest } from '../model/pedido-request.model';
+import { AuthService } from './auth-service';
+import { ViandaCantidadRequest } from '../model/vianda-cantidad-request.model';
+import { PedidosService } from './pedido-service';
+import { MatDialog } from '@angular/material/dialog';
+import { CarritoModal } from '../components/carrito-modal/carrito-modal';
+import { ConfirmarModalService } from './confirmar-modal-service';
+import { EmprendimientoService } from './emprendimiento-service';
+import { ViandaCantidadLocalStorage } from '../model/vianda-cantidad-localstorage.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CarritoService {
+  private authService = inject(AuthService);
+  private confirmarModalService = inject(ConfirmarModalService);
+  private dialog = inject(MatDialog);
+  private emprendimientoService = inject(EmprendimientoService);
+  private pedidoService = inject(PedidosService);
+  private viandaService = inject(ViandaService);
+  private snackBar = inject(MatSnackBar);
+
+  private _fechaEntrega = signal<string>("");
+  public fechaEntrega = this._fechaEntrega.asReadonly();
+
+  private _emprendimiento = signal<EmprendimientoResponse|null>(null);
+  public emprendimiento = this._emprendimiento.asReadonly();
+
+  private _viandaCantidades = signal<ViandaCantidadCarrito[]>([]);
+  public viandaCantidades = this._viandaCantidades.asReadonly();
+
+  public constructor() {
+    this.cargarDeLocalStorage();
+  }
+
+  // Modificación de datos ====================================================
+
+  public async abrirCarrito(emprendimiento: EmprendimientoResponse) {
+    if (this._emprendimiento()) {
+      if (this._emprendimiento()!.id !== emprendimiento.id) {
+        const confirmado = await firstValueFrom(
+          this.confirmarModalService.confirmar({
+            titulo: "Nuevo Carrito",
+            texto:
+              "El carrito actual corresponde a otro emprendimiento, " +
+              "¿querés vaciar el carrito y empezar desde cero?"
+          })
+        );
+
+        if (confirmado) {
+          this.vaciar(true);
+          this.setEmprendimiento(emprendimiento);
+        }
+        else return;
+      }
+    }
+    else {
+      this.setEmprendimiento(emprendimiento);
+      this.eliminarViandasEnCero();
+    }
+
+    this.abrirModalCarrito();
+  }
+
+  public async agregarVianda(vianda: ViandaResponse): Promise<void> {
+    if (!this._emprendimiento())
+    {
+      this.setEmprendimiento(vianda.emprendimiento);
+      this.guardarEmprendimientoEnLocalStorage();
+    }
+    else if (vianda.emprendimiento.id !== this._emprendimiento()?.id) {
+      const confirmado = await firstValueFrom(
+        this.confirmarModalService.confirmar({
+          titulo: "Nuevo Carrito",
+          texto:
+            "El carrito actual contiene viandas de un emprendimiento distinto al de la vianda que querés agregar, " +
+            "¿querés vaciar el carrito y empezar desde cero?"
+        })
+      );
+
+      if (confirmado) {
+        this.vaciar(true);
+        this.setEmprendimiento(vianda.emprendimiento);
+      }
+      else return;
+    }
+
+    const viandaCantidad = this.encontrarViandaCantidad(vianda);
+
+    if (viandaCantidad) {
+      this._viandaCantidades.update(arr => {
+        viandaCantidad.cantidad++;
+        return [...arr];
+      });
+    }
+    else {
+      this._viandaCantidades.update(arr =>
+        [...arr, { vianda: vianda, cantidad: 1 } as ViandaCantidadCarrito]
+      );
+    }
+
+    this.guardarViandasEnLocalStorage();
+  }
+
+  public quitarVianda(vianda: ViandaResponse): void {
+    const viandaCantidad = this.encontrarViandaCantidad(vianda);
+
+    if (!viandaCantidad) return;
+
+    let quitada = false;
+
+    this._viandaCantidades.update(arr => {
+      if (viandaCantidad.cantidad > 0) {
+        quitada = true;
+        viandaCantidad.cantidad--;
+      }
+
+      return [...arr];
+    });
+
+    if (quitada) {
+      this.guardarViandasEnLocalStorage();
+    }
+  }
+
+  public eliminarViandasEnCero() {
+    this._viandaCantidades.update(
+      arr => arr.filter(
+        (viandaCantidad) => viandaCantidad.cantidad > 0
+      )
+    );
+
+    this.guardarViandasEnLocalStorage();
+  }
+
+  // Devuelve `true` si se quitaron viandas del carrito, o si ocurre algún otro error
+  public async revisarViandas() {
+    if (!this.emprendimiento()) return true;
+
+    const viandasEmprendimiento = await firstValueFrom(
+      this.viandaService.getViandasByEmprendimientoId(this.emprendimiento()!.id)
+    );
+
+    let seQuitaronViandas = false;
+
+    this._viandaCantidades.update(
+      (arr) => arr.filter(
+        (viandaCantidad) => {
+          const vianda = viandasEmprendimiento.find((_vianda) => _vianda.id === viandaCantidad.vianda.id);
+
+          if (!vianda || !vianda.estaDisponible) {
+            seQuitaronViandas = true;
+            return false;
+          }
+
+          return true;
+        }
+      )
+    );
+
+    if (seQuitaronViandas) {
+      this.abrirSnackBar("Se eliminaron viandas no disponibles del carrito.");
+    }
+
+    return seQuitaronViandas;
+  }
+
+  public vaciar(anunciar: boolean) {
+    this._fechaEntrega.set("");
+    this._emprendimiento.set(null);
+    this._viandaCantidades.set([]);
+
+    this.guardarEnLocalStorage();
+
+    if (anunciar) {
+      this.abrirSnackBar("Carrito vaciado.");
+    }
+  }
+
+  public setFechaEntrega(fecha: string) {
+    this._fechaEntrega.set(fecha);
+    this.guardarFechaEnLocalStorage();
+  }
+
+  public setEmprendimiento(emprendimiento: EmprendimientoResponse|null) {
+    this._emprendimiento.set(emprendimiento);
+    this.guardarEmprendimientoEnLocalStorage();
+  }
+
+  // Consulta de datos ========================================================
+
+  public cantidadViandasUnicas = computed(() => {
+    let cantidad = 0;
+
+    this.viandaCantidades().forEach((viandaCantidad) => {
+      if (viandaCantidad.cantidad > 0)
+        cantidad++;
+    });
+
+    return cantidad;
+  });
+
+  public cantidadViandaEnCarrito(vianda: ViandaResponse) {
+    return computed(() => {
+      if (this.noEsCliente())
+        return 0;
+
+      const viandaCantidad = this.encontrarViandaCantidad(vianda);
+
+      return viandaCantidad ? viandaCantidad.cantidad : 0;
+    });
+  }
+
+  private encontrarViandaCantidad(vianda: ViandaResponse) {
+    return this._viandaCantidades().find((viandaCantidad) => viandaCantidad.vianda.id === vianda.id);
+  }
+
+  public vacio() {
+    return !this._viandaCantidades().length;
+  }
+
+  private noEsCliente() {
+    return this.authService.currentUserRole() !== "CLIENTE";
+  }
+
+  // Pedidos ==================================================================
+
+  public crearPedido() {
+    // Posiblemente redundante
+    this.eliminarViandasEnCero();
+
+    const pedido: PedidoRequest = {
+      fechaEntrega: this.fechaEntrega()!,
+      clienteId: this.authService.usuarioId()!,
+      emprendimientoId: this.emprendimiento()!.id,
+      viandas: this.viandaCantidades().map(
+        (viandaCantidad) => {
+          return {
+            viandaId: viandaCantidad.vianda.id,
+            cantidad: viandaCantidad.cantidad
+          } as ViandaCantidadRequest;
+        }
+      )
+    };
+
+    this.pedidoService.createPedido(pedido);
+    this.abrirSnackBar("Pedido confirmado.");
+    this.vaciar(false);
+  }
+
+  // Modal, snackbar ==========================================================
+
+  private abrirModalCarrito() {
+      this.dialog.open(
+        CarritoModal,
+        {
+          maxHeight: "90vh",
+          maxWidth: "90rem",
+          width: "90rem",
+          autoFocus: false,
+          restoreFocus: false,
+        }
+      );
+  }
+
+  private abrirSnackBar(mensaje: string) {
+    const snackbarData: SnackbarData = {
+      message: mensaje,
+      iconName: "check_circle"
+    }
+
+    this.snackBar.openFromComponent(
+      Snackbar,
+      {
+        duration: 4000,
+        verticalPosition: "bottom",
+        panelClass: "snackbar-panel",
+        data: snackbarData
+      }
+    );
+  }
+
+  // Local Storage ============================================================
+
+  private itemFechaName: string = "carrito-fecha_entrega";
+  private itemEmprendimientoIdName: string = "carrito-emprendimiento_id";
+  private itemViandasName: string = "carrito-viandas";
+
+  private cargarDeLocalStorage() {
+    const itemFecha = localStorage.getItem(this.itemFechaName);
+
+    if (itemFecha) {
+        this._fechaEntrega.set(JSON.parse(itemFecha));
+    }
+
+    const itemEmprendimientoId = localStorage.getItem(this.itemEmprendimientoIdName);
+
+    if (itemEmprendimientoId) {
+        const emprendimientoId = JSON.parse(itemEmprendimientoId);
+
+        if (emprendimientoId) {
+          this.emprendimientoService
+            .getEmprendimientoById(emprendimientoId)
+            .subscribe(
+              (emprendimiento) => this._emprendimiento.set(emprendimiento)
+            );
+        }
+    }
+
+    const itemViandas = localStorage.getItem(this.itemViandasName);
+
+    if (itemViandas) {
+      forkJoin<ViandaCantidadCarrito[]>(
+        JSON.parse(itemViandas).map(
+          (viandaCantidadLS: ViandaCantidadLocalStorage) =>
+            this.viandaService.getViandaById(viandaCantidadLS.idVianda).pipe(
+              map(vianda => ({
+                vianda,
+                cantidad: viandaCantidadLS.cantidad
+              } as ViandaCantidadCarrito))
+            )
+        )
+      )
+      .subscribe(
+        (viandaCantidades: ViandaCantidadCarrito[]) =>
+          this._viandaCantidades.set(
+            viandaCantidades.filter((viandaCantidad: ViandaCantidadCarrito) => viandaCantidad.vianda !== undefined)
+          )
+      );
+    }
+  }
+
+  private guardarFechaEnLocalStorage() {
+    localStorage.setItem(
+      this.itemFechaName,
+      JSON.stringify(this._fechaEntrega())
+    );
+  }
+
+  private guardarEmprendimientoEnLocalStorage() {
+    localStorage.setItem(
+      this.itemEmprendimientoIdName,
+      JSON.stringify(this._emprendimiento()?.id || null)
+    );
+  }
+
+  private guardarViandasEnLocalStorage() {
+    localStorage.setItem(
+      this.itemViandasName,
+      JSON.stringify(
+        this._viandaCantidades().map(
+          (viandaCantidad) => {
+            return {
+              idVianda: viandaCantidad.vianda.id,
+              cantidad: viandaCantidad.cantidad
+            } as ViandaCantidadLocalStorage;
+          }
+        )
+      )
+    );
+  }
+
+  private guardarEnLocalStorage() {
+    this.guardarFechaEnLocalStorage();
+    this.guardarEmprendimientoEnLocalStorage();
+    this.guardarViandasEnLocalStorage();
+  }
+}

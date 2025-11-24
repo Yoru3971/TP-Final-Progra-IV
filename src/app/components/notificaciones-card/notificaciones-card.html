@@ -1,0 +1,22 @@
+<div class="notificaciones-container">
+  <div class="titulo-con-filtros">
+    <h3 class="titulo-seccion">NOTIFICACIONES</h3>
+
+    <div class="filtros-layout">
+      <app-date-range-picker (fechasSeleccionadas)="onFechasSeleccionadas($event)">
+      </app-date-range-picker>
+    </div>
+  </div>
+
+  <div class="notificaciones-card">
+    @if (lista.length === 0) {
+    <p class="sin-notificaciones">No tenés notificaciones recientes.</p>
+    } @if (lista.length > 0) {
+    <div class="lista">
+      @for (noti of lista; track noti.id) {
+      <app-notificacion-single-card [notificacion]="noti"></app-notificacion-single-card>
+      }
+    </div>
+    }
+  </div>
+</div>

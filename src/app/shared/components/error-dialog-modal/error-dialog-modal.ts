@@ -1,5 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ErrorDialogData } from '../../../model/errorMessage.model';
@@ -12,12 +18,11 @@ import { ErrorDialogData } from '../../../model/errorMessage.model';
     MatDialogActions,
     MatDialogClose,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
   ],
   templateUrl: './error-dialog-modal.html',
   styleUrl: './error-dialog-modal.css',
 })
 export class ErrorDialogModal {
-  public data: ErrorDialogData = inject(MAT_DIALOG_DATA);
-  constructor() {}
+  data: ErrorDialogData = inject(MAT_DIALOG_DATA);
 }
