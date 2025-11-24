@@ -66,9 +66,13 @@
   --carrito-btn-bg-color: #e68033;
   --carrito-btn-border-color: #fe9039;
   --carrito-btn-cerrar-color: #e68033;
-  --carrito-btn-cancelar-border-color: #ff4040;
-  --carrito-btn-cancelar-color: #ff4040;
-  --carrito-btn-confirmar-bg-color: #fe9039;
+  --carrito-btn-disabled-color: #eeeeee;
+  --carrito-btn-cancelar-bg-color: #e74c3c;
+  --carrito-btn-cancelar-disabled-bg-color: #7f7f7f;
+  --carrito-btn-confirmar-bg-color: #2ecc71;
+  --carrito-btn-confirmar-disabled-bg-color: #7f7f7f;
+  --carrito-btn-cantidad-disabled-bg-color: #eeeeee;
+  --carrito-btn-cantidad-disabled-color: #7f7f7f;
 
   --carrito-submodal-border-color: #fe9039;
   --carrito-submodal-header-bg-color: #fe9039;

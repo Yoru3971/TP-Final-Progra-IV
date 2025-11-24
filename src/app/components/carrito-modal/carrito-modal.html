@@ -23,13 +23,21 @@
         </p>
 
         <div class="item-cantidad-btns">
-          <button class="btn btn-circle" (click)="restarVianda(viandaCantidad.vianda)">
+          <button
+            class="btn btn-circle"
+            [disabled]="cantidadViandaEnMinimo(viandaCantidad.vianda)"
+            (click)="restarVianda(viandaCantidad.vianda)"
+          >
             <i class="fa-solid fa-minus"></i>
           </button>
 
           <p class="item-cantidad">{{ viandaCantidad.cantidad }}</p>
 
-          <button class="btn btn-circle" (click)="sumarVianda(viandaCantidad.vianda)">
+          <button
+            class="btn btn-circle"
+            [disabled]="cantidadViandaEnMaximo(viandaCantidad.vianda)"
+            (click)="sumarVianda(viandaCantidad.vianda)"
+          >
             <i class="fa-solid fa-plus"></i>
           </button>
         </div>

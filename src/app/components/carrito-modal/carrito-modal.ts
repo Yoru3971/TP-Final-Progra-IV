@@ -71,6 +71,14 @@ export class CarritoModal implements OnInit {
     this.carritoService.quitarVianda(vianda);
   }
 
+  public cantidadViandaEnMinimo(vianda: ViandaResponse) {
+    return this.carritoService.cantidadViandaEnMinimo(vianda);
+  }
+
+  public cantidadViandaEnMaximo(vianda: ViandaResponse) {
+    return this.carritoService.cantidadViandaEnMaximo(vianda);
+  }
+
   public vacio() {
     return this.carritoService.vacio();
   }

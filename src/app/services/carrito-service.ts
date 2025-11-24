@@ -38,6 +38,8 @@ export class CarritoService {
   private _viandaCantidades = signal<ViandaCantidadCarrito[]>([]);
   public viandaCantidades = this._viandaCantidades.asReadonly();
 
+  static readonly CANTIDAD_MAXIMA = 10;
+
   public constructor() {
     this.cargarDeLocalStorage();
   }
@@ -60,10 +62,11 @@ export class CarritoService {
           this.vaciar(true);
           this.setEmprendimiento(emprendimiento);
         } else return;
+      } else {
+        this.eliminarViandasEnCero();
       }
     } else {
       this.setEmprendimiento(emprendimiento);
-      this.eliminarViandasEnCero();
     }
 
     this.abrirModalCarrito();
@@ -91,19 +94,32 @@ export class CarritoService {
 
     const viandaCantidad = this.encontrarViandaCantidad(vianda);
 
+    let agregada = false;
+
     if (viandaCantidad) {
       this._viandaCantidades.update((arr) => {
-        viandaCantidad.cantidad++;
+        if (viandaCantidad.cantidad < CarritoService.CANTIDAD_MAXIMA) {
+          agregada = true;
+
+          viandaCantidad.cantidad = this.acotarCantidadVianda(
+            viandaCantidad.cantidad + 1
+          );
+        }
+
         return [...arr];
       });
     } else {
+      agregada = true;
+
       this._viandaCantidades.update((arr) => [
         ...arr,
         { vianda: vianda, cantidad: 1 } as ViandaCantidadCarrito,
       ]);
     }
 
-    this.guardarViandasEnLocalStorage();
+    if (agregada) {
+      this.guardarViandasEnLocalStorage();
+    }
   }
 
   public quitarVianda(vianda: ViandaResponse): void {
@@ -116,7 +132,10 @@ export class CarritoService {
     this._viandaCantidades.update((arr) => {
       if (viandaCantidad.cantidad > 0) {
         quitada = true;
-        viandaCantidad.cantidad--;
+
+        viandaCantidad.cantidad = this.acotarCantidadVianda(
+          viandaCantidad.cantidad - 1
+        );
       }
 
       return [...arr];
@@ -125,6 +144,10 @@ export class CarritoService {
     if (quitada) {
       this.guardarViandasEnLocalStorage();
     }
+  }
+
+  private acotarCantidadVianda(cantidad: number) {
+    return Math.min(Math.max(0, cantidad), 10)
   }
 
   public eliminarViandasEnCero() {
@@ -211,6 +234,18 @@ export class CarritoService {
     });
   }
 
+  public cantidadViandaEnMinimo(vianda: ViandaResponse) {
+    const viandaCantidad = this.encontrarViandaCantidad(vianda);
+
+    return viandaCantidad ? viandaCantidad.cantidad <= 0 : true;
+  }
+
+  public cantidadViandaEnMaximo(vianda: ViandaResponse) {
+    const viandaCantidad = this.encontrarViandaCantidad(vianda);
+
+    return viandaCantidad ? viandaCantidad.cantidad >= CarritoService.CANTIDAD_MAXIMA : false;
+  }
+
   private encontrarViandaCantidad(vianda: ViandaResponse) {
     return this._viandaCantidades().find(
       (viandaCantidad) => viandaCantidad.vianda.id === vianda.id
@@ -218,7 +253,7 @@ export class CarritoService {
   }
 
   public vacio() {
-    return !this._viandaCantidades().length;
+    return !this._viandaCantidades().some((viandaCantidad) => viandaCantidad.cantidad > 0);
   }
 
   private noEsCliente() {
@@ -230,6 +265,8 @@ export class CarritoService {
   public crearPedido() {
     // Posiblemente redundante
     this.eliminarViandasEnCero();
+
+    if (this.vacio()) return;
 
     const pedido: PedidoRequest = {
       fechaEntrega: this.fechaEntrega()!,
@@ -309,7 +346,7 @@ export class CarritoService {
               (vianda) =>
                 ({
                   vianda,
-                  cantidad: viandaCantidadLS.cantidad,
+                  cantidad: this.acotarCantidadVianda(viandaCantidadLS.cantidad),
                 } as ViandaCantidadCarrito)
             )
           )
