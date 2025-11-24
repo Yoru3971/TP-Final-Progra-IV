@@ -1,9 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
-  MatDialogTitle,
-  MatDialogContent,
-  MatDialogActions,
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,9 +14,6 @@ import { IconVeggie } from '../iconos/icon-veggie/icon-veggie';
 @Component({
   selector: 'app-vianda-extended-modal',
   imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
     MatButtonModule,
     MatIconModule,
     IconTacc,
