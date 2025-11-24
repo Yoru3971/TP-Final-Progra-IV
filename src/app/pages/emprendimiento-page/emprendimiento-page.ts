@@ -303,5 +303,18 @@ export class EmprendimientoPage {
       });
   }
 
+  filtrosActivos(): boolean {
+  const f = this.filtrosSignal();
+  return !!(
+    (f.categoria && f.categoria.trim() !== '') ||
+    (f.nombreVianda && f.nombreVianda.trim() !== '') || 
+    f.esSinTacc || 
+    f.esVegano || 
+    f.esVegetariano || 
+    f.precioMin || 
+    f.precioMax
+  );
+}
+
   
 }
