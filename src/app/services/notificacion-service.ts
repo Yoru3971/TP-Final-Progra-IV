@@ -21,7 +21,6 @@ export class NotificacionService {
     });
   });
 
-  //filtros por fecha
   public filtroDesde = signal<string | null>(null);
   public filtroHasta = signal<string | null>(null);
 
@@ -86,27 +85,21 @@ export class NotificacionService {
     };
   }
 
-  //lista filtrada por fecha + ordenada
   public notificacionesFiltradas = computed(() => {
     const lista = this.allNotificaciones();
     const desde = this.filtroDesde();
     const hasta = this.filtroHasta();
 
     return lista
-      .filter(noti => {
+      .filter((noti) => {
         let ok = true;
 
-        if (desde)
-          ok = ok && new Date(noti.fechaEnviado) >= new Date(desde);
+        if (desde) ok = ok && new Date(noti.fechaEnviado) >= new Date(desde);
 
-        if (hasta)
-          ok = ok && new Date(noti.fechaEnviado) <= new Date(hasta);
+        if (hasta) ok = ok && new Date(noti.fechaEnviado) <= new Date(hasta);
 
         return ok;
       })
-      .sort((a, b) =>
-        new Date(b.fechaEnviado).getTime() -
-        new Date(a.fechaEnviado).getTime()
-      );
+      .sort((a, b) => new Date(b.fechaEnviado).getTime() - new Date(a.fechaEnviado).getTime());
   });
 }
