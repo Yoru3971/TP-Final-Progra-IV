@@ -38,6 +38,7 @@
 .btn-close-icon:hover {
   background: color-mix(in srgb, var(--inverse-text-color) 90%, var(--text-color));
   color: color-mix(in srgb, var(--carrito-title-bg-color) 80%, var(--text-color));
+  cursor: pointer;
 }
 
 .pedido-content {
@@ -52,8 +53,8 @@
 }
 
 .item-vianda {
-  padding: 1.4rem 0;
-  border-bottom: 1px solid var(--input-border);
+  padding: 0;
+  border-bottom: 0.1rem solid var(--input-border);
 }
 
 .item-vianda:last-child {
@@ -73,7 +74,7 @@
 .right-panel {
   width: 40%;
   min-width: 36rem;
-  border-left: 1px solid var(--input-border);
+  border-left: 0.1rem solid var(--input-border);
   padding: 3rem;
   display: flex;
   flex-direction: column;
