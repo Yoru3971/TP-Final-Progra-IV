@@ -174,7 +174,7 @@ app-root {
 
 .form-field {
   width: 100%;
-  min-height: 8rem;
+  min-height: 5rem;
   display: flex;
   flex-direction: column;
 }
