@@ -25,6 +25,17 @@ export class FormUpdateEmprendimiento {
   private snackBar = inject(MatSnackBar);
   private cdr = inject(ChangeDetectorRef);
 
+  // ARRAY DE CIUDADES (Luego sera eliminado, y utilizaremos una API de ciudades, pero para
+  // esta entrega se utilizara esto)
+  public readonly CITIES: readonly string[] = [
+    'MAR DEL PLATA',
+    'MIRAMAR',
+    'NECOCHEA',
+    'BALCARCE',
+    'SANTA CLARA',
+    'PINAMAR',
+  ] as const;
+
   selectedFileName: string | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
   fileInputRef: any;
@@ -35,7 +46,7 @@ export class FormUpdateEmprendimiento {
 
   formEmprendimiento = this.fb.group({
     nombreEmprendimiento: ['', [Validators.required, Validators.maxLength(255)]],
-    ciudad: ['', [Validators.required, Validators.maxLength(255)]],
+    ciudad: ['', [Validators.required]],
     direccion: ['', [Validators.maxLength(255)]],
     telefono: ['', [Validators.required, Validators.pattern(/^\d{7,15}$/)]],
   });
