@@ -1,6 +1,6 @@
 export interface Notificacion {
-    id: number;
-    mensaje: string;
-    fechaEnviado: string;
-    emprendimientoId: number;
+  id: number;
+  mensaje: string;
+  fechaEnviado: string;
+  emprendimientoId: number;
 }

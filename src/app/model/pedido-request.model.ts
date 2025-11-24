@@ -1,8 +1,8 @@
-import { ViandaCantidadRequest } from "./vianda-cantidad-request.model";
+import { ViandaCantidadRequest } from './vianda-cantidad-request.model';
 
 export interface PedidoRequest {
-    fechaEntrega: string;
-    clienteId: number;
-    emprendimientoId: number;
-    viandas: ViandaCantidadRequest[];
+  fechaEntrega: string;
+  clienteId: number;
+  emprendimientoId: number;
+  viandas: ViandaCantidadRequest[];
 }

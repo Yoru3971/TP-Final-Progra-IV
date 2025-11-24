@@ -1,4 +1,4 @@
 export interface ViandaCantidadRequest {
-    viandaId: number;
-    cantidad: number;
+  viandaId: number;
+  cantidad: number;
 }
