@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { EliminarCuentaPaso3 } from '../eliminar-cuenta-paso3/eliminar-cuenta-paso3';
+import { ErrorDialogModal } from '../../../shared/components/error-dialog-modal/error-dialog-modal';
 
 @Component({
   selector: 'app-eliminar-cuenta-paso2',
@@ -28,14 +29,14 @@ export class EliminarCuentaPaso2 {
     const value = this.form.get('confirm')?.value?.trim().toLowerCase();
 
     if (value !== 'eliminar') {
-      alert("Debe escribir exactamente la palabra 'eliminar'.");
+      this.mostrarError("Debe escribir exactamente la palabra 'eliminar'!");
       return;
     }
 
     const id = this.authService.usuarioId();
 
     if (!id) {
-      alert('Error: no se encontró el usuario logueado.');
+      this.mostrarError('No se encontró el usuario logueado.');
       return;
     }
 
@@ -47,7 +48,10 @@ export class EliminarCuentaPaso2 {
         this.dialog.open(EliminarCuentaPaso3);
       },
       error: (err) => {
-        alert(err.error?.message ?? 'Error desconocido al eliminar la cuenta.');
+        const backendMsg =
+            err.error?.message || err.error?.error || 'Error desconocido al eliminar la cuenta';
+            
+        this.mostrarError(backendMsg);
       },
     });
   }
@@ -55,4 +59,13 @@ export class EliminarCuentaPaso2 {
   cancelar() {
     this.dialogRef.close();
   }
+
+  private mostrarError(message: string) {
+      this.dialog.open(ErrorDialogModal, {
+        data: { message },
+        panelClass: 'modal-error',
+        autoFocus: false,
+        restoreFocus: false,
+      });
+    }
 }
