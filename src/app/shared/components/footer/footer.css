@@ -6,8 +6,8 @@
     color: var(--text-color);
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    padding-top: 1.25rem;
+    gap: 0.25rem;
+    padding-top: 0.75rem;
     width: 100%;
 }
 
@@ -74,7 +74,7 @@
     color: var(--link-color);
     font-size: 1.9rem;
     font-style: italic;
-    margin: 0.8rem -3rem; /* acomodar en funcion del eslogan */
+    margin: 0.8rem -3rem 0 -3rem; /* acomodar en funcion del eslogan */
 }
 
 /* contacto */
