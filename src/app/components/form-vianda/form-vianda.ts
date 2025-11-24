@@ -6,6 +6,9 @@ import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/err
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CategoriaVianda } from '../../shared/enums/categoriaVianda.enum';
 import { ChangeDetectorRef } from '@angular/core';
+import { SnackbarData } from '../../model/snackbar-data.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Snackbar } from '../../shared/components/snackbar/snackbar';
 
 @Component({
   selector: 'app-form-vianda',
@@ -18,6 +21,7 @@ export class FormVianda {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private viandaService = inject(ViandaService);
+  private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
   private dialogRef = inject(MatDialogRef);
   private cdr = inject(ChangeDetectorRef); //agregado para forzar render
@@ -143,7 +147,20 @@ export class FormVianda {
     this.viandaService.createVianda(formData).subscribe({
       next: () => {
         this.loading = false;
-        this.dialogRef.close(true);             //  AGREGAR snackbar de éxito
+
+        const snackbarData: SnackbarData = {
+              message: 'Vianda creada con éxito',
+              iconName: 'check_circle'
+            }
+        
+            this.snackBar.openFromComponent(Snackbar, {
+              duration: 3000,
+              verticalPosition: 'bottom',
+              panelClass: 'snackbar-panel',
+              data: snackbarData
+            });
+
+        this.dialogRef.close(true);
       },
       error: (err) => {
         this.loading = false;

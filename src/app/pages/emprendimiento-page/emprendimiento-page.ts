@@ -18,6 +18,7 @@ import { FormVianda } from '../../components/form-vianda/form-vianda';
 import { FormUpdateEmprendimiento } from '../../components/form-emprendimiento-update/form-emprendimiento-update';
 import { CarritoService } from '../../services/carrito-service';
 import { FormViandaUpdate } from '../../components/form-vianda-update/form-vianda-update';
+import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 
 export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
 
@@ -62,7 +63,19 @@ export class EmprendimientoPage {
         if (!id) return of(null);
         return this.emprendimientoService.getEmprendimientoById(id).pipe(
           catchError((err) => {
-            console.error('Error cargando emprendimiento', err);              //  ARREGLAR AHORA
+
+            const backendMsg =
+                        err.error?.message || err.error?.error || 'Error desconocido al cargar emprendimiento';
+            
+            console.error(backendMsg);
+  
+            this.dialog.open(ErrorDialogModal, {
+              data: { message: backendMsg },
+              panelClass: 'modal-error',
+              autoFocus: false,
+              restoreFocus: false,
+            });
+
             return of(null);
           })
         );
@@ -104,9 +117,9 @@ export class EmprendimientoPage {
     }
   }
 
-  abrirModalEditarEmprendimiento() {              //  ARREGLAR AHORA
+  abrirModalEditarEmprendimiento() {
     this.dialog
-      .open(FormUpdateEmprendimiento, {
+      .open(FormUpdateEmprendimiento, {              //  REVISAR errores que tira este modal (dentro del form)
         width: '100rem',
         panelClass: 'form-modal',
         autoFocus: false,
@@ -129,9 +142,9 @@ export class EmprendimientoPage {
     }
   }
 
-  abrirSnackbarLoginRequerido() {              //  ARREGLAR AHORA
+  abrirSnackbarLoginRequerido() {
     const snackbarData: SnackbarData = {
-      message: 'Inicie sesión para realizar realizar pedidos',
+      message: 'Inicie sesión para realizar pedidos',
       iconName: 'error'
     }
 
@@ -185,7 +198,8 @@ export class EmprendimientoPage {
 
         return request$.pipe(
           catchError((err) => {
-            console.error('Error cargando viandas (posiblemente sin resultados)', err);              //  ARREGLAR AHORA
+            //  Ya está contemplado lo que se muestra cuando no hay viandas (lo dejo como warning por las dudas)
+            console.warn('Error cargando viandas (posiblemente sin resultados)', err);
             return of([] as ViandaResponse[]);
           })
         );
@@ -228,7 +242,7 @@ export class EmprendimientoPage {
             return of([] as ViandaResponse[]);
         }
 
-        return request$.pipe(catchError(() => of([] as ViandaResponse[])));              //  ARREGLAR AHORA?
+        return request$.pipe(catchError(() => of([] as ViandaResponse[])));
       })
     ),
     { initialValue: [] as ViandaResponse[] }
@@ -245,7 +259,7 @@ export class EmprendimientoPage {
     const emprendimientoId = this.idEmprendimiento();
     this.dialog
       .open(FormVianda, {
-        data: { idEmprendimiento: emprendimientoId },              //  ARREGLAR AHORA
+        data: { idEmprendimiento: emprendimientoId },
         width: '100rem',
         panelClass: 'form-modal',
         autoFocus: false,
@@ -289,7 +303,7 @@ export class EmprendimientoPage {
     }
   }
 
-  handleEditarVianda(vianda: ViandaResponse) {              //  ARREGLAR AHORA
+  handleEditarVianda(vianda: ViandaResponse) {
     
     this.dialog
       .open(FormViandaUpdate, {

@@ -14,50 +14,50 @@ import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-form-vianda-update',
-  imports: [ReactiveFormsModule,
-    CommonModule
-  ],
-  templateUrl: './form-vianda-update.html',
-  styleUrl: './form-vianda-update.css',
+  selector: 'app-form-vianda-update',
+  imports: [ReactiveFormsModule,
+    CommonModule
+  ],
+  templateUrl: './form-vianda-update.html',
+  styleUrl: './form-vianda-update.css',
 })
 export class FormViandaUpdate implements OnInit{
-  private fb = inject(FormBuilder);
-  private viandaService = inject(ViandaService);
-  private dialog = inject(MatDialog);
-  private dialogRef = inject(MatDialogRef);
+  private fb = inject(FormBuilder);
+  private viandaService = inject(ViandaService);
+  private dialog = inject(MatDialog);
+  private dialogRef = inject(MatDialogRef);
   private snackBar = inject(MatSnackBar);
-  private cdr = inject(ChangeDetectorRef);
+  private cdr = inject(ChangeDetectorRef);
   private confirmarModalService = inject(ConfirmarModalService);
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { vianda: ViandaResponse }
-  ) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { vianda: ViandaResponse }
+  ) {}
 
-  // La estructura de categorías es correcta para iterar en el HTML
-  public categorias = Object.entries(CategoriaVianda).map(([key, label]) => ({
-    key, 
-    label, 
-  }));
+  // La estructura de categorías es correcta para iterar en el HTML
+  public categorias = Object.entries(CategoriaVianda).map(([key, label]) => ({
+    key, 
+    label, 
+  }));
 
-  // El categoriaMap ya no es necesario para el envío de datos, pero se mantiene si se usa en otra parte.
-  // Si no se usa en ninguna otra parte del componente, se podría eliminar.
-  private categoriaMap: Map<string, string> = new Map(
-    Object.entries(CategoriaVianda).map(([key, label]) => [label, key])
-  );
+  // El categoriaMap ya no es necesario para el envío de datos, pero se mantiene si se usa en otra parte.
+  // Si no se usa en ninguna otra parte del componente, se podría eliminar.
+  private categoriaMap: Map<string, string> = new Map(
+    Object.entries(CategoriaVianda).map(([key, label]) => [label, key])
+  );
 
-  loading = false;
+  loading = false;
 
-  selectedFile: File | null = null;
-  selectedFileName: string | null = null;
+  selectedFile: File | null = null;
+  selectedFileName: string | null = null;
 
-  //imagen para previsualizar nuevo archivo seleccionado
-  newImagePreviewUrl: string | ArrayBuffer | null = null;
-  currentImageUrl: string | null = null;
+  //imagen para previsualizar nuevo archivo seleccionado
+  newImagePreviewUrl: string | ArrayBuffer | null = null;
+  currentImageUrl: string | null = null;
 
-  fileInputRef: any;
-  maxWidth = 1920;
-  maxHeight = 1080;
+  fileInputRef: any;
+  maxWidth = 1920;
+  maxHeight = 1080;
 
   formVianda = this.fb.group({
     nombreVianda: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
@@ -232,6 +232,19 @@ export class FormViandaUpdate implements OnInit{
         } else {
           // Si no hay imagen nueva, terminamos aquí
           this.loading = false;
+
+          const snackbarData: SnackbarData = {
+              message: 'Vianda actualizada con éxito',
+              iconName: 'check_circle'
+            }
+        
+            this.snackBar.openFromComponent(Snackbar, {
+              duration: 3000,
+              verticalPosition: 'bottom',
+              panelClass: 'snackbar-panel',
+              data: snackbarData
+            });
+
           this.dialogRef.close(true);
         }
       },
