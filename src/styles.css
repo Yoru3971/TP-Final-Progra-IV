@@ -259,6 +259,12 @@ app-root {
   align-items: center;
 }
 
+/* Modal confirmación */
+.modal-container .content-container p span {
+  color: var(--eliminar-color);
+  font-weight: bold;
+}
+
 /* --- MODAL ERROR --- */
 
 .modal-error .mat-mdc-dialog-title {
@@ -570,6 +576,8 @@ app-root {
   border-color: var(--input-focus-outline);
   box-shadow: var(--input-focus-shadow);
 }
+
+/* ----- PÁGINAS VARIAS -----  */
 
 .info-page-container {
   align-items: center;

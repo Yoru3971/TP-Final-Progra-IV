@@ -7,6 +7,11 @@ import { ViandaResponse } from '../../model/vianda-response.model';
 import { CategoriaVianda } from '../../shared/enums/categoriaVianda.enum';
 import { ViandaUpdate } from '../../model/vianda-update.model';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
+import { firstValueFrom } from 'rxjs';
+import { ConfirmarModalService } from '../../services/confirmar-modal-service';
+import { SnackbarData } from '../../model/snackbar-data.model';
+import { Snackbar } from '../../shared/components/snackbar/snackbar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-form-vianda-update',
@@ -21,7 +26,9 @@ export class FormViandaUpdate implements OnInit{
   private viandaService = inject(ViandaService);
   private dialog = inject(MatDialog);
   private dialogRef = inject(MatDialogRef);
+  private snackBar = inject(MatSnackBar);
   private cdr = inject(ChangeDetectorRef);
+  private confirmarModalService = inject(ConfirmarModalService);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { vianda: ViandaResponse }
@@ -133,6 +140,57 @@ export class FormViandaUpdate implements OnInit{
   // Quita la imagen NUEVA seleccionada, volviendo a la original
   removeNewImage() {
     this.resetImageSelection();
+  }
+
+  async onDelete() {
+    const confirmado = await firstValueFrom(
+      this.confirmarModalService.confirmar({
+        titulo: "Eliminar Vianda",
+        texto: "¿Seguro de que querés eliminar la vianda? <span>Esta acción es irreversible.</span>",
+        textoEsHtml: true,
+        critico: true
+      })
+    );
+
+    if (!confirmado) return;
+
+    this.viandaService
+      .deleteVianda(this.data.vianda.id)
+      .subscribe({
+        next: () => {
+          this.deleteSuccess();
+        },
+        error: () => {
+          this.handleDeleteError(null);
+        }
+      });
+  }
+
+  handleDeleteError(error: any) {
+    const backendMsg = error?.message || 'Error al eliminar la vianda. Es posible que tenga pedidos asociados.';
+
+    this.dialog.open(ErrorDialogModal, {
+      data: { message: backendMsg },
+      panelClass: "modal-error",
+      autoFocus: false,
+      restoreFocus: false
+    });
+  }
+
+  private deleteSuccess() {
+    const data: SnackbarData = {
+      message: 'Vianda eliminada con éxito.',
+      iconName: 'check_circle',
+    };
+
+    this.snackBar.openFromComponent(Snackbar, {
+      data,
+      duration: 3000,
+      panelClass: 'snackbar-panel',
+      verticalPosition: 'bottom',
+    });
+
+    this.dialogRef.close(true);
   }
 
   onSubmit() {

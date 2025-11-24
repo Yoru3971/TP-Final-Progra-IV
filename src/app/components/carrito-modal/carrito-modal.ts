@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ViandaResponse } from '../../model/vianda-response.model';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
-import { CarritoConfirmarModalData } from '../../model/carrito-confirmar-modal-data.model';
+import { ConfirmarModalService } from '../../services/confirmar-modal-service';
 
 @Component({
   selector: 'app-carrito-modal',
@@ -17,6 +17,7 @@ import { CarritoConfirmarModalData } from '../../model/carrito-confirmar-modal-d
 export class CarritoModal implements OnInit {
   private carritoService = inject(CarritoService);
   private changeDetectorRef = inject(ChangeDetectorRef);
+  private confirmarModalService = inject(ConfirmarModalService);
   private dialogRef = inject(MatDialogRef<CarritoModal>);
   private formBuilder = inject(FormBuilder);
 
@@ -85,7 +86,7 @@ export class CarritoModal implements OnInit {
     this.modalBloqueado = true;
     
     const confirmado = await firstValueFrom(
-      this.confirmar({
+      this.confirmarModalService.confirmar({
         titulo: "Cancelar Pedido",
         texto: "¿Seguro de que querés cancelar el pedido?\nEl carrito se va a vaciar."
       })
@@ -111,7 +112,7 @@ export class CarritoModal implements OnInit {
 
       if (!errorRevision) {
         const confirmado = await firstValueFrom(
-          this.confirmar({
+          this.confirmarModalService.confirmar({
             titulo: "Confirmar Pedido",
             texto: "¿Seguro de que querés confirmar el pedido?"
           })
@@ -137,10 +138,6 @@ export class CarritoModal implements OnInit {
     }
 
     this.modalBloqueado = false;
-  }
-
-  private confirmar(data: CarritoConfirmarModalData) {
-    return this.carritoService.abrirModalConfirmacion(data).afterClosed();
   }
 
   public cerrar() {

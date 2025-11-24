@@ -7,6 +7,9 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
+import { firstValueFrom } from 'rxjs';
+import { ConfirmarModalService } from '../../services/confirmar-modal-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-emprendimiento-update',
@@ -24,6 +27,8 @@ export class FormUpdateEmprendimiento {
   private emprendimientoService = inject(EmprendimientoService);
   private snackBar = inject(MatSnackBar);
   private cdr = inject(ChangeDetectorRef);
+  private confirmarModalService = inject(ConfirmarModalService);
+  private router = inject(Router);
 
   selectedFileName: string | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
@@ -109,6 +114,49 @@ export class FormUpdateEmprendimiento {
     if (this.fileInputRef) this.fileInputRef.value = '';
 
     this.cdr.detectChanges();
+  }
+
+  async onDelete() {
+    const confirmado = await firstValueFrom(
+      this.confirmarModalService.confirmar({
+        titulo: "Eliminar Emprendimiento",
+        texto: "¿Seguro de que querés eliminar el emprendimiento? <span>Esta acción es irreversible.</span>",
+        textoEsHtml: true,
+        critico: true
+      })
+    );
+
+    if (!confirmado) return;
+
+    this.emprendimientoService
+      .deleteEmprendimiento(this.emprendimiento.id)
+      .subscribe({
+        next: () => {
+          this.deleteSuccess();
+        },
+        error: () => {
+          this.showError(
+            'Error al eliminar el emprendimiento. Es posible que tenga pedidos asociados.'
+          );
+        }
+      });
+  }
+
+  private deleteSuccess() {
+    const data: SnackbarData = {
+      message: 'Emprendimiento eliminado con éxito.',
+      iconName: 'check_circle',
+    };
+
+    this.snackBar.openFromComponent(Snackbar, {
+      data,
+      duration: 3000,
+      panelClass: 'snackbar-panel',
+      verticalPosition: 'bottom',
+    });
+
+    this.dialogRef.close(true);
+    this.router.navigateByUrl("home");
   }
 
   onSubmit() {

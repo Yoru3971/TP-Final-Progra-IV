@@ -74,8 +74,8 @@
       </div>
     </div>
 
-    <!-- Imagen -->
-    <div class="image-upload-right">
+    <!-- Imagen, borrar -->
+    <div class="image-upload-delete-right">
 
       <!-- Imagen actual mostrada solo si NO hay nueva imagen cargada -->
       @if (emprendimiento.imagenUrl && !imagePreviewUrl) {
@@ -137,6 +137,7 @@
 
       </div>
 
+      <button class="btn btn-eliminar" (click)="onDelete()">Eliminar Emprendimiento</button>
     </div>
   </div>
 
