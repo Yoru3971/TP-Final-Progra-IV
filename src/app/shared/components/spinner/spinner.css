@@ -12,7 +12,7 @@
 .spinner {
   width: 4rem;
   height: 4rem;
-  border: 0.5rem solid #ddd;
+  border: 0.5rem solid var(--btn-disabled);
   border-top-color: var(--button-bg);
   border-radius: 50%;
   animation: spin 1s linear infinite;

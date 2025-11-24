@@ -1,7 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-route-error-component',
   imports: [],
@@ -23,7 +22,7 @@ export class RouteErrorComponent {
     }
   }
 
-  volverInicio(){
+  volverInicio() {
     this.router.navigate(['/home']);
   }
 }

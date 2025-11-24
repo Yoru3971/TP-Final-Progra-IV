@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ErrorDialogData } from '../../../model/errorMessage.model';
 
-
 @Component({
   selector: 'app-success-dialog-modal',
   imports: [
