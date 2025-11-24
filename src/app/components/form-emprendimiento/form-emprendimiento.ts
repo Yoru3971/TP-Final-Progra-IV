@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
@@ -24,6 +23,17 @@ export class FormEmprendimiento {
   private dialogRef = inject(MatDialogRef<FormEmprendimiento>);
   private snackBar = inject(MatSnackBar);
   private cdr = inject(ChangeDetectorRef); //NECESARIO PARA FORZAR RENDER
+
+  // ARRAY DE CIUDADES (Luego sera eliminado, y utilizaremos una API de ciudades, pero para
+  // esta entrega se utilizara esto)
+  public readonly CITIES: readonly string[] = [
+    'MAR DEL PLATA',
+    'MIRAMAR',
+    'NECOCHEA',
+    'BALCARCE',
+    'SANTA CLARA',
+    'PINAMAR',
+  ] as const;
 
   selectedFileName: string | null = null;
   public imagePreviewUrl: string | ArrayBuffer | null = null;
@@ -160,7 +170,7 @@ export class FormEmprendimiento {
     });
   }
 
-  cerrarModal(){
+  cerrarModal() {
     this.dialogRef.close();
   }
 }
