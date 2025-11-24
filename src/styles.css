@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
-/*Variables para los colores*/
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
@@ -266,7 +265,6 @@ app-root {
   color: var(--eliminar-color);
   font-weight: bold;
 }
-
 
 .modal-error .mat-mdc-dialog-title {
   background-color: var(--modal-bg);

@@ -17,5 +17,5 @@ export enum CategoriaVianda {
   HAMBURGUESA = 'Hamburguesas',
   POSTRE = 'Postres',
   PIZZA = 'Pizzas',
-  SANDWICH = 'Sandwiches'
+  SANDWICH = 'Sandwiches',
 }
