@@ -1,4 +1,4 @@
-import {Component,input,output,} from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
 
 @Component({
@@ -8,9 +8,10 @@ import { EmprendimientoResponse } from '../../model/emprendimiento-response.mode
   styleUrl: './emprendimiento-info.css',
 })
 export class EmprendimientoInfo {
-
   emprendimiento = input.required<EmprendimientoResponse>();
-  modo = input.required<'CLIENTE' | 'DUENO'| 'INVITADO' | 'PROHIBIDO' | 'CARGANDO'>();
+  modo = input.required<'CLIENTE' | 'DUENO' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO'>();
+  showImagenModal = false;
+  imagenModalUrl?: String;
 
   accionPrincipal = output<void>();
 
@@ -18,4 +19,15 @@ export class EmprendimientoInfo {
     this.accionPrincipal.emit();
   }
 
+  openImagenModal() {
+    const url = this.emprendimiento().imagenUrl;
+    if (!url) return;
+
+    this.imagenModalUrl = url;
+    this.showImagenModal = true;
+  }
+
+  closeImagenModal() {
+    this.showImagenModal = false;
+  }
 }

@@ -1,97 +1,174 @@
 .card-info {
-    background-color: white;
-    border-radius: 1.6rem;
-    padding: 4rem 6rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 0.3rem 1.2rem rgba(0, 0, 0, 0.15),
-                0 -0.3rem 1.2rem rgba(0, 0, 0, 0.15);
-    width: 80%;
-    box-sizing: border-box;
-    margin: 3rem auto 3rem auto;
+  background-color: white;
+  border-radius: 1.6rem;
+  padding: 4rem 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0.3rem 1.2rem rgba(0, 0, 0, 0.15), 0 -0.3rem 1.2rem rgba(0, 0, 0, 0.15);
+  width: 80%;
+  box-sizing: border-box;
+  margin: 3rem auto;
 }
 
+/* ------------------ LEFT ------------------ */
 
 .info-left {
-    display: flex;
-    align-items: center;
-    gap: 2.6rem;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 2.6rem;
+  flex: 1;
 }
+
+/* CÍRCULO */
 
 .logo-circle {
-    width: 8rem;
-    height: 8rem;
-    background-color: #d9d9d9;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+  position: relative;
 }
 
-.logo-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.logo-circle.clickable {
+  cursor: pointer;
 }
+
+/* CONTENEDOR DE IMG */
+
+.img-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s ease;
+}
+
+/* OVERLAY */
+
+.img-wrapper .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.25s ease;
+}
+
+/* ICONO LUPA */
+
+.lupa-icon {
+  font-size: 3rem;
+  color: white;
+  opacity: 0;
+  transition: 0.25s ease;
+}
+
+/* HOVER: oscurece + muestra lupa */
+
+.logo-circle.clickable:hover img {
+  filter: brightness(0.8);
+}
+
+.logo-circle.clickable:hover .overlay {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.logo-circle.clickable:hover .lupa-icon {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* ICONO PLACEHOLDER (cuando no hay imagen) */
 
 .placeholder-icon {
-    font-size: 3.8rem;
-    color: rgb(255, 255, 255);
+  font-size: 3.8rem;
+  color: rgb(180, 180, 180);
 }
+
+/* ------------------ TITLE ------------------ */
 
 .titulo {
-    font-size: 2.8rem;
-    font-weight: 500;
-    letter-spacing: 0.2rem;
-    text-transform: uppercase;
-    color: #333;
-    margin: 0;
+  font-size: 2.8rem;
+  font-weight: 500;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: #333;
+  margin: 0;
 }
 
+/* ------------------ CENTER ------------------ */
 
 .info-center {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 4rem;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 4rem;
 }
 
 .btn-accion {
-    padding: 1rem 2.6rem;
-    font-family: inherit;
-    font-size: 1.6rem;
-    font-weight: 500;
-    letter-spacing: 0.25rem;
+  padding: 1rem 2.6rem;
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0.25rem;
 }
 
+/* ------------------ RIGHT ------------------ */
+
 .info-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    text-align: right;
-    gap: 0.6rem;
-    font-size: 1.4rem;
-    color: #666;
-    line-height: 1.6;
-    text-transform: uppercase;
-    min-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 0.6rem;
+  font-size: 1.4rem;
+  color: #666;
+  line-height: 1.6;
+  text-transform: uppercase;
+  min-width: 20rem;
 }
 
 .info-right .text-icon-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.8rem;
 }
 
 .info-right .text-icon-container p {
-    margin: 0;
+  margin: 0;
 }
 
 .info-right .text-icon-container i {
-    font-size: 1.6rem;
-    color: var(--button-bg);
+  font-size: 1.6rem;
+  color: var(--button-bg);
+}
+
+/* ------------------ MODAL ------------------ */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 1rem;
 }
