@@ -24,8 +24,12 @@
         Configurar <i class="fa-solid fa-gear"></i>
       </button>
       } @else {
-      <button class="btn btn-accion" (click)="onButtonClick()">
-        Carrito <i class="fa-solid fa-cart-shopping"></i>
+      <button class="btn btn-accion btn-carrito" (click)="onButtonClick()">
+        {{ hayCarrito() ? "Carrito" : "Nuevo Carrito" }} <i class="fa-solid fa-cart-shopping"></i>
+
+        @if (hayCarrito()) {
+          <span>{{ cantidadViandasUnicasEnCarrito() }}</span>
+        }
       </button>
       }
     </div>

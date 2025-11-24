@@ -254,8 +254,8 @@ export class EmprendimientoPage {
       });
   }
 
-  obtenerCantidadEnCarrito(idVianda: number) {
-    return this.carritoService.cantidadViandaEnCarrito(idVianda);
+  obtenerCantidadEnCarrito(vianda: ViandaResponse) {
+    return this.carritoService.cantidadViandaEnCarrito(vianda);
   }
 
   handleAgregarVianda(vianda: ViandaResponse) {
