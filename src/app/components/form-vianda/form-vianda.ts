@@ -6,6 +6,9 @@ import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/err
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CategoriaVianda } from '../../shared/enums/categoriaVianda.enum';
 import { ChangeDetectorRef } from '@angular/core';
+import { SnackbarData } from '../../model/snackbar-data.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Snackbar } from '../../shared/components/snackbar/snackbar';
 
 @Component({
   selector: 'app-form-vianda',
@@ -17,6 +20,7 @@ export class FormVianda {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private viandaService = inject(ViandaService);
+  private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
   private dialogRef = inject(MatDialogRef);
   private cdr = inject(ChangeDetectorRef); // Ayuda a forzar render

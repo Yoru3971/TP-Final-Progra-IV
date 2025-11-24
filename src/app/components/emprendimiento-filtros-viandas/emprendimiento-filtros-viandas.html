@@ -1,6 +1,7 @@
 
 <div class="filtros-container">
     
+    <!-- Filtros de arriba (categorías) -->
     <div class="categorias-wrapper">
         @for (cat of categoriasDisponibles(); track cat) {
         <button 
@@ -12,8 +13,10 @@
         }
     </div>
     
+    <!-- Filtros de abajo (nombre + vegano/vegetariano/sinTACC + precios) -->
     <div class="controles-bottom">
-        
+
+        <!-- Filtrar por nombre de vianda -->
         <div class="search-box" [class.filled]="busqueda()">
             
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -28,6 +31,7 @@
             (click)="borrarBusqueda()"></i>
         </div>
         
+        <!-- Filtrar por vegano/vegetariano/sinTACC -->
         <div class="dietary-icons">
             <button 
                 class="icon-btn" 
@@ -55,6 +59,7 @@
             
         </div>
         
+        <!-- Filtrar por precios mínimo y máximo -->
         <div class="price-inputs">
             
             <div class="input-wrapper" [class.filled]="precioMin()">
