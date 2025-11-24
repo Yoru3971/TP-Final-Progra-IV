@@ -67,6 +67,16 @@
     letter-spacing: 0.25rem;
 }
 
+.btn-carrito {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    justify-content: center;
+    min-width: 15rem;
+    padding: 1rem 2rem;
+}
+
 .info-right {
     display: flex;
     flex-direction: column;

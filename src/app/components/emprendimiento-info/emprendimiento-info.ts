@@ -1,5 +1,6 @@
-import {Component,input,output,} from '@angular/core';
+import {Component,computed,inject,input,output,} from '@angular/core';
 import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
+import { CarritoService } from '../../services/carrito-service';
 
 @Component({
   selector: 'app-emprendimiento-info',
@@ -14,8 +15,15 @@ export class EmprendimientoInfo {
 
   accionPrincipal = output<void>();
 
+  private carritoService = inject(CarritoService);
+
+  public cantidadViandasUnicasEnCarrito = this.carritoService.cantidadViandasUnicas;
+
   onButtonClick() {
     this.accionPrincipal.emit();
   }
 
+  public hayCarrito = computed(() =>
+    this.modo() === 'CLIENTE' && this.carritoService.emprendimiento()?.id === this.emprendimiento().id
+  );
 }

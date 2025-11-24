@@ -59,8 +59,6 @@ export class CarritoModal implements OnInit {
         }
       }
     );
-
-    this.carritoService.eliminarViandasEnCero();
   }
 
   public sumarVianda(vianda: ViandaResponse) {
@@ -88,7 +86,7 @@ export class CarritoModal implements OnInit {
     const confirmado = await firstValueFrom(
       this.confirmarModalService.confirmar({
         titulo: "Cancelar Pedido",
-        texto: "¿Seguro de que querés cancelar el pedido?\nEl carrito se va a vaciar."
+        texto: "¿Seguro de que querés vaciar el carrito y cancelar el pedido?"
       })
     );
 
@@ -111,6 +109,8 @@ export class CarritoModal implements OnInit {
       const errorRevision = await this.carritoService.revisarViandas();
 
       if (!errorRevision) {
+        this.carritoService.eliminarViandasEnCero();
+
         const confirmado = await firstValueFrom(
           this.confirmarModalService.confirmar({
             titulo: "Confirmar Pedido",

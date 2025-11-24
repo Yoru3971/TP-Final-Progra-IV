@@ -17,7 +17,7 @@ export class ViandaService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   private baseUrls = {
-    PUBLIC: 'http://localhost:8080/api/public/viandas',
+    INVITADO: 'http://localhost:8080/api/public/viandas',
     DUENO: 'http://localhost:8080/api/dueno/viandas',
     CLIENTE: 'http://localhost:8080/api/cliente/viandas',
   };
@@ -34,7 +34,7 @@ export class ViandaService {
         return this.baseUrls.CLIENTE;
 
       default:
-        return this.baseUrls.PUBLIC;
+        return this.baseUrls.INVITADO;
     }
   }
 
@@ -89,7 +89,7 @@ export class ViandaService {
   }
 
   getViandaById(id: number) {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.getApiUrl()}/id/${id}`;
     return this.http.get<ViandaResponse>(url);
   }
 
@@ -105,7 +105,7 @@ export class ViandaService {
     const params = this.construirParams(filtros);
     
     return this.http.get<ViandaResponse[]>(
-      `${this.baseUrls.PUBLIC}/idEmprendimiento/${idEmprendimiento}`, 
+      `${this.baseUrls.INVITADO}/idEmprendimiento/${idEmprendimiento}`, 
       { params }
     );
   }
