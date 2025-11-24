@@ -30,7 +30,7 @@ export class FormViandaUpdate implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { vianda: ViandaResponse }) {}
 
-  public categorias = Object.entries(CategoriaVianda).map(([key, label]) => ({
+  public readonly categorias = Object.entries(CategoriaVianda).map(([key, label]) => ({
     key,
     label,
   }));
@@ -64,9 +64,10 @@ export class FormViandaUpdate implements OnInit {
   });
 
   ngOnInit(): void {
-    if (this.data && this.data.vianda) {
-      this.cargarDatos(this.data.vianda);
-      this.cdr.detectChanges();
+    if (this.data?.vianda) {
+      setTimeout(() => {
+        this.cargarDatos(this.data.vianda);
+      });
     }
   }
 
