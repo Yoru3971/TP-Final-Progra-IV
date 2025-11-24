@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
+/*Variables para colores, despues vamos a refactorizar para usar menos*/
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
@@ -19,6 +20,9 @@
 
   --form-shadow: 0 0.6rem 1.2rem rgba(0, 0, 0, 0.3);
   --vianda-card-shadow: 0 0.5rem 1.2rem rgba(0, 0, 0, 0.15);
+
+  --alerta-bg: #fff4e0;
+  --alerta-text-color: #7a4a00;
 
   --form-bg: #f9f8f8;
   --input-bg: #f9f8f8;
@@ -167,6 +171,7 @@ app-root {
 
 .form-field {
   width: 100%;
+  min-height: 8rem;
   display: flex;
   flex-direction: column;
 }

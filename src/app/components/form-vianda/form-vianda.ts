@@ -14,17 +14,14 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './form-vianda.css',
 })
 export class FormVianda {
-
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private viandaService = inject(ViandaService);
   private dialog = inject(MatDialog);
   private dialogRef = inject(MatDialogRef);
-  private cdr = inject(ChangeDetectorRef); //agregado para forzar render
+  private cdr = inject(ChangeDetectorRef); // Ayuda a forzar render
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { idEmprendimiento: number }
-  ) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { idEmprendimiento: number }) {}
 
   public categorias = Object.entries(CategoriaVianda).map(([key, label]) => ({
     key,
@@ -63,7 +60,7 @@ export class FormVianda {
       this.imagePreviewUrl = null;
       this.formVianda.get('image')?.setValue(null);
       this.formVianda.get('image')?.markAsTouched();
-      this.cdr.detectChanges(); //asegura que se vea el cambio
+      this.cdr.detectChanges(); // Asegura que se vea el cambio
       return;
     }
 
@@ -73,7 +70,6 @@ export class FormVianda {
     reader.onload = (e: any) => {
       this.imagePreviewUrl = e.target.result;
 
-      //evita que necesites "clic afuera"
       this.cdr.detectChanges();
 
       const img = new Image();
@@ -94,7 +90,7 @@ export class FormVianda {
         }
 
         this.formVianda.get('image')?.markAsTouched();
-        this.cdr.detectChanges(); //actualización final
+        this.cdr.detectChanges(); // Actualización final
       };
 
       img.src = e.target.result;
@@ -113,7 +109,7 @@ export class FormVianda {
       this.fileInputRef.value = '';
     }
 
-    this.cdr.detectChanges(); //asegura desaparición inmediata
+    this.cdr.detectChanges(); // Asegura desaparición inmediata
   }
 
   onSubmit() {
@@ -143,7 +139,7 @@ export class FormVianda {
     this.viandaService.createVianda(formData).subscribe({
       next: () => {
         this.loading = false;
-        this.dialogRef.close(true);             //  AGREGAR snackbar de éxito
+        this.dialogRef.close(true);
       },
       error: (err) => {
         this.loading = false;
@@ -155,8 +151,7 @@ export class FormVianda {
     });
   }
 
-  cerrarModal(){
+  cerrarModal() {
     this.dialogRef.close();
   }
 }
-

@@ -11,7 +11,7 @@
   padding: 1rem;
 }
 
-.card-container:hover{
+.card-container:hover {
   border: solid 0.2rem var(--link-color);
 }
 

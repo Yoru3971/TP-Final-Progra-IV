@@ -22,10 +22,10 @@ export class FormEmprendimiento {
   private authService = inject(AuthService);
   private dialogRef = inject(MatDialogRef<FormEmprendimiento>);
   private snackBar = inject(MatSnackBar);
-  private cdr = inject(ChangeDetectorRef); //NECESARIO PARA FORZAR RENDER
+  private cdr = inject(ChangeDetectorRef); // Necesario para forzar render
 
-  // ARRAY DE CIUDADES (Luego sera eliminado, y utilizaremos una API de ciudades, pero para
-  // esta entrega se utilizara esto)
+  // Arreglo de ciudades temporal
+  // Luego sera eliminado, y utilizaremos una API de ciudades
   public readonly CITIES: readonly string[] = [
     'MAR DEL PLATA',
     'MIRAMAR',
@@ -76,7 +76,7 @@ export class FormEmprendimiento {
     reader.onload = (e: any) => {
       this.imagePreviewUrl = e.target.result;
 
-      //esto evita que necesites "hacer click afuera" para ver el preview
+      // Esto evita la necesidad de "hacer click afuera" para ver el preview
       this.cdr.detectChanges();
 
       // Validar dimensiones
@@ -98,7 +98,7 @@ export class FormEmprendimiento {
         }
 
         this.formEmprendimiento.get('image')?.markAsTouched();
-        this.cdr.detectChanges(); //asegura actualización final
+        this.cdr.detectChanges(); // Asegura actualización final
       };
 
       img.src = e.target.result;
@@ -117,7 +117,7 @@ export class FormEmprendimiento {
       this.fileInputRef.value = '';
     }
 
-    this.cdr.detectChanges(); //asegura que desaparezca el preview inmediatamente
+    this.cdr.detectChanges(); // Asegura que desaparezca el preview inmediatamente
   }
 
   onSubmit() {
