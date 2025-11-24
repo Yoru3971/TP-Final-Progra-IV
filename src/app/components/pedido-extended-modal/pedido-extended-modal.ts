@@ -21,10 +21,11 @@ import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/err
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { DatosUsuarioModal } from '../datos-usuario-modal/datos-usuario-modal';
+import { A11yModule } from "@angular/cdk/a11y";
 
 @Component({
   selector: 'app-pedido-extended-modal',
-  imports: [MatButtonModule, MatIconModule, DatePipe, FormsModule, CommonModule],
+  imports: [MatButtonModule, MatIconModule, DatePipe, FormsModule, CommonModule, A11yModule],
   templateUrl: './pedido-extended-modal.html',
   styleUrl: './pedido-extended-modal.css',
 })
@@ -167,6 +168,7 @@ export class PedidoExtendedModal implements OnInit {
 
   verDatosUsuario(usuario: UsuarioResponse) {
     this.dialog.open(DatosUsuarioModal, {
+      data: usuario,
       autoFocus: false,
       restoreFocus: false,
     });
