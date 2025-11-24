@@ -144,3 +144,65 @@
         transform: translateX(0);
     }
 }
+
+/* -----------  Si no levanta el emprendimiento  ----------- */
+
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+    padding: 2rem;
+    color: #4b5563;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.icon-wrapper i {
+    font-size: 4.4rem;
+    color: #d1d5db;
+    margin-bottom: 2.4rem;
+}
+
+.not-found-container h1 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #1f2937;
+    margin: 0 0 1rem 0;
+    letter-spacing: -0.025em;
+}
+
+.not-found-container p {
+    font-size: 1.4rem;
+    color: #9ca3af;
+    max-width: 40rem;
+    margin: 1rem 0 2.5rem 0;
+    line-height: 1.6;
+}
+
+.btn-home {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background-color: #ff9f43;
+    color: white;
+    border: none;
+    padding: 1.2rem 2rem;
+    border-radius: 5rem;
+    font-family: inherit;
+    font-size: 1.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-home:hover {
+    background-color: #e68a35;
+    transform: translateY(-3px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

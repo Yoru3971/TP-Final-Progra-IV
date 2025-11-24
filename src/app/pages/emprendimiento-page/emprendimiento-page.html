@@ -55,8 +55,21 @@
     </div>
 
 } @else {
-<div class="estado-vacio">
-    <p>Esto está un poco vacío... deberías crear una vianda</p>     <!-- REVISAR qué debería mostrar si no hay emprendimiento? -->
-    <i class="fa-solid fa-arrow-left"></i>
-</div>
+    <div class="not-found-container">
+        
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-store-slash"></i>
+        </div>
+
+        <h1>¡Ups! No encontramos el emprendimiento</h1>
+        <p>
+            Parece que el emprendimiento que buscas no existe, 
+            fue eliminado o el enlace es incorrecto.
+        </p>
+
+        <button routerLink="/home" class="btn-home">
+            <i class="fa-solid fa-arrow-left"></i>
+            Volver al inicio
+        </button>
+    </div>
 }

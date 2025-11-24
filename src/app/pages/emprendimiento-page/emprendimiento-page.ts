@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { ViandaService } from '../../services/vianda-service';
@@ -23,7 +23,12 @@ export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGAND
 
 @Component({
   selector: 'app-emprendimiento-page',
-  imports: [EmprendimientoInfo, EmprendimientoFiltrosViandas, ViandaCardDetallada],
+  imports: [
+    EmprendimientoInfo,
+    EmprendimientoFiltrosViandas,
+    ViandaCardDetallada,
+    RouterLink
+  ],
   templateUrl: './emprendimiento-page.html',
   styleUrl: './emprendimiento-page.css',
 })
