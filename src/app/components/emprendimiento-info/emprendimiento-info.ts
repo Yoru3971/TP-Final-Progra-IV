@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output} from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
 import { CarritoService } from '../../services/carrito-service';
 
@@ -20,8 +20,10 @@ export class EmprendimientoInfo {
 
   public cantidadViandasUnicasEnCarrito = this.carritoService.cantidadViandasUnicas;
 
-  public hayCarrito = computed(() =>
-    this.modo() === 'CLIENTE' && this.carritoService.emprendimiento()?.id === this.emprendimiento().id
+  public hayCarrito = computed(
+    () =>
+      this.modo() === 'CLIENTE' &&
+      this.carritoService.emprendimiento()?.id === this.emprendimiento().id
   );
 
   onButtonClick() {

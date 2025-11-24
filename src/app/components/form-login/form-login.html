@@ -1,47 +1,42 @@
 <form class="form-login" [formGroup]="formLogin" (ngSubmit)="login()">
+  <!-- Email -->
+  <div class="form-field">
+    <label for="email" class="form-label">Email</label>
+    <input formControlName="email" type="email" class="form-input" />
+  </div>
 
-    <!-- Email -->
-    <div class="form-field">
-        <label for="email" class="form-label">Email</label>
-        <input
-        formControlName="email"
-        type="email"
+  <!-- Password -->
+  <div class="form-field password-field">
+    <label for="password" class="form-label">Password</label>
+
+    <div class="input-with-icon">
+      <input
+        formControlName="password"
+        [type]="showPassword ? 'text' : 'password'"
         class="form-input"
-        />
+      />
+      <button type="button" class="toggle-eye" (click)="togglePassword()">
+        <i class="fa-solid {{ showPassword ? 'fa-eye-slash' : 'fa-eye' }}"></i>
+      </button>
     </div>
+  </div>
 
-    <!-- Password -->
-    <div class="form-field password-field">
-        <label for="password" class="form-label">Password</label>
+  <!-- Checkbox : "Recordarme" -->
+  <div class="checkbox-container">
+    <label>
+      <input type="checkbox" formControlName="recordarme" />
+      Recordarme
+    </label>
+  </div>
 
-        <div class="input-with-icon">
-            <input
-                formControlName="password"
-                [type]="showPassword ? 'text' : 'password'"
-                class="form-input"
-            />
-            <button type="button" class="toggle-eye" (click)="togglePassword()">
-                <i class="fa-solid {{ showPassword ? 'fa-eye-slash' : 'fa-eye' }}"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- Checkbox : "Recordarme" -->
-    <div class="checkbox-container">
-        <label>
-        <input type="checkbox" formControlName="recordarme" />
-        Recordarme
-        </label>
-    </div>
-
-    <!-- Boton : "Ingresar" -->
-    <button
-        type="submit"
-        class="btn"
-        [disabled]="!formLogin.valid"
-        [class.disabled]="!formLogin.valid">
-        <!-- Si el form no es valido, se deshabilita el boton, funcional y estéticamente -->
-        Ingresar
-    </button>
-
+  <!-- Boton : "Ingresar" -->
+  <button
+    type="submit"
+    class="btn"
+    [disabled]="!formLogin.valid"
+    [class.disabled]="!formLogin.valid"
+  >
+    <!-- Si el form no es valido, se desabilita el boton, funcional y estéticamente -->
+    Ingresar
+  </button>
 </form>

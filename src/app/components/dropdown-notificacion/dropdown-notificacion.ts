@@ -16,7 +16,7 @@ export class DropdownNotificacion {
   router = inject(Router);
 
   isOpen = signal(false);
-  // REVISAR Esto es para que desaparezca el numerito de notificaciones, pero hay que ver como manejarlo bien, porque al recargar se resetea esto
+  // REVISAR Esto es para que desaparezca el numerito de notificaciones, al recargar la pagina se resetea
   firstOpen = signal(true);
 
   private elementRef = inject(ElementRef);
@@ -32,7 +32,6 @@ export class DropdownNotificacion {
 
     this.isOpen.set(newState);
 
-    // Si abre por primera vez -> limpiar badge
     if (newState && this.firstOpen()) {
       this.firstOpen.set(false);
     }

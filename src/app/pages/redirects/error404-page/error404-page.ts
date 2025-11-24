@@ -8,7 +8,7 @@ import { RouteErrorComponent } from '../../../shared/components/route-error-comp
   styleUrl: './error404-page.css',
 })
 export class Error404Page {
-  imgURl = "error404.png";
-  titulo = "ERROR 404: NOT FOUND";
-  mensaje = "PARECE QUE NO EXISTE LA RUTA A LA QUE QUERES ACCEDER";
+  imgURl = 'error404.png';
+  titulo = 'ERROR 404: NOT FOUND';
+  mensaje = 'PARECE QUE NO EXISTE LA RUTA A LA QUE QUERES ACCEDER';
 }

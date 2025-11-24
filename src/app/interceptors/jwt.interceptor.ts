@@ -5,12 +5,9 @@ import { AuthService } from '../services/auth-service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-
   constructor(private auth: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    // obtengo el token (puede estar en local o session storage)
     const token = this.auth.getToken();
 
     if (token) {
@@ -22,6 +19,6 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(cloned);
     }
 
-    return next.handle(req); 
+    return next.handle(req);
   }
 }

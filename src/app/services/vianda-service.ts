@@ -38,7 +38,8 @@ export class ViandaService {
     }
   }
 
-  //Crear vianda (DUENO)
+  // CRUD
+
   createVianda(formData: FormData) {
     if (this.authService.currentUserRole() !== 'DUENO') {
       throw new Error('Solo los dueños pueden crear viandas');
@@ -47,7 +48,6 @@ export class ViandaService {
     return this.http.post<ViandaCreate>(this.baseUrls.DUENO, formData);
   }
 
-  //Actualizar vianda (DUENO)
   updateVianda(id: number, dto: ViandaUpdate): Observable<any> {
     if (this.authService.currentUserRole() !== 'DUENO') {
       throw new Error('Solo los dueños pueden actualizar viandas');
@@ -56,29 +56,27 @@ export class ViandaService {
     const url = `${this.baseUrls.DUENO}/id/${id}`;
     return this.http.put<any>(url, dto);
   }
-  //Actualizar imagen vianda (DUENO)
+
   updateImagenVianda(id: number, file: File): Observable<ViandaResponse> {
     if (this.authService.currentUserRole() !== 'DUENO') {
       throw new Error('Solo los dueños pueden actualizar imágenes');
     }
 
     const url = `${this.baseUrls.DUENO}/id/${id}/imagen`;
-    
-    // Creamos el FormData manualmente aquí, ya que solo enviamos el archivo
+
     const formData = new FormData();
-    formData.append('image', file); 
+    formData.append('image', file);
 
     return this.http.put<ViandaResponse>(url, formData);
   }
 
-  // Eliminar vianda (DUENO)
   deleteVianda(id: number): Observable<ViandaDeleteResponse> {
     if (this.authService.currentUserRole() !== 'DUENO') {
       throw new Error('Solo los dueños pueden eliminar viandas');
     }
 
     const url = `${this.baseUrls.DUENO}/id/${id}`;
-    
+
     return this.http.delete<ViandaDeleteResponse>(url);
   }
 
@@ -96,34 +94,43 @@ export class ViandaService {
     return this.http.get<ViandaResponse[]>(url);
   }
 
-    // -----------------  Métodos de Emprendimiento Page  -----------------
+  // -----------------  Métodos de Emprendimiento Page  -----------------
 
   // El invitado solo ve las viandas disponibles (+ filtros)
-  getViandasPublico(idEmprendimiento: number, filtros?: FiltrosViandas): Observable<ViandaResponse[]> {
+  getViandasPublico(
+    idEmprendimiento: number,
+    filtros?: FiltrosViandas
+  ): Observable<ViandaResponse[]> {
     const params = this.construirParams(filtros);
-    
+
     return this.http.get<ViandaResponse[]>(
-      `${this.baseUrls.INVITADO}/idEmprendimiento/${idEmprendimiento}`, 
+      `${this.baseUrls.INVITADO}/idEmprendimiento/${idEmprendimiento}`,
       { params }
     );
   }
 
   // El cliente ve lo mismo que el invitado (pero el  back lo diferencia)
-  getViandasCliente(idEmprendimiento: number, filtros?: FiltrosViandas): Observable<ViandaResponse[]> {
+  getViandasCliente(
+    idEmprendimiento: number,
+    filtros?: FiltrosViandas
+  ): Observable<ViandaResponse[]> {
     const params = this.construirParams(filtros);
-    
+
     return this.http.get<ViandaResponse[]>(
-      `${this.baseUrls.CLIENTE}/idEmprendimiento/${idEmprendimiento}`, 
+      `${this.baseUrls.CLIENTE}/idEmprendimiento/${idEmprendimiento}`,
       { params }
     );
   }
 
   // El dueño ve todas sus viandas (+ filtros)
-  getViandasDueno(idEmprendimiento: number, filtros?: FiltrosViandas): Observable<ViandaResponse[]> {
+  getViandasDueno(
+    idEmprendimiento: number,
+    filtros?: FiltrosViandas
+  ): Observable<ViandaResponse[]> {
     const params = this.construirParams(filtros);
 
     return this.http.get<ViandaResponse[]>(
-      `${this.baseUrls.DUENO}/idEmprendimiento/${idEmprendimiento}`, 
+      `${this.baseUrls.DUENO}/idEmprendimiento/${idEmprendimiento}`,
       { params }
     );
   }
@@ -140,7 +147,8 @@ export class ViandaService {
       if (filtros.esSinTacc) params = params.set('esSinTacc', true);
       if (filtros.precioMin != null) params = params.set('precioMin', filtros.precioMin);
       if (filtros.precioMax != null) params = params.set('precioMax', filtros.precioMax);
-      if (filtros.estaDisponible != null) params = params.set('estaDisponible', filtros.estaDisponible);
+      if (filtros.estaDisponible != null)
+        params = params.set('estaDisponible', filtros.estaDisponible);
     }
 
     return params;

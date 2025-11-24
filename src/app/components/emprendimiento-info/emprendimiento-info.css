@@ -16,8 +16,9 @@
 .info-left {
   display: flex;
   align-items: center;
-  gap: 2.6rem;
+  gap: 2.8rem;
   flex: 1;
+  min-width: 0;
 }
 
 /* CÍRCULO */
@@ -32,6 +33,7 @@
   align-items: center;
   background: #eee;
   position: relative;
+  flex-shrink: 0;
 }
 
 .logo-circle.clickable {
@@ -105,7 +107,8 @@
   text-transform: uppercase;
   color: #333;
   margin: 0;
-  margin-left: 3rem;
+  line-height: 1.2;
+  overflow-wrap: break-word;
 }
 
 /* ------------------ CENTER ------------------ */
@@ -126,13 +129,13 @@
 }
 
 .btn-carrito {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    gap: 0.75rem;
-    justify-content: center;
-    min-width: 15rem;
-    padding: 1rem 2rem;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  justify-content: center;
+  min-width: 15rem;
+  padding: 1rem 2rem;
 }
 
 /* ------------------ RIGHT ------------------ */

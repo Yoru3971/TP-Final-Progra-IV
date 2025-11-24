@@ -1,128 +1,117 @@
 .app-footer {
-    align-items: center;
-    background-color: var(--bg-color);
-    border-top: 1px solid var(--footer-border-color);
-    box-shadow: 0 -0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.1), 0 -0.2rem 0.4rem -0.2rem rgba(0, 0, 0, 0.1);
-    color: var(--text-color);
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    padding-top: 0.75rem;
-    width: 100%;
+  align-items: center;
+  background-color: var(--bg-color);
+  border-top: 1px solid var(--footer-border-color);
+  box-shadow: 0 -0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.1),
+    0 -0.2rem 0.4rem -0.2rem rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: 0.75rem;
+  width: 100%;
 }
 
 .app-footer .footer-section {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8rem;
-    width: 100rem;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8rem;
+  width: 100rem;
 }
 
 .footer-contact-info,
 .footer-quick-links {
-    flex: 1;
-    line-height: 1.4;
-    text-align: left;
+  flex: 1;
+  line-height: 1.4;
+  text-align: left;
 }
 
-/* titulos de las secciones */
-
 .app-footer .footer-section h3 {
-    color: var(--text-color);
-    display: inline-block;
-    font-size: 1.8rem;
-    margin-bottom: 0.4rem;
-    margin-top: 0;
+  color: var(--text-color);
+  display: inline-block;
+  font-size: 1.8rem;
+  margin-bottom: 0.4rem;
+  margin-top: 0;
 }
 
 .footer-section .footer-logo-container {
-    align-items: center;
-    align-self: center;
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    gap: 1rem;
+  align-items: center;
+  align-self: center;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  gap: 1rem;
 }
 
-/* estilos logo */
-
 .footer-section .footer-logo-container .footer-logo {
-    height: auto;
-    max-width: 10rem;
+  height: auto;
+  max-width: 10rem;
 }
 
 .footer-section .footer-logo-container .footer-name-container {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    margin-top: 0;
-    text-align: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 0;
+  text-align: center;
 }
 
 .footer-section .footer-logo-container .footer-name-container .footer-name {
-    font-size: 2.4rem;
-    font-style: italic;
-    font-weight: bold;
-    margin: 0;
+  font-size: 2.4rem;
+  font-style: italic;
+  font-weight: bold;
+  margin: 0;
 }
-
-/* estilos eslogan y contacto */
 
 .footer-section .footer-logo-container .footer-name-container .footer-eslogan {
-    color: var(--link-color);
-    font-size: 1.9rem;
-    font-style: italic;
-    margin: 0.8rem -3rem 0 -3rem; /* acomodar en funcion del eslogan */
+  color: var(--link-color);
+  font-size: 1.9rem;
+  font-style: italic;
+  margin: 0.8rem -3rem 0 -3rem;
 }
-
-/* contacto */
 
 .footer-section .footer-contact-info p {
-    color: var(--text-color);
-    font-size: 1.35rem;
-    margin: 0;
+  color: var(--text-color);
+  font-size: 1.35rem;
+  margin: 0;
 }
 
-/* enlaces */
-
 address p {
-    font-style: normal;
+  font-style: normal;
 }
 
 .footer-section a {
-    color: var(--link-color);
-    font-size: 1.35rem;
-    padding-bottom: 0.8rem;
-    text-decoration: none;
-    transition: color 0.3s ease;
+  color: var(--link-color);
+  font-size: 1.35rem;
+  padding-bottom: 0.8rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .footer-section a:hover {
-    color: var(--link-hover-color);
-    text-decoration: underline;
+  color: var(--link-hover-color);
+  text-decoration: underline;
 }
 
-/* barra inferior */
-
 .app-footer .footer-bottom-bar {
-    align-items: center;
-    background-color: var(--footer-bottom-bg-color);
-    border-top: 1px solid var(--footer-bottom-border-color);
-    color: var(--footer-bottom-text-color);
-    display: flex;
-    font-size: 1.2rem;
-    justify-content: center;
-    padding: 0.75rem 2rem;
-    text-align: center;
-    width: 100%;
+  align-items: center;
+  background-color: var(--footer-bottom-bg-color);
+  border-top: 1px solid var(--footer-bottom-border-color);
+  color: var(--footer-bottom-text-color);
+  display: flex;
+  font-size: 1.2rem;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  text-align: center;
+  width: 100%;
 }
 
 .app-footer .footer-bottom-bar a {
-    color: var(--link-color);
+  color: var(--link-color);
 }
 
 .app-footer .footer-bottom-bar .separador {
-    margin: 0 0.5rem;
+  margin: 0 0.5rem;
 }

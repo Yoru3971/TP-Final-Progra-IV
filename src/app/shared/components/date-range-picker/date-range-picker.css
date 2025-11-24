@@ -1,6 +1,3 @@
-/* =========================================================
-   CONTENEDOR PRINCIPAL (toggle + campo)
-========================================================= */
 .picker-container {
   display: flex;
   align-items: center;
@@ -8,9 +5,6 @@
   height: 4rem;
 }
 
-/* =========================================================
-   TOGGLE (Día único / Rango)
-========================================================= */
 .switch-toggle {
   display: flex;
   align-items: center;
@@ -24,7 +18,6 @@
   display: none;
 }
 
-/* base del switch */
 .slider {
   width: 48px;
   height: 24px;
@@ -34,7 +27,6 @@
   transition: 0.25s;
 }
 
-/* circulito */
 .slider::before {
   content: '';
   position: absolute;
@@ -47,7 +39,6 @@
   transition: 0.25s;
 }
 
-/* activado */
 input:checked + .slider {
   background: var(--button-bg);
 }
@@ -56,7 +47,6 @@ input:checked + .slider::before {
   transform: translateX(24px);
 }
 
-/* texto fijo — evita que cambie el ancho */
 .toggle-label {
   font-size: 1.3rem;
   color: var(--input-text);
@@ -64,17 +54,13 @@ input:checked + .slider::before {
   display: inline-block;
 }
 
-/* =========================================================
-   MAT-FORM-FIELD — ALTURA + ANCHO + OUTLINE LIMPIO
-========================================================= */
 .picker-field {
-  width: 28rem !important; /* mismo ancho SIEMPRE */
-  height: 4rem !important; /* misma altura que los selects */
+  width: 28rem !important;
+  height: 4rem !important;
   display: flex;
   align-items: center;
 }
 
-/* ELIMINAMOS el padding gigantesco del wrapper */
 .picker-field .mat-mdc-text-field-wrapper {
   height: 100% !important;
   padding: 0 !important;
@@ -82,7 +68,6 @@ input:checked + .slider::before {
   align-items: center;
 }
 
-/* alinea el contenido al centro */
 .picker-field .mat-mdc-form-field-flex {
   height: 100%;
   display: flex;
@@ -90,7 +75,6 @@ input:checked + .slider::before {
   padding: 0 0.8rem !important;
 }
 
-/* input limpio y fino */
 .picker-field input {
   height: 100% !important;
   padding: 0 !important;

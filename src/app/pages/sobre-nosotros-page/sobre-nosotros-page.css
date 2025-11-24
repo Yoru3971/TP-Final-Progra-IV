@@ -30,7 +30,7 @@ p {
   border-radius: 50%;
   border: 1px solid var(--sobre-nosotros-card-border-color);
   display: flex;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .sobre-nosotros-card-icon-container i {

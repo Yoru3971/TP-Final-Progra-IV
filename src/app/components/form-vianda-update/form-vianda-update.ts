@@ -30,14 +30,11 @@ export class FormViandaUpdate implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { vianda: ViandaResponse }) {}
 
-  // La estructura de categorías es correcta para iterar en el HTML
   public readonly categorias = Object.entries(CategoriaVianda).map(([key, label]) => ({
     key,
     label,
   }));
 
-  // El categoriaMap ya no es necesario para el envío de datos, pero se mantiene si se usa en otra parte.
-  // Si no se usa en ninguna otra parte del componente, se podría eliminar.
   private categoriaMap: Map<string, string> = new Map(
     Object.entries(CategoriaVianda).map(([key, label]) => [label, key])
   );
@@ -47,7 +44,6 @@ export class FormViandaUpdate implements OnInit {
   selectedFile: File | null = null;
   selectedFileName: string | null = null;
 
-  //imagen para previsualizar nuevo archivo seleccionado
   newImagePreviewUrl: string | ArrayBuffer | null = null;
   currentImageUrl: string | null = null;
 
@@ -76,8 +72,6 @@ export class FormViandaUpdate implements OnInit {
   }
 
   cargarDatos(vianda: ViandaResponse) {
-    // Al parchear, asumimos que vianda.categoria viene como la DESCRIPCIÓN
-    // (ej: "Menú del día") debido al @JsonValue en el backend.
     this.formVianda.patchValue({
       nombreVianda: vianda.nombreVianda,
       categoria: String(vianda.categoria),
@@ -87,7 +81,7 @@ export class FormViandaUpdate implements OnInit {
       esVegetariano: vianda.esVegetariano,
       esSinTacc: vianda.esSinTacc,
       estaDisponible: vianda.estaDisponible,
-    }); // Guardamos la URL actual para mostrarla si no suben nada nuevo
+    });
 
     this.currentImageUrl = vianda.imagenUrl || null;
   }
@@ -106,20 +100,17 @@ export class FormViandaUpdate implements OnInit {
 
     const reader = new FileReader();
     reader.onload = (e: any) => {
-      // Previsualización temporal
       const tempUrl = e.target.result;
 
       const img = new Image();
       img.onload = () => {
         if (img.width <= this.maxWidth && img.height <= this.maxHeight) {
-          // Imagen válida
           this.selectedFile = file;
           this.selectedFileName = file.name;
           this.newImagePreviewUrl = tempUrl;
-          this.formVianda.patchValue({ image: null }); // Valor dummy para resetear validez si hubiera
+          this.formVianda.patchValue({ image: null });
           this.formVianda.get('image')?.markAsTouched();
         } else {
-          // Imagen inválida
           this.resetImageSelection();
           this.dialog.open(ErrorDialogModal, {
             data: { message: `La imagen no debe superar ${this.maxWidth}x${this.maxHeight}px` },
@@ -140,7 +131,7 @@ export class FormViandaUpdate implements OnInit {
     this.formVianda.get('image')?.setValue(null);
     if (this.fileInputRef) this.fileInputRef.value = '';
     this.cdr.detectChanges();
-  } // Quita la imagen NUEVA seleccionada, volviendo a la original
+  }
 
   removeNewImage() {
     this.resetImageSelection();
@@ -204,8 +195,6 @@ export class FormViandaUpdate implements OnInit {
     const formValues = this.formVianda.value;
     const viandaId = this.data.vianda.id;
 
-    // Al usar el label en el HTML, formValues.categoria es ahora la DESCRIPCIÓN (string)
-    // que el backend espera.
     const updateDTO: ViandaUpdate = {
       nombreVianda: formValues.nombreVianda!,
       categoria: formValues.categoria as any,
@@ -215,29 +204,14 @@ export class FormViandaUpdate implements OnInit {
       esVegetariano: !!formValues.esVegetariano,
       esSinTacc: !!formValues.esSinTacc,
       estaDisponible: !!formValues.estaDisponible,
-    }; // Actualizar Datos
+    };
 
     this.viandaService.updateVianda(viandaId, updateDTO).subscribe({
       next: () => {
-        // Si hay una nueva imagen seleccionada, procedemos a la llamada 2
         if (this.selectedFile) {
           this.uploadImage(viandaId);
         } else {
-          // Si no hay imagen nueva, terminamos aquí
           this.loading = false;
-
-          const snackbarData: SnackbarData = {
-            message: 'Vianda actualizada con éxito',
-            iconName: 'check_circle',
-          };
-
-          this.snackBar.openFromComponent(Snackbar, {
-            duration: 3000,
-            verticalPosition: 'bottom',
-            panelClass: 'snackbar-panel',
-            data: snackbarData,
-          });
-
           this.dialogRef.close(true);
         }
       },
@@ -249,14 +223,13 @@ export class FormViandaUpdate implements OnInit {
   }
 
   uploadImage(id: number) {
-    // Actualizar Imagen
     this.viandaService.updateImagenVianda(id, this.selectedFile!).subscribe({
       next: () => {
         this.loading = false;
         this.dialogRef.close(true);
       },
       error: (err) => {
-        this.loading = false; // Aunque falló la imagen, los datos se guardaron. Avisamos al usuario.
+        this.loading = false;
         this.dialog.open(ErrorDialogModal, {
           data: { message: 'Datos actualizados, pero error al subir la imagen.' },
         });

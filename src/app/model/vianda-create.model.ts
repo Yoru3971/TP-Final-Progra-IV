@@ -1,8 +1,8 @@
 export interface ViandaCreate {
   nombreVianda: string;
-  categoria: string;        
+  categoria: string;
   descripcion: string;
-  image: File | null;             
+  image: File | null;
   precio: number;
   esVegano: boolean;
   esVegetariano: boolean;

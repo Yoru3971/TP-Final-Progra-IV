@@ -1,4 +1,4 @@
 export interface SnackbarData {
-    message: string;
-    iconName?: string;
+  message: string;
+  iconName?: string;
 }

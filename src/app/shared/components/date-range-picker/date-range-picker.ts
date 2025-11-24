@@ -16,7 +16,7 @@ import { DatePipe } from '@angular/common';
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
   ],
   templateUrl: './date-range-picker.html',
   styleUrls: ['./date-range-picker.css'],
@@ -33,30 +33,30 @@ export class DateRangePickerComponent {
   readonly displayLabel = computed(() => {
     const start = this.startDate();
     const end = this.endDate();
-    
+
     if (!start) return 'Seleccionar fecha';
-    
+
     const startStr = start.toLocaleDateString('es-AR');
-    
+
     if (!this.isRangeMode()) return startStr;
-    
+
     const endStr = end ? end.toLocaleDateString('es-AR') : '...';
     return `${startStr} — ${endStr}`;
   });
 
   toggleMode() {
-    this.isRangeMode.update(v => !v);
-    
+    this.isRangeMode.update((v) => !v);
+
     // Lógica de transición inteligente
     const currentStart = this.startDate();
-    
+
     if (this.isRangeMode()) {
       // Al pasar a Rango: Mantenemos la fecha actual como INICIO, borramos el FIN
       // para obligar al usuario a elegir el final.
       this.endDate.set(null);
     } else {
       // Al pasar a Único: Si había rango, nos quedamos solo con el inicio.
-      this.endDate.set(currentStart); 
+      this.endDate.set(currentStart);
       this.emitirSiCompleto(); // Re-emitir como día único
     }
   }
@@ -90,4 +90,3 @@ export class DateRangePickerComponent {
     }
   }
 }
-

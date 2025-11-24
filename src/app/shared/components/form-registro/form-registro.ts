@@ -23,8 +23,7 @@ export class FormRegistro {
   private dialog = inject(MatDialog);
   showPassword = false;
   showConfirmPassword = false;
-    private snackBar = inject(MatSnackBar);
-
+  private snackBar = inject(MatSnackBar);
 
   //Como este form va dentro de una pagina (componente padre) que define el rol desde la URL, lo recibo por Input, luego desde la pagina padre le paso el rol correspondiente.
   @Input() rolUsuario: string = '';
@@ -65,8 +64,6 @@ export class FormRegistro {
       })
       .subscribe({
         next: () => {
-          
-
           const snackbarData: SnackbarData = {
             message: 'Cuenta creada con exito! Inicia sesion',
             iconName: 'check_circle',
@@ -89,12 +86,11 @@ export class FormRegistro {
 
           this.dialog.open(ErrorDialogModal, {
             data: {
-              message: backendMsg, // Pasa el mensaje al diálogo
+              message: backendMsg,
             },
-            panelClass: 'modal-error'
+            panelClass: 'modal-error',
           });
 
-          // Resetear la contraseña para que el usuario intente de nuevo
           this.formRegistro.get('password')?.reset();
           this.formRegistro.get('confirmarPassword')?.reset();
           this.formRegistro.get('aceptarTerminos')?.setValue(false);
@@ -104,7 +100,10 @@ export class FormRegistro {
   }
 
   openBasesCondiciones() {
-    const dialogRef = this.dialog.open(BasesCondicionesModal, { disableClose: true, panelClass:'modal-scrolleable' });
+    const dialogRef = this.dialog.open(BasesCondicionesModal, {
+      disableClose: true,
+      panelClass: 'modal-scrolleable',
+    });
 
     dialogRef.afterClosed().subscribe((resultado) => {
       if (resultado === true) {
@@ -115,8 +114,11 @@ export class FormRegistro {
     });
   }
 
-  openNormasComunidad(){
-    const dialogRef = this.dialog.open(NormasComunidadModal, { disableClose: true, panelClass:'modal-scrolleable' });
+  openNormasComunidad() {
+    const dialogRef = this.dialog.open(NormasComunidadModal, {
+      disableClose: true,
+      panelClass: 'modal-scrolleable',
+    });
 
     dialogRef.afterClosed().subscribe((resultado) => {
       if (resultado === true) {

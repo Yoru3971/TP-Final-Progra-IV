@@ -49,8 +49,8 @@ export class EliminarCuentaPaso2 {
       },
       error: (err) => {
         const backendMsg =
-            err.error?.message || err.error?.error || 'Error desconocido al eliminar la cuenta';
-            
+          err.error?.message || err.error?.error || 'Error desconocido al eliminar la cuenta';
+
         this.mostrarError(backendMsg);
       },
     });
@@ -61,11 +61,11 @@ export class EliminarCuentaPaso2 {
   }
 
   private mostrarError(message: string) {
-      this.dialog.open(ErrorDialogModal, {
-        data: { message },
-        panelClass: 'modal-error',
-        autoFocus: false,
-        restoreFocus: false,
-      });
-    }
+    this.dialog.open(ErrorDialogModal, {
+      data: { message },
+      panelClass: 'modal-error',
+      autoFocus: false,
+      restoreFocus: false,
+    });
+  }
 }

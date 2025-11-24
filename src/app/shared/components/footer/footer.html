@@ -1,38 +1,39 @@
 <footer class="app-footer">
-    <section class="footer-section">
-        <div class="footer-logo-container">
-            <img src="logo-miviandita-removebg-preview.png" alt="MiViandita-Logo" class="footer-logo">
+  <section class="footer-section">
+    <div class="footer-logo-container">
+      <img src="logo-miviandita-removebg-preview.png" alt="MiViandita-Logo" class="footer-logo" />
 
-            <div class="footer-name-container">
-                <p class="footer-name">MiViandita</p>
-                <p class="footer-eslogan">¡Tu vianda a un click!</p>
-            </div> 
-        </div>
-
-        <div class="footer-contact-info">
-            <h3>Contacto</h3>
-
-            <address>
-                <p>Email: <a href="mailto:mivianditautn@gmail.com">mivianditautn@gmail.com</a></p>
-                <p>Teléfono: <a href="tel:+5490001234567">+54 9 000 123-4567</a></p>
-            </address>
-        </div>
-
-        <div class="footer-quick-links">
-            <h3>Enlaces Rápidos</h3><br>
-
-            @if (esInvitado()) {
-                <a routerLink="/registro/dueno">Registrate como Dueño</a><br>
-            }
-
-            <a routerLink="/normas-comunidad">Normas de la Comunidad</a><br>
-            <a routerLink="/bases-condiciones">Bases y Condiciones</a>
-        </div>
-    </section>
-
-    <div class="footer-bottom-bar">
-        <span>&copy; MiViandita 2025</span>
-        <span class="separador"> | </span>
-        <span>Desarrollado por <a routerLink="/sobre-nosotros">MiViandita Team</a></span>
+      <div class="footer-name-container">
+        <p class="footer-name">MiViandita</p>
+        <p class="footer-eslogan">¡Tu vianda a un click!</p>
+      </div>
     </div>
+
+    <div class="footer-contact-info">
+      <h3>Contacto</h3>
+
+      <address>
+        <p>Email: <a href="mailto:mivianditautn@gmail.com">mivianditautn@gmail.com</a></p>
+        <p>Teléfono: <a href="tel:+5490001234567">+54 9 000 123-4567</a></p>
+      </address>
+    </div>
+
+    <div class="footer-quick-links">
+      <h3>Enlaces Rápidos</h3>
+      <br />
+
+      @if (esInvitado()) {
+      <a routerLink="/registro/dueno">Registrate como Dueño</a><br />
+      }
+
+      <a routerLink="/normas-comunidad">Normas de la Comunidad</a><br />
+      <a routerLink="/bases-condiciones">Bases y Condiciones</a>
+    </div>
+  </section>
+
+  <div class="footer-bottom-bar">
+    <span>&copy; MiViandita 2025</span>
+    <span class="separador"> | </span>
+    <span>Desarrollado por <a routerLink="/sobre-nosotros">MiViandita Team</a></span>
+  </div>
 </footer>

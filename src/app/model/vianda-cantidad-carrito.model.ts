@@ -1,6 +1,6 @@
-import { ViandaResponse } from "./vianda-response.model";
+import { ViandaResponse } from './vianda-response.model';
 
 export interface ViandaCantidadCarrito {
-    vianda: ViandaResponse;
-    cantidad: number;
+  vianda: ViandaResponse;
+  cantidad: number;
 }

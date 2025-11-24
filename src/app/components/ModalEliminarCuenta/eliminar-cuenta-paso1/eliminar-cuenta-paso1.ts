@@ -9,12 +9,11 @@ import { EliminarCuentaPaso2 } from '../eliminar-cuenta-paso2/eliminar-cuenta-pa
   styleUrl: './eliminar-cuenta-paso1.css',
 })
 export class EliminarCuentaPaso1 {
-
   private dialog = inject(MatDialog);
   private dialogRef = inject(MatDialogRef<EliminarCuentaPaso1>);
 
   confirmar() {
-    this.dialogRef.close(); 
+    this.dialogRef.close();
     this.dialog.open(EliminarCuentaPaso2);
   }
 

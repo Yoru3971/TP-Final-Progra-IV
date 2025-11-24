@@ -12,7 +12,7 @@ export class EmprendimientoService {
   private viandaService = inject(ViandaService);
   public allEmprendimientos = signal<EmprendimientoResponse[]>([]);
 
-  //señal publica que siempre refleja los emprendimientos filtrados por ciudad
+  //Siempre refleja los emprendimientos filtrados por ciudad
   public emprendimientos = computed(() => {
     const ciudadActual = (this.cityFilter.city() ?? '').toUpperCase();
 
@@ -42,7 +42,6 @@ export class EmprendimientoService {
     }
   }
 
-  //función para cargar todos los emprendimientos
   //obtiene los emprendimientos desde el backend y lo guarda en un signal
   fetchEmprendimientos() {
     const url = this.getApiUrl();
@@ -55,13 +54,12 @@ export class EmprendimientoService {
         })
       )
       .subscribe((result) => {
-        // evita NG0100
         setTimeout(() => this.allEmprendimientos.set(result));
       });
   }
 
   public emprendimientosConViandas = computed(() => {
-    const emps = this.emprendimientos(); // ya está filtrado por ciudad
+    const emps = this.emprendimientos();
     return emps;
   });
 
@@ -86,7 +84,8 @@ export class EmprendimientoService {
     return this.http.get<EmprendimientoResponse>(`${url}/id/${id}`);
   }
 
-  //metodos del dueño, CRUD
+  //CRUD
+
   createEmprendimiento(formData: FormData) {
     if (this.authService.currentUserRole() !== 'DUENO') {
       throw new Error('Solo dueños pueden crear emprendimientos');
@@ -96,7 +95,6 @@ export class EmprendimientoService {
       .pipe(tap((nuevo) => this.allEmprendimientos.update((list) => [...list, nuevo])));
   }
 
-  //borrar un emprendimiento propio
   deleteEmprendimiento(id: number) {
     if (this.authService.currentUserRole() !== 'DUENO') {
       throw new Error('Solo dueños pueden eliminar emprendimientos');
@@ -112,7 +110,6 @@ export class EmprendimientoService {
     return emprendimiento ? emprendimiento.dueno.id === usuarioId : false;
   }
 
-  //----- Metodos update -----
   //Actualizar los campos del emprendimiento
   updateEmprendimiento(id: number, dto: any) {
     if (this.authService.currentUserRole() !== 'DUENO') {

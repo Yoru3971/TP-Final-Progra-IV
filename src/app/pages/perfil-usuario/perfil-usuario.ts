@@ -20,7 +20,6 @@ export class PerfilUsuario implements OnInit {
   private authService = inject(AuthService);
   private dialog = inject(MatDialog);
 
-
   usuario = signal<UsuarioResponse | null>(null);
 
   ngOnInit(): void {
@@ -30,11 +29,11 @@ export class PerfilUsuario implements OnInit {
       },
       error: (err) => {
         const backendMsg =
-            err.error?.message || err.error?.error || 'Error desconocido con el usuario';
-        
+          err.error?.message || err.error?.error || 'Error desconocido con el usuario';
+
         this.authService.handleLogout();
         this.dialog.open(ErrorDialogModal, {
-          data: { message: backendMsg},
+          data: { message: backendMsg },
           panelClass: 'modal-error',
           autoFocus: false,
           restoreFocus: false,
