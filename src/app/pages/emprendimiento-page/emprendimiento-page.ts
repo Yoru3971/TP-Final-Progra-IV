@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { ViandaService } from '../../services/vianda-service';
@@ -18,12 +18,18 @@ import { FormVianda } from '../../components/form-vianda/form-vianda';
 import { FormUpdateEmprendimiento } from '../../components/form-emprendimiento-update/form-emprendimiento-update';
 import { CarritoService } from '../../services/carrito-service';
 import { FormViandaUpdate } from '../../components/form-vianda-update/form-vianda-update';
+import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 
 export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
 
 @Component({
   selector: 'app-emprendimiento-page',
-  imports: [EmprendimientoInfo, EmprendimientoFiltrosViandas, ViandaCardDetallada],
+  imports: [
+    EmprendimientoInfo,
+    EmprendimientoFiltrosViandas,
+    ViandaCardDetallada,
+    RouterLink
+  ],
   templateUrl: './emprendimiento-page.html',
   styleUrl: './emprendimiento-page.css',
 })
@@ -57,7 +63,19 @@ export class EmprendimientoPage {
         if (!id) return of(null);
         return this.emprendimientoService.getEmprendimientoById(id).pipe(
           catchError((err) => {
-            console.error('Error cargando emprendimiento', err);
+
+            const backendMsg =
+                        err.error?.message || err.error?.error || 'Error desconocido al cargar emprendimiento';
+            
+            console.error(backendMsg);
+  
+            this.dialog.open(ErrorDialogModal, {
+              data: { message: backendMsg },
+              panelClass: 'modal-error',
+              autoFocus: false,
+              restoreFocus: false,
+            });
+
             return of(null);
           })
         );
@@ -72,7 +90,7 @@ export class EmprendimientoPage {
     const userRole = this.authService.currentUserRole();
 
     if (userRole === 'DUENO') {
-      return emp.dueno.id === userId ? 'DUENO' : 'PROHIBIDO';   //  AGREGAR page de error 403 si intenta acceder siendo dueño ajeno
+      return emp.dueno.id === userId ? 'DUENO' : 'PROHIBIDO';
     }
 
     if (userRole === 'CLIENTE') {
@@ -101,7 +119,7 @@ export class EmprendimientoPage {
 
   abrirModalEditarEmprendimiento() {
     this.dialog
-      .open(FormUpdateEmprendimiento, {
+      .open(FormUpdateEmprendimiento, {              //  REVISAR errores que tira este modal (dentro del form)
         width: '100rem',
         panelClass: 'form-modal',
         autoFocus: false,
@@ -126,7 +144,7 @@ export class EmprendimientoPage {
 
   abrirSnackbarLoginRequerido() {
     const snackbarData: SnackbarData = {
-      message: 'Inicie sesión para realizar realizar pedidos',
+      message: 'Inicie sesión para realizar pedidos',
       iconName: 'error'
     }
 
@@ -180,7 +198,8 @@ export class EmprendimientoPage {
 
         return request$.pipe(
           catchError((err) => {
-            console.error('Error cargando viandas (posiblemente sin resultados)', err);
+            //  Ya está contemplado lo que se muestra cuando no hay viandas (lo dejo como warning por las dudas)
+            console.warn('Error cargando viandas (posiblemente sin resultados)', err);
             return of([] as ViandaResponse[]);
           })
         );
