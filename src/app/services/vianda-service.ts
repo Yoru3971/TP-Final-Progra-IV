@@ -82,8 +82,6 @@ export class ViandaService {
     return this.http.delete<ViandaDeleteResponse>(url);
   }
 
-  //Implementado en emprendimientoService / card
-  //REVISAR Por ahora va asi, mas adelante evaluar si hace falta usar signals para cuando hagamos POST/PUT/DELETE
   getViandas() {
     return this.http.get<ViandaResponse[]>(this.apiUrl);
   }
