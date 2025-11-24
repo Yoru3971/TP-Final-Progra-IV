@@ -1,43 +1,39 @@
 <div class="card-info">
-
-    <div class="info-left">
-        <div class="logo-circle">
-        @if (emprendimiento().imagenUrl) {
-            <img [src]="emprendimiento().imagenUrl" alt="Logo">
-        } @else {
-            <i class="fa-solid fa-store placeholder-icon"></i>
-        }
-        </div>
-        <h1 class="titulo">{{ emprendimiento().nombreEmprendimiento }}</h1>
+  <div class="info-left">
+    <div class="logo-circle">
+      @if (emprendimiento().imagenUrl) {
+      <img [src]="emprendimiento().imagenUrl" alt="Logo" />
+      } @else {
+      <i class="fa-solid fa-store placeholder-icon"></i>
+      }
     </div>
+    <h1 class="titulo">{{ emprendimiento().nombreEmprendimiento }}</h1>
+  </div>
 
-    <div class="info-center">
-        @if (modo() === 'DUENO') {
-        <button class="btn btn-accion" (click)="onButtonClick()">
-            Configurar <i class="fa-solid fa-gear"></i>
-        </button>
-        } @else {
-        <button class="btn btn-accion" (click)="onButtonClick()">
-            Carrito <i class="fa-solid fa-cart-shopping"></i>
-        </button>
-        }
+  <div class="info-center">
+    @if (modo() === 'DUENO') {
+    <button class="btn btn-accion" (click)="onButtonClick()">
+      Configurar <i class="fa-solid fa-gear"></i>
+    </button>
+    } @else {
+    <button class="btn btn-accion" (click)="onButtonClick()">
+      Carrito <i class="fa-solid fa-cart-shopping"></i>
+    </button>
+    }
+  </div>
+
+  <div class="info-right">
+    <div class="text-icon-container">
+      <p class="direccion">{{ emprendimiento().direccion }}</p>
+      <i class="fa-solid fa-location-dot"></i>
     </div>
-
-    <div class="info-right">
-        <div class="text-icon-container">
-            <p class="direccion">{{ emprendimiento().direccion }}</p>
-            <i class="fa-solid fa-location-dot"></i>
-        </div>
-        <div class="text-icon-container">
-            <p class="telefono">{{ emprendimiento().telefono }}</p>
-            <i class="fa-solid fa-phone"></i>
-        </div>
-        <div class="text-icon-container">
-            <p class="dueno">{{ emprendimiento().dueno.nombreCompleto }}</p>
-            <i class="fa-solid fa-user"></i>
-        </div>
-        
-        
+    <div class="text-icon-container">
+      <p class="telefono">{{ emprendimiento().telefono }}</p>
+      <i class="fa-solid fa-phone"></i>
     </div>
-
+    <div class="text-icon-container">
+      <p class="dueno">{{ emprendimiento().dueno.nombreCompleto }}</p>
+      <i class="fa-solid fa-user"></i>
+    </div>
+  </div>
 </div>

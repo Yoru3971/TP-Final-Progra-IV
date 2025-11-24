@@ -43,6 +43,7 @@
 .btn-close-icon:hover {
   background: color-mix(in srgb, var(--inverse-text-color) 90%, var(--text-color));
   color: color-mix(in srgb, var(--carrito-title-bg-color) 80%, var(--text-color));
+  cursor: pointer;
 }
 
 .carrito-layout {
