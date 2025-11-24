@@ -143,6 +143,23 @@
   text-align: center;
 }
 
+.carrito-lista-vacia {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.carrito-lista-vacia p {
+  color: color-mix(in srgb, var(--text-color) 40%, white);
+  font-size: 2.4rem;
+  line-height: 2.6rem;
+  margin: 0;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
 .right-panel {
   width: 40%;
   min-width: 36rem;
