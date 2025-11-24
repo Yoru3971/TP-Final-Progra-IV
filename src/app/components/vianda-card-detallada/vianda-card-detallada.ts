@@ -1,9 +1,9 @@
 import { Component, input, output } from '@angular/core';
 import { ViandaResponse } from '../../model/vianda-response.model';
 import { PageMode } from '../../pages/emprendimiento-page/emprendimiento-page';
-import { IconTacc } from "../../shared/components/iconos/icon-tacc/icon-tacc";
-import { IconVegan } from "../../shared/components/iconos/icon-vegan/icon-vegan";
-import { IconVeggie } from "../../shared/components/iconos/icon-veggie/icon-veggie";
+import { IconTacc } from '../../shared/components/iconos/icon-tacc/icon-tacc';
+import { IconVegan } from '../../shared/components/iconos/icon-vegan/icon-vegan';
+import { IconVeggie } from '../../shared/components/iconos/icon-veggie/icon-veggie';
 
 @Component({
   selector: 'app-vianda-card-detallada',
@@ -12,10 +12,9 @@ import { IconVeggie } from "../../shared/components/iconos/icon-veggie/icon-vegg
   styleUrl: './vianda-card-detallada.css',
 })
 export class ViandaCardDetallada {
-
   vianda = input.required<ViandaResponse>();
   modo = input.required<PageMode>();
-  
+
   // La cantidad la manda el carrito (creo)
   cantidad = input<number>(0);
 

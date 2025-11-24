@@ -3,7 +3,6 @@ import { EmprendimientoConViandas } from '../../model/emprendimiento-con-viandas
 import { ViandaCard } from '../vianda-card/vianda-card';
 import { RouterLink } from '@angular/router';
 
-
 @Component({
   selector: 'app-emprendimiento-card',
   imports: [ViandaCard, RouterLink],
@@ -11,7 +10,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './emprendimiento-card.css',
 })
 export class EmprendimientoCard {
-
   @Input() emprendimiento!: EmprendimientoConViandas;
 
   getallViandas() {

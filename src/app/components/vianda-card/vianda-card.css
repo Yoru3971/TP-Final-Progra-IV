@@ -1,5 +1,3 @@
-/*REVISAR no se por que se ve ese espacio blanco entre img e info ni como sacarlo*/
-
 .vianda-card {
   width: 24rem;
   height: 24rem;
@@ -21,7 +19,7 @@
   flex-grow: 1;
   overflow: hidden;
   margin: 0;
-  padding: 0; 
+  padding: 0;
   border: none;
 }
 
@@ -42,7 +40,6 @@
   border-radius: 0;
   flex-shrink: 0;
 }
-
 
 .info-bottom span {
   font-size: 1.6rem;

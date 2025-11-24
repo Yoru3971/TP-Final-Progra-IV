@@ -1,6 +1,6 @@
 .modal-container {
   width: 52rem;
-  background:var(--bg-color);
+  background: var(--bg-color);
   border-radius: 1.6rem;
   box-shadow: var(--form-shadow);
   overflow: hidden;
@@ -46,9 +46,9 @@
   margin-top: 1rem;
   padding: 1.2rem 1.6rem;
   border-left: 0.4rem solid var(--header-icon-color);
-  background: #fff4e0;
+  background: var(--alerta-bg);
   border-radius: 0.6rem;
-  color: #7a4a00;
+  color: var(--alerta-text-color);
   font-size: 1.4rem;
 }
 

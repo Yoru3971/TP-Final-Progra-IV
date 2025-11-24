@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './normas-comunidad-page.html',
   styleUrl: './normas-comunidad-page.css',
 })
-export class NormasComunidadPage {
-
-}
+export class NormasComunidadPage {}

@@ -6,13 +6,9 @@ import { Spinner } from './shared/components/spinner/spinner';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,
-    Header,
-    Footer,
-    Spinner
-  ],
+  imports: [RouterOutlet, Header, Footer, Spinner],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('TP-Final');

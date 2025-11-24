@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { SearchService } from '../../services/search-service';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -22,7 +22,7 @@ export class SearchBar {
   public onInput(event: any) {
     const value: string = event.target.value;
 
-    this.hayTextoEnBuscador.set(value !== "");
+    this.hayTextoEnBuscador.set(value !== '');
 
     this.searchService.buscar(value);
   }
@@ -43,7 +43,7 @@ export class SearchBar {
   }
 
   public vaciarBuscador(elemento: HTMLInputElement) {
-    elemento.value = "";
+    elemento.value = '';
     this.hayTextoEnBuscador.set(false);
   }
 }

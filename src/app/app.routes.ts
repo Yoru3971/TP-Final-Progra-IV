@@ -18,7 +18,6 @@ import { BasesCondicionesPage } from './pages/bases-condiciones-page/bases-condi
 import { Error418Page } from './pages/redirects/error418-page/error418-page';
 
 export const routes: Routes = [
-
   /* -------------------- HOME -------------------- */
   { path: 'home', component: HomeRouter },
 
@@ -36,7 +35,11 @@ export const routes: Routes = [
   // Invitado → puede ver
   // Cliente → puede ver
   // Dueño → solo si es suyo
-  { path: 'emprendimiento/:id', component: EmprendimientoPage, canActivate: [emprendimientoDuenoGuardFn] },
+  {
+    path: 'emprendimiento/:id',
+    component: EmprendimientoPage,
+    canActivate: [emprendimientoDuenoGuardFn],
+  },
 
   /* -------------------- ERRORES -------------------- */
   { path: 'error/403', component: Error403Page },
@@ -44,11 +47,11 @@ export const routes: Routes = [
   { path: 'error/418', component: Error418Page },
 
   /* -------------------- PÁGINAS VARIAS -------------------- */
-  { path: 'sobre-miviandita', component: SobreMivianditaPage, },
-  { path: 'sobre-nosotros', component: SobreNosotrosPage, },
-  { path: 'recuperar-password', component: RecuperarPasswordPage, },
-  { path: 'normas-comunidad', component: NormasComunidadPage, },
-  { path: 'bases-condiciones', component: BasesCondicionesPage,  },
+  { path: 'sobre-miviandita', component: SobreMivianditaPage },
+  { path: 'sobre-nosotros', component: SobreNosotrosPage },
+  { path: 'recuperar-password', component: RecuperarPasswordPage },
+  { path: 'normas-comunidad', component: NormasComunidadPage },
+  { path: 'bases-condiciones', component: BasesCondicionesPage },
 
   /* -------------------- REDIRECTS BASICOS -------------------- */
   { path: '', redirectTo: '/home', pathMatch: 'full' },

@@ -7,7 +7,7 @@ import { LoadingService } from '../services/loading-service';
 export class LoadingInterceptor implements HttpInterceptor {
   private loading = inject(LoadingService);
 
-  //Duracion en milisegundos
+  //Duracion en milisegundos del spiner
   private MIN_DURATION = 300;
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

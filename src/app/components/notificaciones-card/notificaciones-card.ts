@@ -3,12 +3,9 @@ import { NotificacionService } from '../../services/notificacion-service';
 import { NotificacionSingleCardComponent } from '../../shared/components/notificacion-single-card/notificacion-single-card';
 import { DateRangePickerComponent } from '../../shared/components/date-range-picker/date-range-picker';
 
-
 @Component({
   selector: 'app-notificaciones-card',
-  imports: [NotificacionSingleCardComponent,
-    DateRangePickerComponent
-  ],
+  imports: [NotificacionSingleCardComponent, DateRangePickerComponent],
   templateUrl: './notificaciones-card.html',
   styleUrl: './notificaciones-card.css',
 })
@@ -19,7 +16,7 @@ export class NotificacionesCard implements OnInit {
 
   ngOnInit() {
     this.notiService.fetchNotificaciones();
-    setTimeout(() => this.cargando = false, 300);
+    setTimeout(() => (this.cargando = false), 300);
   }
 
   get lista() {

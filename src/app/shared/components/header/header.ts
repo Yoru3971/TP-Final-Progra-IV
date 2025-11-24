@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, EventEmitter, inject, input, Output, signal } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
 import { AuthService, UserRole } from '../../../services/auth-service';
 import { CitySelector } from '../../../components/city-selector/city-selector';
 import { SearchBar } from '../../../components/search-bar/search-bar';
@@ -10,12 +10,7 @@ import { ConfirmarLogout } from '../logout-modal/logout-modal';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink,
-    CommonModule,
-    CitySelector,
-    SearchBar,
-    DropdownNotificacion
-  ],
+  imports: [RouterLink, CommonModule, CitySelector, SearchBar, DropdownNotificacion],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -24,36 +19,30 @@ export class Header {
   private dialog = inject(MatDialog);
   public role = this.authService.currentUserRole;
 
-  // agrego un  signal que me diga si tengo algo logueado para mostrar
-  // o no, el boton de perfil o logout, o sino login
-  isLoggedIn = computed( () => this.role() !== 'INVITADO');
+  isLoggedIn = computed(() => this.role() !== 'INVITADO');
 
-  //Recibo la lista de notificaciones (solo para logueados), DEBERIA SER SIGNAL?
   notifications = input<string[]>([]);
-  
+
   @Output() loginClicked = new EventEmitter<void>();
   @Output() profileClicked = new EventEmitter<void>();
   @Output() searchSubmitted = new EventEmitter<string>();
 
   notificationMenuOpen = signal(false);
 
-  //Muestro o oculto el menu de notificaciones
   toggleNotificationMenu() {
-    this.notificationMenuOpen.update(open => !open)
+    this.notificationMenuOpen.update((open) => !open);
   }
 
-  //Emito el evento para que el componente padre muestre el login
   onLogin() {
     this.loginClicked.emit();
   }
 
-  //llamada al servicio de Auth para cerrar sesion
   onLogout() {
     this.dialog.open(ConfirmarLogout);
   }
 
   onSearch(event: Event, searchInput: HTMLInputElement) {
-    event.preventDefault(); //evito que la pagina se recargue
+    event.preventDefault(); 
     if (searchInput.value) {
       this.searchSubmitted.emit(searchInput.value);
     }

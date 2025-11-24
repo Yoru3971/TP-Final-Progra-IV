@@ -11,19 +11,17 @@ import { PedidoRequest } from '../model/pedido-request.model';
   providedIn: 'root',
 })
 export class PedidosService {
-  // Lista completa de pedidos del backend
   public allPedidos = signal<PedidoResponse[]>([]);
   public filtroFechas = signal<{ desde: Date; hasta: Date } | null>(null);
   public filtroEstado = signal<EstadoPedido | null>(null);
   public filtroEmprendimiento = signal<string | null>(null);
 
-  //capturo los emprendimientos unicos cuando cambian los pedidos
   public emprendimientosUnicos = computed(() => {
     const pedidos = this.allPedidos();
 
     const nombres = pedidos.map((p) => p.emprendimiento.nombreEmprendimiento);
 
-    return Array.from(new Set(nombres)); // elimina duplicados
+    return Array.from(new Set(nombres));
   });
 
   // Pedidos ordenados DESC por fechaEntrega (más reciente primero)
@@ -74,19 +72,12 @@ export class PedidosService {
   }
 
   createPedido(pedido: PedidoRequest) {
-    this.http
-      .post<PedidoResponse>(this.getApiUrl(), pedido)
-      .subscribe(
-        pedidoResponse => {
-          this.allPedidos.update(
-            pedidos => [...pedidos, pedidoResponse]
-          )
-        }
-      );
+    this.http.post<PedidoResponse>(this.getApiUrl(), pedido).subscribe((pedidoResponse) => {
+      this.allPedidos.update((pedidos) => [...pedidos, pedidoResponse]);
+    });
   }
 
-  //función para cargar todos los pedidos
-  //obtiene los pedidos desde el backend y lo guarda en un signal
+  //Obtiene los pedidos desde el backend y lo guarda en un signal
   fetchPedidos() {
     const url = this.getApiUrl();
 

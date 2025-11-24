@@ -89,7 +89,7 @@ export class CambiarPasswordModal {
     this.showNueva = !this.showNueva;
   }
 
-  toggleRepetirNueva(){
+  toggleRepetirNueva() {
     this.showRepetirNueva = !this.showRepetirNueva;
   }
 

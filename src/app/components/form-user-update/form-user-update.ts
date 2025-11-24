@@ -30,10 +30,8 @@ export class FormUserUpdate {
     telefono: ['', [Validators.required, Validators.pattern(/^\d{8,15}$/)]],
   });
 
-  // Inicializo el form si recibí data del diálogo
   constructor() {
     if (this.data) {
-      // patea el form con los valores actuales
       this.form.patchValue({
         nombreCompleto: this.data.nombreCompleto,
         email: this.data.email,
