@@ -191,6 +191,7 @@ app-root {
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
+  font-family: inherit;
   transition: 0.2s ease;
   text-align: center;
 }
