@@ -18,6 +18,10 @@
       }
     </div>
 
+    <div>
+      <h1 class="titulo">{{ emprendimiento().nombreEmprendimiento }}</h1>
+    </div>
+
     <div class="info-center">
       @if (modo() === 'DUENO') {
       <button class="btn btn-accion" (click)="onButtonClick()">
