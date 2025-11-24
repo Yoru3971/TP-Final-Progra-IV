@@ -39,6 +39,8 @@
 }
 
 .btns-container .btn {
+  background-color: var(--precio-color);
+  color: var(--inverse-text-color);
   width: 14rem !important;
   padding: 1.2rem 0 !important;
   font-size: 1.6rem !important;
@@ -46,12 +48,6 @@
   font-weight: bold !important;
 }
 
-.btn-cancelar {
-  background: var(--estado-rechazado);
-  color: var(--inverse-text-color);
-}
-
-.btn-confirmar {
-  background: var(--precio-color);
-  color: var(--inverse-text-color);
+.btns-container .btn-rojo {
+  background-color: var(--estado-rechazado);
 }

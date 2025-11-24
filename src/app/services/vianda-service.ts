@@ -6,6 +6,7 @@ import { ViandaCreate } from '../model/vianda-create.model';
 import { FiltrosViandas } from '../model/filtros-viandas.model';
 import { Observable } from 'rxjs';
 import { ViandaUpdate } from '../model/vianda-update.model';
+import { ViandaDeleteResponse } from '../model/vianda-delete-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -68,6 +69,17 @@ export class ViandaService {
     formData.append('image', file); 
 
     return this.http.put<ViandaResponse>(url, formData);
+  }
+
+  // Eliminar vianda (DUENO)
+  deleteVianda(id: number): Observable<ViandaDeleteResponse> {
+    if (this.authService.currentUserRole() !== 'DUENO') {
+      throw new Error('Solo los dueños pueden eliminar viandas');
+    }
+
+    const url = `${this.baseUrls.DUENO}/id/${id}`;
+    
+    return this.http.delete<ViandaDeleteResponse>(url);
   }
 
   //Implementado en emprendimientoService / card
