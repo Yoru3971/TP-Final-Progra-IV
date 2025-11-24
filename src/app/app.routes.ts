@@ -15,6 +15,7 @@ import { SobreMivianditaPage } from './pages/sobre-miviandita-page/sobre-miviand
 import { RecuperarPasswordPage } from './pages/recuperar-password-page/recuperar-password-page';
 import { NormasComunidadPage } from './pages/normas-comunidad-page/normas-comunidad-page';
 import { BasesCondicionesPage } from './pages/bases-condiciones-page/bases-condiciones-page';
+import { Error418Page } from './pages/redirects/error418-page/error418-page';
 
 export const routes: Routes = [
 
@@ -40,6 +41,7 @@ export const routes: Routes = [
   /* -------------------- ERRORES -------------------- */
   { path: 'error/403', component: Error403Page },
   { path: 'error/404', component: Error404Page },
+  { path: 'error/418', component: Error418Page },
 
   /* -------------------- PÁGINAS VARIAS -------------------- */
   { path: 'sobre-miviandita', component: SobreMivianditaPage, },
