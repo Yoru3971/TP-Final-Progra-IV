@@ -11,5 +11,5 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 export class RegisterPageDueno {
   private route = inject(ActivatedRoute);
 
-  rolUsuario = (this.route.snapshot.data['rol'] || 'DUENO'); //El rol viene de la URL, si no está definido, por defecto es 'DUENO'
+  rolUsuario = this.route.snapshot.data['rol'] || 'DUENO'; //El rol viene de la URL, si no está definido, por defecto es 'DUENO'
 }
