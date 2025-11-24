@@ -32,7 +32,11 @@
       <div class="form-field">
         <label class="form-label">Ciudad</label>
 
-        <select formControlName="ciudad" class="form-input">
+        <select 
+          formControlName="ciudad" 
+          class="form-input"
+          [class.placeholder.text]="formEmprendimiento.get('ciudad')?.value === null"
+        >
           <option value="" disabled>Seleccione una ciudad</option>
 
           @for (city of CITIES; track city) {
