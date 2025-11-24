@@ -1,4 +1,5 @@
-<div class="card">
+
+<div class=" card"[class.unavailable]="!vianda().estaDisponible">
   <div class="card-image-container">
     @if (vianda().imagenUrl) {
     <img [src]="vianda().imagenUrl" [alt]="vianda().nombreVianda" class="product-image" />
@@ -17,6 +18,11 @@
                 <img [src]="vianda().imagenUrl" [alt]="vianda().nombreVianda" class="product-image">
             } @else {
                 <img class="no-image" src="logo-miviandita-removebg-preview.png" alt="Imagen de vianda no disponible">
+            }
+            @if (!vianda().estaDisponible) {
+                <div class="status-badge">
+                    NO DISPONIBLE
+                </div>
             }
         </div>
 
