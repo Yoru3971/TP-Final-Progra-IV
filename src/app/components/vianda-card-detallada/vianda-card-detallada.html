@@ -5,8 +5,7 @@
             @if (vianda().imagenUrl) {
                 <img [src]="vianda().imagenUrl" [alt]="vianda().nombreVianda" class="product-image">
             } @else {
-                <!-- AGREGAR qué muestro si no carga la imagen -->
-                
+                <img class="no-image" src="logo-miviandita-removebg-preview.png" alt="Imagen de vianda no disponible">
             }
         </div>
 
@@ -49,44 +48,33 @@
 
             </div>
 
-            <!-- DERECHA: Acciones (Dueño vs Cliente/Invitado) -->
             <div>
             @if (esDueno()) {
-                <!-- MODO DUEÑO: Botón Editar (Lápiz) -->
+                <!-- DUEÑO ve botón Editar -->
                 <button 
                     (click)="editar.emit()"
                     class="btn-edit"
-                    title="Editar plato">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>
-                    </svg>
+                    title="Editar vianda">
+                        <i class="fa-solid fa-pen"></i>
                 </button>
 
             } @else {
-                <!-- MODO CLIENTE / INVITADO: Selector de Cantidad (+ -) -->
+                <!-- INVITADO y CLIENTE ven botones agregar/sacar vianda -->
                 <div class="quantity-selector">
                 
-                    <!-- Botón Menos -->
                     <button 
                     (click)="quitar.emit()"
                     class="btn-qty"
                     [disabled]="cantidad() <= 0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14"/>
-                    </svg>
+                        <i class="fa-solid fa-minus"></i>
                     </button>
 
-                    <!-- Número -->
                     <span class="qty-value">{{ cantidad() }}</span>
 
-                    <!-- Botón Más -->
                     <button 
                     (click)="agregar.emit()"
-                    class="btn-qty"
-                    >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14"/><path d="M12 5v14"/>
-                    </svg>
+                    class="btn-qty">
+                        <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
                 }

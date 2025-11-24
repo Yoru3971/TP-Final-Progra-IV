@@ -3,8 +3,8 @@
     display: block;
     height: 100%;
     width: 100%;
-    max-width: 24rem; 
-    margin: 0 auto; 
+    max-width: 30rem;
+    margin: 0 auto;
 }
 
 .card {
@@ -14,22 +14,21 @@
     background-color: #ffffff;
     border-radius: 1.5rem;
     overflow: hidden;
-    border: 1px solid #f3f4f6;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 0.1rem solid #e0e0e0;
     transition: all 0.3s ease;
-    min-height: 28rem; 
 }
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1.2rem 2rem -0.5rem rgba(0, 0, 0, 0.1);
     border-color: #e5e7eb;
 }
 
 
 .card-image-container {
     position: relative;
-    height: 13rem;
+    width: 100%;
+    aspect-ratio: 4 / 3;
     background-color: #f9fafb;
     display: flex;
     align-items: center;
@@ -42,6 +41,16 @@
     height: 100%;
     object-fit: cover; 
     transition: transform 0.5s ease;
+}
+
+.no-image {
+    width: 85%;
+    height: 85%;
+    filter: grayscale(100%);
+    transition: transform 0.5s ease;
+    object-fit: contain;
+    padding: 1rem;
+    opacity: 0.6;
 }
 
 .card:hover .product-image {
@@ -60,7 +69,7 @@
 .card-content {
     flex: 1;
     background-color: #ffffff;
-    padding: 1.25rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -71,17 +80,16 @@
 .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
+    align-items: center;
+    gap: 1rem;
 }
 
 .card-title {
     font-weight: 700;
-    color: #1f2937;
-    font-size: 1rem;
+    color: #3b3a3a;
+    font-size: 1.4rem;
     text-transform: uppercase;
-    letter-spacing: 0.025em;
+    letter-spacing: 0.05rem;
     line-height: 1.3;
     margin: 0;
 
@@ -93,22 +101,25 @@
 }
 
 .card-price {
-    color: #4b5563;
-    font-size: 1.125rem;
-    font-weight: 600;
+    color: #f48d2d;
+    font-size: 1.3rem;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
     white-space: nowrap;
-    background-color: #f3f4f6;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.5rem;
+    background-color: #fff7ed;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.6rem;
+    cursor: default;
 }
 
 
 .card-description {
     color: #9ca3af;
-    font-size: 0.8rem;
+    font-size: 1.4rem;
     font-weight: 500;
-    line-height: 1.4;
-    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    margin: 1.5rem 0.4rem;
     
     display: -webkit-box;
     line-clamp: 3;
@@ -122,19 +133,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: auto;
+    margin-top: 1rem;
 }
 
 .diet-icons {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
+    margin-top: 0.8rem;
+    margin-left: 0.5rem;
 }
 
 
 .icon-badge {
-    width: 2rem;
-    height: 2rem;
+    width: 2.2rem;
+    height: 2.2rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -145,71 +158,63 @@
 }
 
 
-.icon-badge.vegano { color: #16a34a; background-color: #dcfce7; }
-.icon-badge.vegetariano { color: #65a30d; background-color: #ecfccb; }
-.icon-badge.sintacc { color: #ea580c; background-color: #ffedd5; }
-
-
 .btn-edit {
-    color: #4b5563;
-    width: 2.25rem;
-    height: 2.25rem;
+    color: #9ca3af;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.6rem;
     background: white;
     border-radius: 50%;
-    border: 1px solid #e5e7eb;
+    border: none;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .btn-edit:hover {
-    color: #2563eb;
-    border-color: #2563eb;
-    background-color: #eff6ff;
+    color: #f48d2d;
+    border-color: #f48d2d;
 }
 
 .quantity-selector {
     display: flex;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #fff7ed;
     border-radius: 9999px;
-    padding: 0.15rem;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    padding: 0.4rem 0.5rem;
+    border: 1px solid #e0e0e0;
 }
 
 .btn-qty {
-    width: 2rem;
-    height: 2rem;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     border: none;
     background: transparent;
-    color: #f97316;
+    color: #ff9f43;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .btn-qty:hover:not(:disabled) {
     background-color: #fff7ed;
-    color: #ea580c;
+    color: #ef7d13;
 }
 
 .btn-qty:disabled {
     color: #d1d5db;
-    cursor: not-allowed;
+    cursor: default;
 }
 
 .qty-value {
-    min-width: 1.5rem;
+    min-width: 1.4rem;
+    flex: 1;
     text-align: center;
     font-weight: 700;
-    color: #1f2937;
-    font-size: 1rem;
+    color: #4b5563;
+    font-size: 1.4rem;
     user-select: none;
     margin: 0 0.25rem;
 }

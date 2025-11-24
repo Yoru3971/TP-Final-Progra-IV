@@ -13,7 +13,7 @@
     </app-emprendimiento-filtros-viandas>
 
     <div class="viandas-detalladas-grid">
-        @if (modoVista() === "DUENO") {
+        @if (modoVista() === "DUENO" && (!filtrosActivos() || viandas().length > 0)) {
             <div class="card-crear" (click)="abrirViandaForm()">
                 <i class="fa-solid fa-plus"></i>
                 <span>Agrega una vianda</span>
@@ -32,8 +32,24 @@
             (editar)="handleEditarVianda(vianda)">
         </app-vianda-card-detallada>
         } @empty {
-            <div class="no-results">
-                <p>No se encontraron viandas.</p>
+            <div class="no-results" [class.owner-empty]="modoVista() === 'DUENO' && !filtrosActivos()">
+                @if (filtrosActivos()) {
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <h3>No encontramos viandas con esos filtros</h3>
+                    <p>Intentá cambiando los términos de búsqueda.</p>
+
+                } @else {
+                    @if (modoVista() === 'DUENO') {
+                        <div class="estado-vacio">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <p>Esto está un poco vacío...<br>¡Creá tu primera vianda!</p>
+                        </div>
+                    } @else {
+                        <i class="fa-solid fa-utensils"></i> 
+                        <h3>No hay viandas disponibles</h3>
+                        <p>Intente nuevamente más tarde o contacte al dueño del emprendimiento.</p>
+                    }
+                }
             </div>
         }
     </div>

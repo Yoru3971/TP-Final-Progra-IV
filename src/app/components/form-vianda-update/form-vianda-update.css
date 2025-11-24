@@ -7,7 +7,7 @@
   padding: 2rem;
   width: 100%;
   max-width: 75rem;
-  margin: 2rem auto; /* Ajustado margen */
+  margin: 2rem auto;
   background: var(--form-bg);
   border-radius: 1rem;
   position: relative;
@@ -42,7 +42,7 @@
   padding-top: 2rem;
 }
 
-.form-field { width: 100%; min-height: 8rem; } /* Ajuste altura mínima */
+.form-field { width: 100%; min-height: 8rem; }
 
 /* Inputs y Selects */
 .form-input {
@@ -95,7 +95,7 @@
   background-repeat: no-repeat;
 }
 
-/* Badge (Nueva/Actual) */
+/* Nueva / Actual */
 .preview-badge {
     position: absolute;
     bottom: 0;
@@ -108,8 +108,8 @@
     text-align: center;
     pointer-events: none;
 }
-.preview-badge.new { background: rgba(46, 204, 113, 0.8); } /* Verde */
-.preview-badge.current { background: rgba(52, 152, 219, 0.8); } /* Azul */
+.preview-badge.new { background: var(--estado-aceptado) }
+.preview-badge.current { background: var(--button-bg); }
 
 /* Botón flotante eliminar/revertir */
 .btn-remove-image {
