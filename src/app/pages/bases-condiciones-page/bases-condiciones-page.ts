@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './bases-condiciones-page.html',
   styleUrl: './bases-condiciones-page.css',
 })
-export class BasesCondicionesPage {
-
-}
+export class BasesCondicionesPage {}

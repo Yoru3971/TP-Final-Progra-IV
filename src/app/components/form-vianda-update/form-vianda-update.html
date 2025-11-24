@@ -28,25 +28,25 @@
       </div>
 
       <div class="form-field">
-        <label for="categoria" class="form-label">Categoría</label>
-        <select
-          formControlName="categoria"
-          class="form-input"
-          [class.placeholder-text]="formVianda.get('categoria')?.value === null"
-        >
-          <option [ngValue]="null" class="placeholder-option">-- Seleccionar --</option>
+        <label for="categoria" class="form-label">Categoría</label>
+        <select
+          formControlName="categoria"
+          class="form-input"
+          [class.placeholder-text]="formVianda.get('categoria')?.value === null"
+        >
+          <option [ngValue]="null" class="placeholder-option">-- Seleccionar --</option>
 
-          @for (cat of categorias; track cat.key) {
-          <option [value]="cat.label">{{ cat.label }}</option>
-          }
-        </select>
-        @if (formVianda.get('categoria')?.invalid && (formVianda.get('categoria')?.dirty ||
-        formVianda.get('categoria')?.touched)) {
-        <div class="error-messages">
-          <p>Debe seleccionar una categoría.</p>
-        </div>
-        }
-      </div>
+          @for (cat of categorias; track cat.key) {
+          <option [value]="cat.label">{{ cat.label }}</option>
+          }
+        </select>
+        @if (formVianda.get('categoria')?.invalid && (formVianda.get('categoria')?.dirty ||
+        formVianda.get('categoria')?.touched)) {
+        <div class="error-messages">
+          <p>Debe seleccionar una categoría.</p>
+        </div>
+        }
+      </div>
 
       <div class="form-field">
         <label for="descripcion" class="form-label">Descripción</label>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject} from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { SnackbarData } from '../../model/snackbar-data.model';
@@ -18,7 +18,6 @@ import { Router } from '@angular/router';
   styleUrl: './form-emprendimiento-update.css',
 })
 export class FormUpdateEmprendimiento {
-
   public emprendimiento: EmprendimientoResponse = inject(MAT_DIALOG_DATA);
 
   private fb = inject(FormBuilder);
@@ -30,8 +29,8 @@ export class FormUpdateEmprendimiento {
   private confirmarModalService = inject(ConfirmarModalService);
   private router = inject(Router);
 
-  // ARRAY DE CIUDADES (Luego sera eliminado, y utilizaremos una API de ciudades, pero para
-  // esta entrega se utilizara esto)
+  // Arreglo de ciudades temporal
+  // Luego sera eliminado, y utilizaremos una API de ciudades
   public readonly CITIES: readonly string[] = [
     'MAR DEL PLATA',
     'MIRAMAR',
@@ -64,7 +63,6 @@ export class FormUpdateEmprendimiento {
       telefono: this.emprendimiento.telefono,
     });
 
-    // Cargar imagen existente
     if (this.emprendimiento.imagenUrl) {
       this.imagePreviewUrl = this.emprendimiento.imagenUrl;
     }
@@ -130,27 +128,26 @@ export class FormUpdateEmprendimiento {
   async onDelete() {
     const confirmado = await firstValueFrom(
       this.confirmarModalService.confirmar({
-        titulo: "Eliminar Emprendimiento",
-        texto: "¿Seguro de que querés eliminar el emprendimiento? <span>Esta acción es irreversible.</span>",
+        titulo: 'Eliminar Emprendimiento',
+        texto:
+          '¿Seguro de que querés eliminar el emprendimiento? <span>Esta acción es irreversible.</span>',
         textoEsHtml: true,
-        critico: true
+        critico: true,
       })
     );
 
     if (!confirmado) return;
 
-    this.emprendimientoService
-      .deleteEmprendimiento(this.emprendimiento.id)
-      .subscribe({
-        next: () => {
-          this.deleteSuccess();
-        },
-        error: () => {
-          this.showError(
-            'Error al eliminar el emprendimiento. Es posible que tenga pedidos asociados.'
-          );
-        }
-      });
+    this.emprendimientoService.deleteEmprendimiento(this.emprendimiento.id).subscribe({
+      next: () => {
+        this.deleteSuccess();
+      },
+      error: () => {
+        this.showError(
+          'Error al eliminar el emprendimiento. Es posible que tenga pedidos asociados.'
+        );
+      },
+    });
   }
 
   private deleteSuccess() {
@@ -167,7 +164,7 @@ export class FormUpdateEmprendimiento {
     });
 
     this.dialogRef.close(true);
-    this.router.navigateByUrl("home");
+    this.router.navigateByUrl('home');
   }
 
   onSubmit() {
@@ -181,10 +178,12 @@ export class FormUpdateEmprendimiento {
           const fd = new FormData();
           fd.append('image', this.newImageFile);
 
-          this.emprendimientoService.updateImagenEmprendimiento(this.emprendimiento.id, fd).subscribe({
-            next: () => this.finishSuccess(),
-            error: () => this.showError('Error actualizando imagen'),
-          });
+          this.emprendimientoService
+            .updateImagenEmprendimiento(this.emprendimiento.id, fd)
+            .subscribe({
+              next: () => this.finishSuccess(),
+              error: () => this.showError('Error actualizando imagen'),
+            });
         } else {
           this.finishSuccess();
         }

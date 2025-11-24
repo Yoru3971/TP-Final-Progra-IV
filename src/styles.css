@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
-/*Variables para los colores*/
+/*Variables para colores, despues vamos a refactorizar para usar menos*/
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
@@ -20,6 +20,9 @@
 
   --form-shadow: 0 0.6rem 1.2rem rgba(0, 0, 0, 0.3);
   --vianda-card-shadow: 0 0.5rem 1.2rem rgba(0, 0, 0, 0.15);
+
+  --alerta-bg: #fff4e0;
+  --alerta-text-color: #7a4a00;
 
   --form-bg: #f9f8f8;
   --input-bg: #f9f8f8;
@@ -88,6 +91,7 @@
   --sobre-nosotros-card-border-color: #e5e5e5;
 }
 
+/* --- TODA LA WEB --- */
 html {
   box-sizing: border-box;
   font-size: 62.5%;
@@ -113,6 +117,7 @@ app-root {
   min-height: 100vh;
 }
 
+/* --- TITULOS DE CADA PAGE --- */
 .main-h1-title {
   font-size: 3rem;
   margin: 2rem auto;
@@ -129,6 +134,7 @@ app-root {
   margin: 0;
 }
 
+/* --- FORMULARIOS --- */
 .main-content {
   flex: 1; /* Ocupa el espacio dejado por el header y el footer */
 }
@@ -168,6 +174,7 @@ app-root {
 
 .form-field {
   width: 100%;
+  min-height: 8rem;
   display: flex;
   flex-direction: column;
 }
@@ -185,6 +192,7 @@ app-root {
   font-weight: lighter;
 }
 
+/* --- BOTONES --- */
 .btn {
   background-color: var(--button-bg);
   color: var(--button-text);
@@ -208,6 +216,7 @@ app-root {
   box-shadow: none;
 }
 
+/* --- CHECKBOX GENERICO --- */
 .checkbox-container {
   width: 100%;
   font-size: 1.2rem;
@@ -223,6 +232,7 @@ app-root {
   accent-color: var(--checked-color);
 }
 
+/* --- INPUT CON OJITO --- */
 .input-with-icon {
   position: relative;
   width: 100%;
@@ -260,13 +270,56 @@ app-root {
   align-items: center;
 }
 
-/* Modal confirmación */
+/* --- MODALES ELIMINAR CUENTA --- */
+
+.titulo-rojo {
+  font-size: 2rem;
+  color: var(--eliminar-color);
+  font-weight: bold;
+  margin: 0 0 1.4rem 0;
+}
+
+.texto span {
+  font-weight: bolder;
+  color: var(--eliminar-color);
+}
+
+.acciones {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.acciones.center {
+  justify-content: center;
+}
+
+.btn-cancelar {
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+}
+
+.btn-rojo {
+  background: var(--eliminar-color);
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  color: var(--inverse-text-color);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-rojo:hover {
+  background: var(--eliminar-hover-color);
+}
+
+/* --- MODAL ERROR --- */
+
 .modal-container .content-container p span {
   color: var(--eliminar-color);
   font-weight: bold;
 }
-
-/* --- MODAL ERROR --- */
 
 .modal-error .mat-mdc-dialog-title {
   background-color: var(--modal-bg);
@@ -303,6 +356,8 @@ app-root {
   font-size: 1.6rem;
   margin: 0;
 }
+
+/* --- MODAL EXITO --- */
 
 .modal-exito .mat-mdc-dialog-title {
   background-color: var(--modal-bg);
@@ -397,109 +452,6 @@ app-root {
   max-width: 95rem !important;
 }
 
-.modal-vianda .mat-mdc-dialog-surface {
-  border-radius: 2rem !important;
-  overflow: hidden !important;
-  background: var(--bg-color) !important;
-}
-
-.modal-vianda .mat-mdc-dialog-container {
-  padding: 0 !important;
-  background: none !important;
-  border-radius: 0 !important;
-  overflow: hidden !important;
-}
-
-.modal-vianda .mat-mdc-dialog-title {
-  font-size: 3rem !important;
-  font-weight: bolder !important;
-  margin: 0 !important;
-  background: var(--emprendimiento-card-header-bg) !important;
-  color: var(--inverse-text-color) !important;
-}
-
-.modal-vianda .mat-mdc-dialog-content {
-  display: flex !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  font-size: 1.6rem;
-  color: var(--text-color);
-}
-
-.left-panel {
-  padding: 3rem 4rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.left-panel label {
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  color: var(--text-color);
-  margin-bottom: 0.4rem;
-}
-
-.left-panel p {
-  font-size: 1.5rem;
-  margin: 0;
-  line-height: 2.2rem;
-}
-
-.left-panel .precio {
-  color: var(--precio-color);
-  font-weight: bold;
-}
-
-.restricciones {
-  display: flex;
-  gap: 1.4rem;
-  min-height: 4rem;
-  align-items: center;
-}
-
-.restriccion {
-  width: 4rem;
-  height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.right-panel {
-  width: 45%;
-  min-width: 42rem;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.right-panel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.modal-vianda .mat-mdc-dialog-actions {
-  padding: 2rem 3rem !important;
-  display: flex !important;
-  justify-content: center !important;
-}
-
-.modal-vianda .btn {
-  padding: 1.4rem 2.8rem !important;
-  font-size: 2rem !important;
-  border-radius: 0.7rem !important;
-  font-weight: bold !important;
-}
-
-.modal-vianda * {
-  font-family: 'Inria Sans', sans-serif !important;
-}
-
 /* --- SCROLLBAR GENERICO --- */
 *::-webkit-scrollbar {
   width: 0.8rem;
@@ -543,39 +495,6 @@ app-root {
 
 .icon:hover {
   color: var(--button-bg);
-}
-
-/* --- FILTROS PEDIDOS Y NOTIFCIACIONES --- */
-.titulo-con-filtros {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.filtros-layout {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: nowrap;
-}
-
-.filtros-layout select {
-  height: 4rem;
-  padding: 0 1.2rem;
-  border-radius: 0.8rem;
-  border: 1px solid var(--input-border);
-  background: var(--input-bg);
-  color: var(--input-text);
-  font-size: 1.4rem;
-  outline: none;
-  cursor: pointer;
-}
-
-.filtros-layout select:focus {
-  border-color: var(--input-focus-outline);
-  box-shadow: var(--input-focus-shadow);
 }
 
 /* ----- PÁGINAS VARIAS -----  */

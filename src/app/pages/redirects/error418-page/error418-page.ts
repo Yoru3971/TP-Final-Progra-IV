@@ -8,7 +8,7 @@ import { RouteErrorComponent } from '../../../shared/components/route-error-comp
   styleUrl: './error418-page.css',
 })
 export class Error418Page {
-  imgUrl = "error418.png";
+  imgUrl = 'error418.png';
   titulo = "ERROR 418: I'M A TEAPOT";
-  mensaje = "SOY UNA TETERA. NO PUEDO PREPARAR CAFÉ.";
+  mensaje = 'SOY UNA TETERA. NO PUEDO PREPARAR CAFÉ.';
 }

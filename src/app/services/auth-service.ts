@@ -23,7 +23,7 @@ export class AuthService {
     console.log('AuthService inicializado. Rol actual', this.currentUserRole());
   }
 
-  // leo el TOKEN actual y extraigo el rol (si no hay TOKEN, el rol es invitado)
+  // Lee el TOKEN actual y extrae el rol (si no hay TOKEN, el rol es invitado)
   private getRolFromToken(): UserRole {
     const tokenLocal = localStorage.getItem(this.TOKEN_KEY);
     const tokenSession = sessionStorage.getItem(this.TOKEN_KEY);
@@ -52,8 +52,6 @@ export class AuthService {
     return this.http.post<LoginResponse>(this.apiUrlLogin, usuario);
   }
 
-  // Si el usuario marca "Recordarme", se guarda el token en LocalStorage.
-  //   Caso contrario, se guarda en SessionStorage
   public handleLoginSuccess(token: string, usuarioID: number, recordarme: boolean): void {
     if (recordarme) {
       localStorage.setItem(this.TOKEN_KEY, token);

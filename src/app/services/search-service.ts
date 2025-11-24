@@ -25,9 +25,11 @@ export class SearchService {
         return;
       }
 
-      const filtrados = todos.filter(e => e.nombreEmprendimiento.toLowerCase().includes(term));
-      this.resultados.set(filtrados.slice(0,6));
-      this.mensaje.set(filtrados.length === 0 ? 'No se encontraron emprendimientos con este nombre.' : '');
+      const filtrados = todos.filter((e) => e.nombreEmprendimiento.toLowerCase().includes(term));
+      this.resultados.set(filtrados.slice(0, 6));
+      this.mensaje.set(
+        filtrados.length === 0 ? 'No se encontraron emprendimientos con este nombre.' : ''
+      );
     });
   }
 
@@ -35,4 +37,3 @@ export class SearchService {
     this.termino.set(valor);
   }
 }
-

@@ -16,20 +16,17 @@ import { SnackbarData } from '../../model/snackbar-data.model';
   styleUrl: './form-login.css',
 })
 export class FormLogin {
-
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private authService = inject(AuthService);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
 
-  formLogin = this.fb.group(
-    {
-      email: ['', [Validators.required]],
-      password: ['',[Validators.required]],
-      recordarme: [false]
-    }
-  );
+  formLogin = this.fb.group({
+    email: ['', [Validators.required]],
+    password: ['', [Validators.required]],
+    recordarme: [false],
+  });
 
   showPassword = false;
 
@@ -37,33 +34,35 @@ export class FormLogin {
     this.showPassword = !this.showPassword;
   }
 
-  login(){
+  login() {
     const usuario = this.formLogin.value;
     this.authService
       .login({
         email: usuario.email || '',
-        password: usuario.password || ''
+        password: usuario.password || '',
       })
       .subscribe({
         next: (response: LoginResponse) => {
-
           const snackbarData: SnackbarData = {
             message: 'Sesión iniciada correctamente',
-            iconName: 'check_circle'
-          }
+            iconName: 'check_circle',
+          };
 
           this.snackBar.openFromComponent(Snackbar, {
             duration: 3000,
             verticalPosition: 'bottom',
             panelClass: 'snackbar-panel',
-            data: snackbarData
-        });
+            data: snackbarData,
+          });
 
-          this.authService.handleLoginSuccess(response.token, response.usuarioID, usuario.recordarme!);
+          this.authService.handleLoginSuccess(
+            response.token,
+            response.usuarioID,
+            usuario.recordarme!
+          );
           setTimeout(() => {
             this.router.navigate(['/home']);
           }, 1000);
-
         },
         error: (err) => {
           const backendMsg =
@@ -80,9 +79,7 @@ export class FormLogin {
 
           this.formLogin.get('password')?.reset();
           this.formLogin.get('recordarme')?.reset();
-        }
-      })
-
+        },
+      });
   }
-
 }

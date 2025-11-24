@@ -1,5 +1,16 @@
 
-<div class="card" [class.unavailable]="!vianda().estaDisponible">
+<div class=" card"[class.unavailable]="!vianda().estaDisponible">
+  <div class="card-image-container">
+    @if (vianda().imagenUrl) {
+    <img [src]="vianda().imagenUrl" [alt]="vianda().nombreVianda" class="product-image" />
+    } @else {
+    <img
+      class="no-image"
+      src="logo-miviandita-removebg-preview.png"
+      alt="Imagen de vianda no disponible"
+    />
+    }
+  </div>
 
         <!-- Imagen vianda -->
         <div class="card-image-container">
@@ -90,5 +101,8 @@
                         }
                 </div>
         </div>
+        }
+      </div>
     </div>
+  </div>
 </div>
