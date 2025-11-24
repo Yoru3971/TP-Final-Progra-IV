@@ -1,5 +1,4 @@
-
-<div class=" card"[class.unavailable]="!vianda().estaDisponible">
+<div class="card" [class.unavailable]="!vianda().estaDisponible">
   <div class="card-image-container">
     @if (vianda().imagenUrl) {
     <img [src]="vianda().imagenUrl" [alt]="vianda().nombreVianda" class="product-image" />
@@ -9,97 +8,63 @@
       src="logo-miviandita-removebg-preview.png"
       alt="Imagen de vianda no disponible"
     />
+    } @if (!vianda().estaDisponible) {
+    <div class="status-badge">NO DISPONIBLE</div>
     }
   </div>
 
-        <!-- Imagen vianda -->
-        <div class="card-image-container">
-            @if (vianda().imagenUrl) {
-                <img [src]="vianda().imagenUrl" [alt]="vianda().nombreVianda" class="product-image">
-            } @else {
-                <img class="no-image" src="logo-miviandita-removebg-preview.png" alt="Imagen de vianda no disponible">
-            }
-            @if (!vianda().estaDisponible) {
-                <div class="status-badge">
-                    NO DISPONIBLE
-                </div>
-            }
+  <!-- Contenido -->
+  <div class="card-content">
+    <!-- Header (nombre vianda + precio) -->
+    <div class="card-header">
+      <h3 class="card-title">
+        {{ vianda().nombreVianda }}
+      </h3>
+      <span class="card-price"> $ {{ vianda().precio }} </span>
+    </div>
+
+    <!-- Medio (descripción) -->
+    <p class="card-description">
+      {{ vianda().descripcion }}
+    </p>
+
+    <!-- Footer (iconos + botones) -->
+    <div class="card-footer">
+      <div class="diet-icons">
+        @if (vianda().esSinTacc) {
+        <div class="icon-badge" title="Sin TACC">
+          <app-icon-tacc class="icon active"></app-icon-tacc>
         </div>
+        } @if (vianda().esVegetariano) {
+        <div class="icon-badge" title="Vegetariano">
+          <app-icon-veggie class="icon active"></app-icon-veggie>
+        </div>
+        } @if (vianda().esVegano) {
+        <div class="icon-badge" title="Vegano">
+          <app-icon-vegan class="icon active"></app-icon-vegan>
+        </div>
+        }
+      </div>
 
-        <!-- Contenido -->
-        <div class="card-content">
+      <div>
+        @if (esDueno()) {
+        <!-- DUEÑO ve botón Editar -->
+        <button (click)="editar.emit()" class="btn-edit" title="Editar vianda">
+          <i class="fa-solid fa-pen"></i>
+        </button>
 
-            <!-- Header (nombre vianda + precio) -->
-            <div class="card-header">
-                <h3 class="card-title">
-                    {{ vianda().nombreVianda }}
-                </h3>
-                <span class="card-price">
-                    $ {{ vianda().precio }}
-                </span>
-            </div>
+        } @else {
+        <!-- INVITADO y CLIENTE ven botones agregar/sacar vianda -->
+        <div class="quantity-selector">
+          <button (click)="quitar.emit()" class="btn-qty" [disabled]="cantidad() <= 0">
+            <i class="fa-solid fa-minus"></i>
+          </button>
 
-            <!-- Medio (descripción) -->
-            <p class="card-description">
-                {{ vianda().descripcion }}
-            </p>
+          <span class="qty-value">{{ cantidad() }}</span>
 
-            <!-- Footer (iconos + botones) -->
-            <div class="card-footer">
-                
-                <div class="diet-icons">
-
-                    @if (vianda().esSinTacc) {
-                        <div class="icon-badge" title="Sin TACC">
-                            <app-icon-tacc class="icon active"></app-icon-tacc>
-                        </div>
-                    }
-
-                    @if (vianda().esVegetariano) {
-                        <div class="icon-badge" title="Vegetariano">
-                            <app-icon-veggie class="icon active"></app-icon-veggie>
-                        </div>
-                    }
-
-                    @if (vianda().esVegano) {
-                        <div class="icon-badge" title="Vegano">
-                            <app-icon-vegan class="icon active"></app-icon-vegan>
-                        </div>
-                    }
-
-                </div>
-
-                <div>
-                    @if (esDueno()) {
-                        <!-- DUEÑO ve botón Editar -->
-                        <button 
-                            (click)="editar.emit()"
-                            class="btn-edit"
-                            title="Editar vianda">
-                                <i class="fa-solid fa-pen"></i>
-                        </button>
-
-                    } @else {
-                        <!-- INVITADO y CLIENTE ven botones agregar/sacar vianda -->
-                        <div class="quantity-selector">
-                        
-                            <button 
-                            (click)="quitar.emit()"
-                            class="btn-qty"
-                            [disabled]="cantidad() <= 0">
-                                <i class="fa-solid fa-minus"></i>
-                            </button>
-
-                            <span class="qty-value">{{ cantidad() }}</span>
-
-                            <button 
-                            (click)="agregar.emit()"
-                            class="btn-qty">
-                                <i class="fa-solid fa-plus"></i>
-                            </button>
-                        </div>
-                        }
-                </div>
+          <button (click)="agregar.emit()" class="btn-qty">
+            <i class="fa-solid fa-plus"></i>
+          </button>
         </div>
         }
       </div>
