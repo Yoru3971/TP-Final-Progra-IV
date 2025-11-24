@@ -14,33 +14,12 @@ import { Snackbar } from '../snackbar/snackbar';
 })
 export class ConfirmarLogout {
   private dialogRef = inject(MatDialogRef<ConfirmarLogout>);
-  private authService = inject(AuthService);
-  private router = inject(Router);
-  private snackBar = inject(MatSnackBar);
 
   cancelar() {
     this.dialogRef.close();
   }
 
   confirmar() {
-    this.dialogRef.close();
-
-    const snackbarData: SnackbarData = {
-      message: 'Sesión cerrada correctamente',
-      iconName: 'check_circle',
-    };
-
-    this.snackBar.openFromComponent(Snackbar, {
-      duration: 3000,
-      verticalPosition: 'bottom',
-      panelClass: 'snackbar-panel',
-      data: snackbarData,
-    });
-
-    this.authService.handleLogout();
-
-    setTimeout(() => {
-      this.router.navigate(['/home']);
-    }, 400);
+    this.dialogRef.close(true);
   }
 }

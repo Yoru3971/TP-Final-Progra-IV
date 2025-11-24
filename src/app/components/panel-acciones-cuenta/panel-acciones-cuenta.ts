@@ -8,6 +8,8 @@ import { EliminarCuentaPaso1 } from '../ModalEliminarCuenta/eliminar-cuenta-paso
 import { ConfirmarLogout } from '../../shared/components/logout-modal/logout-modal';
 import { CambiarPasswordModal } from '../cambiar-password-modal/cambiar-password-modal';
 import { SuccessDialogModal } from '../../shared/components/success-dialog-modal/success-dialog-modal';
+import { SnackbarData } from '../../model/snackbar-data.model';
+import { Snackbar } from '../../shared/components/snackbar/snackbar';
 
 @Component({
   selector: 'app-panel-acciones-cuenta',
@@ -48,7 +50,29 @@ export class PanelAccionesCuenta {
   }
 
   cerrarSesion() {
-    this.dialog.open(ConfirmarLogout);
+    const dialogRef = this.dialog.open(ConfirmarLogout);
+
+    dialogRef.afterClosed().subscribe((confirmado: boolean) => {
+    if (confirmado) {
+
+      this.authService.handleLogout();
+
+      this.router.navigate(['/home']);
+
+    const snackbarData: SnackbarData = {
+          message: 'Sesión cerrada',
+          iconName: 'check_circle'
+        }
+    
+    this.snackBar.openFromComponent(Snackbar, {
+      duration: 3000,
+      verticalPosition: 'bottom',
+      panelClass: 'snackbar-panel',
+      data: snackbarData
+    });
+    }
+  });
+
   }
 
   eliminarCuenta() {
