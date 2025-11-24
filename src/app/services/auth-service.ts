@@ -76,6 +76,7 @@ export class AuthService {
     sessionStorage.removeItem('usuarioID');
 
     this.currentUserRole.set('INVITADO');
+    window.location.reload();
   }
 
   private decodeRolFrom(token: string): UserRole {
