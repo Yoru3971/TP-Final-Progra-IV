@@ -1,18 +1,23 @@
 @if (emprendimiento(); as datosEmprendimiento) {
 
+    <!-- Datos del emprendimiento -->
     <app-emprendimiento-info
         [emprendimiento]="datosEmprendimiento"
         [modo]="modoVista()"
         (accionPrincipal)="handleAccionInfo()">
     </app-emprendimiento-info>
 
+    <!-- Filtros de viandas -->
     <app-emprendimiento-filtros-viandas
         [viandasIniciales]="viandasTotales()"
         (filtrosChanged)="onFiltrosChanged($event)"
         >>
     </app-emprendimiento-filtros-viandas>
 
+    <!-- Lista de viandas -->
     <div class="viandas-detalladas-grid">
+
+        <!-- Card "Agregar vianda" (solo dueño) -->
         @if (modoVista() === "DUENO" && (!filtrosActivos() || viandas().length > 0)) {
             <div class="card-crear" (click)="abrirViandaForm()">
                 <i class="fa-solid fa-plus"></i>
@@ -20,6 +25,7 @@
             </div>
         }
         
+        <!-- Viandas -->
         @for (vianda of viandas(); track vianda.id) {
         <app-vianda-card-detallada
             [vianda]="vianda"
@@ -32,6 +38,7 @@
             (editar)="handleEditarVianda(vianda)">
         </app-vianda-card-detallada>
         } @empty {
+            <!-- Si no hay viandas, muestro errores distintos según rol y filtros activos -->
             <div class="no-results" [class.owner-empty]="modoVista() === 'DUENO' && !filtrosActivos()">
                 @if (filtrosActivos()) {
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -55,6 +62,7 @@
     </div>
 
 } @else {
+    <!-- Si no hay emprendimiento (por algún error) -->
     <div class="not-found-container">
         
         <div class="icon-wrapper">

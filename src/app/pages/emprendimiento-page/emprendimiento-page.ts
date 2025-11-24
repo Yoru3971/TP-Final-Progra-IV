@@ -62,7 +62,7 @@ export class EmprendimientoPage {
         if (!id) return of(null);
         return this.emprendimientoService.getEmprendimientoById(id).pipe(
           catchError((err) => {
-            console.error('Error cargando emprendimiento', err);
+            console.error('Error cargando emprendimiento', err);              //  ARREGLAR AHORA
             return of(null);
           })
         );
@@ -77,7 +77,7 @@ export class EmprendimientoPage {
     const userRole = this.authService.currentUserRole();
 
     if (userRole === 'DUENO') {
-      return emp.dueno.id === userId ? 'DUENO' : 'PROHIBIDO';   //  AGREGAR page de error 403 si intenta acceder siendo dueño ajeno
+      return emp.dueno.id === userId ? 'DUENO' : 'PROHIBIDO';
     }
 
     if (userRole === 'CLIENTE') {
@@ -104,7 +104,7 @@ export class EmprendimientoPage {
     }
   }
 
-  abrirModalEditarEmprendimiento() {
+  abrirModalEditarEmprendimiento() {              //  ARREGLAR AHORA
     this.dialog
       .open(FormUpdateEmprendimiento, {
         width: '100rem',
@@ -129,7 +129,7 @@ export class EmprendimientoPage {
     }
   }
 
-  abrirSnackbarLoginRequerido() {
+  abrirSnackbarLoginRequerido() {              //  ARREGLAR AHORA
     const snackbarData: SnackbarData = {
       message: 'Inicie sesión para realizar realizar pedidos',
       iconName: 'error'
@@ -185,7 +185,7 @@ export class EmprendimientoPage {
 
         return request$.pipe(
           catchError((err) => {
-            console.error('Error cargando viandas (posiblemente sin resultados)', err);
+            console.error('Error cargando viandas (posiblemente sin resultados)', err);              //  ARREGLAR AHORA
             return of([] as ViandaResponse[]);
           })
         );
@@ -228,7 +228,7 @@ export class EmprendimientoPage {
             return of([] as ViandaResponse[]);
         }
 
-        return request$.pipe(catchError(() => of([] as ViandaResponse[])));
+        return request$.pipe(catchError(() => of([] as ViandaResponse[])));              //  ARREGLAR AHORA?
       })
     ),
     { initialValue: [] as ViandaResponse[] }
@@ -245,7 +245,7 @@ export class EmprendimientoPage {
     const emprendimientoId = this.idEmprendimiento();
     this.dialog
       .open(FormVianda, {
-        data: { idEmprendimiento: emprendimientoId },
+        data: { idEmprendimiento: emprendimientoId },              //  ARREGLAR AHORA
         width: '100rem',
         panelClass: 'form-modal',
         autoFocus: false,
@@ -289,7 +289,7 @@ export class EmprendimientoPage {
     }
   }
 
-  handleEditarVianda(vianda: ViandaResponse) {
+  handleEditarVianda(vianda: ViandaResponse) {              //  ARREGLAR AHORA
     
     this.dialog
       .open(FormViandaUpdate, {
