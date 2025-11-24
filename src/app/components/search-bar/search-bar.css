@@ -23,6 +23,11 @@
     border-color: var(--search-bar-focus-color);
 }
 
+.search-input:focus::placeholder {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
 .icon-search, .btn-clear {
     position: absolute;
     top: 50%;
@@ -46,7 +51,7 @@
 }
 
 .btn-clear:focus-within, .btn-clear:hover {
-    color: color-mix(in srgb, var(--text-color) 66%, white);
+    color: var(--button-bg);
 }
 
 .search-results {

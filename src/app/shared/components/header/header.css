@@ -22,14 +22,13 @@
   min-height: 6rem;
   padding: 1rem 5%;
   width: 100%;
+  position: relative;
 }
 
 .header-left {
   align-items: center;
   display: flex;
-  flex: 1;
   gap: 2rem;
-  justify-content: left;
 }
 
 .logo-rol-container {
@@ -66,19 +65,22 @@
 }
 
 .header-center {
-  align-items: center;
-  flex: 3;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: 100%;
+  max-width: 45rem;
+  
   display: flex;
-  flex-direction: row;
   justify-content: center;
 }
 
 .header-right {
   align-items: center;
-  flex: 2;
   display: flex;
   gap: 2.5rem;
-  justify-content: right;
+  justify-content: flex-end;
 }
 
 .nav-link {
