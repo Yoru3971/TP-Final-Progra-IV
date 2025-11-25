@@ -8,6 +8,7 @@
   <div class="form-layout">
     <div class="form-fields-left">
       <div class="form-field">
+        <!-- Nombre Vianda -->
         <label for="nombreVianda" class="form-label">Nombre de la Vianda</label>
         <input
           formControlName="nombreVianda"
@@ -27,6 +28,7 @@
         }
       </div>
 
+      <!-- Categoria -->
       <div class="form-field">
         <label for="categoria" class="form-label">Categoría</label>
         <select
@@ -48,25 +50,29 @@
         }
       </div>
 
+      <!-- Descripcion -->
       <div class="form-field">
         <label for="descripcion" class="form-label">Descripción</label>
         <textarea
           formControlName="descripcion"
-          class="form-input"
+          class="form-input textarea-descripcion"
           placeholder="Ej: Porción abundante con guarnición"
+          maxlength="250"
         ></textarea>
+
         @if (formVianda.get('descripcion')?.invalid && (formVianda.get('descripcion')?.dirty ||
         formVianda.get('descripcion')?.touched)) {
         <div class="error-messages">
           @if (formVianda.get('descripcion')?.hasError('required')) {
           <p>La descripción es obligatoria.</p>
           } @if (formVianda.get('descripcion')?.hasError('maxLength')) {
-          <p>Máximo 400 caracteres.</p>
+          <p>Máximo 250 caracteres.</p>
           }
         </div>
         }
       </div>
 
+      <!-- Precio -->
       <div class="form-field">
         <label for="precio" class="form-label">Precio</label>
         <input formControlName="precio" type="number" class="form-input" />
@@ -78,6 +84,7 @@
         }
       </div>
 
+      <!-- Checkboxes -->
       <div class="form-field checkbox-group">
         <label class="checkbox-container">
           <input type="checkbox" formControlName="esVegano" />
@@ -98,6 +105,7 @@
       </div>
     </div>
 
+    <!-- Imagen -->
     <div class="image-upload-delete-right">
       <div class="form-field custom-file-field">
         <input

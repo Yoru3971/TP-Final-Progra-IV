@@ -44,7 +44,7 @@ export class FormVianda {
   formVianda = this.fb.group({
     nombreVianda: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
     categoria: [null, Validators.required],
-    descripcion: ['', [Validators.required, Validators.maxLength(400)]],
+    descripcion: ['', [Validators.required, Validators.maxLength(250)]],
     image: [null, Validators.required],
     precio: ['', [Validators.required, Validators.min(0)]],
     esVegano: [false, Validators.required],
