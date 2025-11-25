@@ -28,6 +28,7 @@ export class CarritoModal implements OnInit {
   public emprendimiento = this.carritoService.emprendimiento;
   public viandaCantidades = this.carritoService.viandaCantidades;
 
+  minDate: string = '';
   public modalBloqueado = false;
 
   private validadorFecha = (control: AbstractControl): ValidationErrors | null => {
@@ -39,19 +40,41 @@ export class CarritoModal implements OnInit {
     const [y, m, d] = fechaIngresadaControl.split('-').map(Number);
 
     const fechaIngresada = new Date(y, m - 1, d),
-      fechaHoy = new Date();
+    fechaHoy = new Date();
 
     fechaIngresada.setHours(0, 0, 0, 0);
     fechaHoy.setHours(0, 0, 0, 0);
 
-    return fechaIngresada < fechaHoy ? { invalidValue: true } : null;
+    const fechaMinima = new Date(fechaHoy);
+    fechaMinima.setDate(fechaHoy.getDate() + 2);
+
+    return fechaIngresada < fechaMinima ? { invalidValue: true } : null;
   };
 
   formFecha = this.formBuilder.nonNullable.group({
     fechaEntrega: ['', [Validators.required, this.validadorFecha]],
   });
 
+  private calcularMinDate() {
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+
+    const fechaMinima = new Date(hoy);
+    fechaMinima.setDate(hoy.getDate() + 2); 
+
+    this.minDate = this.formatDate(fechaMinima);
+  }
+
+  private formatDate(date: Date): string {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
   ngOnInit(): void {
+    this.calcularMinDate();
+
     this.formFecha.patchValue({
       fechaEntrega: this.carritoService.fechaEntrega(),
     });
@@ -71,6 +94,14 @@ export class CarritoModal implements OnInit {
     this.carritoService.quitarVianda(vianda);
   }
 
+  public cantidadViandaEnMinimo(vianda: ViandaResponse) {
+    return this.carritoService.cantidadViandaEnMinimo(vianda);
+  }
+
+  public cantidadViandaEnMaximo(vianda: ViandaResponse) {
+    return this.carritoService.cantidadViandaEnMaximo(vianda);
+  }
+
   public vacio() {
     return this.carritoService.vacio();
   }
@@ -85,10 +116,16 @@ export class CarritoModal implements OnInit {
   public async cancelarPedido() {
     this.modalBloqueado = true;
 
+    let texto = '¿Seguro de que querés cancelar el pedido?';
+
+    if (!this.carritoService.vacio()) {
+      texto = texto.concat(' El carrito se va a vaciar.');
+    }
+
     const confirmado = await firstValueFrom(
       this.confirmarModalService.confirmar({
         titulo: 'Cancelar Pedido',
-        texto: '¿Seguro de que querés vaciar el carrito y cancelar el pedido?',
+        texto: texto,
       })
     );
 
@@ -144,4 +181,5 @@ export class CarritoModal implements OnInit {
   public cerrar() {
     this.dialogRef.close();
   }
+
 }

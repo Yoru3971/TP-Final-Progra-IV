@@ -120,14 +120,43 @@
   transition: 0.2s ease;
 }
 
-.btn-circle:hover {
-  background: color-mix(in srgb, var(--input-bg) 90%, black);
-  color: color-mix(in srgb, var(--link-color) 75%, black);
+.btn-circle:focus-within, .btn-circle:hover {
+  background: color-mix(in srgb, var(--input-bg) 92.5%, black);
+  color: color-mix(in srgb, var(--link-color) 85%, black);
+}
+
+.btn-circle:active {
+  background: color-mix(in srgb, var(--input-bg) 85%, black);
+  color: color-mix(in srgb, var(--link-color) 70%, black);
+  transition: none;
+}
+
+.btn-circle:disabled
+{
+  background: var(--carrito-btn-cantidad-disabled-bg-color);
+  color: var(--carrito-btn-cantidad-disabled-color);
 }
 
 .item-cantidad {
   font-size: 1.6rem;
   min-width: 2rem;
+  text-align: center;
+}
+
+.carrito-lista-vacia {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.carrito-lista-vacia p {
+  color: color-mix(in srgb, var(--text-color) 40%, white);
+  font-size: 2.4rem;
+  line-height: 2.6rem;
+  margin: 0;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
@@ -192,11 +221,41 @@
 }
 
 .btn-rechazar {
-  background: var(--estado-rechazado);
+  background: var(--carrito-btn-cancelar-bg-color);
   color: var(--inverse-text-color);
+  transition-duration: 0.2s;
+}
+
+.btn-rechazar:focus-within, .btn-rechazar:hover {
+  background: color-mix(in srgb, var(--carrito-btn-cancelar-bg-color) 87.5%, black);
+}
+
+.btn-rechazar:active {
+  background: color-mix(in srgb, var(--carrito-btn-cancelar-bg-color) 75%, black);
+  transition: none;
+}
+
+.btn-rechazar:disabled {
+  background: var(--carrito-btn-cancelar-disabled-bg-color);
+  color: var(--carrito-btn-disabled-color);
 }
 
 .btn-confirmar {
-  background: var(--estado-aceptado);
+  background: var(--carrito-btn-confirmar-bg-color);
   color: var(--inverse-text-color);
+  transition-duration: 0.2s;
+}
+
+.btn-confirmar:focus-within, .btn-confirmar:hover {
+  background: color-mix(in srgb, var(--carrito-btn-confirmar-bg-color) 87.5%, black);
+}
+
+.btn-confirmar:active {
+  background: color-mix(in srgb, var(--carrito-btn-confirmar-bg-color) 75%, black);
+  transition: none;
+}
+
+.btn-confirmar:disabled {
+  background: var(--carrito-btn-confirmar-disabled-bg-color);
+  color: var(--carrito-btn-disabled-color);
 }

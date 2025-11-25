@@ -14,14 +14,6 @@ export class RouteErrorComponent {
 
   private router = inject(Router);
 
-  volverAtras() {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      this.router.navigate(['/home']);
-    }
-  }
-
   volverInicio() {
     this.router.navigate(['/home']);
   }

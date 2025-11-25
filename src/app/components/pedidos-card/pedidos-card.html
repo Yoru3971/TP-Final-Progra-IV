@@ -3,22 +3,71 @@
     <h3 class="titulo-seccion">PEDIDOS</h3>
 
     <div class="filtros-layout">
-      <select [value]="pedidoService.filtroEstado()" (change)="actualizarEstado($event)">
-        <option value="null">Todos</option>
-        @for (estado of estados; track estado) {
-        <option [value]="estado">{{ estado }}</option>
-        }
-      </select>
+      <!-- SELECTOR ESTADO -->
+      <div class="select-wrapper">
+        <label class="select-label">Estado</label>
 
-      <select
-        [value]="pedidoService.filtroEmprendimiento()"
-        (change)="actualizarEmprendimiento($event)"
-      >
-        <option value="null">Todos los emprendimientos</option>
-        @for (emp of pedidoService.emprendimientosUnicos(); track emp) {
-        <option [value]="emp">{{ emp }}</option>
-        }
-      </select>
+        <div class="select-custom" [class.open]="openEstado" (click)="toggleEstado($event)">
+          <div class="selected-option">
+            {{ pedidoService.filtroEstado() || 'Todos' }}
+          </div>
+
+          <div class="arrow">▾</div>
+
+          @if (openEstado) {
+          <ul class="options" [class.open]="openEstado">
+            <li
+              (click)="setEstado(null); $event.stopPropagation()"
+              [class.selected]="pedidoService.filtroEstado() === null"
+            >
+              Todos
+            </li>
+
+            @for (estado of estados; track estado) {
+            <li
+              (click)="setEstado(estado); $event.stopPropagation()"
+              [class.selected]="estado === pedidoService.filtroEstado()"
+            >
+              {{ estado }}
+            </li>
+            }
+          </ul>
+          }
+        </div>
+      </div>
+
+      <!-- SELECTOR EMPRENDIMIENTO -->
+      <div class="select-wrapper">
+        <label class="select-label">Emprendimiento</label>
+
+        <div class="select-custom" [class.open]="openEmp" (click)="toggleEmp($event)">
+          <div class="selected-option">
+            {{ pedidoService.filtroEmprendimiento() || 'Todos' }}
+          </div>
+
+          <div class="arrow">▾</div>
+
+          @if (openEmp) {
+          <ul class="options" [class.open]="openEmp">
+            <li
+              (click)="setEmp(null); $event.stopPropagation()"
+              [class.selected]="pedidoService.filtroEmprendimiento() === null"
+            >
+              Todos los emprendimientos
+            </li>
+
+            @for (emp of pedidoService.emprendimientosUnicos(); track emp) {
+            <li
+              (click)="setEmp(emp); $event.stopPropagation()"
+              [class.selected]="emp === pedidoService.filtroEmprendimiento()"
+            >
+              {{ emp }}
+            </li>
+            }
+          </ul>
+          }
+        </div>
+      </div>
 
       <app-date-range-picker (fechasSeleccionadas)="pedidoService.filtroFechas.set($event)">
       </app-date-range-picker>
@@ -31,7 +80,7 @@
     <p class="sin-pedidos">No tenés pedidos todavía.</p>
     } @else {
     <div class="lista">
-      @for (p of pedidoService.pedidosFiltrados(); track p.id) {
+      @for (p of pedidoService.pedidosFiltrados(); track $index) {
       <app-pedido-single-card [pedido]="p"></app-pedido-single-card>
       }
     </div>

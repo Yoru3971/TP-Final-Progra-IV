@@ -66,9 +66,13 @@
   --carrito-btn-bg-color: #e68033;
   --carrito-btn-border-color: #fe9039;
   --carrito-btn-cerrar-color: #e68033;
-  --carrito-btn-cancelar-border-color: #ff4040;
-  --carrito-btn-cancelar-color: #ff4040;
-  --carrito-btn-confirmar-bg-color: #fe9039;
+  --carrito-btn-disabled-color: #eeeeee;
+  --carrito-btn-cancelar-bg-color: #e74c3c;
+  --carrito-btn-cancelar-disabled-bg-color: #7f7f7f;
+  --carrito-btn-confirmar-bg-color: #2ecc71;
+  --carrito-btn-confirmar-disabled-bg-color: #7f7f7f;
+  --carrito-btn-cantidad-disabled-bg-color: #eeeeee;
+  --carrito-btn-cantidad-disabled-color: #7f7f7f;
 
   --carrito-submodal-border-color: #fe9039;
   --carrito-submodal-header-bg-color: #fe9039;
@@ -158,7 +162,6 @@ app-root {
   font-size: 1.4rem;
   color: var(--input-text);
   outline: none;
-  margin-bottom: 1rem;
 }
 
 .form-input:focus {
@@ -234,6 +237,7 @@ app-root {
 
 /* --- INPUT CON OJITO --- */
 .input-with-icon {
+  margin-bottom: 1rem;
   position: relative;
   width: 100%;
 }
@@ -519,4 +523,81 @@ app-root {
 
 .info-page-container a {
   color: var(--link-color);
+}
+
+/* --- SELECTOR GENERICO --- */
+
+.select-custom {
+  position: relative;
+  width: 20rem;
+  padding: 1rem 1.4rem;
+  border: 1px solid var(--input-border);
+  border-radius: 1rem;
+  background: white;
+  cursor: pointer;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  transition: 0.15s ease;
+  color: var(--input-text);
+}
+
+.select-custom:hover {
+  border-color: var(--search-bar-focus-color);
+  background: color-mix(in srgb, var(--search-bar-focus-color) 7%, white);
+}
+
+.arrow {
+  font-size: 1.3rem;
+  color: var(--input-text);
+  transition: 0.2s ease;
+}
+
+.select-custom:hover .arrow {
+  color: var(--search-bar-focus-color);
+}
+
+.options {
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  width: 100%;
+  background: var(--bg-color);
+  border-radius: 1rem;
+  padding: 0.6rem 0;
+  margin: 0;
+  list-style: none;
+  z-index: 20;
+  border: 0.1px solid var(--input-border);
+  box-shadow: 0 0.5rem 1.4rem rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.options li {
+  padding: 0.9rem 1.4rem;
+  cursor: pointer;
+  transition: 0.15s ease;
+  color: var(--input-text);
+}
+
+.options li:hover {
+  background: color-mix(in srgb, #fe9039 25%, var(--bg-color));
+}
+
+.options li.selected {
+  background: color-mix(in srgb, #fe9039 40%, var(--bg-color));
+  color: var(--text-color);
+}
+
+.textarea-descripcion {
+  resize: none;       
+  width: 100%;
+  height: 12rem;       
+  overflow: hidden;    
+  line-height: 1.4;
+  padding: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
 }

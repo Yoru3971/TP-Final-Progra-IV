@@ -56,13 +56,13 @@
         } @else {
         <!-- INVITADO y CLIENTE ven botones agregar/sacar vianda -->
         <div class="quantity-selector">
-          <button (click)="quitar.emit()" class="btn-qty" [disabled]="cantidad() <= 0">
+          <button (click)="quitar.emit()" class="btn-qty" [disabled]="cantidadViandaEnMinimo(vianda())">
             <i class="fa-solid fa-minus"></i>
           </button>
 
           <span class="qty-value">{{ cantidad() }}</span>
 
-          <button (click)="agregar.emit()" class="btn-qty">
+          <button (click)="agregar.emit()" class="btn-qty" [disabled]="cantidadViandaEnMaximo(vianda())">
             <i class="fa-solid fa-plus"></i>
           </button>
         </div>

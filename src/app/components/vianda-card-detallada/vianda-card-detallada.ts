@@ -1,9 +1,10 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { ViandaResponse } from '../../model/vianda-response.model';
 import { PageMode } from '../../pages/emprendimiento-page/emprendimiento-page';
 import { IconTacc } from '../../shared/components/iconos/icon-tacc/icon-tacc';
 import { IconVegan } from '../../shared/components/iconos/icon-vegan/icon-vegan';
 import { IconVeggie } from '../../shared/components/iconos/icon-veggie/icon-veggie';
+import { CarritoService } from '../../services/carrito-service';
 
 @Component({
   selector: 'app-vianda-card-detallada',
@@ -24,7 +25,17 @@ export class ViandaCardDetallada {
   agregar = output<void>();
   quitar = output<void>();
 
+  private carritoService = inject(CarritoService);
+
   esDueno() {
     return this.modo() === 'DUENO';
+  }
+
+  public cantidadViandaEnMinimo(vianda: ViandaResponse) {
+    return this.carritoService.cantidadViandaEnMinimo(vianda);
+  }
+
+  public cantidadViandaEnMaximo(vianda: ViandaResponse) {
+    return this.carritoService.cantidadViandaEnMaximo(vianda);
   }
 }
