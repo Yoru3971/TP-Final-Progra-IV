@@ -53,17 +53,29 @@
 }
 
 .item-vianda {
-  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  padding: 1.6rem 0;
+  gap: 1.6rem;
   border-bottom: 0.1rem solid var(--input-border);
 }
-
 .item-vianda:last-child {
   border-bottom: none;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 .info p {
   margin: 0.2rem 0;
   font-size: 1.6rem;
+}
+
+.info span{
+  color: var(--carrito-title-bg-color);
 }
 
 .nombre {

@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario-service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarData } from '../../model/snackbar-data.model';
-import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChangePasswordRequest } from '../../model/change-password-request.model';
 import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
+import { SuccessDialogModal } from '../../shared/components/success-dialog-modal/success-dialog-modal';
+import { AuthService } from '../../services/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cambiar-password-modal',
@@ -16,9 +16,10 @@ import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/err
   styleUrl: './cambiar-password-modal.css',
 })
 export class CambiarPasswordModal {
-  private fb = inject(FormBuilder);
   private usuarioService = inject(UsuarioService);
-  private snackBar = inject(MatSnackBar);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
   private dialogRef = inject(MatDialogRef<CambiarPasswordModal>);
   private dialog = inject(MatDialog);
 
@@ -81,6 +82,44 @@ export class CambiarPasswordModal {
     return null;
   }
 
+  actualizar() {
+    if (this.form.invalid) return;
+
+    const body: ChangePasswordRequest = {
+      passwordActual: this.form.value.actual!,
+      passwordNueva: this.form.value.nueva!,
+    };
+
+    this.usuarioService.cambiarPassword(body).subscribe({
+      next: () => {
+        this.dialog.open(SuccessDialogModal, {
+          data: { message: 'Tu contraseña fue actualizada. Volvé a iniciar sesión.' },
+          panelClass: 'modal-exito',
+          autoFocus: false,
+          restoreFocus: false,
+        });
+
+        this.dialogRef.close();
+
+        this.authService.handleLogout();
+
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 1500);
+      },
+      error: (err) => {
+        const backendMsg =
+          err.error?.message || err.error?.error || 'Error desconocido al cambiar la contraseña';
+        this.dialog.open(ErrorDialogModal, {
+          data: { message: backendMsg },
+          panelClass: 'modal-error',
+          autoFocus: false,
+          restoreFocus: false,
+        });
+      },
+    });
+  }
+
   toggleActual() {
     this.showActual = !this.showActual;
   }
@@ -95,38 +134,5 @@ export class CambiarPasswordModal {
 
   cancelar() {
     this.dialogRef.close();
-  }
-
-  actualizar() {
-    if (this.form.invalid) return;
-
-    const body: ChangePasswordRequest = {
-      passwordActual: this.form.value.actual!,
-      passwordNueva: this.form.value.nueva!,
-    };
-
-    this.usuarioService.cambiarPassword(body).subscribe({
-      next: () => {
-        const data: SnackbarData = {
-          message: 'Contraseña actualizada correctamente',
-          iconName: 'check_circle',
-        };
-
-        this.snackBar.openFromComponent(Snackbar, {
-          duration: 3000,
-          verticalPosition: 'bottom',
-          panelClass: 'snackbar-panel',
-          data,
-        });
-
-        this.dialogRef.close({ passwordCambiada: true });
-      },
-      error: (err) => {
-        this.dialog.open(ErrorDialogModal, {
-          data: { message: err.error?.message ?? 'Error desconocido al cambiar la contraseña.' },
-          panelClass: 'modal-error',
-        });
-      },
-    });
   }
 }
