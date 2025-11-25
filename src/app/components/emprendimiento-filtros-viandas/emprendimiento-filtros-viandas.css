@@ -30,10 +30,12 @@
   text-transform: uppercase;
   letter-spacing: 0.25rem;
   user-select: none;
+  border: 0.1rem solid var(--btn-disabled);
 }
 
 .chip-categoria:hover {
-  background-color: #f9f9f9;
+  background-color: #ffdab9;
+  border-color: #ffdab9;
   color: #333;
 }
 
