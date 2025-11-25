@@ -21,15 +21,7 @@ export class ViandaExtendedModal {
     @Inject(MAT_DIALOG_DATA) public vianda: ViandaResponse
   ) {}
 
-  irAlEmprendimiento() {
-    const idEmprendimiento = this.vianda.emprendimiento.id;
-
-    if (idEmprendimiento) {
+  cerrarModal() {
       this.dialogRef.close();
-
-      this.router.navigate(['/emprendimiento', idEmprendimiento]);
-    } else {
-      console.error('Error: Esta vianda no tiene asociado un ID de emprendimiento.');
-    }
   }
 }
