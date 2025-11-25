@@ -9,7 +9,7 @@ p {
 }
 
 .sobre-nosotros-card {
-  align-items: stretch;
+  align-items: center;
   background-color: var(--sobre-nosotros-card-bg-color);
   border: 1px solid var(--sobre-nosotros-card-border-color);
   border-radius: 30px;
