@@ -1,6 +1,8 @@
 import {
   ApplicationConfig,
+  inject,
   provideBrowserGlobalErrorListeners,
+  provideEnvironmentInitializer,
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
@@ -9,6 +11,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { routes } from './app.routes';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { AuthService } from './services/auth-service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,5 +30,9 @@ export const appConfig: ApplicationConfig = {
       useClass: JwtInterceptor,
       multi: true,
     },
+    provideEnvironmentInitializer(() => {
+      const auth = inject(AuthService);
+      auth.init();
+    }),
   ],
 };
