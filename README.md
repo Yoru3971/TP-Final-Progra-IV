@@ -51,7 +51,7 @@ Puede realizar todas las acciones del Invitado, más las siguientes:
 
 El sistema utiliza **Angular Signals** para manejar el estado reactivo, especialmente la `ciudadSeleccionada`.
 
-Al cambiar la ciudad, la *Signal* se actualiza y los componentes (`EmprendimientosListComponent`) reaccionan automáticamente, solicitando el nuevo conjunto de datos a la API sin depender del ciclo tradicional de `NgZone`. Esto garantiza un alto rendimiento y un código más limpio.
+Al cambiar la ciudad, la *Signal* se actualiza y los componentes (`EmprendimientosListComponent`) reaccionan automáticamente, solicitando el nuevo conjunto de datos a la API.
 
 ## 💻 Instrucciones de Instalación y Ejecución
 
