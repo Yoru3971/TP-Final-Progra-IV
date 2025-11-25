@@ -69,7 +69,7 @@ Asegúrese de tener instalados:
 ```bash
 # Clonar el repositorio
 git clone [URL_DEL_REPOSITORIO]
-cd FoodieConnect-Frontend
+cd TP-Final-Progra-IV
 
 # Instalar dependencias
 npm install
