@@ -120,7 +120,7 @@ app-root {
 /* --- TITULOS DE CADA PAGE --- */
 .main-h1-title {
   font-size: 3rem;
-  margin: 2rem auto;
+  margin: 5rem auto 3rem auto;
   text-align: center;
 }
 
