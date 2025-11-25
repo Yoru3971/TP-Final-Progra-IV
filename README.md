@@ -30,7 +30,7 @@ Puede realizar todas las acciones del Invitado, más las siguientes:
 | Funcionalidad | Descripción |
 | :--- | :--- |
 | **Pedidos** | Crear un carrito para realizar un pedido. |
-| **Cancelación** | Cancelar un pedido si **aún no fue aceptado** por el Dueño y si la fecha de entrega es **próxima a más de 24 horas**. |
+| **Cancelación** | Cancelar un pedido si **aún no fue aceptado** por el Dueño y si la fecha de entrega no es en las **próximas 48 horas**. |
 | **Personalización** | Modificar sus datos de usuario y credenciales en su perfil. |
 | **Selección de Ciudad** | Un selector global permite filtrar y visualizar **reactivamente** los emprendimientos de la ciudad seleccionada (implementado con **Signals**). |
 | **Filtros de Viandas** | Aplicar filtros por categoría, rango de precios y características dietéticas (sin TACC, vegano, vegetariano) en la página del emprendimiento. |
