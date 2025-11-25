@@ -67,9 +67,7 @@ export class FormLogin {
         error: (err) => {
           const backendMsg =
             err.error?.message || err.error?.error || 'Error desconocido en el login';
-
-          console.error(backendMsg);
-
+            
           this.dialog.open(ErrorDialogModal, {
             data: { message: backendMsg },
             panelClass: 'modal-error',

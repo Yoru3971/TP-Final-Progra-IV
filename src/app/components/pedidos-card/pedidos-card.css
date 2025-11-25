@@ -26,23 +26,6 @@
   flex-wrap: nowrap;
 }
 
-.filtros-layout select {
-  height: 4rem;
-  padding: 0 1.2rem;
-  border-radius: 0.8rem;
-  border: 1px solid var(--input-border);
-  background: var(--input-bg);
-  color: var(--input-text);
-  font-size: 1.4rem;
-  outline: none;
-  cursor: pointer;
-}
-
-.filtros-layout select:focus {
-  border-color: var(--input-focus-outline);
-  box-shadow: var(--input-focus-shadow);
-}
-
 .pedidos-container {
   display: flex;
   flex-direction: column;
@@ -71,4 +54,18 @@
   flex: 1;
   overflow-y: auto;
   padding-right: 0.6rem;
+}
+
+.select-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.select-label {
+  font-size: 1.2rem;
+  color: var(--input-text);
+  opacity: 0.7;
+  margin-left: 0.2rem;
+  font-weight: 500;
 }

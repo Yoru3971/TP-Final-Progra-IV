@@ -1,35 +1,47 @@
 import { inject } from '@angular/core';
-import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, CanActivateFn } from '@angular/router';
+import { map, catchError, of } from 'rxjs';
 import { AuthService } from '../services/auth-service';
 import { EmprendimientoService } from '../services/emprendimiento-service';
 
-export const emprendimientoDuenoGuardFn = (route: ActivatedRouteSnapshot) => {
+export const emprendimientoDuenoGuardFn: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const router = inject(Router);
   const auth = inject(AuthService);
   const emprendimientoService = inject(EmprendimientoService);
 
   const rol = auth.currentUserRole();
   const emprendimientoId = Number(route.paramMap.get('id'));
-
-  // 1) INVITADO / CLIENTE -> pueden pasar sin restricciones
+  
   if (rol === 'INVITADO' || rol === 'CLIENTE') {
     return true;
   }
 
-  // 2) Si es DUENO -> verificar propiedad
   const usuarioId = auth.usuarioId();
   if (!usuarioId) {
     router.navigateByUrl('/login');
     return false;
   }
 
-  const esDueno = emprendimientoService.esDuenoDelEmprendimiento(emprendimientoId, usuarioId);
+  const esDuenoEnMemoria = emprendimientoService.esDuenoDelEmprendimiento(emprendimientoId, usuarioId);
+  // Si la lista está vacía, esto da false, pero no significa que sea un error todavía (caso F5)
+  const listaCargada = emprendimientoService.allEmprendimientos().length > 0;
 
-  if (esDueno) {
-    return true;
-  }
+  if (listaCargada && esDuenoEnMemoria) {
+     return true;
+  } 
 
-  // 3) Dueño pero NO es suyo -> 403
-  router.navigateByUrl('/error/403');
-  return false;
+  return emprendimientoService.getEmprendimientoById(emprendimientoId).pipe(
+    map((emprendimiento) => {
+      if (emprendimiento.dueno && emprendimiento.dueno.id === usuarioId) {
+        return true;
+      } else {
+        router.navigateByUrl('/error/403');
+        return false;
+      }
+    }),
+    catchError((error) => {
+      router.navigateByUrl('/error/403'); //
+      return of(false);
+    })
+  );
 };

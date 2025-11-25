@@ -11,6 +11,15 @@ export type UserRole = 'ADMIN' | 'DUENO' | 'CLIENTE' | 'INVITADO';
   providedIn: 'root',
 })
 export class AuthService {
+  init(): void {
+  const token = this.getToken();
+
+  if (token) {
+    this.currentUserRole.set(this.decodeRolFrom(token));
+    this.usuarioId.set(this.getUsuarioIdFromStorage());
+  }
+}
+
   private TOKEN_KEY = 'authToken';
 
   public currentUserRole = signal<UserRole>(this.getRolFromToken());
@@ -76,7 +85,6 @@ export class AuthService {
     sessionStorage.removeItem('usuarioID');
 
     this.currentUserRole.set('INVITADO');
-    window.location.reload();
   }
 
   private decodeRolFrom(token: string): UserRole {

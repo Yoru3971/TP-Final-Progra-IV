@@ -34,7 +34,7 @@
     <div
       class="result-card"
       [routerLink]="['/emprendimiento', item.id]"
-      (click)="ocultarResultados()"
+      (click)="emprendimientoClickeado(searchInput)"
       (mouseenter)="sobreResultado.set(true)"
       (mouseleave)="sobreResultado.set(false)"
     >

@@ -59,8 +59,9 @@
         <label for="descripcion" class="form-label">Descripción</label>
         <textarea
           formControlName="descripcion"
-          class="form-input"
+          class="form-input textarea-descripcion"
           placeholder="Ej: Porción abundante con guarnición"
+          maxlength="250"
         ></textarea>
 
         @if (formVianda.get('descripcion')?.invalid && (formVianda.get('descripcion')?.dirty ||
@@ -69,7 +70,7 @@
           @if (formVianda.get('descripcion')?.hasError('required')) {
           <p>La descripción es obligatoria.</p>
           } @if (formVianda.get('descripcion')?.hasError('maxLength')) {
-          <p>Máximo 400 caracteres.</p>
+          <p>Máximo 250 caracteres.</p>
           }
         </div>
         }
@@ -111,6 +112,7 @@
       </div>
     </div>
 
+    <!-- Imagen -->
     <div class="image-upload-right">
       <div class="form-field custom-file-field">
         <input
@@ -170,7 +172,12 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-crear" (click)="onSubmit()" [disabled]="loading || !formVianda.valid">
+  <button
+    type="button"
+    class="btn btn-crear"
+    (click)="onSubmit()"
+    [disabled]="loading || !formVianda.valid"
+  >
     {{ loading ? 'Guardando...' : 'Crear Vianda' }}
   </button>
 </form>

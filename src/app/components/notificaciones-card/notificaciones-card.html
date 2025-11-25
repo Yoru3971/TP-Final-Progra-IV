@@ -13,7 +13,7 @@
     <p class="sin-notificaciones">No tenés notificaciones recientes.</p>
     } @if (lista.length > 0) {
     <div class="lista">
-      @for (noti of lista; track noti.id) {
+      @for (noti of lista; track $index) {
       <app-notificacion-single-card [notificacion]="noti"></app-notificacion-single-card>
       }
     </div>

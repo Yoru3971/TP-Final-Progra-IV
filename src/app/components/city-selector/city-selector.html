@@ -1,10 +1,20 @@
-<div class="city-selector">
-    <select
-        [value]="currentCity()"
-        (change)="onChange($any($event.target).value)"
+<div class="select-custom city-selector" (click)="open = !open">
+  <div class="selected-option">
+    {{ currentCity() }}
+  </div>
+
+  <div class="arrow">▾</div>
+
+  @if (open) {
+  <ul class="options">
+    @for (c of CITIES; track c) {
+    <li
+      (click)="onOptionSelect(c); $event.stopPropagation()"
+      [class.selected]="c === currentCity()"
     >
-        @for (c of CITIES; track c) {
-            <option [value]="c">{{ c }}</option>
-        }
-    </select>
+      {{ c }}
+    </li>
+    }
+  </ul>
+  }
 </div>
