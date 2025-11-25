@@ -54,7 +54,7 @@ export class FormViandaUpdate implements OnInit {
   formVianda = this.fb.group({
     nombreVianda: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
     categoria: [null as string | null, Validators.required],
-    descripcion: ['', [Validators.required, Validators.maxLength(400)]],
+    descripcion: ['', [Validators.required, Validators.maxLength(250)]],
     precio: [0, [Validators.required, Validators.min(0)]],
     esVegano: [false, Validators.required],
     esVegetariano: [false, Validators.required],

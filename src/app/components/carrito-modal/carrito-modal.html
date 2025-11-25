@@ -60,7 +60,7 @@
           <label>Fecha de entrega:</label>
 
           <form [formGroup]="formFecha">
-            <input type="date" formControlName="fechaEntrega" />
+            <input type="date" formControlName="fechaEntrega" [min]="minDate" />
           </form>
 
           @let fecha = formFecha.get('fechaEntrega'); @if (fecha?.invalid && fecha?.dirty) {
