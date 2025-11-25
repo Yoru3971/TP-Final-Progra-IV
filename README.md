@@ -9,7 +9,6 @@ Este proyecto sigue una arquitectura de **Angular Moderno**, enfocada en la efic
 | Componente | Tecnología | Descripción |
 | :--- | :--- | :--- |
 | **Frontend** | Angular (v17+) | Desarrollo principal. Enfoque **Stateless** y **Zoneless**. |
-| **Gestión de Estado** | Angular Signals | Reactividad para el filtrado dinámico (ej: selector de ciudad). |
 | **Backend API** | Spring Boot | Consumo de la API REST desarrollada el cuatrimestre pasado. |
 | **Autenticación** | JWT | Token para validación de rol y acceso a rutas protegidas. |
 
