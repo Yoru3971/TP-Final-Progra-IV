@@ -1,12 +1,26 @@
 <div class="card-container">
-  <div class="info">
-    <div class="info-left">
-      <h2>{{ emprendimiento.nombreEmprendimiento }}</h2>
 
-      <p class="direccion">
-        <i class="fa-solid fa-location-dot"></i>
-        {{ emprendimiento.direccion }}
-      </p>
+  <div class="info">
+
+    <div class="info-main">
+      
+      <div class="logo-circle">
+        @if (emprendimiento.imagenUrl) {
+          <img [src]="emprendimiento.imagenUrl" alt="Logo" />
+        } @else {
+          <i class="fa-solid fa-store placeholder-icon"></i>
+        }
+      </div>
+
+      <div class="text-content">
+        <h2>{{ emprendimiento.nombreEmprendimiento }}</h2>
+        
+        <p class="direccion">
+          <i class="fa-solid fa-location-dot"></i>
+          {{ emprendimiento.direccion }}
+        </p>
+      </div>
+
     </div>
 
     <button class="btn btn-ver-mas" routerLink="/emprendimiento/{{ emprendimiento.id }}">
@@ -15,11 +29,16 @@
     </button>
   </div>
 
-  <div class="viandas-container">
-    @for (vianda of getallViandas(); track vianda.id) {
-    <app-vianda-card [vianda]="vianda" />
-    } @empty {
-    <h2 class="no-viandas">Este emprendimiento no tiene viandas disponibles.</h2>
-    }
+  <div class="viandas-section">
+    <div class="viandas-container">
+      @for (vianda of getallViandas(); track vianda.id) {
+        <app-vianda-card [vianda]="vianda" />
+      } @empty {
+        <div class="no-viandas-wrapper">
+          <h2 class="no-viandas">Este emprendimiento no tiene viandas disponibles.</h2>
+        </div>
+        
+      }
+    </div>
   </div>
 </div>
