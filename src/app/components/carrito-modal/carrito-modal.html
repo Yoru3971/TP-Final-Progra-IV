@@ -23,19 +23,29 @@
         </p>
 
         <div class="item-cantidad-btns">
-          <button class="btn btn-circle" (click)="restarVianda(viandaCantidad.vianda)">
+          <button
+            class="btn btn-circle"
+            [disabled]="cantidadViandaEnMinimo(viandaCantidad.vianda)"
+            (click)="restarVianda(viandaCantidad.vianda)"
+          >
             <i class="fa-solid fa-minus"></i>
           </button>
 
           <p class="item-cantidad">{{ viandaCantidad.cantidad }}</p>
 
-          <button class="btn btn-circle" (click)="sumarVianda(viandaCantidad.vianda)">
+          <button
+            class="btn btn-circle"
+            [disabled]="cantidadViandaEnMaximo(viandaCantidad.vianda)"
+            (click)="sumarVianda(viandaCantidad.vianda)"
+          >
             <i class="fa-solid fa-plus"></i>
           </button>
         </div>
       </div>
       } @empty {
-      <p class="carrito-lista-vacia">Agregá viandas del emprendimiento para realizar un pedido.</p>
+      <div class="carrito-lista-vacia">
+        <p>Agregá viandas del emprendimiento para realizar un pedido.</p>
+      </div>
       }
     </div>
 
@@ -68,7 +78,7 @@
           CONFIRMAR PEDIDO
         </button>
 
-        <button class="btn btn-rechazar" (click)="cancelarPedido()">VACIAR CARRITO</button>
+        <button class="btn btn-rechazar" (click)="cancelarPedido()">CANCELAR PEDIDO</button>
       </div>
     </div>
   </div>
