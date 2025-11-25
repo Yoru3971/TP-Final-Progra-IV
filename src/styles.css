@@ -328,6 +328,7 @@ app-root {
 .modal-error .mat-mdc-dialog-title {
   background-color: var(--modal-bg);
   color: var(--error-color) !important;
+  font-family: inherit !important;
   padding: 1.2rem 1.6rem;
   margin: 0;
 }
@@ -342,6 +343,7 @@ app-root {
   padding: 2rem;
   max-height: none !important;
   overflow: visible !important;
+  font-family: inherit !important;
 }
 
 .modal-error .mat-mdc-dialog-content p {
@@ -352,6 +354,7 @@ app-root {
 
 .modal-error .mat-mdc-dialog-actions {
   background-color: var(--modal-bg);
+  font-family: inherit !important;
   padding: 1.6rem;
 }
 
@@ -366,6 +369,7 @@ app-root {
 .modal-exito .mat-mdc-dialog-title {
   background-color: var(--modal-bg);
   color: var(--estado-aceptado) !important;
+  font-family: inherit !important;
   padding: 1.2rem 1.6rem;
   margin: 0;
 }
@@ -380,6 +384,7 @@ app-root {
   padding: 2rem;
   max-height: none !important;
   overflow: visible !important;
+  font-family: inherit !important;
 }
 
 .modal-exito .mat-mdc-dialog-content p {
@@ -390,6 +395,7 @@ app-root {
 
 .modal-exito .mat-mdc-dialog-actions {
   background-color: var(--modal-bg);
+  font-family: inherit !important;
   padding: 1.6rem;
 }
 
