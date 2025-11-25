@@ -1,42 +1,63 @@
 <div class="modal-container">
-  <div class="modal-title">
-    {{ vianda.nombreVianda }}
+
+  <!-- Header -->
+  <div class="modal-header">
+    <h2 class="modal-title">{{ vianda.nombreVianda }}</h2>
   </div>
 
-  <div class="modal-content">
+  <div class="modal-body">
+
     <div class="left-panel">
-      <div>
-        <label>Categoría</label>
-        <p>{{ vianda.categoria }}</p>
-      </div>
 
-      <div>
-        <label>Descripción</label>
-        <p>{{ vianda.descripcion }}</p>
-      </div>
+        <!-- Categoría -->
+        <div class="info-group">
+          <label>Categoría</label>
+          <p>{{ vianda.categoria }}</p>
+        </div>
 
-      <div>
-        <label>Precio</label>
-        <p class="precio">${{ vianda.precio }}</p>
-      </div>
+        <!-- Descripción -->
+        <div class="info-group">
+          <label>Descripción</label>
+          <p class="descripcion-text">{{ vianda.descripcion }}</p>
+        </div>
 
-      <div class="restricciones">
-        @if (vianda.esVegano) {
-        <app-icon-vegan class="icon active" title="Vegano"></app-icon-vegan>
-        } @if (vianda.esVegetariano) {
-        <app-icon-veggie class="icon active" title="Vegetariano"></app-icon-veggie>
-        } @if (vianda.esSinTacc) {
-        <app-icon-tacc class="icon active" title="Sin TACC"></app-icon-tacc>
-        }
-      </div>
+        <!-- Precio -->
+        <div class="info-group">
+          <label>Precio</label>
+          <span class="precio-badge">$ {{ vianda.precio }}</span>
+        </div>
 
-      <div class="modal-actions">
-        <button class="btn" (click)="irAlEmprendimiento()">Ver emprendimiento</button>
-      </div>
+        <!-- Iconos -->
+        <div class="restricciones-container">
+            @if (vianda.esVegano) {
+              <div class="icon-badge" title="Vegano">
+                <app-icon-vegan class="icon"></app-icon-vegan>
+              </div>
+            }
+            @if (vianda.esVegetariano) {
+              <div class="icon-badge" title="Vegetariano">
+                <app-icon-veggie class="icon"></app-icon-veggie>
+              </div>
+            }
+            @if (vianda.esSinTacc) {
+              <div class="icon-badge" title="Sin TACC">
+                <app-icon-tacc class="icon"></app-icon-tacc>
+              </div>
+            }
+        </div>
+
+        <!-- Botón -->
+        <div class="modal-actions">
+          <button class="btn btn-action" (click)="cerrarModal()">Volver</button>
+        </div>
+
     </div>
 
+    <!-- Imagen -->
     <div class="right-panel">
-      <img [src]="vianda.imagenUrl" alt="vianda.nombreVianda" />
+      <div class="image-wrapper">
+        <img [src]="vianda.imagenUrl" [alt]="vianda.nombreVianda" />
+      </div>
     </div>
   </div>
 </div>
