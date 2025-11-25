@@ -61,7 +61,8 @@ Asegúrese de tener instalados:
 
 * Node.js (LTS recomendado)
 * Angular CLI (`npm install -g @angular/cli`)
-* La API Backend de Spring Boot debe estar en ejecución.
+* La API Backend de Spring Boot debe estar en ejecución, la cual depende de un archivo .env con las credenciales privadas necesarias.
+* La base de datos SQL debe estar corriendo, con la credenciales correctas.
 
 ### 2. Clonar e Instalar
 
