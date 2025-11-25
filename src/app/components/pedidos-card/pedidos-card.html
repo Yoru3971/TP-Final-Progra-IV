@@ -80,7 +80,7 @@
     <p class="sin-pedidos">No tenés pedidos todavía.</p>
     } @else {
     <div class="lista">
-      @for (p of pedidoService.pedidosFiltrados(); track p.id) {
+      @for (p of pedidoService.pedidosFiltrados(); track $index) {
       <app-pedido-single-card [pedido]="p"></app-pedido-single-card>
       }
     </div>
