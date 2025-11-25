@@ -162,7 +162,6 @@ app-root {
   font-size: 1.4rem;
   color: var(--input-text);
   outline: none;
-  margin-bottom: 1rem;
 }
 
 .form-input:focus {
@@ -178,7 +177,7 @@ app-root {
 
 .form-field {
   width: 100%;
-  min-height: 8rem;
+  min-height: 8.25rem;
   display: flex;
   flex-direction: column;
 }
@@ -238,6 +237,7 @@ app-root {
 
 /* --- INPUT CON OJITO --- */
 .input-with-icon {
+  margin-bottom: 1rem;
   position: relative;
   width: 100%;
 }
