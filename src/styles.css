@@ -587,3 +587,13 @@ app-root {
   color: var(--text-color);
 }
 
+.textarea-descripcion {
+  resize: none;       
+  width: 100%;
+  height: 12rem;       
+  overflow: hidden;    
+  line-height: 1.4;
+  padding: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
