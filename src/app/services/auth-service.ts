@@ -20,7 +20,6 @@ export class AuthService {
   }
 }
 
-
   private TOKEN_KEY = 'authToken';
 
   public currentUserRole = signal<UserRole>(this.getRolFromToken());
