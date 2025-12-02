@@ -1,9 +1,10 @@
+/* --- COMPONENTE CABECERA PRINCIPAL (HEADER) --- */
 .main-header {
   align-items: center;
-  background-color: var(--bg-color);
-  border-bottom: 1px solid color-mix(in srgb, var(--bg-color) 80%, black);
+  background-color: var(--color-background-primary);
+  border-bottom: 0.1rem solid color-mix(in srgb, var(--color-background-primary) 80%, black);
   box-shadow: 0 0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.1), 0 0.2rem 0.4rem -0.2rem rgba(0, 0, 0, 0.1);
-  color: var(--text-color);
+  color: var(--color-text-primary);
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -59,7 +60,7 @@
 }
 
 .rol {
-  color: var(--header-rol-color);
+  color: var(--color-primary);
   font-size: 1rem;
   line-height: 1rem;
   margin: 0;
@@ -84,12 +85,12 @@
 }
 
 app-search-bar {
-    width: 100%;
-    max-width: 45rem;
+  width: 100%;
+  max-width: 45rem;
 }
 
 .nav-link {
-  color: var(--text-color);
+  color: var(--color-text-primary);
   font-size: 1.5rem;
   padding: 0;
   transition: color 0.2s ease;
@@ -97,7 +98,7 @@ app-search-bar {
 }
 
 .nav-link:hover {
-  color: var(--header-link-hover-color);
+  color: var(--color-primary-hover-dark);
   text-decoration: underline;
 }
 
@@ -123,33 +124,33 @@ app-search-bar {
 .btn-profile {
   aspect-ratio: 1/1;
   border-radius: 50%;
-  color: var(--bg-color);
+  color: var(--color-background-primary);
   height: 4rem;
 }
 
 .btn-profile:focus-within,
 .btn-profile:hover {
-  background-color: color-mix(in srgb, var(--button-bg) 92.5%, black);
+  background-color: color-mix(in srgb, var(--color-primary-light) 92.5%, black);
 }
 
 .btn-profile:active {
-  background-color: color-mix(in srgb, var(--button-bg) 80%, black);
+  background-color: color-mix(in srgb, var(--color-primary-light) 80%, black);
   transition: none;
 }
 
 .btn-logout {
   background-color: inherit;
-  color: var(--header-icon-color);
+  color: var(--color-primary-light);
   font-size: 2rem;
   padding: 0;
 }
 
 .btn-logout:focus-within,
 .btn-logout:hover {
-  color: color-mix(in srgb, var(--button-bg) 87.5%, black);
+  color: color-mix(in srgb, var(--color-primary-light) 87.5%, black);
 }
 
 .btn-logout:active {
-  color: color-mix(in srgb, var(--button-bg) 75%, black);
+  color: color-mix(in srgb, var(--color-primary-light) 75%, black);
   transition: none;
 }

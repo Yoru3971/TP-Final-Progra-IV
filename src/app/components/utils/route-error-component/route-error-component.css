@@ -1,3 +1,4 @@
+/* --- PAGINA DE ERROR --- */
 h1,
 h2 {
   font-size: 3rem;
@@ -17,9 +18,9 @@ h2 {
   width: 100%;
   display: flex;
   justify-content: center;
-  background: var(--form-bg);
+  background: var(--color-background-secondary);
   border-radius: 1rem;
-  box-shadow: var(--form-shadow);
+  box-shadow: var(--shadow-form);
   padding: 3rem;
 }
 
@@ -40,15 +41,15 @@ h2 {
 .titulo {
   font-size: 2rem;
   font-weight: bold;
-  color: var(--text-color);
+  color: var(--color-text-primary);
   margin: 0;
 }
 
 .mensaje {
   font-size: 1.4rem;
-  color: var(--input-text);
+  color: var(--color-text-secondary);
   max-width: 50rem;
-  border-top: 0.1rem solid var(--btn-disabled);
+  border-top: 0.1rem solid var(--color-ui-disabled-background);
   padding: 3rem;
   margin: 0;
 }
@@ -63,7 +64,7 @@ h2 {
   margin-top: 2rem;
   text-decoration: none;
   font-size: 1.4rem;
-  color: var(--link-color);
+  color: var(--color-primary-light);
   cursor: pointer;
 }
 

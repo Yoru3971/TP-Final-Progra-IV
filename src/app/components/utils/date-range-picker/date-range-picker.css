@@ -1,3 +1,4 @@
+/* --- COMPONENTE SWITCH TOGGLE Y DATE/TIME PICKER --- */
 .picker-container {
   display: flex;
   align-items: center;
@@ -19,10 +20,10 @@
 }
 
 .slider {
-  width: 48px;
-  height: 24px;
-  background: var(--input-border);
-  border-radius: 24px;
+  width: 4.8rem;
+  height: 2.4rem;
+  background: var(--color-border-light);
+  border-radius: 2.4rem;
   position: relative;
   transition: 0.25s;
 }
@@ -30,26 +31,26 @@
 .slider::before {
   content: '';
   position: absolute;
-  width: 20px;
-  height: 20px;
-  left: 2px;
-  top: 2px;
-  background: white;
+  width: 2rem;
+  height: 2rem;
+  left: 0.2rem;
+  top: 0.2rem;
+  background: var(--color-background-primary);
   border-radius: 50%;
   transition: 0.25s;
 }
 
 input:checked + .slider {
-  background: var(--button-bg);
+  background: var(--color-primary-light);
 }
 
 input:checked + .slider::before {
-  transform: translateX(24px);
+  transform: translateX(2.4rem);
 }
 
 .toggle-label {
   font-size: 1.3rem;
-  color: var(--input-text);
+  color: var(--color-text-secondary);
   width: 7rem;
   display: inline-block;
 }

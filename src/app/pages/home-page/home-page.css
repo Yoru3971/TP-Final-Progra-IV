@@ -1,8 +1,9 @@
+/* --- ESTADO VACÍO --- */
 .estado-vacio {
   width: 100%;
   text-align: center;
   margin-top: 2rem;
-  color: var(--input-text);
+  color: var(--color-text-secondary);
   font-size: 1.8rem;
   opacity: 0.8;
   display: flex;
@@ -12,6 +13,6 @@
 
 .estado-vacio i {
   font-size: 3rem;
-  color: var(--link-color);
+  color: var(--color-primary-light);
   animation: rebote 1.2s infinite;
 }

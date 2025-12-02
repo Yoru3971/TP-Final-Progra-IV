@@ -1,3 +1,4 @@
+/* --- FORMULARIO DE LOGIN --- */
 .form-login {
   display: flex;
   flex-direction: column;
@@ -6,9 +7,9 @@
   padding: 2rem;
   width: 100%;
   margin: 5rem auto;
-  background: var(--form-bg);
+  background: var(--color-background-secondary);
   border-radius: 1rem;
-  box-shadow: var(--form-shadow);
+  box-shadow: var(--shadow-form);
 }
 
 .form-login div {

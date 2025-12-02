@@ -1,3 +1,4 @@
+/* --- COMPONENTE DE TEXTO GENERAL --- */
 :host {
   display: block;
   padding: 2.4rem;
@@ -6,6 +7,6 @@
 
 .texto {
   font-size: 1.45rem;
-  color: var(--text-color);
+  color: var(--color-text-primary);
   margin-bottom: 2.6rem;
 }
