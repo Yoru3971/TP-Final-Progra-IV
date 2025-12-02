@@ -1,10 +1,11 @@
+/* --- COMPONENTE PIE DE PÁGINA (FOOTER) --- */
 .app-footer {
   align-items: center;
-  background-color: var(--bg-color);
-  border-top: 1px solid var(--footer-border-color);
+  background-color: var(--color-background-primary);
+  border-top: 0.1rem solid var(--color-border-light);
   box-shadow: 0 -0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.1),
     0 -0.2rem 0.4rem -0.2rem rgba(0, 0, 0, 0.1);
-  color: var(--text-color);
+  color: var(--color-text-primary);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -29,7 +30,7 @@
 }
 
 .footer-section h3 {
-  color: var(--text-color);
+  color: var(--color-text-primary);
   display: inline-block;
   font-size: 1.8rem;
   margin-bottom: 0.4rem;
@@ -66,14 +67,14 @@
 }
 
 .footer-eslogan {
-  color: var(--link-color);
+  color: var(--color-primary-light);
   font-size: 1.9rem;
   font-style: italic;
   margin: 0.8rem -3rem 0 -3rem;
 }
 
 .footer-contact-info p {
-  color: var(--text-color);
+  color: var(--color-text-primary);
   font-size: 1.35rem;
   margin: 0;
 }
@@ -83,7 +84,7 @@ address p {
 }
 
 .footer-section a {
-  color: var(--link-color);
+  color: var(--color-primary-light);
   font-size: 1.35rem;
   padding-bottom: 0.8rem;
   text-decoration: none;
@@ -91,15 +92,15 @@ address p {
 }
 
 .footer-section a:hover {
-  color: var(--link-hover-color);
+  color: var(--color-primary-hover-dark);
   text-decoration: underline;
 }
 
 .footer-bottom-bar {
   align-items: center;
-  background-color: var(--footer-bottom-bg-color);
-  border-top: 1px solid var(--footer-bottom-border-color);
-  color: var(--footer-bottom-text-color);
+  background-color: var(--color-background-secondary);
+  border-top: 0.1rem solid var(--color-border-light);
+  color: var(--color-text-light);
   display: flex;
   font-size: 1.2rem;
   justify-content: center;
@@ -109,7 +110,7 @@ address p {
 }
 
 .footer-bottom-bar a {
-  color: var(--link-color);
+  color: var(--color-primary-light);
 }
 
 .footer-bottom-bar .separador {
