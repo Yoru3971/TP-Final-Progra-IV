@@ -1,3 +1,4 @@
+/* --- FORMULARIO DE REGISTRO --- */
 .form-registro {
   display: flex;
   flex-direction: column;
@@ -6,9 +7,9 @@
   padding: 2rem;
   width: 100%;
   margin: 5rem auto;
-  background: var(--form-bg);
+  background: var(--color-background-secondary);
   border-radius: 1rem;
-  box-shadow: var(--form-shadow);
+  box-shadow: var(--shadow-form);
 }
 
 .form-registro div {
@@ -32,7 +33,7 @@
 }
 
 :host .checkbox-container label:has(input[type='checkbox']:checked) {
-  color: var(--line-trough-color);
+  color: var(--color-ui-neutral);
   text-decoration: line-through;
 }
 
@@ -43,7 +44,7 @@
 }
 
 .checkbox-container a {
-  color: var(--link-color);
+  color: var(--color-primary-light);
   text-decoration: none;
   font-weight: bold;
 }

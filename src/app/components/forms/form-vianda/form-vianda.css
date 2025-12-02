@@ -1,3 +1,4 @@
+/* --- FORMULARIO DE CREACIÓN/EDICIÓN DE VIANDA --- */
 .form-vianda {
   display: flex;
   flex-direction: column;
@@ -7,7 +8,7 @@
   width: 100%;
   max-width: 75rem;
   margin: 5rem auto;
-  background: var(--form-bg);
+  background: var(--color-background-secondary);
   border-radius: 1rem;
 }
 
@@ -35,22 +36,23 @@
 
 .form-field {
   width: 100%;
+  min-height: 10rem;
 }
 
 .form-input.placeholder-text {
-  color: var(--input-text) !important;
+  color: var(--color-text-secondary) !important;
 }
 
 .form-input:not(.placeholder-text) {
-  color: var(--input-text);
+  color: var(--color-text-secondary);
 }
 
 .form-input option.placeholder-option {
-  color: var(--toggle-eye-color);
+  color: var(--color-text-light);
 }
 
 .form-input option:not(.placeholder-option) {
-  color: var(--input-text);
+  color: var(--color-text-secondary);
 }
 
 .form-file-input {
@@ -60,9 +62,9 @@
 .upload-box-visual {
   width: 100%;
   aspect-ratio: 1 / 1;
-  border: 0.3rem dashed var(--btn-disabled);
+  border: 0.3rem dashed var(--color-ui-disabled-background);
   border-radius: 1rem;
-  background-color: var(--image-upload-bg);
+  background-color: var(--color-background-secondary);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,8 +77,8 @@
 }
 
 .upload-box-visual:hover {
-  background-color: var(--image-upload-bg-hover);
-  border-color: var(--button-bg);
+  background-color: var(--color-background-secondary);
+  border-color: var(--color-primary-light);
 }
 
 .upload-box-visual.has-preview {
@@ -108,15 +110,15 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: var(--eliminar-color);
+  color: var(--color-state-error);
   font-size: 1.6rem;
   transition: background-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
   box-shadow: 0 0.25rem 0.6rem rgba(0, 0, 0, 0.25);
 }
 
 .btn-remove-image:hover {
-  background-color: var(--eliminar-color);
-  color: var(--inverse-text-color);
+  background-color: var(--color-state-error);
+  color: var(--color-text-inverse);
   transform: scale(1.07);
 }
 
@@ -127,13 +129,13 @@
 .upload-icon {
   font-size: 4rem;
   margin-bottom: 0.5rem;
-  color: var(--toggle-eye-color);
+  color: var(--color-text-light);
 }
 
 .upload-text {
   font-size: 1.4rem;
   font-weight: 500;
-  color: var(--toggle-eye-color);
+  color: var(--color-text-light);
 }
 
 .image-placeholder-message {
@@ -149,11 +151,11 @@
 }
 
 .image-placeholder-message .placeholder-info {
-  color: var(--toggle-eye-color);
+  color: var(--color-text-light);
 }
 
 .image-placeholder-message .success-message {
-  color: var(--estado-aceptado);
+  color: var(--color-state-success);
   font-weight: lighter;
 }
 
@@ -179,27 +181,23 @@
   justify-content: center;
   cursor: pointer;
   font-size: 1.8rem;
-  color: var(--toggle-eye-color);
+  color: var(--color-text-light);
   box-shadow: 0 0.25rem 0.6rem rgba(0, 0, 0, 0.25);
   transition: background-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
   z-index: 15;
 }
 
 .btn-icon-circle:hover {
-  background-color: var(--button-bg);
-  color: var(--bg-color);
+  background-color: var(--color-primary-light);
+  color: var(--color-background-primary);
   transform: scale(1.07);
 }
 
 .btn-close-modal {
-  color: var(--toggle-eye-color);
+  color: var(--color-text-light);
 }
 
 .btn-close-modal:hover {
-  background-color: var(--button-bg);
-  color: var(--bg-color);
-}
-
-.form-field{
-    min-height: 10rem;
+  background-color: var(--color-primary-light);
+  color: var(--color-background-primary);
 }
