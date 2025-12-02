@@ -1,3 +1,4 @@
+/* --- COMPONENTE TARJETA DE VIANDA DETALLADA (VIANDA-OWNER-CARD) --- */
 :host {
   display: block;
   height: 100%;
@@ -10,24 +11,25 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: #ffffff;
+  background-color: var(--color-background-primary);
   border-radius: 1.5rem;
   overflow: hidden;
-  border: 0.1rem solid #e0e0e0;
+  border: 0.1rem solid var(--color-ui-neutral);
   transition: all 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-0.4rem);
   box-shadow: 0 1.2rem 2rem -0.5rem rgba(0, 0, 0, 0.1);
-  border-color: #e5e7eb;
+  border-color: var(--color-border-light);
 }
 
+/* -------- Imagen -------- */
 .card-image-container {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
-  background-color: #f9fafb;
+  background-color: var(--color-background-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,21 +58,22 @@
 }
 
 .placeholder-icon {
-  color: #d1d5db;
+  color: var(--color-ui-gray-light);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+/* -------- Contenido -------- */
 .card-content {
   flex: 1;
-  background-color: #ffffff;
+  background-color: var(--color-background-primary);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-top: 1px solid #f3f4f6;
+  border-top: 0.1rem solid var(--color-border-light);
 }
 
 .card-header {
@@ -82,7 +85,7 @@
 
 .card-title {
   font-weight: 700;
-  color: #3b3a3a;
+  color: var(--color-text-dark-secondary);
   font-size: 1.4rem;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
@@ -97,20 +100,20 @@
 }
 
 .card-price {
-  color: #f48d2d;
+  color: var(--color-primary-action);
   font-size: 1.3rem;
   letter-spacing: 0.05rem;
   font-weight: 700;
   white-space: nowrap;
-  background-color: #fff7ed;
+  background-color: var(--color-background-soft-orange);
   padding: 0.4rem 0.8rem;
-  border: 1px solid #e0e0e0;
+  border: 0.1rem solid var(--color-ui-neutral);
   border-radius: 0.6rem;
   cursor: default;
 }
 
 .card-description {
-  color: #9ca3af;
+  color: var(--color-text-placeholder);
   font-size: 1.4rem;
   font-weight: 500;
   line-height: 1.5;
@@ -145,18 +148,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f9fafb;
-  color: #374151;
+  background-color: var(--color-background-secondary);
+  color: var(--color-text-dark-secondary);
   transition: all 0.2s;
 }
 
 .btn-edit {
-  color: #9ca3af;
+  color: var(--color-text-placeholder);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.6rem;
-  background: white;
+  background: var(--color-background-primary);
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -164,17 +167,17 @@
 }
 
 .btn-edit:hover {
-  color: #f48d2d;
-  border-color: #f48d2d;
+  color: var(--color-primary-action);
+  border-color: var(--color-primary-action);
 }
 
 .quantity-selector {
   display: flex;
   align-items: center;
-  background-color: #fff7ed;
+  background-color: var(--color-background-soft-orange);
   border-radius: 9999px;
   padding: 0.4rem 0.5rem;
-  border: 1px solid #e0e0e0;
+  border: 0.1rem solid var(--color-ui-neutral);
 }
 
 .btn-qty {
@@ -185,60 +188,60 @@
   border-radius: 50%;
   border: none;
   background: transparent;
-  color: #ff9f43;
+  color: var(--color-primary-medium);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .btn-qty:hover:not(:disabled) {
-  background-color: #fff7ed;
-  color: #ef7d13;
+  background-color: var(--color-background-soft-orange);
+  color: var(--color-primary-action-hover); /* Nuevo: #ef7d13 */
 }
 
 .btn-qty:disabled {
-  color: #d1d5db;
+  color: var(--color-ui-gray-light);
   cursor: default;
 }
 
 .qty-value {
-    min-width: 1.4rem;
-    flex: 1;
-    text-align: center;
-    font-weight: 700;
-    color: #4b5563;
-    font-size: 1.4rem;
-    user-select: none;
-    margin: 0 0.25rem;
+  min-width: 1.4rem;
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-text-dark-secondary);
+  font-size: 1.4rem;
+  user-select: none;
+  margin: 0 0.25rem;
 }
 
 .card.unavailable {
-    background-color: #f3f4f6; 
-    box-shadow: none;
+  background-color: var(--color-border-light);
+  box-shadow: none;
 }
 
 .card.unavailable .product-image,
 .card.unavailable .card-header,
 .card.unavailable .card-description,
 .card.unavailable .card-footer .diet-icons {
-    filter: grayscale(100%); 
-    opacity: 0.5;
-    pointer-events: none; 
+  filter: grayscale(100%);
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .status-badge {
-    position: absolute;
-    top: 0.8rem;
-    right: 0.8rem;
-    
-    background-color: #ef4444;
-    border: 1px solid #ef4444;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-    z-index: 10;
-    cursor: default;
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+
+  background-color: var(--color-state-error); /* #ef4444 (rojo fuerte) */
+  border: 0.1rem solid var(--color-state-error);
+  color: var(--color-text-inverse);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+  white-space: nowrap;
+  z-index: 10;
+  cursor: default;
 }

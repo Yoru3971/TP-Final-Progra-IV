@@ -1,3 +1,4 @@
+/* --- COMPONENTE TARJETA DE ACCIONES (PANEL) --- */
 :host {
   display: block;
   width: 100%;
@@ -6,16 +7,16 @@
 
 .titulo-seccion {
   font-size: 2rem;
-  color: var(--text-color);
+  color: var(--color-text-primary);
   margin-bottom: 2rem;
   margin-top: 0.5rem;
 }
 
 .acciones-card {
-  background-color: var(--form-bg);
+  background-color: var(--color-background-secondary);
   border-radius: 1.2rem;
   padding: 4rem 3.4rem;
-  box-shadow: var(--form-shadow);
+  box-shadow: var(--shadow-form);
   width: 100%;
   justify-content: center;
   position: relative;
@@ -29,6 +30,7 @@
   align-items: center;
   gap: 1.4rem;
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .accion:hover {
@@ -45,20 +47,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--link-color);
+  color: var(--color-primary-light);
 }
 
 .accion p {
   font-size: 1.55rem;
   margin: 0;
-  color: var(--text-color);
+  color: var(--color-text-primary);
   line-height: 1.2;
 }
 
 .accion-roja p {
-  color: var(--error-color);
+  color: var(--color-state-error);
 }
 
 .icon-rojo {
-  color: var(--error-color);
+  color: var(--color-state-error);
 }

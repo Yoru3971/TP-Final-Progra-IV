@@ -1,5 +1,6 @@
+/* --- COMPONENTE CARD DE INFORMACIÓN DETALLADA --- */
 .card-info {
-  background-color: white;
+  background-color: var(--color-background-primary);
   border-radius: 1.6rem;
   padding: 3rem 5rem;
   display: flex;
@@ -31,7 +32,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #eee;
+  background: var(--color-border-light); /* #eee */
   position: relative;
   flex-shrink: 0;
 }
@@ -71,7 +72,7 @@
 
 .lupa-icon {
   font-size: 3rem;
-  color: white;
+  color: var(--color-text-inverse);
   opacity: 0;
   transition: 0.25s ease;
 }
@@ -95,7 +96,7 @@
 
 .placeholder-icon {
   font-size: 3.8rem;
-  color: rgb(180, 180, 180);
+  color: var(--color-ui-neutral); /* rgb(180, 180, 180) */
 }
 
 /* ------------------ TITLE ------------------ */
@@ -105,7 +106,7 @@
   font-weight: 500;
   letter-spacing: 0.2rem;
   text-transform: uppercase;
-  color: #333;
+  color: var(--color-text-dark-secondary); /* #333 */
   margin: 0;
   line-height: 1.2;
   overflow-wrap: break-word;
@@ -147,7 +148,7 @@
   text-align: right;
   gap: 0.6rem;
   font-size: 1.4rem;
-  color: #666;
+  color: var(--color-ui-disabled-text); /* #666 */
   line-height: 1.6;
   text-transform: uppercase;
   min-width: 20rem;
@@ -166,7 +167,7 @@
 
 .info-right .text-icon-container i {
   font-size: 1.6rem;
-  color: var(--button-bg);
+  color: var(--color-primary-light);
 }
 
 /* ------------------ MODAL ------------------ */
