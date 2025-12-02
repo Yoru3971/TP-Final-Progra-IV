@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, output } from '@angular/core';
-import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
-import { CarritoService } from '../../services/carrito-service';
+import { EmprendimientoResponse } from '../../../model/emprendimiento-response.model';
+import { CarritoService } from '../../../services/carrito-service';
 
 @Component({
   selector: 'app-emprendimiento-info',

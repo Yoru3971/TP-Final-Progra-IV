@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { EliminarCuentaPaso1 } from '../modals/eliminar-cuenta-paso1/eliminar-cuenta-paso1';
-import { ConfirmarLogout } from '../modals/logout-modal/logout-modal';
-import { CambiarPasswordModal } from '../modals/cambiar-password-modal/cambiar-password-modal';
+import { EliminarCuentaPaso1 } from '../../modals/eliminar-cuenta-paso1/eliminar-cuenta-paso1';
+import { ConfirmarLogout } from '../../modals/logout-modal/logout-modal';
+import { CambiarPasswordModal } from '../../modals/cambiar-password-modal/cambiar-password-modal';
 
 @Component({
   selector: 'app-panel-acciones-cuenta',

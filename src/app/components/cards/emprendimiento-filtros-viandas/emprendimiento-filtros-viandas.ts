@@ -1,10 +1,10 @@
 import { Component, computed, effect, input, output, signal } from '@angular/core';
-import { FiltrosViandas } from '../../model/filtros-viandas.model';
-import { ViandaResponse } from '../../model/vianda-response.model';
+import { FiltrosViandas } from '../../../model/filtros-viandas.model';
+import { ViandaResponse } from '../../../model/vianda-response.model';
 import { FormsModule } from '@angular/forms';
-import { IconTacc } from '../iconos/icon-tacc/icon-tacc';
-import { IconVeggie } from '../iconos/icon-veggie/icon-veggie';
-import { IconVegan } from '../iconos/icon-vegan/icon-vegan';
+import { IconTacc } from '../../utils/icon-tacc/icon-tacc';
+import { IconVeggie } from '../../utils/icon-veggie/icon-veggie';
+import { IconVegan } from '../../utils/icon-vegan/icon-vegan';
 
 
 @Component({
