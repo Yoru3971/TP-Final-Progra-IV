@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UsuarioService } from '../../../services/usuario-service';
 import { AuthService } from '../../../services/auth-service';
-import { Router } from '@angular/router';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { EliminarCuentaPaso3 } from '../eliminar-cuenta-paso3/eliminar-cuenta-paso3';
-import { ErrorDialogModal } from '../../error-dialog-modal/error-dialog-modal';
+import { ErrorDialogModal
 
+ } from '../error-dialog-modal/error-dialog-modal';
 @Component({
   selector: 'app-eliminar-cuenta-paso2',
   imports: [ReactiveFormsModule],

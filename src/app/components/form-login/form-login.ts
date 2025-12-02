@@ -6,8 +6,8 @@ import { AuthService } from '../../services/auth-service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarData } from '../../model/snackbar-data.model';
-import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
-import { Snackbar } from '../snackbar/snackbar';
+import { Snackbar } from '../modals/snackbar/snackbar';
+import { ErrorDialogModal } from '../modals/error-dialog-modal/error-dialog-modal';
 
 @Component({
   selector: 'app-form-login',

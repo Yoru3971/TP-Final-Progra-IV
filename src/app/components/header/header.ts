@@ -6,7 +6,7 @@ import { CitySelector } from '../city-selector/city-selector';
 import { SearchBar } from '../search-bar/search-bar';
 import { DropdownNotificacion } from '../dropdown-notificacion/dropdown-notificacion';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmarLogout } from '../logout-modal/logout-modal';
+import { ConfirmarLogout } from '../modals/logout-modal/logout-modal';
 
 @Component({
   selector: 'app-header',

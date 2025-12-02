@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { CategoriaVianda } from '../../enums/categoriaVianda.enum';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
+import { ErrorDialogModal } from '../modals/error-dialog-modal/error-dialog-modal';
 
 @Component({
   selector: 'app-form-vianda',

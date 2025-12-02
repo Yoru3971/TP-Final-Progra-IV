@@ -1,6 +1,6 @@
 import { Component, inject, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { UsuarioResponse } from '../../model/usuario-response.model';
+import { UsuarioResponse } from '../../../model/usuario-response.model';
 
 @Component({
   selector: 'app-datos-usuario-modal',

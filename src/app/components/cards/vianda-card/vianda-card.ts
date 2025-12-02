@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { ViandaResponse } from '../../../model/vianda-response.model';
 import { MatDialog } from '@angular/material/dialog';
-import { ViandaExtendedModal } from '../../vianda-extended-modal/vianda-extended-modal';
+import { ViandaExtendedModal } from '../../modals/vianda-extended-modal/vianda-extended-modal';
 
 @Component({
   selector: 'app-vianda-card',

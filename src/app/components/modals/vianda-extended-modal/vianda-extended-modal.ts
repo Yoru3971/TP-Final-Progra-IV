@@ -2,11 +2,11 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ViandaResponse } from '../../model/vianda-response.model';
 import { Router } from '@angular/router';
-import { IconTacc } from '../iconos/icon-tacc/icon-tacc';
-import { IconVegan } from '../iconos/icon-vegan/icon-vegan';
-import { IconVeggie } from '../iconos/icon-veggie/icon-veggie';
+import { IconTacc } from '../../iconos/icon-tacc/icon-tacc';
+import { IconVegan } from '../../iconos/icon-vegan/icon-vegan';
+import { IconVeggie } from '../../iconos/icon-veggie/icon-veggie';
+import { ViandaResponse } from '../../../model/vianda-response.model';
 
 @Component({
   selector: 'app-vianda-extended-modal',

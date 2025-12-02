@@ -6,9 +6,9 @@ import { UsuarioResponse } from '../../../model/usuario-response.model';
 import { FormUserUpdate } from '../../form-user-update/form-user-update';
 import { UsuarioService } from '../../../services/usuario-service';
 import { AuthService } from '../../../services/auth-service';
-import { Snackbar } from '../../snackbar/snackbar';
+import { Snackbar } from '../../modals/snackbar/snackbar';
 import { SnackbarData } from '../../../model/snackbar-data.model';
-import { SuccessDialogModal } from '../../success-dialog-modal/success-dialog-modal';
+import { SuccessDialogModal } from '../../modals/success-dialog-modal/success-dialog-modal';
 
 @Component({
   selector: 'app-datos-usuario-card',

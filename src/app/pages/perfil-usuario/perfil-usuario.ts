@@ -7,7 +7,7 @@ import { UsuarioResponse } from '../../model/usuario-response.model';
 import { UsuarioService } from '../../services/usuario-service';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth-service';
-import { ErrorDialogModal } from '../../components/error-dialog-modal/error-dialog-modal';
+import { ErrorDialogModal } from '../../components/modals/error-dialog-modal/error-dialog-modal';
 
 @Component({
   selector: 'app-perfil-usuario',

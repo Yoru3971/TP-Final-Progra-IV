@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
 import { AuthService } from '../../services/auth-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarData } from '../../model/snackbar-data.model';
-import { Snackbar } from '../snackbar/snackbar';
+import { Snackbar } from '../modals/snackbar/snackbar';
 import { ChangeDetectorRef } from '@angular/core';
+import { ErrorDialogModal } from '../modals/error-dialog-modal/error-dialog-modal';
 
 @Component({
   selector: 'app-form-emprendimiento',

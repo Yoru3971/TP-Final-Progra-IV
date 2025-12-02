@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ConfirmarModalData } from '../model/confirmar-modal-data.model';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmarModal } from '../components/confirmar-modal/confirmar-modal';
+import { ConfirmarModal } from '../components/modals/confirmar-modal/confirmar-modal';
 
 @Injectable({
   providedIn: 'root',

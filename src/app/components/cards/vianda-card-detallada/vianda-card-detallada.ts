@@ -1,10 +1,10 @@
 import { Component, inject, input, output } from '@angular/core';
-import { ViandaResponse } from '../../model/vianda-response.model';
-import { PageMode } from '../../pages/emprendimiento-page/emprendimiento-page';
-import { IconTacc } from '../iconos/icon-tacc/icon-tacc';
-import { IconVegan } from '../iconos/icon-vegan/icon-vegan';
-import { IconVeggie } from '../iconos/icon-veggie/icon-veggie';
-import { CarritoService } from '../../services/carrito-service';
+import { ViandaResponse } from '../../../model/vianda-response.model';
+import { PageMode } from '../../../pages/emprendimiento-page/emprendimiento-page';
+import { IconTacc } from '../../iconos/icon-tacc/icon-tacc';
+import { IconVegan } from '../../iconos/icon-vegan/icon-vegan';
+import { IconVeggie } from '../../iconos/icon-veggie/icon-veggie';
+import { CarritoService } from '../../../services/carrito-service';
 
 @Component({
   selector: 'app-vianda-card-detallada',

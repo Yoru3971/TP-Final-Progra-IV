@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { CarritoService } from '../../services/carrito-service';
+import { CarritoService } from '../../../services/carrito-service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ViandaResponse } from '../../model/vianda-response.model';
+import { ViandaResponse } from '../../../model/vianda-response.model';
+import { ConfirmarModalService } from '../../../services/confirmar-modal-service';
 import {
   AbstractControl,
   FormBuilder,
@@ -10,7 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
-import { ConfirmarModalService } from '../../services/confirmar-modal-service';
+
 
 @Component({
   selector: 'app-carrito-modal',
