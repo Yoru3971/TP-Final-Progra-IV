@@ -1,8 +1,8 @@
 import { Component, Input, inject } from '@angular/core';
-import { PedidoResponse } from '../../model/pedido-response.model';
+import { PedidoResponse } from '../../../model/pedido-response.model';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { PedidoExtendedModal } from '../pedido-extended-modal/pedido-extended-modal';
+import { PedidoExtendedModal } from '../../pedido-extended-modal/pedido-extended-modal';
 
 @Component({
   selector: 'app-pedido-single-card',

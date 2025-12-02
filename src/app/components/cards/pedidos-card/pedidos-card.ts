@@ -1,8 +1,8 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core';
-import { PedidosService } from '../../services/pedido-service';
+import { PedidosService } from '../../../services/pedido-service';
 import { PedidoSingleCard } from '../pedido-single-card/pedido-single-card';
-import { DateRangePickerComponent } from '../date-range-picker/date-range-picker';
-import { EstadoPedido } from '../../enums/estadoPedido.enum';
+import { DateRangePickerComponent } from '../../date-range-picker/date-range-picker';
+import { EstadoPedido } from '../../../enums/estadoPedido.enum';
 
 @Component({
   selector: 'app-pedidos-card',

@@ -2,7 +2,7 @@ import { Component, effect, ElementRef, HostListener, inject, signal } from '@an
 import { NotificacionService } from '../../services/notificacion-service';
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { Router } from '@angular/router';
-import { NotificacionSingleCardComponent } from '../notificacion-single-card/notificacion-single-card';
+import { NotificacionSingleCardComponent } from '../cards/notificacion-single-card/notificacion-single-card';
 
 @Component({
   selector: 'app-dropdown-notificacion',

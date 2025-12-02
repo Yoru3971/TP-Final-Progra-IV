@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { EmprendimientoConViandas } from '../../model/emprendimiento-con-viandas.model';
+import { EmprendimientoConViandas } from '../../../model/emprendimiento-con-viandas.model';
 import { ViandaCard } from '../vianda-card/vianda-card';
 import { RouterLink } from '@angular/router';
 

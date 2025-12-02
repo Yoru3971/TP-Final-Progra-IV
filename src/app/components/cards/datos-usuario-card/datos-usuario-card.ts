@@ -1,14 +1,14 @@
 import { Component, inject, Input, OnInit, signal } from '@angular/core';
-import { UsuarioResponse } from '../../model/usuario-response.model';
 import { MatDialog } from '@angular/material/dialog';
-import { FormUserUpdate } from '../form-user-update/form-user-update';
-import { UsuarioService } from '../../services/usuario-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth-service';
-import { SnackbarData } from '../../model/snackbar-data.model';
-import { SuccessDialogModal } from '../success-dialog-modal/success-dialog-modal';
-import { Snackbar } from '../snackbar/snackbar';
+import { UsuarioResponse } from '../../../model/usuario-response.model';
+import { FormUserUpdate } from '../../form-user-update/form-user-update';
+import { UsuarioService } from '../../../services/usuario-service';
+import { AuthService } from '../../../services/auth-service';
+import { Snackbar } from '../../snackbar/snackbar';
+import { SnackbarData } from '../../../model/snackbar-data.model';
+import { SuccessDialogModal } from '../../success-dialog-modal/success-dialog-modal';
 
 @Component({
   selector: 'app-datos-usuario-card',
