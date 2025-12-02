@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { EliminarCuentaPaso3 } from '../eliminar-cuenta-paso3/eliminar-cuenta-paso3';
-import { ErrorDialogModal } from '../../../shared/components/error-dialog-modal/error-dialog-modal';
+import { ErrorDialogModal } from '../../error-dialog-modal/error-dialog-modal';
 
 @Component({
   selector: 'app-eliminar-cuenta-paso2',

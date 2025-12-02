@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { Notificacion } from '../../../model/notificacion.model';
+import { Notificacion } from '../../model/notificacion.model';
 
 @Component({
   selector: 'app-notificacion-single-card',

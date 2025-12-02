@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
-import { SnackbarData } from '../../../model/snackbar-data.model';
+import { SnackbarData } from '../../model/snackbar-data.model';
 
 @Component({
   selector: 'app-snackbar',

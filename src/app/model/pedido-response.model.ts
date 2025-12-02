@@ -1,4 +1,4 @@
-import { EstadoPedido } from '../shared/enums/estadoPedido.enum';
+import { EstadoPedido } from '../enums/estadoPedido.enum';
 import { DetalleViandaResponse } from './detalle-vianda-response.model';
 import { EmprendimientoResponse } from './emprendimiento-response.model';
 import { UsuarioResponse } from './usuario-response.model';

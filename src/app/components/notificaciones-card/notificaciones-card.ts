@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NotificacionService } from '../../services/notificacion-service';
-import { NotificacionSingleCardComponent } from '../../shared/components/notificacion-single-card/notificacion-single-card';
-import { DateRangePickerComponent } from '../../shared/components/date-range-picker/date-range-picker';
+import { NotificacionSingleCardComponent } from '../notificacion-single-card/notificacion-single-card';
+import { DateRangePickerComponent } from '../date-range-picker/date-range-picker'; 
 
 @Component({
   selector: 'app-notificaciones-card',

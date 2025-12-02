@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
-import { Snackbar } from '../../shared/components/snackbar/snackbar';
+import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
+import { Snackbar } from '../snackbar/snackbar';
 import { SnackbarData } from '../../model/snackbar-data.model';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';

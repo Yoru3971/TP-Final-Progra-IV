@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, EventEmitter, inject, input, Output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AuthService, UserRole } from '../../../services/auth-service';
-import { CitySelector } from '../../../components/city-selector/city-selector';
-import { SearchBar } from '../../../components/search-bar/search-bar';
-import { DropdownNotificacion } from '../../../components/dropdown-notificacion/dropdown-notificacion';
+import { AuthService } from '../../services/auth-service'; 
+import { CitySelector } from '../city-selector/city-selector';
+import { SearchBar } from '../search-bar/search-bar';
+import { DropdownNotificacion } from '../dropdown-notificacion/dropdown-notificacion';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmarLogout } from '../logout-modal/logout-modal';
 

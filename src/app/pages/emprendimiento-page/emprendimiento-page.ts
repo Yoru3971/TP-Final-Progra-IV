@@ -11,14 +11,14 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, combineLatest, map, Observable, of, switchMap } from 'rxjs';
 import { ViandaResponse } from '../../model/vianda-response.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Snackbar } from '../../shared/components/snackbar/snackbar';
+import { Snackbar } from '../../components/snackbar/snackbar';
 import { SnackbarData } from '../../model/snackbar-data.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FormVianda } from '../../components/form-vianda/form-vianda';
 import { FormUpdateEmprendimiento } from '../../components/form-emprendimiento-update/form-emprendimiento-update';
 import { CarritoService } from '../../services/carrito-service';
 import { FormViandaUpdate } from '../../components/form-vianda-update/form-vianda-update';
-import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
+import { ErrorDialogModal } from '../../components/error-dialog-modal/error-dialog-modal';
 
 export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
 

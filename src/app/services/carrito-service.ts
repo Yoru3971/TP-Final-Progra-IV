@@ -5,7 +5,7 @@ import { ViandaResponse } from '../model/vianda-response.model';
 import { ViandaService } from './vianda-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarData } from '../model/snackbar-data.model';
-import { Snackbar } from '../shared/components/snackbar/snackbar';
+import { Snackbar } from '../components/snackbar/snackbar';
 import { firstValueFrom, forkJoin, map } from 'rxjs';
 import { PedidoRequest } from '../model/pedido-request.model';
 import { AuthService } from './auth-service';

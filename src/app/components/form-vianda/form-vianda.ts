@@ -2,13 +2,11 @@ import { Component, Inject, inject, Input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ViandaService } from '../../services/vianda-service';
-import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { CategoriaVianda } from '../../shared/enums/categoriaVianda.enum';
+import { CategoriaVianda } from '../../enums/categoriaVianda.enum';
 import { ChangeDetectorRef } from '@angular/core';
-import { SnackbarData } from '../../model/snackbar-data.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Snackbar } from '../../shared/components/snackbar/snackbar';
+import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
 
 @Component({
   selector: 'app-form-vianda',

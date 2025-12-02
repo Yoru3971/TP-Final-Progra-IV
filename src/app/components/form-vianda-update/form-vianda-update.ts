@@ -4,13 +4,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ViandaService } from '../../services/vianda-service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ViandaResponse } from '../../model/vianda-response.model';
-import { CategoriaVianda } from '../../shared/enums/categoriaVianda.enum';
+import { CategoriaVianda } from '../../enums/categoriaVianda.enum';
 import { ViandaUpdate } from '../../model/vianda-update.model';
-import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
-import { firstValueFrom } from 'rxjs';
+import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
+import { Snackbar } from '../snackbar/snackbar';import { firstValueFrom } from 'rxjs';
 import { ConfirmarModalService } from '../../services/confirmar-modal-service';
 import { SnackbarData } from '../../model/snackbar-data.model';
-import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

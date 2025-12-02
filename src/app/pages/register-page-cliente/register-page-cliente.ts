@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormRegistro } from '../../shared/components/form-registro/form-registro';
+import { FormRegistro } from '../../components/form-registro/form-registro';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({

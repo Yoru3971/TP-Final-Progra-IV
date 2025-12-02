@@ -5,9 +5,9 @@ import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
 import { BasesCondicionesModal } from '../bases-condiciones-modal/bases-condiciones-modal';
 import { MatDialog } from '@angular/material/dialog';
 import { NormasComunidadModal } from '../normas-comunidad-modal/normas-comunidad-modal';
-import { AuthService } from '../../../services/auth-service';
+import { AuthService } from '../../services/auth-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarData } from '../../../model/snackbar-data.model';
+import { SnackbarData } from '../../model/snackbar-data.model';
 import { Snackbar } from '../snackbar/snackbar';
 
 @Component({

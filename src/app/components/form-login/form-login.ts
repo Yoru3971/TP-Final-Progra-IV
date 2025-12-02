@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { LoginResponse } from '../../model/login-response.model';
 import { AuthService } from '../../services/auth-service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Snackbar } from '../../shared/components/snackbar/snackbar';
 import { SnackbarData } from '../../model/snackbar-data.model';
+import { ErrorDialogModal } from '../error-dialog-modal/error-dialog-modal';
+import { Snackbar } from '../snackbar/snackbar';
 
 @Component({
   selector: 'app-form-login',

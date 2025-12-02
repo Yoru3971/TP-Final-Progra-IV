@@ -4,8 +4,8 @@ import { AuthService, UserRole } from './auth-service';
 import { PedidoResponse } from '../model/pedido-response.model';
 import { catchError, of, tap } from 'rxjs';
 import { PedidoUpdateRequest } from '../model/pedido-update-request.model';
-import { EstadoPedido } from '../shared/enums/estadoPedido.enum';
 import { PedidoRequest } from '../model/pedido-request.model';
+import { EstadoPedido } from '../enums/estadoPedido.enum';
 
 @Injectable({
   providedIn: 'root',

@@ -6,8 +6,8 @@ import { PanelAccionesCuenta } from '../../components/panel-acciones-cuenta/pane
 import { UsuarioResponse } from '../../model/usuario-response.model';
 import { UsuarioService } from '../../services/usuario-service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 import { AuthService } from '../../services/auth-service';
+import { ErrorDialogModal } from '../../components/error-dialog-modal/error-dialog-modal';
 
 @Component({
   selector: 'app-perfil-usuario',

@@ -2,9 +2,10 @@ import { Component, computed, effect, input, output, signal } from '@angular/cor
 import { FiltrosViandas } from '../../model/filtros-viandas.model';
 import { ViandaResponse } from '../../model/vianda-response.model';
 import { FormsModule } from '@angular/forms';
-import { IconTacc } from '../../shared/components/iconos/icon-tacc/icon-tacc';
-import { IconVegan } from '../../shared/components/iconos/icon-vegan/icon-vegan';
-import { IconVeggie } from '../../shared/components/iconos/icon-veggie/icon-veggie';
+import { IconTacc } from '../iconos/icon-tacc/icon-tacc';
+import { IconVeggie } from '../iconos/icon-veggie/icon-veggie';
+import { IconVegan } from '../iconos/icon-vegan/icon-vegan';
+
 
 @Component({
   selector: 'app-emprendimiento-filtros-viandas',

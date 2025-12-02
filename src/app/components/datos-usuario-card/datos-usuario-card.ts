@@ -7,8 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { SnackbarData } from '../../model/snackbar-data.model';
-import { Snackbar } from '../../shared/components/snackbar/snackbar';
-import { SuccessDialogModal } from '../../shared/components/success-dialog-modal/success-dialog-modal';
+import { SuccessDialogModal } from '../success-dialog-modal/success-dialog-modal';
+import { Snackbar } from '../snackbar/snackbar';
 
 @Component({
   selector: 'app-datos-usuario-card',
