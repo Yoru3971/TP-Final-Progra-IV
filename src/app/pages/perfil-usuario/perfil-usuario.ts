@@ -1,13 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { DatosUsuarioCard } from '../../components/datos-usuario-card/datos-usuario-card';
-import { NotificacionesCard } from '../../components/notificaciones-card/notificaciones-card';
-import { PedidosCard } from '../../components/pedidos-card/pedidos-card';
-import { PanelAccionesCuenta } from '../../components/panel-acciones-cuenta/panel-acciones-cuenta';
+import { DatosUsuarioCard } from '../../components/cards/datos-usuario-card/datos-usuario-card';
+import { NotificacionesCard } from '../../components/cards/notificaciones-card/notificaciones-card';
+import { PedidosCard } from '../../components/cards/pedidos-card/pedidos-card';
+import { PanelAccionesCuenta } from '../../components/cards/panel-acciones-cuenta/panel-acciones-cuenta';
 import { UsuarioResponse } from '../../model/usuario-response.model';
 import { UsuarioService } from '../../services/usuario-service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogModal } from '../../shared/components/error-dialog-modal/error-dialog-modal';
 import { AuthService } from '../../services/auth-service';
+import { ErrorDialogModal } from '../../components/modals/error-dialog-modal/error-dialog-modal';
 
 @Component({
   selector: 'app-perfil-usuario',

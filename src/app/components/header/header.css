@@ -1,0 +1,156 @@
+/* --- COMPONENTE CABECERA PRINCIPAL (HEADER) --- */
+.main-header {
+  align-items: center;
+  background-color: var(--color-background-primary);
+  border-bottom: 0.1rem solid color-mix(in srgb, var(--color-background-primary) 80%, black);
+  box-shadow: 0 0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.1), 0 0.2rem 0.4rem -0.2rem rgba(0, 0, 0, 0.1);
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+}
+
+.header-nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  min-height: 6rem;
+  padding: 1rem 5%;
+  width: 100%;
+}
+
+.header-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  min-width: max-content;
+}
+
+.logo-rol-container {
+  align-items: center;
+  aspect-ratio: 1/1;
+  display: flex;
+  flex-direction: column;
+  height: 5rem;
+}
+
+.logo-container {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+.header-logo {
+  display: block;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  width: auto;
+}
+
+.rol {
+  color: var(--color-primary);
+  font-size: 1rem;
+  line-height: 1rem;
+  margin: 0;
+}
+
+.header-center {
+  position: static;
+  transform: none;
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+.header-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2.5rem;
+  min-width: max-content;
+}
+
+app-search-bar {
+  width: 100%;
+  max-width: 45rem;
+}
+
+.nav-link {
+  color: var(--color-text-primary);
+  font-size: 1.5rem;
+  padding: 0;
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: var(--color-primary-hover-dark);
+  text-decoration: underline;
+}
+
+.btns-logged {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.btn {
+  align-items: center;
+  border-radius: 1rem;
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: 500;
+  justify-content: center;
+  margin: 0;
+  padding: 0.75rem 1rem;
+}
+
+.btn-profile {
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  color: var(--color-background-primary);
+  height: 4rem;
+}
+
+.btn-profile:focus-within,
+.btn-profile:hover {
+  background-color: color-mix(in srgb, var(--color-primary-light) 92.5%, black);
+}
+
+.btn-profile:active {
+  background-color: color-mix(in srgb, var(--color-primary-light) 80%, black);
+  transition: none;
+}
+
+.btn-logout {
+  background-color: inherit;
+  color: var(--color-primary-light);
+  font-size: 2rem;
+  padding: 0;
+}
+
+.btn-logout:focus-within,
+.btn-logout:hover {
+  color: color-mix(in srgb, var(--color-primary-light) 87.5%, black);
+}
+
+.btn-logout:active {
+  color: color-mix(in srgb, var(--color-primary-light) 75%, black);
+  transition: none;
+}

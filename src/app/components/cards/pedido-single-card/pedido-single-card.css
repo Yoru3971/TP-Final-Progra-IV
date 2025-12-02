@@ -1,0 +1,77 @@
+/* --- COMPONENTE ÍTEM DE PEDIDO EN LISTA --- */
+:host {
+  display: block;
+  width: 100%;
+}
+
+.pedido-item {
+  padding: 1.8rem 0;
+  border-bottom: 0.1rem solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  transition: 0.15s ease;
+}
+
+:host(:last-child) .pedido-item {
+  border-bottom: none;
+}
+
+.pedido-item:hover {
+  background: rgba(0, 0, 0, 0.025);
+}
+
+.info {
+  flex: 1;
+}
+
+.id {
+  margin: 0 0 0.8rem 0;
+  color: var(--color-text-primary);
+  font-size: 1.55rem; 
+  font-weight: 700;
+}
+
+.id span.nombre-emprendimiento {
+  color: var(--color-primary-light);
+  font-weight: 700;
+}
+
+.linea {
+  margin: 0.6rem 0; 
+  color: var(--color-text-primary);
+  font-size: 1.45rem; 
+}
+
+.label {
+  font-weight: 700;
+}
+
+.precio {
+  color: var(--color-primary-light);
+  font-weight: 700;
+}
+
+.estado span {
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.aceptado {
+  color: var(--color-state-success);
+}
+
+.rechazado {
+  color: var(--color-state-danger);
+}
+
+.pendiente {
+  color: var(--color-state-warning);
+}
+
+.btn-ver {
+  padding: 0.65rem 1.6rem;
+  font-size: 1.35rem;
+  transition: transform 0.15s ease;
+}

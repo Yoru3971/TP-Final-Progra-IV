@@ -1,0 +1,175 @@
+/* --- MODAL DETALLE DE VIANDA --- */
+.modal-container {
+  width: 100%;
+  background: var(--color-background-primary);
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------- Header ---------  */
+.modal-header {
+  background-color: var(--color-primary-medium);
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  color: var(--color-text-inverse);
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+/* --------- Body (info + imagen) ---------  */
+.modal-body {
+  display: flex;
+  flex-direction: column-reverse;
+  width: 100%;
+}
+
+@media (min-width: 76.8rem) {
+  .modal-body {
+    flex-direction: row;
+  }
+}
+
+/* --------- Info (en la izquierda) ---------  */
+.left-panel {
+  flex: 1;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: var(--color-background-primary);
+}
+
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-group label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-placeholder);
+  letter-spacing: 0.05rem;
+}
+
+.info-group p {
+  font-size: 1.6rem;
+  color: var(--color-text-dark-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.descripcion-text {
+  max-width: 40ch;
+}
+
+/* --------- Precio ---------  */
+.precio-badge {
+  display: inline-block;
+  width: fit-content;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary-medium-price);
+  background-color: var(--color-background-soft-orange);
+  padding: 0.5rem 1.5rem;
+  border-radius: 1rem;
+  border: 0.1rem solid var(--color-primary-medium);
+}
+
+/* --------- Iconos ---------  */
+.restricciones-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.icon-badge {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- BOTÓN DE ACCIÓN --- */
+.modal-actions {
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.btn-action {
+  background-color: var(--color-primary-medium);
+  color: var(--color-text-inverse);
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 5rem;
+  cursor: pointer;
+  width: 100%;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+@media (min-width: 76.8rem) {
+  .btn-action {
+    width: auto;
+  }
+}
+
+.btn-action:hover {
+  background-color: var(--color-primary-medium-hover);
+  transform: translateY(-0.2rem);
+}
+
+/* --------- Imagen (en la derecha) ---------  */
+.right-panel {
+  flex: 1;
+  background-color: var(--color-background-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  min-height: 30rem;
+}
+
+.image-wrapper {
+  width: 100%;
+  max-width: 35rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+  border: 0.4rem solid var(--color-background-primary);
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,26 @@
+/* --- SPINNER DE CARGA GLOBAL --- */
+.global-spinner {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(0.2rem);
+  z-index: 9999;
+}
+
+.spinner {
+  width: 4rem;
+  height: 4rem;
+  border: 0.5rem solid var(--color-ui-disabled-background);
+  border-top-color: var(--color-primary-light);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

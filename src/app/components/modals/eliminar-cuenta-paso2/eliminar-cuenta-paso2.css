@@ -1,0 +1,12 @@
+/* --- COMPONENTE DE TEXTO GENERAL --- */
+:host {
+  display: block;
+  padding: 2.4rem;
+  border-radius: 1.2rem;
+}
+
+.texto {
+  font-size: 1.45rem;
+  color: var(--color-text-primary);
+  margin-bottom: 2rem;
+}

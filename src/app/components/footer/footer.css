@@ -1,0 +1,118 @@
+/* --- COMPONENTE PIE DE PÁGINA (FOOTER) --- */
+.app-footer {
+  align-items: center;
+  background-color: var(--color-background-primary);
+  border-top: 0.1rem solid var(--color-border-light);
+  box-shadow: 0 -0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.1),
+    0 -0.2rem 0.4rem -0.2rem rgba(0, 0, 0, 0.1);
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: 0.75rem;
+  width: 100%;
+}
+
+.footer-section {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8rem;
+  width: 100rem;
+}
+
+.footer-contact-info,
+.footer-quick-links {
+  flex: 1;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.footer-section h3 {
+  color: var(--color-text-primary);
+  display: inline-block;
+  font-size: 1.8rem;
+  margin-bottom: 0.4rem;
+  margin-top: 0;
+}
+
+.footer-brand-container {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.footer-logo {
+  height: auto;
+  max-width: 10rem;
+}
+
+.footer-name-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 0;
+  text-align: center;
+}
+
+.footer-name {
+  font-size: 2.4rem;
+  font-style: italic;
+  font-weight: bold;
+  margin: 0;
+}
+
+.footer-eslogan {
+  color: var(--color-primary-light);
+  font-size: 1.9rem;
+  font-style: italic;
+  margin: 0.8rem -3rem 0 -3rem;
+}
+
+.footer-contact-info p {
+  color: var(--color-text-primary);
+  font-size: 1.35rem;
+  margin: 0;
+}
+
+address p {
+  font-style: normal;
+}
+
+.footer-section a {
+  color: var(--color-primary-light);
+  font-size: 1.35rem;
+  padding-bottom: 0.8rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+  color: var(--color-primary-hover-dark);
+  text-decoration: underline;
+}
+
+.footer-bottom-bar {
+  align-items: center;
+  background-color: var(--color-background-secondary);
+  border-top: 0.1rem solid var(--color-border-light);
+  color: var(--color-text-light);
+  display: flex;
+  font-size: 1.2rem;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.footer-bottom-bar a {
+  color: var(--color-primary-light);
+}
+
+.footer-bottom-bar .separador {
+  margin: 0 0.5rem;
+}

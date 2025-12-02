@@ -1,0 +1,89 @@
+/* --- COMPONENTE TARJETA DE VIANDA (PRODUCTO) --- */
+.vianda-card {
+  width: 22rem; 
+  height: auto; 
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background-primary);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 0.1rem solid var(--color-ui-neutral); 
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.vianda-card:hover {
+  transform: translateY(-0.4rem);
+  box-shadow: 0 1.2rem 2rem -0.5rem rgba(0, 0, 0, 0.1);
+  border-color: var(--color-primary-medium);
+}
+
+/* -------- Imagen -------- */
+.card-image-container {
+  width: 100%;
+  aspect-ratio: 4 / 3; 
+  background-color: var(--color-background-secondary); /* #f9fafb (similar a secondary) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.vianda-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.no-image {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: grayscale(100%);
+}
+
+/* -------- Contenido -------- */
+.card-content {
+  padding: 1.2rem;
+  background-color: var(--color-background-primary);
+  border-top: 0.1rem solid var(--color-border-light); /* #f3f4f6 (similar a border-light) */
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  gap: 1rem;
+}
+
+/* -------- Titulo -------- */
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-text-dark-secondary); /* #3b3a3a */
+  text-transform: uppercase;
+  margin: 0;
+  
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left;
+}
+
+/* -------- Precio -------- */
+.card-price {
+  color: var(--color-primary-action); /* #f48d2d (similar a primary-action) */
+  font-size: 1.2rem;
+  font-weight: 700;
+  white-space: nowrap;
+  
+  background-color: var(--color-background-soft-orange); /* #fff7ed */
+  padding: 0.3rem 0.7rem;
+  border: 0.1rem solid var(--color-ui-neutral);
+  border-radius: 0.6rem;
+}

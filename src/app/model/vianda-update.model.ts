@@ -1,4 +1,4 @@
-import { CategoriaVianda } from '../shared/enums/categoriaVianda.enum';
+import { CategoriaVianda } from "../enums/categoriaVianda.enum";
 
 export interface ViandaUpdate {
   nombreVianda: string;

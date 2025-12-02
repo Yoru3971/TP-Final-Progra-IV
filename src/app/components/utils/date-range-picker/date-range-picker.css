@@ -1,0 +1,84 @@
+/* --- COMPONENTE SWITCH TOGGLE Y DATE/TIME PICKER --- */
+.picker-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  height: 4rem;
+}
+
+.switch-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  height: 100%;
+  user-select: none;
+}
+
+.switch-toggle input {
+  display: none;
+}
+
+.slider {
+  width: 4.8rem;
+  height: 2.4rem;
+  background: var(--color-border-light);
+  border-radius: 2.4rem;
+  position: relative;
+  transition: 0.25s;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  left: 0.2rem;
+  top: 0.2rem;
+  background: var(--color-background-primary);
+  border-radius: 50%;
+  transition: 0.25s;
+}
+
+input:checked + .slider {
+  background: var(--color-primary-light);
+}
+
+input:checked + .slider::before {
+  transform: translateX(2.4rem);
+}
+
+.toggle-label {
+  font-size: 1.3rem;
+  color: var(--color-text-secondary);
+  width: 7rem;
+  display: inline-block;
+}
+
+.picker-field {
+  width: 28rem !important;
+  height: 4rem !important;
+  display: flex;
+  align-items: center;
+}
+
+.picker-field .mat-mdc-text-field-wrapper {
+  height: 100% !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+}
+
+.picker-field .mat-mdc-form-field-flex {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 0.8rem !important;
+}
+
+.picker-field input {
+  height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 1.3rem !important;
+}

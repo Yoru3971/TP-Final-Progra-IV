@@ -1,0 +1,27 @@
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
+import { IconTacc } from '../../utils/icon-tacc/icon-tacc';
+import { IconVegan } from '../../utils/icon-vegan/icon-vegan';
+import { IconVeggie } from '../../utils/icon-veggie/icon-veggie';
+import { ViandaResponse } from '../../../model/vianda-response.model';
+
+@Component({
+  selector: 'app-vianda-extended-modal',
+  imports: [MatButtonModule, MatIconModule, IconTacc, IconVegan, IconVeggie],
+  templateUrl: './vianda-extended-modal.html',
+  styleUrl: './vianda-extended-modal.css',
+})
+export class ViandaExtendedModal {
+  constructor(
+    private router: Router,
+    public dialogRef: MatDialogRef<ViandaExtendedModal>,
+    @Inject(MAT_DIALOG_DATA) public vianda: ViandaResponse
+  ) {}
+
+  cerrarModal() {
+    this.dialogRef.close();
+  }
+}

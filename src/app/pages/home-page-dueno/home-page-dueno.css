@@ -1,3 +1,4 @@
+/* --- CARD CREAR Y ESTADO VACÍO --- */
 .card-crear {
   width: 70%;
   margin: 3rem auto;
@@ -9,16 +10,16 @@
   gap: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  background-color: #ffffff;
-  border: 3px dashed #d1d5db;
-  color: #9ca3af;
+  background-color: var(--color-background-primary);
+  border: 0.3rem dashed var(--color-ui-gray-light);
+  color: var(--color-text-placeholder);
 }
 
 .card-crear:hover {
-  border-color: #ff9f43;
-  color: #ff9f43;
-  background-color: #fff7ed;
-  transform: translateY(-4px);
+  border-color: var(--color-primary-medium);
+  color: var(--color-primary-medium);
+  background-color: var(--color-background-soft-orange);
+  transform: translateY(-0.4rem);
 }
 
 .card-crear i {
@@ -29,14 +30,14 @@
   font-size: 1.7rem;
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.1rem;
 }
 
 .estado-vacio {
   width: 100%;
   text-align: center;
   margin-top: 2rem;
-  color: var(--input-text);
+  color: var(--color-text-secondary);
   font-size: 1.8rem;
   opacity: 0.8;
   display: flex;
@@ -45,7 +46,7 @@
 
 .estado-vacio i {
   font-size: 3rem;
-  color: var(--link-color);
+  color: var(--color-primary-light);
   animation: rebote 1.2s infinite;
 }
 
@@ -54,7 +55,7 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-0.6rem);
   }
   100% {
     transform: translateY(0);
