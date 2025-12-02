@@ -10,12 +10,19 @@
   --color-text-inverse: #ffffff;
   --color-text-light: #888888; /* Texto de footer */
 
+  /* Colores de Texto (Variaciones Oscuras) */
+  --color-text-dark-secondary: #4b5563; /* Texto de no-results, not-found-container */
+  --color-text-dark-primary: #1f2937; /* Título de not-found-container */
+
   /* Color Principal (Naranja) */
   --color-primary: #eb8334; /* Base/Rol header */
   --color-primary-light: #fe9039; /* Botones, links, íconos, precios, etc. */
   --color-primary-hover-dark: #e07b3d; /* Header links, link-hover */
   --color-primary-hover-light: #ff7d1a; /* Botón hover */
   --color-primary-action: #e68033; /* Carrito botones secundarios */
+  --color-primary-medium: #ff9f43; /* Hover de card-crear, icono empty owner, botón Home */
+  --color-primary-medium-hover: #e68a35; /* Hover del botón Home */
+  --color-background-soft-orange: #fff7ed; /* Fondo hover de card-crear */
 
   /* Colores de Interfaz (Bordes, Deshabilitado, Scroll) */
   --color-border-light: #e5e7eb; /* Bordes de footer y inputs */
@@ -23,6 +30,8 @@
   --color-ui-neutral-hover: #bbb; /* Scrollbar hover */
   --color-ui-disabled-background: #ccc; /* Botones y UI deshabilitada */
   --color-ui-disabled-text: #666; /* Texto deshabilitado */
+  --color-ui-gray-light: #d1d5db; /* Border, icono de no-results */
+  --color-text-placeholder: #9ca3af; /* Texto de card-crear, no-results */
 
   /* Colores de Estado (Éxito, Error, Alerta) */
   --color-state-success: #2ecc71; /* Aceptado */
@@ -516,7 +525,7 @@ app-root {
 
 .options {
   position: absolute;
-  top: 100%; 
+  top: 100%;
   left: 0;
   width: 100%;
   background: var(--color-background-primary);
@@ -547,10 +556,10 @@ app-root {
 }
 
 .textarea-descripcion {
-  resize: none;      
+  resize: none;
   width: 100%;
-  height: 12rem;      
-  overflow: hidden;    
+  height: 12rem;
+  overflow: hidden;
   line-height: 1.4;
   padding: 1rem;
   white-space: pre-wrap;
