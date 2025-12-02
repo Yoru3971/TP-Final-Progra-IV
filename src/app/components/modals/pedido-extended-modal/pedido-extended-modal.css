@@ -1,5 +1,6 @@
+/* --- MODAL DETALLE DE PEDIDO --- */
 .modal-pedido-container {
-  background: var(--bg-color);
+  background: var(--color-background-primary);
   border-radius: 2rem;
   overflow: hidden;
   display: flex;
@@ -7,9 +8,10 @@
   width: 95rem;
 }
 
+/* --- ENCABEZADO --- */
 .pedido-header {
-  background: var(--carrito-title-bg-color);
-  color: var(--inverse-text-color);
+  background: var(--color-primary-light);
+  color: var(--color-text-inverse);
   padding: 2rem 3rem;
   display: flex;
   align-items: center;
@@ -23,8 +25,8 @@
 }
 
 .btn-close-icon {
-  background: var(--inverse-text-color);
-  color: var(--carrito-title-bg-color);
+  background: var(--color-text-inverse);
+  color: var(--color-primary-light);
   border-radius: 50%;
   width: 3.6rem;
   height: 3.6rem;
@@ -36,8 +38,8 @@
 }
 
 .btn-close-icon:hover {
-  background: color-mix(in srgb, var(--inverse-text-color) 90%, var(--text-color));
-  color: color-mix(in srgb, var(--carrito-title-bg-color) 80%, var(--text-color));
+  background: color-mix(in srgb, var(--color-text-inverse) 90%, var(--color-text-primary));
+  color: color-mix(in srgb, var(--color-primary-light) 80%, var(--color-text-primary));
   cursor: pointer;
 }
 
@@ -46,6 +48,7 @@
   height: 45rem;
 }
 
+/* --- PANEL IZQUIERDO (ITEMS) --- */
 .left-panel {
   flex: 1;
   padding: 3rem;
@@ -57,7 +60,7 @@
   align-items: flex-start;
   padding: 1.6rem 0;
   gap: 1.6rem;
-  border-bottom: 0.1rem solid var(--input-border);
+  border-bottom: 0.1rem solid var(--color-border-light);
 }
 .item-vianda:last-child {
   border-bottom: none;
@@ -75,7 +78,7 @@
 }
 
 .info span{
-  color: var(--carrito-title-bg-color);
+  color: var(--color-primary-light);
 }
 
 .nombre {
@@ -83,10 +86,11 @@
   font-weight: bold;
 }
 
+/* --- PANEL DERECHO (DETALLE Y ACCIONES) --- */
 .right-panel {
   width: 40%;
   min-width: 36rem;
-  border-left: 0.1rem solid var(--input-border);
+  border-left: 0.1rem solid var(--color-border-light);
   padding: 3rem;
   display: flex;
   flex-direction: column;
@@ -110,14 +114,14 @@
 
 .detalle-general .label {
   font-weight: 700;
-  color: var(--text-color);
+  color: var(--color-text-primary);
   font-size: 1.8rem;
 }
 
 .detalle-general .precio {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--precio-color);
+  color: var(--color-primary-light);
 }
 
 .estado {
@@ -127,15 +131,15 @@
 }
 
 .estado.aceptado {
-  color: var(--estado-aceptado);
+  color: var(--color-state-success);
 }
 
 .estado.rechazado {
-  color: var(--estado-rechazado);
+  color: var(--color-state-danger);
 }
 
 .estado.pendiente {
-  color: var(--estado-pendiente);
+  color: var(--color-state-warning);
 }
 
 .grupo-fecha {
@@ -148,25 +152,26 @@
 .grupo-fecha label {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-color);
+  color: var(--color-text-primary);
   text-transform: uppercase;
   letter-spacing: 0.04rem;
 }
 
 .input-date {
   padding: 1rem 1.4rem;
-  border: 1px solid var(--input-border);
+  border: 0.1rem solid var(--color-border-light);
   border-radius: 0.8rem;
   font-size: 1.5rem;
-  color: var(--text-color);
+  color: var(--color-text-primary);
 }
 
 .input-date:focus {
   outline: none;
   border-color: var(--input-focus-outline);
-  box-shadow: var(--invalid-focus-shadow);
+  box-shadow: var(--shadow-focus-error); /* Mantengo la variable original ya que el valor de shadow es complejo */
 }
 
+/* --- ACCIONES --- */
 .acciones {
   display: flex;
   flex-direction: column;
@@ -183,23 +188,23 @@
 }
 
 .btn-cambiar-fecha {
-  background: var(--estado-pendiente);
-  color: var(--inverse-text-color);
+  background: var(--color-state-warning);
+  color: var(--color-text-inverse);
 }
 
 .btn-rechazar {
-  background: var(--estado-rechazado);
-  color: var(--inverse-text-color);
+  background: var(--color-state-danger);
+  color: var(--color-text-inverse);
 }
 
 .btn-confirmar {
-  background: var(--estado-aceptado);
-  color: var(--inverse-text-color);
+  background: var(--color-state-success);
+  color: var(--color-text-inverse);
 }
 
 .btn-contactar {
-  background: var(--estado-default);
-  color: var(--inverse-text-color);
+  background: var(--color-state-default);
+  color: var(--color-text-inverse);
 }
 
 .acciones .btn:hover {

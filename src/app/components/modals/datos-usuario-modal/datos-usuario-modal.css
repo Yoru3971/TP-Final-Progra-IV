@@ -1,19 +1,20 @@
+/* --- MODAL DE DATOS/INFORMACIÓN --- */
 .modal-container {
   width: 52rem;
-  background: var(--bg-color);
+  background: var(--color-background-primary);
   border-radius: 1.6rem;
-  box-shadow: var(--form-shadow);
+  box-shadow: var(--shadow-form);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 .modal-title {
-  background: var(--header-icon-color);
-  color: var(--inverse-text-color);
+  background: var(--color-primary-light);
+  color: var(--color-text-inverse);
   padding: 1.6rem 2rem;
   font-size: 2.2rem;
-  font-weight: large;
+  font-weight: bold; /* 'large' no es un valor CSS. Asumo 'bold' o '600' */
   margin: 0;
   text-transform: uppercase;
 }
@@ -45,10 +46,10 @@
 .alerta {
   margin-top: 1rem;
   padding: 1.2rem 1.6rem;
-  border-left: 0.4rem solid var(--header-icon-color);
-  background: var(--alerta-bg);
+  border-left: 0.4rem solid var(--color-primary-light);
+  background: var(--color-alert-warning-background);
   border-radius: 0.6rem;
-  color: var(--alerta-text-color);
+  color: var(--color-alert-warning-text);
   font-size: 1.4rem;
 }
 

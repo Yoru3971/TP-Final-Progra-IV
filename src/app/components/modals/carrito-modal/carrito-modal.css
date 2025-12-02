@@ -1,5 +1,6 @@
+/* --- MODAL CARRITO DE COMPRAS --- */
 .carrito {
-  background: var(--modal-bg);
+  background: var(--color-background-secondary);
   display: flex;
   flex-direction: column;
 }
@@ -9,9 +10,10 @@
   opacity: 0.6;
 }
 
+/* --- CARRITO HEADER --- */
 .carrito-header {
-  background: var(--carrito-title-bg-color);
-  color: var(--inverse-text-color);
+  background: var(--color-primary-light);
+  color: var(--color-text-inverse);
   padding: 2rem 3rem;
   display: flex;
   align-items: center;
@@ -28,8 +30,8 @@
 }
 
 .btn-close-icon {
-  background: var(--inverse-text-color);
-  color: var(--carrito-title-bg-color);
+  background: var(--color-text-inverse);
+  color: var(--color-primary-light);
   border-radius: 50%;
   width: 3.6rem;
   height: 3.6rem;
@@ -41,8 +43,8 @@
 }
 
 .btn-close-icon:hover {
-  background: color-mix(in srgb, var(--inverse-text-color) 90%, var(--text-color));
-  color: color-mix(in srgb, var(--carrito-title-bg-color) 80%, var(--text-color));
+  background: color-mix(in srgb, var(--color-text-inverse) 90%, var(--color-text-primary));
+  color: color-mix(in srgb, var(--color-primary-light) 80%, var(--color-text-primary));
   cursor: pointer;
 }
 
@@ -51,6 +53,7 @@
   height: 45rem;
 }
 
+/* --- PANEL IZQUIERDO (ITEMS) --- */
 .left-panel {
   flex: 1;
   padding: 2rem 3rem;
@@ -61,7 +64,7 @@
   display: flex;
   align-items: center;
   padding: 1.4rem 0;
-  border-bottom: 1px solid var(--input-border);
+  border-bottom: 0.1rem solid var(--color-border-light);
   gap: 1.6rem;
 }
 
@@ -88,14 +91,14 @@
 
 .item-precio-unit {
   font-size: 1.4rem;
-  color: var(--toggle-eye-color);
+  color: var(--color-text-light);
   margin: 0;
 }
 
 .item-subtotal {
   font-size: 1.8rem;
   font-weight: bold;
-  color: var(--precio-color);
+  color: var(--color-primary-light);
   min-width: 12rem;
   text-align: right;
 }
@@ -107,12 +110,12 @@
 }
 
 .btn-circle {
-  background: var(--input-bg);
-  border: 1px solid var(--input-border);
+  background: var(--color-background-secondary);
+  border: 0.1rem solid var(--color-border-light);
   width: 3.6rem;
   height: 3.6rem;
   border-radius: 50%;
-  color: var(--link-color);
+  color: var(--color-primary-light);
   font-size: 1.6rem;
   display: flex;
   justify-content: center;
@@ -121,20 +124,20 @@
 }
 
 .btn-circle:focus-within, .btn-circle:hover {
-  background: color-mix(in srgb, var(--input-bg) 92.5%, black);
-  color: color-mix(in srgb, var(--link-color) 85%, black);
+  background: color-mix(in srgb, var(--color-background-secondary) 92.5%, black);
+  color: color-mix(in srgb, var(--color-primary-light) 85%, black);
 }
 
 .btn-circle:active {
-  background: color-mix(in srgb, var(--input-bg) 85%, black);
-  color: color-mix(in srgb, var(--link-color) 70%, black);
+  background: color-mix(in srgb, var(--color-background-secondary) 85%, black);
+  color: color-mix(in srgb, var(--color-primary-light) 70%, black);
   transition: none;
 }
 
 .btn-circle:disabled
 {
-  background: var(--carrito-btn-cantidad-disabled-bg-color);
-  color: var(--carrito-btn-cantidad-disabled-color);
+  background: var(--color-ui-disabled-background); /* Usamos la variable global más cercana */
+  color: var(--color-ui-disabled-text); /* Usamos la variable global más cercana */
 }
 
 .item-cantidad {
@@ -152,7 +155,7 @@
 }
 
 .carrito-lista-vacia p {
-  color: color-mix(in srgb, var(--text-color) 40%, white);
+  color: color-mix(in srgb, var(--color-text-primary) 40%, var(--color-background-primary));
   font-size: 2.4rem;
   line-height: 2.6rem;
   margin: 0;
@@ -160,10 +163,11 @@
   text-align: center;
 }
 
+/* --- PANEL DERECHO (RESUMEN Y ACCIONES) --- */
 .right-panel {
   width: 40%;
   min-width: 36rem;
-  border-left: 1px solid var(--input-border);
+  border-left: 0.1rem solid var(--color-border-light);
   padding: 4rem 3.5rem;
   display: flex;
   flex-direction: column;
@@ -184,7 +188,7 @@
 }
 
 .precio-total {
-  color: var(--precio-color);
+  color: var(--color-primary-light);
   font-size: 2.4rem;
   font-weight: bold;
 }
@@ -197,13 +201,13 @@
 
 .fecha-container input {
   padding: 1.2rem 1rem;
-  border: 1px solid var(--input-border);
+  border: 0.1rem solid var(--color-border-light);
   border-radius: 1rem;
   font-size: 1.6rem;
 }
 
 .fecha-warning {
-  color: var(--error-color);
+  color: var(--color-state-error);
   font-size: 1.3rem;
 }
 
@@ -221,41 +225,41 @@
 }
 
 .btn-rechazar {
-  background: var(--carrito-btn-cancelar-bg-color);
-  color: var(--inverse-text-color);
+  background: var(--color-state-danger);
+  color: var(--color-text-inverse);
   transition-duration: 0.2s;
 }
 
 .btn-rechazar:focus-within, .btn-rechazar:hover {
-  background: color-mix(in srgb, var(--carrito-btn-cancelar-bg-color) 87.5%, black);
+  background: color-mix(in srgb, var(--color-state-danger) 87.5%, black);
 }
 
 .btn-rechazar:active {
-  background: color-mix(in srgb, var(--carrito-btn-cancelar-bg-color) 75%, black);
+  background: color-mix(in srgb, var(--color-state-danger) 75%, black);
   transition: none;
 }
 
 .btn-rechazar:disabled {
-  background: var(--carrito-btn-cancelar-disabled-bg-color);
-  color: var(--carrito-btn-disabled-color);
+  background: var(--color-ui-disabled-text); 
+  color: var(--color-ui-disabled-text); 
 }
 
 .btn-confirmar {
-  background: var(--carrito-btn-confirmar-bg-color);
-  color: var(--inverse-text-color);
+  background: var(--color-state-success);
+  color: var(--color-text-inverse);
   transition-duration: 0.2s;
 }
 
 .btn-confirmar:focus-within, .btn-confirmar:hover {
-  background: color-mix(in srgb, var(--carrito-btn-confirmar-bg-color) 87.5%, black);
+  background: color-mix(in srgb, var(--color-state-success) 87.5%, black);
 }
 
 .btn-confirmar:active {
-  background: color-mix(in srgb, var(--carrito-btn-confirmar-bg-color) 75%, black);
+  background: color-mix(in srgb, var(--color-state-success) 75%, black);
   transition: none;
 }
 
 .btn-confirmar:disabled {
-  background: var(--carrito-btn-confirmar-disabled-bg-color);
-  color: var(--carrito-btn-disabled-color);
+  background: var(--color-ui-disabled-text); 
+  color: var(--color-ui-disabled-text); 
 }
