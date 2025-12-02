@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UsuarioResponse } from '../../../model/usuario-response.model';
-import { FormUserUpdate } from '../../form-user-update/form-user-update';
+import { FormUserUpdate } from '../../forms/form-user-update/form-user-update';
 import { UsuarioService } from '../../../services/usuario-service';
 import { AuthService } from '../../../services/auth-service';
 import { Snackbar } from '../../modals/snackbar/snackbar';

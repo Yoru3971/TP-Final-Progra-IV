@@ -14,10 +14,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Snackbar } from '../../components/modals/snackbar/snackbar';
 import { SnackbarData } from '../../model/snackbar-data.model';
 import { MatDialog } from '@angular/material/dialog';
-import { FormVianda } from '../../components/form-vianda/form-vianda';
-import { FormUpdateEmprendimiento } from '../../components/form-emprendimiento-update/form-emprendimiento-update';
+import { FormVianda } from '../../components/forms/form-vianda/form-vianda';
+import { FormUpdateEmprendimiento } from '../../components/forms/form-emprendimiento-update/form-emprendimiento-update';
 import { CarritoService } from '../../services/carrito-service';
-import { FormViandaUpdate } from '../../components/form-vianda-update/form-vianda-update';
+import { FormViandaUpdate } from '../../components/forms/form-vianda-update/form-vianda-update';
 import { ErrorDialogModal } from '../../components/modals/error-dialog-modal/error-dialog-modal';
 
 export type PageMode = 'DUENO' | 'CLIENTE' | 'INVITADO' | 'PROHIBIDO' | 'CARGANDO';
