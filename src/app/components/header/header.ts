@@ -1,0 +1,50 @@
+import { CommonModule } from '@angular/common';
+import { Component, computed, EventEmitter, inject, input, Output, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth-service'; 
+import { CitySelector } from '../utils/city-selector/city-selector';
+import { SearchBar } from '../utils/search-bar/search-bar';
+import { DropdownNotificacion } from '../utils/dropdown-notificacion/dropdown-notificacion';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmarLogout } from '../modals/logout-modal/logout-modal';
+
+@Component({
+  selector: 'app-header',
+  imports: [RouterLink, CommonModule, CitySelector, SearchBar, DropdownNotificacion],
+  templateUrl: './header.html',
+  styleUrl: './header.css',
+})
+export class Header {
+  private authService = inject(AuthService);
+  private dialog = inject(MatDialog);
+  public role = this.authService.currentUserRole;
+
+  isLoggedIn = computed(() => this.role() !== 'INVITADO');
+
+  notifications = input<string[]>([]);
+
+  @Output() loginClicked = new EventEmitter<void>();
+  @Output() profileClicked = new EventEmitter<void>();
+  @Output() searchSubmitted = new EventEmitter<string>();
+
+  notificationMenuOpen = signal(false);
+
+  toggleNotificationMenu() {
+    this.notificationMenuOpen.update((open) => !open);
+  }
+
+  onLogin() {
+    this.loginClicked.emit();
+  }
+
+  onLogout() {
+    this.dialog.open(ConfirmarLogout);
+  }
+
+  onSearch(event: Event, searchInput: HTMLInputElement) {
+    event.preventDefault(); 
+    if (searchInput.value) {
+      this.searchSubmitted.emit(searchInput.value);
+    }
+  }
+}

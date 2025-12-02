@@ -1,0 +1,30 @@
+import { Component, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EliminarCuentaPaso1 } from '../../modals/eliminar-cuenta-paso1/eliminar-cuenta-paso1';
+import { ConfirmarLogout } from '../../modals/logout-modal/logout-modal';
+import { CambiarPasswordModal } from '../../modals/cambiar-password-modal/cambiar-password-modal';
+
+@Component({
+  selector: 'app-panel-acciones-cuenta',
+  imports: [],
+  templateUrl: './panel-acciones-cuenta.html',
+  styleUrl: './panel-acciones-cuenta.css',
+})
+export class PanelAccionesCuenta {
+  private dialog = inject(MatDialog);
+
+  cambiarPassword() {
+    this.dialog.open(CambiarPasswordModal, {
+      width:'80rem',
+      height:'48rem',
+    });
+  }
+
+  cerrarSesion() {
+    this.dialog.open(ConfirmarLogout);
+  }
+
+  eliminarCuenta() {
+    this.dialog.open(EliminarCuentaPaso1);
+  }
+}

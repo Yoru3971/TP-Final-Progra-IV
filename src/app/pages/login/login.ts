@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormLogin } from '../../components/form-login/form-login';
+import { FormLogin } from '../../components/forms/form-login/form-login';
 import { RouterLink } from '@angular/router';
 
 @Component({

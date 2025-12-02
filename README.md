@@ -1,59 +1,77 @@
-# TPFinal
+# 🍽️ MiViandita 
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+**MiViandita** es una aplicación Single Page Application (SPA) desarrollada en Angular que facilita la conexión entre emprendedores que ofrecen viandas y clientes. Actúa como un *marketplace* de visualización y gestión inicial de pedidos, sin gestionar pagos ni logística de envío.
 
-## Development server
+Este proyecto sigue una arquitectura de **Angular Moderno**, enfocada en la eficiencia con un diseño **Stateless** y **Zoneless**, potenciado por la reactividad de **Angular Signals**.
 
-To start a local development server, run:
+## 🚀 Stack Tecnológico
+
+| Componente | Tecnología | Descripción |
+| :--- | :--- | :--- |
+| **Frontend** | Angular (v17+) | Desarrollo principal. Enfoque **Stateless** y **Zoneless**. |
+| **Backend API** | Spring Boot | Consumo de la API REST desarrollada el cuatrimestre pasado. |
+| **Autenticación** | JWT | Token para validación de rol y acceso a rutas protegidas. |
+
+## 🔑 Roles y Funcionalidades
+
+La aplicación maneja tres roles principales, definidos por el token JWT.
+
+### 1. Invitado
+
+| Funcionalidad | Descripción |
+| :--- | :--- |
+| **Visualización** | Ver emprendimientos y sus viandas. |
+| **Acceso** | No puede comprar, llenar el carrito o realizar cualquier acción transaccional. |
+
+### 2. Cliente
+
+Puede realizar todas las acciones del Invitado, más las siguientes:
+
+| Funcionalidad | Descripción |
+| :--- | :--- |
+| **Pedidos** | Crear un carrito para realizar un pedido. |
+| **Cancelación** | Cancelar un pedido si **aún no fue aceptado** por el Dueño y si la fecha de entrega no es en las **próximas 48 horas**. |
+| **Personalización** | Modificar sus datos de usuario y credenciales en su perfil. |
+| **Selección de Ciudad** | Un selector global permite filtrar y visualizar **reactivamente** los emprendimientos de la ciudad seleccionada (implementado con **Signals**). |
+| **Filtros de Viandas** | Aplicar filtros por categoría, rango de precios y características dietéticas (sin TACC, vegano, vegetariano) en la página del emprendimiento. |
+| **Perfil** | Ver notificaciones y pedidos realizados. |
+
+### 3. Dueño (Emprendedor)
+
+| Funcionalidad | Descripción |
+| :--- | :--- |
+| **Home Page** | Visualiza **solo sus propios** emprendimientos. |
+| **Filtrado** | La selección de ciudad filtra reactivamente sus emprendimientos a los de esa ciudad. |
+| **Gestión de Emprendimientos** | Crear nuevos emprendimientos (puede tener varios) y modificar los datos de los existentes. |
+| **Gestión de Viandas** | Crear, modificar, dar de baja o borrar viandas asociadas a sus emprendimientos. |
+| **Gestión de Pedidos** | Visualiza todos los pedidos y puede pasarlos a estado **Aceptado** o **Cancelado**. |
+| **Perfil** | Ver notificaciones, datos y pedidos pendientes de gestión. |
+
+## ⚙️ Arquitectura Destacada (Stateless & Signals)
+
+El sistema utiliza **Angular Signals** para manejar el estado reactivo, especialmente la `ciudadSeleccionada`.
+
+Al cambiar la ciudad, la *Signal* se actualiza y los componentes (`EmprendimientosListComponent`) reaccionan automáticamente, solicitando el nuevo conjunto de datos a la API.
+
+## 💻 Instrucciones de Instalación y Ejecución
+
+### 1. Pre-requisitos
+
+Asegúrese de tener instalados:
+
+* Node.js (LTS recomendado)
+* Angular CLI (`npm install -g @angular/cli`)
+* La API Backend de Spring Boot debe estar en ejecución, la cual depende de un archivo .env con las credenciales privadas necesarias.
+* La base de datos SQL debe estar corriendo, con la credenciales correctas.
+
+### 2. Clonar e Instalar
 
 ```bash
-ng serve
-```
+# Clonar el repositorio
+git clone [URL_DEL_REPOSITORIO]
+cd TP-Final-Progra-IV
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+# Instalar dependencias
+npm install
 
-## Code scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
