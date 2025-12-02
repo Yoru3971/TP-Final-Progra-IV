@@ -1,14 +1,14 @@
 import { Component, inject, Input } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ErrorDialogModal } from '../modals/error-dialog-modal/error-dialog-modal';
-import { BasesCondicionesModal } from '../modals/bases-condiciones-modal/bases-condiciones-modal';
+import { ErrorDialogModal } from '../../modals/error-dialog-modal/error-dialog-modal';
+import { BasesCondicionesModal } from '../../modals/bases-condiciones-modal/bases-condiciones-modal';
 import { MatDialog } from '@angular/material/dialog';
-import { NormasComunidadModal } from '../modals/normas-comunidad-modal/normas-comunidad-modal';
-import { AuthService } from '../../services/auth-service';
+import { NormasComunidadModal } from '../../modals/normas-comunidad-modal/normas-comunidad-modal';
+import { AuthService } from '../../../services/auth-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarData } from '../../model/snackbar-data.model';
-import { Snackbar } from '../modals/snackbar/snackbar';
+import { Snackbar } from '../../modals/snackbar/snackbar';
+import { SnackbarData } from '../../../model/snackbar-data.model';
 
 @Component({
   selector: 'app-form-registro',

@@ -1,5 +1,5 @@
 import { Component, computed, HostListener, inject, signal } from '@angular/core';
-import { CityFilterService } from '../../services/city-filter-service';
+import { CityFilterService } from '../../../services/city-filter-service';
 
 @Component({
   selector: 'app-city-selector',

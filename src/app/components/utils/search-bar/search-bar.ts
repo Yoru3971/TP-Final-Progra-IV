@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { SearchService } from '../../services/search-service';
+import { SearchService } from '../../../services/search-service';
 import { RouterLink } from '@angular/router';
 
 @Component({

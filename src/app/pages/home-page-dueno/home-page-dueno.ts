@@ -2,7 +2,7 @@ import { Component, computed, effect, inject, OnInit, signal } from '@angular/co
 import { EmprendimientoService } from '../../services/emprendimiento-service';
 import { EmprendimientoConViandas } from '../../model/emprendimiento-con-viandas.model';
 import { EmprendimientoCard } from '../../components/cards/emprendimiento-card/emprendimiento-card';
-import { FormEmprendimiento } from '../../components/form-emprendimiento/form-emprendimiento';
+import { FormEmprendimiento } from '../../components/forms/form-emprendimiento/form-emprendimiento';
 import { MatDialog } from '@angular/material/dialog';
 import { CityFilterService } from '../../services/city-filter-service';
 

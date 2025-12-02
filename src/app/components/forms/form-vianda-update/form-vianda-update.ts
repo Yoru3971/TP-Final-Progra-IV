@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ViandaService } from '../../services/vianda-service';
+import { ViandaService } from '../../../services/vianda-service';
+import { ViandaResponse } from '../../../model/vianda-response.model';
+import { CategoriaVianda } from '../../../enums/categoriaVianda.enum';
+import { ViandaUpdate } from '../../../model/vianda-update.model';
+import { ErrorDialogModal } from '../../modals/error-dialog-modal/error-dialog-modal';
+import { Snackbar } from '../../modals/snackbar/snackbar';
+import { ConfirmarModalService } from '../../../services/confirmar-modal-service';
+import { SnackbarData } from '../../../model/snackbar-data.model';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ViandaResponse } from '../../model/vianda-response.model';
-import { CategoriaVianda } from '../../enums/categoriaVianda.enum';
-import { ViandaUpdate } from '../../model/vianda-update.model';
-import { ErrorDialogModal } from '../modals/error-dialog-modal/error-dialog-modal';
-import { Snackbar } from '../modals/snackbar/snackbar';
-import { ConfirmarModalService } from '../../services/confirmar-modal-service';
-import { SnackbarData } from '../../model/snackbar-data.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { firstValueFrom } from 'rxjs';
 

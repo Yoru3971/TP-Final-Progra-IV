@@ -5,8 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UsuarioUpdate } from '../../model/usuario-update.model';
-import { UsuarioService } from '../../services/usuario-service';
+import { UsuarioUpdate } from '../../../model/usuario-update.model';
+import { UsuarioService } from '../../../services/usuario-service';
 
 @Component({
   selector: 'app-form-user-update',

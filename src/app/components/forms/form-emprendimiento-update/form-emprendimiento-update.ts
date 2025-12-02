@@ -1,14 +1,14 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import { ErrorDialogModal } from '../modals/error-dialog-modal/error-dialog-modal';
-import { Snackbar } from '../modals/snackbar/snackbar';
-import { SnackbarData } from '../../model/snackbar-data.model';
+import { ErrorDialogModal } from '../../modals/error-dialog-modal/error-dialog-modal';
+import { Snackbar } from '../../modals/snackbar/snackbar';
+import { SnackbarData } from '../../../model/snackbar-data.model';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { EmprendimientoService } from '../../services/emprendimiento-service';
+import { EmprendimientoService } from '../../../services/emprendimiento-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
+import { EmprendimientoResponse } from '../../../model/emprendimiento-response.model';
 import { firstValueFrom } from 'rxjs';
-import { ConfirmarModalService } from '../../services/confirmar-modal-service';
+import { ConfirmarModalService } from '../../../services/confirmar-modal-service';
 import { Router } from '@angular/router';
 
 @Component({

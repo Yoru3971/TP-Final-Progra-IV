@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouteErrorComponent } from '../../../components/route-error-component/route-error-component';
+import { RouteErrorComponent } from '../../../components/utils/route-error-component/route-error-component';
 
 @Component({
   selector: 'app-error404-page',
