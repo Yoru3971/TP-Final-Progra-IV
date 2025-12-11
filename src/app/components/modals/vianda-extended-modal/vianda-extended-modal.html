@@ -31,17 +31,17 @@
         <div class="restricciones-container">
             @if (vianda.esVegano) {
               <div class="icon-badge" title="Vegano">
-                <app-icon-vegan class="icon"></app-icon-vegan>
+                <app-icon-vegan class="icon active"></app-icon-vegan>
               </div>
             }
             @if (vianda.esVegetariano) {
               <div class="icon-badge" title="Vegetariano">
-                <app-icon-veggie class="icon"></app-icon-veggie>
+                <app-icon-veggie class="icon active"></app-icon-veggie>
               </div>
             }
             @if (vianda.esSinTacc) {
               <div class="icon-badge" title="Sin TACC">
-                <app-icon-tacc class="icon"></app-icon-tacc>
+                <app-icon-tacc class="icon active"></app-icon-tacc>
               </div>
             }
         </div>
@@ -55,8 +55,14 @@
 
     <!-- Imagen -->
     <div class="right-panel">
-      <div class="image-wrapper">
-        <img [src]="vianda.imagenUrl" [alt]="vianda.nombreVianda" />
+      <div class="card-image-container">
+
+        @if (vianda.imagenUrl){
+          <img [src]="vianda.imagenUrl" [alt]="vianda.nombreVianda" class="product-image" />
+        }@else{
+          <img src="logo-miviandita-removebg-preview.png" alt="Imagen de vianda no disponible" class="no-image" />
+        }
+        
       </div>
     </div>
   </div>
