@@ -18,7 +18,7 @@ export class ViandaCardDetallada {
   vianda = input.required<ViandaResponse>();
   modo = input.required<PageMode>();
 
-  // La cantidad la manda el carrito (creo)
+  // La cantidad la manda el carrito
   cantidad = input<number>(0);
 
   // Dueño
@@ -48,7 +48,10 @@ export class ViandaCardDetallada {
     //  en el html para evitar que se abra el modal cuando no debería
     this.dialog.open(ViandaExtendedModal, {
       width: '100rem',
-      data: this.vianda(),
+      data: {
+        vianda: this.vianda(),
+        modo: this.modo()
+      },
       panelClass: 'modal-vianda',
       autoFocus: false,
       restoreFocus: false,

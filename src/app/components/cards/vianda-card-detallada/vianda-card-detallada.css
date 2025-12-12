@@ -195,7 +195,7 @@
 
 .btn-qty:hover:not(:disabled) {
   background-color: var(--color-background-soft-orange);
-  color: var(--color-primary-action-hover); /* Nuevo: #ef7d13 */
+  color: var(--color-primary-action-hover);
 }
 
 .btn-qty:disabled {
