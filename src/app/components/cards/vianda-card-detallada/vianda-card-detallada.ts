@@ -5,6 +5,8 @@ import { IconTacc } from '../../utils/icon-tacc/icon-tacc';
 import { IconVegan } from '../../utils/icon-vegan/icon-vegan';
 import { IconVeggie } from '../../utils/icon-veggie/icon-veggie';
 import { CarritoService } from '../../../services/carrito-service';
+import { MatDialog } from '@angular/material/dialog';
+import { ViandaExtendedModal } from '../../modals/vianda-extended-modal/vianda-extended-modal';
 
 @Component({
   selector: 'app-vianda-card-detallada',
@@ -26,6 +28,7 @@ export class ViandaCardDetallada {
   quitar = output<void>();
 
   private carritoService = inject(CarritoService);
+  private dialog = inject(MatDialog);
 
   esDueno() {
     return this.modo() === 'DUENO';
@@ -37,5 +40,18 @@ export class ViandaCardDetallada {
 
   public cantidadViandaEnMaximo(vianda: ViandaResponse) {
     return this.carritoService.cantidadViandaEnMaximo(vianda);
+  }
+
+  openViandaModal() {
+    //  este modal se abre al clickear en cualquier parte de la vianda card
+    //  pero como hay partes ya clickeables, se agregaron "stopPropagation()"
+    //  en el html para evitar que se abra el modal cuando no debería
+    this.dialog.open(ViandaExtendedModal, {
+      width: '100rem',
+      data: this.vianda(),
+      panelClass: 'modal-vianda',
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 }

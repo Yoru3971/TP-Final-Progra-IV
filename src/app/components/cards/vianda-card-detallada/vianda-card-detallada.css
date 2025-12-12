@@ -16,6 +16,7 @@
   overflow: hidden;
   border: 0.1rem solid var(--color-ui-neutral);
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -109,7 +110,6 @@
   padding: 0.4rem 0.8rem;
   border: 0.1rem solid var(--color-ui-neutral);
   border-radius: 0.6rem;
-  cursor: default;
 }
 
 .card-description {
