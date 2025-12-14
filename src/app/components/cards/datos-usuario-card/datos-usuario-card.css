@@ -1,4 +1,3 @@
-/* --- COMPONENTE TARJETA DE DATOS DE PERFIL --- */
 :host {
   display: block;
   width: 100%;
@@ -12,17 +11,27 @@
   margin-top: 0.5rem;
 }
 
+/* --- TARJETA PRINCIPAL --- */
 .datos-card {
   background-color: var(--color-background-secondary);
   border-radius: 1.2rem;
   padding: 4rem 3.4rem;
   box-shadow: var(--shadow-form);
   width: 100%;
-  justify-content: center;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- COLUMNA DE DATOS (TEXTO) --- */
+.datos-info {
   display: flex;
   flex-direction: column;
   gap: 2.2rem;
+  flex: 1; 
+  padding-right: 2rem; 
 }
 
 .dato-container {
@@ -44,8 +53,62 @@
   font-size: 1.7rem;
   color: var(--color-text-secondary);
   margin: 0;
+  word-break: break-word;
 }
 
+/* --- COLUMNA DE IMAGEN (CONTENEDOR) --- */
+.datos-imagen {
+  position: relative;
+  width: 13rem;
+  height: 13rem;
+  cursor: pointer;    
+  flex-shrink: 0;    
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 0.2rem solid var(--color-background-secondary);
+  box-shadow: 0 0.4rem 1rem rgba(0,0,0,0.1);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  border-radius: 50%; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none; 
+}
+
+.image-overlay i {
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.image-overlay span {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.datos-imagen:hover .image-overlay {
+  opacity: 1;
+}
+
+/* --- BOTÓN DE EDICIÓN DE TEXTO --- */
 .edit-icon {
   position: absolute;
   bottom: 1.4rem;
@@ -58,4 +121,25 @@
 
 .edit-icon:hover {
   color: var(--color-primary-light);
+}
+
+/* --- RESPONSIVE (Móvil) --- */
+@media (max-width: 768px) {
+  .datos-card {
+    flex-direction: column-reverse; 
+    text-align: center;
+    gap: 3rem;
+    padding: 3rem 2rem;
+  }
+  
+  .datos-info {
+    padding-right: 0;
+    align-items: center; 
+    width: 100%;
+  }
+
+  .dato-container {
+    justify-content: center; 
+  }
+
 }
