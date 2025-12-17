@@ -279,6 +279,7 @@ export class EmprendimientoPage {
       .afterClosed()
       .subscribe((exito) => {
         if (exito) {
+          this.viandaEditada.update(v => v + 1);
           this.filtrosSignal.update(f => ({...f}));
         }
       });
