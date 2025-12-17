@@ -197,6 +197,17 @@ export class EmprendimientoPage {
         }
 
         return request$.pipe(
+          map((viandas) => {
+            let resultado = viandas;
+
+            // Ordena las viandas para mostrar las disponibles primero (solo afecta al dueño)
+            return resultado.sort((a, b) => {
+              if (a.estaDisponible === b.estaDisponible) {
+                  return 0; 
+              }
+              return a.estaDisponible ? -1 : 1;
+            });
+          }),
           catchError((err) => {
             //  Ya está contemplado lo que se muestra cuando no hay viandas (lo dejo como warning por las dudas)
             console.warn('Error cargando viandas (posiblemente sin resultados)', err);
