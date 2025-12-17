@@ -5,7 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { IconTacc } from '../../utils/icon-tacc/icon-tacc';
 import { IconVeggie } from '../../utils/icon-veggie/icon-veggie';
 import { IconVegan } from '../../utils/icon-vegan/icon-vegan';
+import { PageMode } from '../../../pages/emprendimiento-page/emprendimiento-page';
 
+type FiltroDisponibilidad = 'TODAS' | 'DISPONIBLES' | 'NO_DISPONIBLES';
 
 @Component({
   selector: 'app-emprendimiento-filtros-viandas',
@@ -15,6 +17,7 @@ import { IconVegan } from '../../utils/icon-vegan/icon-vegan';
 })
 export class EmprendimientoFiltrosViandas {
   viandasIniciales = input.required<ViandaResponse[]>();
+  modo = input.required<PageMode>();
 
   filtrosChanged = output<FiltrosViandas>();
 
@@ -25,6 +28,8 @@ export class EmprendimientoFiltrosViandas {
   esSinTacc = signal<boolean>(false);
   precioMin = signal<number | null>(null);
   precioMax = signal<number | null>(null);
+
+  filtroDisponibilidad = signal<FiltroDisponibilidad>('TODAS');
 
   // Extrae dinámicamente las categorías de las viandas que llegan
   categoriasDisponibles = computed(() => {
@@ -51,7 +56,18 @@ export class EmprendimientoFiltrosViandas {
     this.onSearchInput('');
   }
 
+  setDisponibilidad(valor: FiltroDisponibilidad) {
+    this.filtroDisponibilidad.set(valor);
+    this.emitirFiltros();
+  }
+
   emitirFiltros() {
+    let disponibilidad: boolean | null = null;
+    const estado = this.filtroDisponibilidad();
+    
+    if (estado === 'DISPONIBLES') disponibilidad = true;
+    if (estado === 'NO_DISPONIBLES') disponibilidad = false;
+
     const dto: FiltrosViandas = {
       nombreVianda: this.busqueda(),
       categoria: this.categoriaSeleccionada(),
@@ -60,7 +76,7 @@ export class EmprendimientoFiltrosViandas {
       esSinTacc: this.esSinTacc(),
       precioMin: this.precioMin(),
       precioMax: this.precioMax(),
-      estaDisponible: null,
+      estaDisponible: disponibilidad,
     };
 
     this.filtrosChanged.emit(dto);

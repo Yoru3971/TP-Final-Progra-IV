@@ -117,7 +117,7 @@
   justify-content: center;
 }
 
-/* --- BOTÓN DE ACCIÓN --- */
+/* --- BOTONES --- */
 .modal-actions {
   margin-top: auto;
   padding-top: 2rem;
@@ -147,6 +147,56 @@
   transform: translateY(-0.2rem);
 }
 
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-background-soft-orange);
+  border-radius: 9999px;
+  padding: 0.8rem 1.4rem;
+  border: 0.1rem solid var(--color-ui-neutral);
+}
+
+.btn-qty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--color-primary-medium);
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-qty:hover:not(:disabled) {
+  background-color: var(--color-background-soft-orange);
+  color: var(--color-primary-action);
+}
+
+.btn-qty:disabled {
+  color: var(--color-ui-gray-light);
+  cursor: default;
+}
+
+.qty-value {
+  min-width: 3rem;
+  text-align: center;
+  font-weight: 800;
+  color: var(--color-text-dark-secondary);
+  font-size: 1.8rem;
+  user-select: none;
+  margin: 0 1rem;
+}
+
 /* --------- Imagen (en la derecha) ---------  */
 .right-panel {
   flex: 1;
@@ -158,18 +208,30 @@
   min-height: 30rem;
 }
 
-.image-wrapper {
+.card-image-container {
   width: 100%;
   max-width: 35rem;
   aspect-ratio: 1 / 1;
   border-radius: 2rem;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
   border: 0.4rem solid var(--color-background-primary);
+  background-color: var(--color-background-secondary);
 }
 
-.image-wrapper img {
+.product-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.no-image {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: grayscale(100%);
 }
