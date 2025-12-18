@@ -240,8 +240,8 @@
 }
 
 .btn-rechazar:disabled {
-  background: var(--color-ui-disabled-text); 
-  color: var(--color-ui-disabled-text); 
+  background: var(--color-ui-disabled-background);
+  color: var(--color-ui-disabled-text);
 }
 
 .btn-confirmar {
@@ -260,6 +260,6 @@
 }
 
 .btn-confirmar:disabled {
-  background: var(--color-ui-disabled-text); 
-  color: var(--color-ui-disabled-text); 
+  background: var(--color-ui-disabled-background);
+  color: var(--color-ui-disabled-text);
 }

@@ -7,10 +7,17 @@ import { CategoriaVianda } from '../../../enums/categoriaVianda.enum';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorDialogModal } from '../../modals/error-dialog-modal/error-dialog-modal';
+import { IconTacc } from '../../utils/icon-tacc/icon-tacc';
+import { IconVegan } from '../../utils/icon-vegan/icon-vegan';
+import { IconVeggie } from '../../utils/icon-veggie/icon-veggie';
 
 @Component({
   selector: 'app-form-vianda',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    IconTacc,
+    IconVegan,
+    IconVeggie],
   templateUrl: './form-vianda.html',
   styleUrl: './form-vianda.css',
 })

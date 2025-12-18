@@ -86,94 +86,128 @@
 
       <!-- Checkboxes -->
       <div class="form-field checkbox-group">
-        <label class="checkbox-container">
-          <input type="checkbox" formControlName="esVegano" />
-          <span>Vegano</span>
-        </label>
-        <label class="checkbox-container">
-          <input type="checkbox" formControlName="esVegetariano" />
-          <span>Vegetariano</span>
-        </label>
-        <label class="checkbox-container">
-          <input type="checkbox" formControlName="esSinTacc" />
-          <span>Sin TACC</span>
-        </label>
-        <label class="checkbox-container">
-          <input type="checkbox" formControlName="estaDisponible" />
-          <span>Disponible</span>
-        </label>
-      </div>
-    </div>
+        
+        <label class="form-label">Características</label>
+        
+        <div class="diet-chips-container">
+          
+          <label class="chip-checkbox">
+            <input type="checkbox" formControlName="esSinTacc" />
+            <span class="chip-label">
+              <app-icon-tacc class="custom-icon"></app-icon-tacc>
+              Sin TACC
+            </span>
+          </label>
 
-    <!-- Imagen -->
-    <div class="image-upload-delete-right">
-      <div class="form-field custom-file-field">
-        <input
-          type="file"
-          id="imagen-file-update"
-          #fileInput
-          (change)="onFileSelected($event); onFileInputReady(fileInput)"
-          class="form-file-input"
-          accept="image/jpeg, image/png, image/webp"
-        />
+          <label class="chip-checkbox">
+            <input type="checkbox" formControlName="esVegetariano" />
+            <span class="chip-label">
+              <app-icon-veggie class="custom-icon"></app-icon-veggie>
+              Vegetariano
+            </span>
+          </label>
 
-        <label
-          for="imagen-file-update"
-          class="upload-box-visual"
-          [class.has-preview]="!!newImagePreviewUrl || !!currentImageUrl"
-        >
-          @if (newImagePreviewUrl) {
-          <div
-            class="image-preview"
-            [style.background-image]="'url(' + newImagePreviewUrl + ')'"
-          ></div>
-          <button
-            type="button"
-            class="btn-remove-image"
-            (click)="removeNewImage(); $event.preventDefault()"
-          >
-            <i class="fa-solid fa-rotate-left"></i>
-          </button>
-          <div class="preview-badge new">NUEVA</div>
+          <label class="chip-checkbox">
+            <input type="checkbox" formControlName="esVegano" />
+            <span class="chip-label">
+              <app-icon-vegan class="custom-icon"></app-icon-vegan>
+              Vegano
+            </span>
+          </label>
 
-          } @else if (currentImageUrl) {
-          <div
-            class="image-preview"
-            [style.background-image]="'url(' + currentImageUrl + ')'"
-          ></div>
-          <div class="edit-overlay">
-            <i class="fa-solid fa-pen"></i>
-          </div>
-          <div class="preview-badge current">ACTUAL</div>
+        </div>
 
-          } @else {
-          <span class="upload-icon">⤒</span>
-          <br />
-          <span class="upload-text">Cambiar imagen</span>
-          }
-        </label>
+            <div class="availability-section">
+            
+            <label class="switch-toggle">
+                <input type="checkbox" formControlName="estaDisponible" />
+                <span class="slider"></span>
+            </label>
 
-        <div class="image-placeholder-message">
-          @if (newImagePreviewUrl) {
-          <p class="success-message">Archivo listo: {{ selectedFileName }}</p>
-          } @else if (currentImageUrl) {
-          <p class="placeholder-info">Se mantendrá la imagen actual si no subes otra.</p>
-          } @else {
-          <p class="placeholder-info">Haz click para subir una imagen.</p>
-          }
+            <div class="availability-info">
+                <span class="availability-title">
+                    {{ formVianda.get('estaDisponible')?.value ? 'Disponible' : 'No Disponible' }}
+                </span>
+                
+                <span class="availability-subtitle">
+                    {{ formVianda.get('estaDisponible')?.value ? '(Visible para clientes)' : '(Oculto para clientes)' }}
+                </span>
+            </div>
+
+        </div>
+
         </div>
       </div>
 
-      <button class="btn btn-eliminar" (click)="onDelete()">Eliminar Vianda</button>
-    </div>
-  </div>
+      <!-- Imagen -->
+      <div class="image-upload-delete-right">
+        <div class="form-field custom-file-field">
+          <input
+            type="file"
+            id="imagen-file-update"
+            #fileInput
+            (change)="onFileSelected($event); onFileInputReady(fileInput)"
+            class="form-file-input"
+            accept="image/jpeg, image/png, image/webp"
+          />
 
-  <button
-    type="button"
-    class="btn btn-crear"
-    (click)="onSubmit()"
-    [disabled]="loading || !formVianda.valid"
-  >
-    {{ loading ? 'Guardando...' : 'Guardar Cambios' }}
-  </button>
+          <label
+            for="imagen-file-update"
+            class="upload-box-visual"
+            [class.has-preview]="!!newImagePreviewUrl || !!currentImageUrl"
+          >
+            @if (newImagePreviewUrl) {
+            <div
+              class="image-preview"
+              [style.background-image]="'url(' + newImagePreviewUrl + ')'"
+            ></div>
+            <button
+              type="button"
+              class="btn-remove-image"
+              (click)="removeNewImage(); $event.preventDefault()"
+            >
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+            <div class="preview-badge new">NUEVA</div>
+
+            } @else if (currentImageUrl) {
+            <div
+              class="image-preview"
+              [style.background-image]="'url(' + currentImageUrl + ')'"
+            ></div>
+            <div class="edit-overlay">
+              <i class="fa-solid fa-pen"></i>
+            </div>
+            <div class="preview-badge current">ACTUAL</div>
+
+            } @else {
+            <span class="upload-icon">⤒</span>
+            <br />
+            <span class="upload-text">Cambiar imagen</span>
+            }
+          </label>
+
+          <div class="image-placeholder-message">
+            @if (newImagePreviewUrl) {
+            <p class="success-message">Archivo listo: {{ selectedFileName }}</p>
+            } @else if (currentImageUrl) {
+            <p class="placeholder-info">Se mantendrá la imagen actual si no subes otra.</p>
+            } @else {
+            <p class="placeholder-info">Haz click para subir una imagen.</p>
+            }
+          </div>
+        </div>
+
+        <button class="btn btn-eliminar" (click)="onDelete()">Eliminar Vianda</button>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-crear"
+      (click)="onSubmit()"
+      [disabled]="loading || !formVianda.valid"
+    >
+      {{ loading ? 'Guardando...' : 'Guardar Cambios' }}
+    </button>
 </form>
