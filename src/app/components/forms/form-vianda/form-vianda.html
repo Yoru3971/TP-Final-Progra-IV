@@ -95,21 +95,38 @@
 
       <!-- Checkboxes -->
       <div class="form-field checkbox-group">
-        <label class="checkbox-container">
-          <input type="checkbox" formControlName="esVegano" />
-          <span>Vegano</span>
-        </label>
+        
+        <label class="form-label">Características</label>
+        
+        <div class="diet-chips-container">
+          
+          <label class="chip-checkbox">
+            <input type="checkbox" formControlName="esSinTacc" />
+            <span class="chip-label">
+              <app-icon-tacc class="custom-icon"></app-icon-tacc> 
+              Sin TACC
+            </span>
+          </label>
 
-        <label class="checkbox-container">
-          <input type="checkbox" formControlName="esVegetariano" />
-          <span>Vegetariano</span>
-        </label>
+          <label class="chip-checkbox">
+            <input type="checkbox" formControlName="esVegetariano" />
+            <span class="chip-label">
+              <app-icon-veggie class="custom-icon"></app-icon-veggie> 
+              Vegetariano
+            </span>
+          </label>
 
-        <label class="checkbox-container">
-          <input type="checkbox" formControlName="esSinTacc" />
-          <span>Sin TACC</span>
-        </label>
+          <label class="chip-checkbox">
+            <input type="checkbox" formControlName="esVegano" />
+            <span class="chip-label">
+              <app-icon-vegan class="custom-icon"></app-icon-vegan> 
+              Vegano
+            </span>
+          </label>
+
+        </div>
       </div>
+
     </div>
 
     <!-- Imagen -->
