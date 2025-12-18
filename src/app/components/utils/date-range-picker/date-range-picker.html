@@ -1,47 +1,94 @@
-<div class="picker-container">
-  <!-- Toggle de modo -->
-  <label class="switch-toggle">
-    <input type="checkbox" [checked]="isRangeMode()" (change)="toggleMode()" />
-    <span class="slider"></span>
-    <span class="toggle-label">{{ isRangeMode() ? 'Rango' : 'Día único' }}</span>
-  </label>
+<div class="select-wrapper">
+  <label class="select-label">Fecha</label>
 
-  <!-- Campo de fecha -->
-  @if (isRangeMode()) {
-  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="picker-field">
-    <mat-label>Rango de fechas</mat-label>
+  <div class="select-custom" [class.open]="isOpen()" (click)="toggleDropdown($event)">
+    <div class="selected-option">
+      {{ displayLabel() }}
+    </div>
+    <div class="arrow">▾</div>
 
-    <mat-date-range-input [rangePicker]="rangePicker">
-      <input
-        matStartDate
-        [value]="startDate()"
-        (dateChange)="onRangeStartChange($event)"
-        placeholder="Desde"
-      />
-      <input
-        matEndDate
-        [value]="endDate()"
-        (dateChange)="onRangeEndChange($event)"
-        placeholder="Hasta"
-      />
-    </mat-date-range-input>
+    @if (isOpen()) {
+    <div class="calendar-dropdown" (click)="$event.stopPropagation()">
+      
+      <div class="calendar-header">
+        @if (!showSelectorView()) {
+           <button class="nav-btn" (click)="changeMonth(-1, $event)">‹</button>
+        } @else {
+           <div style="width: 24px;"></div> 
+        }
 
-    <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
-    <mat-date-range-picker #rangePicker></mat-date-range-picker>
-  </mat-form-field>
-  } @else {
-  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="picker-field">
-    <mat-label>Seleccione una fecha</mat-label>
+        <span 
+           class="month-label clickable" 
+           (click)="toggleSelectorView($event)"
+           title="Cambiar año/mes rápidamente">
+           {{ headerLabel() }} 
+           <span class="edit-icon">✎</span>
+        </span>
 
-    <input
-      matInput
-      [matDatepicker]="singlePicker"
-      [value]="startDate()"
-      (dateChange)="onSingleDateChange($event)"
-    />
+        @if (!showSelectorView()) {
+           <button class="nav-btn" (click)="changeMonth(1, $event)">›</button>
+        } @else {
+           <div style="width: 24px;"></div>
+        }
+      </div>
 
-    <mat-datepicker-toggle matIconSuffix [for]="singlePicker"></mat-datepicker-toggle>
-    <mat-datepicker #singlePicker></mat-datepicker>
-  </mat-form-field>
-  }
+      @if (!showSelectorView()) {
+        
+        <div class="mode-selector">
+          <button class="mode-btn" [class.active]="!isRangeMode()" (click)="setMode(false, $event)">
+            Fecha puntual
+          </button>
+          <button class="mode-btn" [class.active]="isRangeMode()" (click)="setMode(true, $event)">
+            Rango
+          </button>
+        </div>
+
+        <div class="weekdays">
+          <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sa</span><span>Do</span>
+        </div>
+
+        <div class="days-grid">
+          @for (date of calendarDays(); track $index) {
+            @if (date) {
+              <button 
+                class="day-btn"
+                [class.today]="isToday(date)"
+                [class.selected]="isSelected(date)"
+                [class.in-range]="isInRange(date)"
+                (click)="selectDate(date)"
+                (mouseenter)="onDateHover(date)"
+              >
+                {{ date.getDate() }}
+              </button>
+            } @else {
+              <div class="empty-day"></div>
+            }
+          }
+        </div>
+
+      } @else {
+        
+        <div class="quick-selector">
+            
+            <div class="year-control">
+                <button class="nav-btn" (click)="changeYear(-1, $event)">«</button>
+                <span class="year-display">{{ viewDate().getFullYear() }}</span>
+                <button class="nav-btn" (click)="changeYear(1, $event)">»</button>
+            </div>
+
+            <div class="months-grid">
+                @for (mes of monthsList; track $index) {
+                    <button 
+                        class="month-btn"
+                        [class.active]="viewDate().getMonth() === $index"
+                        (click)="selectMonth($index, $event)">
+                        {{ mes | slice:0:3 }} </button>
+                }
+            </div>
+        </div>
+      }
+
+    </div>
+    }
+  </div>
 </div>
