@@ -1,84 +1,321 @@
-/* --- COMPONENTE SWITCH TOGGLE Y DATE/TIME PICKER --- */
-.picker-container {
+/* --- WRAPPER Y TRIGGER --- */
+.select-wrapper {
   display: flex;
-  align-items: center;
-  gap: 2rem;
-  height: 4rem;
+  flex-direction: column;
+  gap: 0.4rem;
+  position: relative;
 }
 
-.switch-toggle {
+.select-label {
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+  margin-left: 0.2rem;
+  font-weight: 500;
+}
+
+.select-custom {
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: 0.8rem;
+  padding: 0 1.2rem;
+  height: 4rem;
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  justify-content: space-between;
   cursor: pointer;
-  height: 100%;
+  min-width: 200px;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.select-custom:hover, .select-custom.open {
+  border-color: var(--color-primary);
+}
+
+.selected-option {
+  font-size: 1.4rem;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.arrow {
+  color: var(--color-text-secondary);
+  font-size: 1.2rem;
+}
+
+/* --- CONTENEDOR PRINCIPAL DROPDOWN --- */
+.calendar-dropdown {
+  position: absolute;
+  top: 110%; 
+  left: 0;
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: 1.2rem;
+  box-shadow: var(--shadow-modal, 0 4px 20px rgba(0,0,0,0.15));
+  padding: 1.6rem;
+  z-index: 1000;
+  width: 290px; 
+  cursor: default;
+}
+
+/* --- CABECERA DEL CALENDARIO --- */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  height: 3rem; 
+}
+
+.month-label {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.6rem;
+  transition: background 0.2s;
   user-select: none;
 }
 
-.switch-toggle input {
-  display: none;
+.month-label:hover {
+  background-color: var(--color-background-secondary); 
+  color: var(--color-primary);
 }
 
-.slider {
-  width: 4.8rem;
-  height: 2.4rem;
-  background: var(--color-border-light);
-  border-radius: 2.4rem;
-  position: relative;
-  transition: 0.25s;
+.edit-icon {
+  font-size: 1rem;
+  opacity: 0.5;
 }
 
-.slider::before {
-  content: '';
-  position: absolute;
-  width: 2rem;
-  height: 2rem;
-  left: 0.2rem;
-  top: 0.2rem;
-  background: var(--color-background-primary);
-  border-radius: 50%;
-  transition: 0.25s;
-}
-
-input:checked + .slider {
-  background: var(--color-primary-light);
-}
-
-input:checked + .slider::before {
-  transform: translateX(2.4rem);
-}
-
-.toggle-label {
-  font-size: 1.3rem;
+.nav-btn {
+  font-size: 2rem; 
+  line-height: 1;
+  background: none; 
+  border: none; 
+  cursor: pointer;
   color: var(--color-text-secondary);
-  width: 7rem;
-  display: inline-block;
+  padding: 0 0.5rem;
+  transition: color 0.2s;
 }
 
-.picker-field {
-  width: 28rem !important;
-  height: 4rem !important;
+.nav-btn:hover {
+  color: var(--color-primary);
+}
+
+/* --- SELECTOR DE MODO --- */
+.mode-selector {
+  display: flex;
+  background-color: var(--color-background-secondary); 
+  border: 1px solid var(--color-border-light);
+  border-radius: 0.8rem;
+  padding: 0.4rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  gap: 0.5rem;
+}
+
+.mode-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0.6rem 0;
+  border-radius: 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-btn.active {
+  background-color: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-weight: 600;
+}
+
+.mode-btn:not(.active):hover {
+  background-color: rgba(0,0,0,0.05);
+  color: var(--color-text-primary);
+}
+
+/* --- VISTA: GRILLA DE DÍAS  --- */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  opacity: 0.8;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: 0.4rem;
+}
+
+.day-btn {
+  background: none;
+  border: none;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  margin: 0 auto;
+  transition: all 0.2s;
 }
 
-.picker-field .mat-mdc-text-field-wrapper {
-  height: 100% !important;
-  padding: 0 !important;
+.day-btn:hover {
+  background-color: var(--color-border-light);
+}
+
+.empty-day {
+  height: 32px;
+}
+
+/* Inicio y Fin*/
+.day-btn.selected {
+  background-color: var(--color-primary);
+  color: white;
+  opacity: 1; 
+  font-weight: bold;
+  border-radius: 50% !important;
+  position: relative;
+  z-index: 2;
+}
+
+/* Estilo para los días intermedios del rango */
+.day-btn.in-range {
+  background-color: var(--color-primary); 
+  opacity: 0.4;                           
+  color: var(--color-text-primary);       
+  border-radius: 50%;                     
+  width: 32px;                            
+  margin: 0 auto;                         
+  font-weight: 600; 
+}
+
+.day-btn.today {
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.day-btn.today.selected {
+  border: none;
+  color: white;
+}
+
+/* --- VISTA: SELECTOR RÁPIDO (AÑOS Y MESES) --- */
+.quick-selector {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.year-control {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: 0.8rem;
 }
 
-.picker-field .mat-mdc-form-field-flex {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 0.8rem !important;
+.year-display {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--color-primary);
 }
 
-.picker-field input {
-  height: 100% !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  font-size: 1.3rem !important;
+.months-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+
+.month-btn {
+  background: transparent;
+  border: 1px solid var(--color-border-light);
+  border-radius: 0.6rem;
+  padding: 0.8rem 0;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  transition: all 0.2s;
+}
+
+.month-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.month-btn.active {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+
+  /* El dropdown deja de ser dropdown y se vuelve modal fijo */
+  .calendar-dropdown {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 90%;          
+    max-width: 350px;  
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), 0 0 0 100vh rgba(0, 0, 0, 0.5);
+    z-index: 9999; 
+  }
+
+  .day-btn {
+    height: 38px;
+    width: 38px;
+    font-size: 1.1rem;
+  }
+  
+  .empty-day {
+    height: 38px;
+  }
+
+  .calendar-header {
+    height: 4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .nav-btn {
+    padding: 1rem; 
+  }
+
+  .month-btn {
+    padding: 1rem 0;
+    font-size: 1.2rem;
+  }
+  
+  .mode-selector {
+    margin-bottom: 2rem;
+    padding: 0.6rem;
+  }
+  
+  .mode-btn {
+    padding: 0.8rem 0;
+  }
 }
