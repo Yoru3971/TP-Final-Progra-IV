@@ -10,10 +10,11 @@ import { EmprendimientoResponse } from '../../../model/emprendimiento-response.m
 import { firstValueFrom } from 'rxjs';
 import { ConfirmarModalService } from '../../../services/confirmar-modal-service';
 import { Router } from '@angular/router';
+import { CitySelector } from '../../utils/city-selector/city-selector';
 
 @Component({
   selector: 'app-form-emprendimiento-update',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CitySelector],
   templateUrl: './form-emprendimiento-update.html',
   styleUrl: './form-emprendimiento-update.css',
 })
@@ -28,17 +29,6 @@ export class FormUpdateEmprendimiento {
   private cdr = inject(ChangeDetectorRef);
   private confirmarModalService = inject(ConfirmarModalService);
   private router = inject(Router);
-
-  // Arreglo de ciudades temporal
-  // Luego sera eliminado, y utilizaremos una API de ciudades
-  public readonly CITIES: readonly string[] = [
-    'MAR DEL PLATA',
-    'MIRAMAR',
-    'NECOCHEA',
-    'BALCARCE',
-    'SANTA CLARA',
-    'PINAMAR',
-  ] as const;
 
   selectedFileName: string | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
