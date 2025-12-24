@@ -10,7 +10,8 @@ export class CityFilterService {
 
   public city = this.citySignal.asReadonly();
 
-  setCity(city: string) {
+  setCity(city: string | null) { 
+    if (!city) return;
     this.citySignal.set(city.toLocaleUpperCase());
   }
 
