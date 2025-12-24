@@ -1,94 +1,161 @@
-/* --- COMPONENTE NOTIFICACIONES Y DROPDOWN --- */
+/* Contenedor relativo para posicionar el dropdown */
 .notificacion-wrapper {
   position: relative;
   display: inline-block;
 }
 
+/* --- BOTÓN DE CAMPANA --- */
 .icon-btn {
   background: none;
   border: none;
   cursor: pointer;
-  margin: 0;
-  padding: 0;
+  padding: 0.5rem;
   position: relative;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
 }
 
 .icon-btn i {
-  color: var(--color-primary-light);
   font-size: 2.2rem;
-  transition: color 0.2s ease, transform 0.15s ease;
+  color: var(--color-primary-light); /* Icono Naranja */
+  transition: color 0.2s ease;
 }
 
 .icon-btn:hover i {
-  color: var(--color-primary-hover-light);
-  transform: scale(1.08);
+  color: var(--color-primary-hover-light); /* Naranja más fuerte */
+  transform: scale(1.1);
 }
 
+/* --- BADGE ROJO (CONTADOR) --- */
 .badge {
   position: absolute;
-  top: -0.4rem;
-  right: -0.6rem;
-  background: var(--color-state-error);
+  top: 0;
+  right: 0;
+  background-color: var(--color-state-error); /* Rojo error para destacar */
   color: var(--color-text-inverse);
-  border-radius: 50%;
-  padding: 0.2rem 0.6rem;
   font-size: 1rem;
   font-weight: bold;
+  border-radius: 1rem;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.4rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(0,0,0,0.2);
+  border: 0.1rem solid var(--color-background-primary); /* Borde blanco para separar del icono */
 }
 
+/* --- DROPDOWN FLOTANTE --- */
 .dropdown {
   position: absolute;
-  top: 110%;
-  right: 0;
-  width: 32rem;
-  background: var(--color-background-secondary);
+  top: 120%; /* Un poco separado del icono */
+  right: -1rem; /* Alineado a la derecha, ajusta según tu header */
+  width: 34rem; /* Ancho fijo cómodo */
+  background-color: var(--color-background-primary);
   border-radius: 1.2rem;
-  box-shadow: var(--shadow-form);
-  padding: 1.6rem;
-  z-index: 9999;
   border: 0.1rem solid var(--color-border-light);
-  max-height: 38rem;
+  box-shadow: var(--shadow-form); /* Sombra fuerte para que flote */
+  z-index: 1000;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  cursor: default; /* Evita cursor de mano en zonas vacías */
 }
 
+/* Triangulito superior (opcional, estilo tooltip) */
+.dropdown::before {
+  content: '';
+  position: absolute;
+  top: -0.6rem;
+  right: 1.6rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  background-color: var(--color-background-primary);
+  border-left: 0.1rem solid var(--color-border-light);
+  border-top: 0.1rem solid var(--color-border-light);
+  transform: rotate(45deg);
+}
+
+/* Animación de entrada */
 .animate {
-  animation: fadeSlide 0.18s ease-out;
+  animation: slideDown 0.2s ease-out forwards;
+  transform-origin: top right;
 }
 
-@keyframes fadeSlide {
+@keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-0.5rem);
+    transform: scale(0.95) translateY(-1rem);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
   }
 }
 
+/* --- HEADER DEL DROPDOWN --- */
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.1rem solid var(--color-border-light);
+}
+
 .titulo {
-  margin: 0 0 1rem 0;
-  font-size: 1.7rem;
+  font-size: 1.6rem;
+  color: var(--color-text-dark-primary);
+  margin: 0;
   font-weight: bold;
-  color: var(--color-text-primary);
 }
 
+/* --- LISTA --- */
 .lista {
-  flex: 1;
+  max-height: 35rem; /* Altura máxima antes de scroll */
   overflow-y: auto;
-  padding-right: 0.4rem;
+  margin-bottom: 1rem;
+  padding-right: 0.5rem;
 }
 
-.sin-notificaciones {
-  font-size: 1.35rem;
-  opacity: 0.7;
+/* Empty State del Dropdown */
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--color-text-light);
 }
 
+.empty-state i {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-primary-medium); /* Naranja suave */
+}
+
+.empty-state p {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+/* --- BOTÓN VER TODAS --- */
 .btn-ver {
-  margin-top: 1rem;
+  background-color: transparent;
+  color: var(--color-primary-light);
+  border: 0.1rem solid var(--color-primary-light);
+  border-radius: 0.8rem;
+  padding: 0.8rem;
   width: 100%;
-  padding: 0.8rem 0;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inria Sans', sans-serif;
+}
+
+.btn-ver:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-text-inverse);
 }
