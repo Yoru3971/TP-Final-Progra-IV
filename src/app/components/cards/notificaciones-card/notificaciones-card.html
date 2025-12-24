@@ -1,22 +1,46 @@
 <div class="notificaciones-container">
-  <div class="titulo-con-filtros">
-    <h3 class="titulo-seccion">NOTIFICACIONES</h3>
-
-    <div class="filtros-layout">
-      <app-date-range-picker (fechasSeleccionadas)="onFechasSeleccionadas($event)">
-      </app-date-range-picker>
+  <div class="header-seccion">
+    <h3 class="titulo-seccion">MIS NOTIFICACIONES</h3>
+    
+    <div class="filtro-fecha">
+      <app-date-range-picker (fechasSeleccionadas)="onFechasSeleccionadas($event)"></app-date-range-picker>
     </div>
   </div>
 
-  <div class="notificaciones-card">
-    @if (lista.length === 0) {
-    <p class="sin-notificaciones">No tenés notificaciones recientes.</p>
-    } @if (lista.length > 0) {
-    <div class="lista">
-      @for (noti of lista; track $index) {
-      <app-notificacion-single-card [notificacion]="noti"></app-notificacion-single-card>
+  <div class="tabs-filter">
+    <button class="tab-btn" 
+            [class.active]="filtroEstado() === 'TODAS'" 
+            (click)="setFiltro('TODAS')">
+      Todas
+    </button>
+    
+    <button class="tab-btn" 
+            [class.active]="filtroEstado() === 'NO_LEIDAS'" 
+            (click)="setFiltro('NO_LEIDAS')">
+      No leídas
+      @if(notiService.cantidadNoLeidas() > 0) {
+        <span class="mini-badge">{{ notiService.cantidadNoLeidas() }}</span>
       }
-    </div>
+    </button>
+    
+    <button class="tab-btn" 
+            [class.active]="filtroEstado() === 'LEIDAS'" 
+            (click)="setFiltro('LEIDAS')">
+      Leídas
+    </button>
+  </div>
+
+  <div class="notificaciones-list-area">
+    @if (listaVisual.length === 0) {
+      <div class="estado-vacio">
+        <p>No hay notificaciones con estos filtros.</p>
+      </div>
+    } @else {
+      <div class="lista">
+        @for (noti of listaVisual; track noti.id) {
+          <app-notificacion-single-card [notificacion]="noti"></app-notificacion-single-card>
+        }
+      </div>
     }
   </div>
 </div>

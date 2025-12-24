@@ -1,7 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { NotificacionService } from '../../../services/notificacion-service';
 import { NotificacionSingleCardComponent } from '../notificacion-single-card/notificacion-single-card';
 import { DateRangePickerComponent } from '../../utils/date-range-picker/date-range-picker'; 
+
+type EstadoFiltro = 'TODAS' | 'NO_LEIDAS' | 'LEIDAS';
 
 @Component({
   selector: 'app-notificaciones-card',
@@ -10,7 +12,9 @@ import { DateRangePickerComponent } from '../../utils/date-range-picker/date-ran
   styleUrl: './notificaciones-card.css',
 })
 export class NotificacionesCard implements OnInit {
-  private notiService = inject(NotificacionService);
+  public notiService = inject(NotificacionService);
+
+  filtroEstado = signal<EstadoFiltro>('TODAS');
 
   cargando = true;
 
@@ -19,8 +23,22 @@ export class NotificacionesCard implements OnInit {
     setTimeout(() => (this.cargando = false), 300);
   }
 
-  get lista() {
-    return this.notiService.notificacionesFiltradas();
+  setFiltro(estado: EstadoFiltro) {
+    this.filtroEstado.set(estado);
+  }
+
+  get listaVisual() {
+    let lista = this.notiService.notificacionesFiltradas();
+    
+    const estado = this.filtroEstado();
+    
+    if (estado === 'NO_LEIDAS') {
+      lista = lista.filter(n => !n.leida);
+    } else if (estado === 'LEIDAS') {
+      lista = lista.filter(n => n.leida);
+    }
+    
+    return lista;
   }
 
   onFechasSeleccionadas(fechas: { desde: Date; hasta: Date }) {
