@@ -1,5 +1,7 @@
+
 <header class="main-header">
   <nav class="header-nav">
+    
     <div class="header-left">
       <div class="logo-rol-container">
         <a class="logo-container" routerLink="/home">
@@ -11,12 +13,12 @@
         </a>
 
         @if (role() === 'DUENO') {
-        <p class="rol">DUEÑO</p>
+          <p class="rol">DUEÑO</p>
         } @else {
-        <!-- NO IMPLEMENTADO EN CSS -->
-        @if (role() === 'ADMIN') {
-        <p class="rol">ADMIN</p>
-        } }
+          @if (role() === 'ADMIN') {
+            <p class="rol">ADMIN</p>
+          } 
+        }
       </div>
 
       <app-city-selector></app-city-selector>
@@ -30,27 +32,23 @@
       <a routerLink="/home" class="nav-link">INICIO</a>
       <a routerLink="/sobre-miviandita" class="nav-link">SOBRE MIVIANDITA</a>
 
-      <!-- Botones condicionales -->
-
       @if (!isLoggedIn()) {
-      <!-- Invitado -->
-      <button routerLink="/login" (click)="onLogin()" class="btn btn-primary">
-        INICIAR SESIÓN
-      </button>
+        <button routerLink="/login" (click)="onLogin()" class="btn btn-primary">
+          INICIAR SESIÓN
+        </button>
       } @else {
-      <!-- Clientes o Dueño -->
+        <div class="btns-logged">
+          
+          <app-dropdown-notificacion></app-dropdown-notificacion>
 
-      <div class="btns-logged">
-        <app-dropdown-notificacion></app-dropdown-notificacion>
+          <button class="btn btn-profile" routerLink="/me" title="Mi perfil">
+            <i class="fa-regular fa-user"></i>
+          </button>
 
-        <button class="btn btn-profile" routerLink="/me" title="Mi perfil">
-          <i class="fa-regular fa-user"></i>
-        </button>
-
-        <button class="btn btn-logout" (click)="onLogout()" title="Cerrar sesión">
-          <i class="fa-solid fa-right-from-bracket"></i>
-        </button>
-      </div>
+          <button class="btn btn-logout" (click)="onLogout()" title="Cerrar sesión">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
       }
     </div>
   </nav>

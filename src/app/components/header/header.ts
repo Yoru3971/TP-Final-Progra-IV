@@ -1,11 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, EventEmitter, inject, input, Output, signal } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Output, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+
+// Servicios
 import { AuthService } from '../../services/auth-service'; 
+import { NotificacionService } from '../../services/notificacion-service';
+
+// Componentes
 import { CitySelector } from '../utils/city-selector/city-selector';
 import { SearchBar } from '../utils/search-bar/search-bar';
 import { DropdownNotificacion } from '../utils/dropdown-notificacion/dropdown-notificacion';
-import { MatDialog } from '@angular/material/dialog';
 import { ConfirmarLogout } from '../modals/logout-modal/logout-modal';
 
 @Component({
@@ -16,21 +21,22 @@ import { ConfirmarLogout } from '../modals/logout-modal/logout-modal';
 })
 export class Header {
   private authService = inject(AuthService);
+  private notiService = inject(NotificacionService);
   private dialog = inject(MatDialog);
+
   public role = this.authService.currentUserRole;
 
   isLoggedIn = computed(() => this.role() !== 'INVITADO');
 
-  notifications = input<string[]>([]);
-
   @Output() loginClicked = new EventEmitter<void>();
-  @Output() profileClicked = new EventEmitter<void>();
   @Output() searchSubmitted = new EventEmitter<string>();
 
-  notificationMenuOpen = signal(false);
-
-  toggleNotificationMenu() {
-    this.notificationMenuOpen.update((open) => !open);
+  constructor() {
+    effect(() => {
+      if (this.isLoggedIn()) {
+        this.notiService.fetchNotificaciones();
+      }
+    });
   }
 
   onLogin() {
