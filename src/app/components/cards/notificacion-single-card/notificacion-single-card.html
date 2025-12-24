@@ -1,7 +1,23 @@
-<div class="notificacion-item">
-  <p class="mensaje">{{ notificacion.mensaje }}</p>
+<div class="card-notificacion" [class.leida]="notificacion.leida" [class.no-leida]="!notificacion.leida">
+  
+  <div class="info-container">
+    <div class="header-noti">
+      <span class="fecha">{{ notificacion.fechaEnviado| date : 'dd/MM/yyyy' }}</span>
+      @if (!notificacion.leida) {
+        <span class="badge-nueva">NUEVA</span>
+      }
+    </div>
+    
+    <p class="mensaje">{{ notificacion.mensaje }}</p>
+  </div>
 
-  <p class="fecha">
-    {{ notificacion.fechaEnviado | date : 'dd/MM/yyyy' }}
-  </p>
+  @if (!notificacion.leida) {
+    <button class="btn-action" (click)="marcarLeida($event)" title="Marcar como leída">
+      <i class="fa-regular fa-envelope-open"></i> <span class="btn-text">Marcar como leída</span>
+    </button>
+  } @else {
+    <div class="status-leido">
+      <i class="fa-solid fa-check-double"></i>
+    </div>
+  }
 </div>
