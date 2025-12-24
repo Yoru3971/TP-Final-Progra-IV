@@ -76,6 +76,28 @@
         </div>
         }
       </div>
+
+      <!-- Disponibilidad -->
+      <div class="availability-section">
+            
+            <label class="switch-toggle">
+                <input type="checkbox" formControlName="estaDisponible" />
+                <span class="slider"></span>
+            </label>
+
+            <div class="availability-info">
+                <span class="availability-title">
+                    {{ formEmprendimiento.get('estaDisponible')?.value ? 'Disponible' : 'No Disponible' }}
+                </span>
+                
+                <span class="availability-subtitle">
+                    {{ formEmprendimiento.get('estaDisponible')?.value ? 'Visible para clientes' : 'Oculto para clientes' }}
+                </span>
+            </div>
+
+      </div>
+
+
     </div>
 
     <!-- Imagen, borrar -->

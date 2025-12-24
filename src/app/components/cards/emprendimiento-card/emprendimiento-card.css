@@ -81,6 +81,13 @@
   line-height: 1.2;
 }
 
+.name-status-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .direccion {
   font-size: 1.2rem;
   color: var(--color-ui-disabled-text);
@@ -157,4 +164,45 @@ app-vianda-card {
   font-size: 1.4rem;
   color: var(--color-text-light);
   font-weight: 400;
+}
+
+
+/* ------- Estado "no disponible" ------- */
+.badge-card-unavailable {
+  background-color: var(--color-state-error);
+  color: var(--color-text-inverse);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.4rem;
+  white-space: nowrap;
+  letter-spacing: 0.05rem;
+  cursor: default;
+}
+
+.card-container.unavailable {
+  border-color: var(--color-ui-neutral);
+}
+
+.card-container.unavailable .logo-circle,
+.card-container.unavailable .direccion i,
+.card-container.unavailable .viandas-section {
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.card-container.unavailable .btn-ver-mas {
+  filter: none;
+  opacity: 1;
+}
+
+.card-container.unavailable .badge-card-unavailable {
+  filter: none; 
+  opacity: 1;
+}
+
+.card-container.unavailable:hover .logo-circle,
+.card-container.unavailable:hover .viandas-section {
+  opacity: 0.9;
 }

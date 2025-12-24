@@ -53,6 +53,7 @@ export class FormUpdateEmprendimiento {
     ciudad: ['', [Validators.required]],
     direccion: ['', [Validators.maxLength(255)]],
     telefono: ['', [Validators.required, Validators.pattern(/^\d{7,15}$/)]],
+    estaDisponible: [true, [Validators.required]]
   });
 
   ngOnInit() {
@@ -61,6 +62,7 @@ export class FormUpdateEmprendimiento {
       ciudad: this.emprendimiento.ciudad,
       direccion: this.emprendimiento.direccion,
       telefono: this.emprendimiento.telefono,
+      estaDisponible: this.emprendimiento.estaDisponible
     });
 
     if (this.emprendimiento.imagenUrl) {

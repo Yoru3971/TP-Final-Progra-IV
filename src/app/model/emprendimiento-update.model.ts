@@ -3,5 +3,6 @@ export interface EmprendimientoUpdate {
   ciudad: string;
   direccion: string;
   telefono: string;
+  estaDisponible: boolean;
   idUsuario: number;
 }
