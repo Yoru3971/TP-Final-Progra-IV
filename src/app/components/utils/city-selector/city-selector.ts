@@ -1,54 +1,76 @@
-import { Component, computed, ElementRef, HostListener, inject, OnInit, signal, ViewChild, effect } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Necesario para pipes si usas alguno, o innerHTML
-import { CityFilterService } from '../../../services/city-filter-service';
-import { GeoRefService } from '../../../services/geo-ref-service';
-import { GeoCity } from '../../../model/geo-city.model';
+import {
+  Component,
+  computed,
+  ElementRef,
+  forwardRef,
+  HostListener,
+  inject,
+  Input,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { GeoRefService } from '../../../services/geo-ref-service'; // Ajusta ruta si es necesario
+import { GeoCity } from '../../../model/geo-city.model'; // Ajusta ruta
 
 @Component({
   selector: 'app-city-selector',
+  standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './city-selector.html',
   styleUrl: './city-selector.css',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CitySelector),
+      multi: true,
+    },
+  ],
 })
-export class CitySelector implements OnInit {
-  private cityFilter = inject(CityFilterService);
+export class CitySelector implements OnInit, ControlValueAccessor {
   private geoService = inject(GeoRefService);
-  
-  //scroll automático con teclado
-  @ViewChild('optionsList') optionsList!: ElementRef;
 
+  @ViewChild('optionsList') optionsList!: ElementRef;
+  @Input() restoreOnBlur: boolean = false;
+  private lastValidValue: string = '';
+
+  // --- SIGNALS ---
   allCities = signal<GeoCity[]>([]);
-  inputValue = signal<string>(this.cityFilter.getCity());
+  inputValue = signal<string>(''); // Valor visual del input
   open = signal(false);
   loading = signal(false);
-  
-  //para navegación con flechas
   selectedIndex = signal(-1);
 
+  // --- CVA INTERFACE ---
+  onChange = (value: string | null) => {};
+  onTouched = () => {};
+  isDisabled = false;
+
+  // --- COMPUTED (Filtrado) ---
   filteredCities = computed(() => {
     const rawTerm = this.inputValue();
-
     const term = this.normalizeText(rawTerm);
-    
+
+    // Si está vacío, mostramos las primeras 6
     if (!term) return this.allCities().slice(0, 6);
 
-    const safeTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); 
-    const regex = new RegExp(`\\b${safeTerm}`, 'i'); 
+    const safeTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`\\b${safeTerm}`, 'i');
 
-    const cities = this.allCities();
-
-    return cities
-      .filter(c => {
-        const normalizedName = this.normalizeText(c.nombre);
-        return regex.test(normalizedName);
-      })
+    return this.allCities()
+      .filter((c) => regex.test(this.normalizeText(c.nombre)))
       .slice(0, 6);
   });
 
-  //helper para quitar acentos
   private normalizeText(text: string): string {
-    return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return text
+      ? text
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+      : '';
   }
 
   ngOnInit() {
@@ -57,127 +79,113 @@ export class CitySelector implements OnInit {
       next: (data) => {
         this.allCities.set(data);
         this.loading.set(false);
-        this.inputValue.set(this.cityFilter.getCity());
       },
-      error: () => this.loading.set(false)
+      error: () => this.loading.set(false),
     });
   }
 
-  //reseteamos el índice de flechas cuando cambia el filtro
-  constructor() {
-    effect(() => {
-      this.filteredCities(); 
-      this.selectedIndex.set(-1);
-    });
+  // --- MÉTODOS CVA ---
+  writeValue(value: string): void {
+    const val = value || '';
+    this.inputValue.set(val);
+    this.lastValidValue = val;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+  setDisabledState(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
   }
 
   // --- ACCIONES ---
-
-  selectOption(city: GeoCity) {
-    this.updateGlobalState(city.nombre);
-    this.open.set(false);
-  }
-
-  private updateGlobalState(cityName: string) {
-    const upperName = cityName.toUpperCase();
-    this.inputValue.set(upperName);
-    this.cityFilter.setCity(upperName);
-  }
-
   onInputFocus() {
-    //borramos visualmente el texto para que el usuario escriba cómodo
-    this.inputValue.set(''); 
-    //se abre el desplegable
+    if (this.isDisabled) return;
+    this.inputValue.set(''); // Limpia para escribir
     this.open.set(true);
   }
 
+  selectOption(city: GeoCity) {
+    this.updateValue(city.nombre);
+    this.open.set(false);
+  }
+
+  private updateValue(value: string | null) {
+    this.inputValue.set(value || '');
+    this.onChange(value);
+  }
+
   validateOnBlur() {
+    this.onTouched();
     setTimeout(() => {
       const currentTerm = this.inputValue().toUpperCase();
-      
-      const match = this.allCities().find(c => 
-        c.nombre.toUpperCase() === currentTerm
-      );
+      const match = this.allCities().find(c => c.nombre.toUpperCase() === currentTerm);
 
       if (match) {
-        //si es válida, guardamos y actualizamos todo
-        this.updateGlobalState(match.nombre);
+        this.updateValue(match.nombre);
+        this.lastValidValue = match.nombre;
       } else {
-        //si está vacío o escribió basura
-        // Recuperamos el valor "real" que tiene el servicio (ej: MAR DEL PLATA)
-        const lastValid = this.cityFilter.getCity();
-        this.inputValue.set(lastValid);
+        
+        if (this.restoreOnBlur) {
+          this.inputValue.set(this.lastValidValue);
+        } else {
+          this.updateValue(null);
+          this.inputValue.set('');
+        }
       }
       this.open.set(false);
     }, 200);
   }
 
-  // --- NAVEGACIÓN POR TECLADO ---
+  // --- TECLADO ---
   onKeyDown(event: KeyboardEvent) {
     if (!this.open()) {
       if (event.key === 'ArrowDown' || event.key === 'Enter') this.open.set(true);
       return;
     }
-
-    const optionsCount = this.filteredCities().length;
-
+    const count = this.filteredCities().length;
     switch (event.key) {
       case 'ArrowDown':
-        event.preventDefault(); //para evitar que se mueva el cursor del input
-        this.selectedIndex.update(i => (i + 1) % optionsCount);
+        event.preventDefault();
+        this.selectedIndex.update((i) => (i + 1) % count);
         this.scrollToSelected();
         break;
-      
       case 'ArrowUp':
         event.preventDefault();
-        this.selectedIndex.update(i => (i - 1 + optionsCount) % optionsCount);
+        this.selectedIndex.update((i) => (i - 1 + count) % count);
         this.scrollToSelected();
         break;
-
       case 'Enter':
         event.preventDefault();
-        if (this.selectedIndex() >= 0 && optionsCount > 0) {
-          const selectedCity = this.filteredCities()[this.selectedIndex()];
-          this.selectOption(selectedCity);
-        } else if (optionsCount > 0) {
-          //si le da a enter sin seleccionar nada con flechas, selecciona el primero
-          this.selectOption(this.filteredCities()[0]);
-        }
+        if (this.selectedIndex() >= 0 && count > 0)
+          this.selectOption(this.filteredCities()[this.selectedIndex()]);
+        else if (count > 0) this.selectOption(this.filteredCities()[0]);
         break;
-      
       case 'Escape':
         this.open.set(false);
         break;
     }
   }
 
-  //mantener el scroll visible
   scrollToSelected() {
     setTimeout(() => {
-      if (this.optionsList) {
-        const active = this.optionsList.nativeElement.querySelector('.selected-nav');
-        if (active) {
-          active.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-        }
-      }
+      const el = this.optionsList?.nativeElement.querySelector('.selected-nav');
+      el?.scrollIntoView({ block: 'nearest' });
     }, 0);
   }
 
-  // --- Resaltar texto ---
   highlightMatch(text: string): string {
     const term = this.normalizeText(this.inputValue());
     if (!term) return text;
-
-    // Regex para encontrar la palabra que empieza con el termino, manteniendo mayusculas originales
     const regex = new RegExp(`(\\b${term})`, 'gi');
     return text.replace(regex, '<b>$1</b>');
   }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    if (!target.closest('.city-selector')) {
-      this.open.set(false);
-    }
+    if (!(event.target as HTMLElement).closest('.city-selector')) this.open.set(false);
   }
 }

@@ -12,11 +12,13 @@
       autocomplete="off"
     />
     
+    <div class="icon">
+      @if (loading()) { <span class="loader"></span> }
     </div>
+  </div>
 
   @if (open() && !loading()) {
     <ul class="options" #optionsList>
-      
       @if (filteredCities().length === 0 && inputValue().length > 0) {
         <li class="no-results-item">
           No encontramos "<strong>{{ inputValue() }}</strong>"
