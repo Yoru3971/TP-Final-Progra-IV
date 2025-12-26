@@ -7,5 +7,6 @@ export interface EmprendimientoResponse {
   ciudad: string;
   direccion: string;
   telefono: string;
+  estaDisponible: boolean;
   dueno: UsuarioResponse;
 }

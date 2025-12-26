@@ -28,4 +28,10 @@ export class UsuarioService {
   updateUsuario(id: number, body: UsuarioUpdate) {
     return this.http.put<UsuarioResponse>(`${this.apiUrl}/${id}`, body);
   }
+
+  updateImagenUsuario(id: number, file: File): Observable<UsuarioResponse> {
+    const formData = new FormData();
+    formData.append('image', file);
+    return this.http.put<UsuarioResponse>(`${this.apiUrl}/${id}/imagen`, formData);
+  }
 }

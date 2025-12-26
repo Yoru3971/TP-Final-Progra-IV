@@ -41,6 +41,7 @@
   --color-state-error-hover: #b00; /* Eliminar hover */
   --color-state-danger: #e74c3c; /* Botón cancelar (rojo menos fuerte) */
   --color-state-default: #6b7280; /* Estado default */
+  --color-state-finish: #3b82f6; /* Entregado */
 
   /* Colores de Alerta Específicos */
   --color-alert-warning-background: #fff4e0;

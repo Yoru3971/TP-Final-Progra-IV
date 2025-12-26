@@ -91,11 +91,20 @@
         <button class="btn btn-rechazar" (click)="cambiarEstado(EstadoPedido.RECHAZADO)">
           RECHAZAR PEDIDO
         </button>
-        } @if (role() === 'DUENO') {
+
+        } @if (role() === 'DUENO' && pedido.estado === 'ACEPTADO') {
+        <button class="btn btn-entregado" (click)="cambiarEstado(EstadoPedido.ENTREGADO)">
+          MARCAR ENTREGADO
+        </button>
+        }
+        
+        @if (role() === 'DUENO') {
         <button class="btn btn-contactar" (click)="verDatosUsuario(pedido.cliente)">
           CONTACTAR
         </button>
-        }@if (role() === 'CLIENTE') {
+        }
+        
+        @if (role() === 'CLIENTE') {
         <button class="btn btn-contactar" (click)="verDatosUsuario(pedido.emprendimiento.dueno)">
           CONTACTAR
         </button>

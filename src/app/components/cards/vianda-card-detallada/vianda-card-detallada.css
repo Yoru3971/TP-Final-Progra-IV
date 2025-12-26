@@ -1,4 +1,4 @@
-/* --- COMPONENTE TARJETA DE VIANDA DETALLADA (VIANDA-OWNER-CARD) --- */
+/* --- COMPONENTE TARJETA DE VIANDA DETALLADA --- */
 :host {
   display: block;
   height: 100%;
@@ -16,6 +16,7 @@
   overflow: hidden;
   border: 0.1rem solid var(--color-ui-neutral);
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -109,7 +110,6 @@
   padding: 0.4rem 0.8rem;
   border: 0.1rem solid var(--color-ui-neutral);
   border-radius: 0.6rem;
-  cursor: default;
 }
 
 .card-description {
@@ -195,7 +195,7 @@
 
 .btn-qty:hover:not(:disabled) {
   background-color: var(--color-background-soft-orange);
-  color: var(--color-primary-action-hover); /* Nuevo: #ef7d13 */
+  color: var(--color-primary-action-hover);
 }
 
 .btn-qty:disabled {

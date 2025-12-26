@@ -31,7 +31,16 @@ export class HomePageDueno implements OnInit {
 
       this.emprendimientoService
         .loadEmprendimientosConViandas()
-        .subscribe((full) => this.emprendimientos.set(full));
+        .subscribe((full) => {
+          const ordenados = full.sort((a, b) => {
+            if (a.estaDisponible === b.estaDisponible) {
+                return 0; 
+            }
+            return a.estaDisponible ? -1 : 1;
+          });
+
+          this.emprendimientos.set(ordenados);
+        });
     });
   }
 

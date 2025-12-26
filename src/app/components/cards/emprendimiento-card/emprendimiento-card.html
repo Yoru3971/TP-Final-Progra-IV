@@ -1,4 +1,4 @@
-<div class="card-container">
+<div class="card-container" [class.unavailable]="!emprendimiento.estaDisponible">
 
   <div class="info">
 
@@ -13,8 +13,14 @@
       </div>
 
       <div class="text-content">
-        <h2>{{ emprendimiento.nombreEmprendimiento }}</h2>
-        
+
+        <div class="name-status-row">
+            <h2>{{ emprendimiento.nombreEmprendimiento }}</h2>
+            @if (!emprendimiento.estaDisponible) {
+                <span class="badge-card-unavailable">NO DISPONIBLE</span>
+            }
+        </div>
+
         <p class="direccion">
           <i class="fa-solid fa-location-dot"></i>
           {{ emprendimiento.direccion }}

@@ -30,12 +30,7 @@
       <div class="form-field">
         <label class="form-label">Ciudad</label>
         
-        <select formControlName="ciudad" class="form-input">
-          <option value="" disabled selected>Seleccione una ciudad</option>
-          @for (city of CITIES; track city) {
-            <option [value]="city">{{ city }}</option>
-          }
-        </select>
+        <app-city-selector formControlName="ciudad"></app-city-selector>
 
         @if (formEmprendimiento.get('ciudad')?.invalid && formEmprendimiento.get('ciudad')?.touched)
         {

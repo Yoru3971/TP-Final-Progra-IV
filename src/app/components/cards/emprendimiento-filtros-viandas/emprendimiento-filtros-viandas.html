@@ -32,7 +32,7 @@
         </div>
         
         <!-- Filtrar por vegano/vegetariano/sinTACC -->
-        <div class="dietary-icons">
+        <div class="dietary-icons" [class.bordered-group]="modo() === 'DUENO'">
             <button 
                 class="icon-btn" 
                 [class.active]="esSinTacc()" 
@@ -83,6 +83,31 @@
             </div>
 
         </div>
+
+        @if (modo() === 'DUENO') {
+            <div class="segmented-control">
+                <button 
+                    [class.active]="filtroDisponibilidad() === 'DISPONIBLES'"
+                    (click)="setDisponibilidad('DISPONIBLES')"
+                    title="Ver solo disponibles">
+                    <i class="fa-solid fa-check"></i>
+                </button>
+                
+                <button 
+                    [class.active]="filtroDisponibilidad() === 'NO_DISPONIBLES'"
+                    (click)="setDisponibilidad('NO_DISPONIBLES')"
+                    title="Ver no disponibles">
+                    <i class="fa-solid fa-ban"></i>
+                </button>
+
+                <button 
+                    [class.active]="filtroDisponibilidad() === 'TODAS'"
+                    (click)="setDisponibilidad('TODAS')"
+                    title="Ver todas">
+                    Todas
+                </button>
+            </div>
+        }
         
     </div>
 </div>

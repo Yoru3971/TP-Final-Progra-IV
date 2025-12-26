@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, HostListener, inject, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, signal, effect } from '@angular/core';
 import { NotificacionService } from '../../../services/notificacion-service';
 import { EmprendimientoService } from '../../../services/emprendimiento-service';
 import { Router } from '@angular/router';
@@ -11,39 +11,26 @@ import { NotificacionSingleCardComponent } from '../../cards/notificacion-single
   styleUrl: './dropdown-notificacion.css',
 })
 export class DropdownNotificacion {
-  notificacionService = inject(NotificacionService);
-  emprendimientoService = inject(EmprendimientoService);
-  router = inject(Router);
+  public notificacionService = inject(NotificacionService);
+  private emprendimientoService = inject(EmprendimientoService);
+  private router = inject(Router);
+  private elementRef = inject(ElementRef);
 
   isOpen = signal(false);
-  // REVISAR Esto es para que desaparezca el numerito de notificaciones, al recargar la pagina se resetea
-  firstOpen = signal(true);
-
-  private elementRef = inject(ElementRef);
 
   constructor() {
     effect(() => {
-      this.notificacionService.fetchNotificacionesUltimaSemana();
+       this.notificacionService.fetchNotificaciones(); 
     });
   }
 
   toggleDropdown() {
-    const newState = !this.isOpen();
-
-    this.isOpen.set(newState);
-
-    if (newState && this.firstOpen()) {
-      this.firstOpen.set(false);
-    }
+    this.isOpen.update((v) => !v);
   }
 
   verTodasNotificaciones() {
     this.router.navigate(['/me']);
     this.isOpen.set(false);
-  }
-
-  getCantidadNotificaciones() {
-    return this.notificacionService.notificacionesOrdenadas().length;
   }
 
   @HostListener('document:click', ['$event'])

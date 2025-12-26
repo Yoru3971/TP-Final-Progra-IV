@@ -3,4 +3,5 @@ export interface Notificacion {
   mensaje: string;
   fechaEnviado: string;
   emprendimientoId: number;
+  leida: boolean;
 }

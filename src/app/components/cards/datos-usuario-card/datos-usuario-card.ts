@@ -33,6 +33,43 @@ export class DatosUsuarioCard implements OnInit {
     }
   }
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    
+    if (!input.files || input.files.length === 0) {
+      return;
+    }
+
+    const file: File = input.files[0];
+
+    const userId = this.usuarioSignal().id; 
+
+    this.usuarioService.updateImagenUsuario(userId, file).subscribe({
+      next: (usuarioActualizado: UsuarioResponse) => {
+        this.usuarioSignal.set(usuarioActualizado);
+        
+        this.snackBar.openFromComponent(Snackbar, {
+          duration: 3000,
+          data: { 
+             message: 'Foto de perfil actualizada con éxito', 
+             iconName: 'check_circle' 
+          } as SnackbarData,
+          panelClass: 'snackbar-success' 
+        });
+      },
+      error: (err) => {
+        console.error('Error al subir imagen:', err);
+        let mensaje = 'Ocurrió un error al subir la imagen.';
+        if (err.status === 400) mensaje = 'Formato de imagen no válido.';
+        if (err.status === 403) mensaje = 'No tienes permiso para editar esto.';
+
+        this.snackBar.open(mensaje, 'Cerrar', { duration: 3000 });
+      }
+    });
+
+    input.value = ''; 
+  }
+
   openUpdateModal() {
     const dialogRef = this.dialog.open(FormUserUpdate, {
       data: this.usuario,

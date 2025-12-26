@@ -8,10 +8,11 @@ import { SnackbarData } from '../../../model/snackbar-data.model';
 import { Snackbar } from '../../modals/snackbar/snackbar';
 import { ChangeDetectorRef } from '@angular/core';
 import { ErrorDialogModal } from '../../modals/error-dialog-modal/error-dialog-modal';
+import { CitySelector } from '../../utils/city-selector/city-selector';
 
 @Component({
   selector: 'app-form-emprendimiento',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CitySelector],
   templateUrl: './form-emprendimiento.html',
   styleUrl: './form-emprendimiento.css',
 })
@@ -23,17 +24,6 @@ export class FormEmprendimiento {
   private dialogRef = inject(MatDialogRef<FormEmprendimiento>);
   private snackBar = inject(MatSnackBar);
   private cdr = inject(ChangeDetectorRef); // Necesario para forzar render
-
-  // Arreglo de ciudades temporal
-  // Luego sera eliminado, y utilizaremos una API de ciudades
-  public readonly CITIES: readonly string[] = [
-    'MAR DEL PLATA',
-    'MIRAMAR',
-    'NECOCHEA',
-    'BALCARCE',
-    'SANTA CLARA',
-    'PINAMAR',
-  ] as const;
 
   selectedFileName: string | null = null;
   public imagePreviewUrl: string | ArrayBuffer | null = null;
@@ -48,7 +38,7 @@ export class FormEmprendimiento {
       [Validators.required, Validators.minLength(1), Validators.maxLength(255)],
     ],
     image: [null, Validators.required],
-    ciudad: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
+    ciudad: ['', [Validators.required]],
     direccion: ['', Validators.maxLength(255)],
     telefono: ['', [Validators.required, Validators.pattern(/^\d{7,15}$/)]],
   });

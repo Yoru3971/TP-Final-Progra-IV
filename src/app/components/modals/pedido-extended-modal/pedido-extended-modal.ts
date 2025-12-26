@@ -94,12 +94,18 @@ export class PedidoExtendedModal implements OnInit {
     }
 
     if (this.role() === 'DUENO') {
-      const permitido =
-        estadoActual === EstadoPedido.PENDIENTE &&
-        (estadoNuevo === EstadoPedido.ACEPTADO || estadoNuevo === EstadoPedido.RECHAZADO);
+      let permitido = false;
+
+      if (estadoActual === EstadoPedido.PENDIENTE && 
+         (estadoNuevo === EstadoPedido.ACEPTADO || estadoNuevo === EstadoPedido.RECHAZADO)) {
+          permitido = true;
+      }
+      else if (estadoActual === EstadoPedido.ACEPTADO && estadoNuevo === EstadoPedido.ENTREGADO) {
+          permitido = true;
+      }
 
       if (!permitido) {
-        return this.mostrarError('Solo podés aceptar o rechazar pedidos pendientes.');
+        return this.mostrarError('Cambio de estado del pedido no válido.');
       }
     }
 

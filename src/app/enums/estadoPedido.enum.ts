@@ -3,4 +3,5 @@ export enum EstadoPedido {
   ACEPTADO = 'ACEPTADO',
   RECHAZADO = 'RECHAZADO',
   CANCELADO = 'CANCELADO',
+  ENTREGADO = 'ENTREGADO'
 }

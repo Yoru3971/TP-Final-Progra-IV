@@ -1,20 +1,41 @@
-<div class="select-custom city-selector" (click)="open = !open">
-  <div class="selected-option">
-    {{ currentCity() }}
+<div class="city-selector">
+  <div class="input-container">
+    <input 
+      type="text"
+      [ngModel]="inputValue()"
+      (ngModelChange)="inputValue.set($event); open.set(true)"
+      (focus)="onInputFocus()" 
+      (blur)="validateOnBlur()"
+      (keydown)="onKeyDown($event)" 
+      placeholder="Buscar ciudad..."
+      [disabled]="loading()"
+      autocomplete="off"
+    />
+    
+    <div class="icon">
+      @if (loading()) { <span class="loader"></span> }
+    </div>
   </div>
 
-  <div class="arrow">▾</div>
+  @if (open() && !loading()) {
+    <ul class="options" #optionsList>
+      @if (filteredCities().length === 0 && inputValue().length > 0) {
+        <li class="no-results-item">
+          No encontramos "<strong>{{ inputValue() }}</strong>"
+        </li>
+      }
 
-  @if (open) {
-  <ul class="options">
-    @for (c of CITIES; track c) {
-    <li
-      (click)="onOptionSelect(c); $event.stopPropagation()"
-      [class.selected]="c === currentCity()"
-    >
-      {{ c }}
-    </li>
-    }
-  </ul>
+      @for (c of filteredCities(); track c.fullName; let i = $index) {
+        <li 
+          (click)="selectOption(c)"
+          class="option-item"
+          [class.selected-nav]="i === selectedIndex()"
+          [class.current-value]="c.nombre.toUpperCase() === inputValue().toUpperCase()"
+        >
+          <span class="city-name" [innerHTML]="highlightMatch(c.nombre)"></span>
+          <span class="prov-name">{{ c.provincia }}</span>
+        </li>
+      }
+    </ul>
   }
 </div>

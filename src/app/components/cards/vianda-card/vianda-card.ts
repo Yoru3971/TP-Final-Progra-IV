@@ -16,7 +16,10 @@ export class ViandaCard {
   openViandaModal() {
     this.dialog.open(ViandaExtendedModal, {
       width: '100rem',
-      data: this.vianda,
+      data: { 
+      vianda: this.vianda,
+      modo: 'DUENO'
+    },
       panelClass: 'modal-vianda',
       autoFocus: false,
       restoreFocus: false,

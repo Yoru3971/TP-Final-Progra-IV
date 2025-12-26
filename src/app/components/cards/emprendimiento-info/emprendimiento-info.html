@@ -5,7 +5,8 @@
       <div
         class="logo-circle"
         (click)="openImagenModal()"
-        [class.clickable]="emprendimiento().imagenUrl">
+        [class.clickable]="emprendimiento().imagenUrl"
+        [class.unavailable]="!emprendimiento().estaDisponible">
         
         @if (emprendimiento().imagenUrl) {
         <div class="img-wrapper">
@@ -20,9 +21,14 @@
         }
       </div>
       
-      <div>
+      <div class="title-container">
         <h1 class="titulo">{{ emprendimiento().nombreEmprendimiento }}</h1>
+        
+        @if (!emprendimiento().estaDisponible) {
+            <span class="badge-unavailable">NO DISPONIBLE</span>
+        }
       </div>
+
     </div>
 
     <!-- Medio (botón carrito/configurar, según rol) -->

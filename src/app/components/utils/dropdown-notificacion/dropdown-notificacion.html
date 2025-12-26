@@ -1,25 +1,33 @@
 <div class="notificacion-wrapper">
   <button class="icon-btn" (click)="toggleDropdown()">
     <i class="fa-solid fa-bell"></i>
-
-    @if (firstOpen() && getCantidadNotificaciones() > 0) {
-    <span class="badge">{{ getCantidadNotificaciones() }}</span>
+    @if (notificacionService.cantidadNoLeidas() > 0) {
+      <span class="badge">{{ notificacionService.cantidadNoLeidas() }}</span>
     }
   </button>
 
   @if (isOpen()) {
-  <div class="dropdown animate">
-    <h4 class="titulo">Mis notificaciones</h4>
+    <div class="dropdown animate">
+      <div class="dropdown-header">
+        <h4 class="titulo">Nuevas</h4>
+        </div>
 
-    <div class="lista">
-      @if (getCantidadNotificaciones() === 0) {
-      <p class="sin-notificaciones">Sin notificaciones recientes.</p>
-      } @else { @for (n of notificacionService.notificacionesOrdenadas(); track n.id) {
-      <app-notificacion-single-card [notificacion]="n"></app-notificacion-single-card>
-      } }
+      <div class="lista">
+        @if (notificacionService.soloNoLeidas().length === 0) {
+          <div class="empty-state">
+            <i class="fa-regular fa-face-smile-wink"></i>
+            <p>¡Estás al día! No hay notificaciones nuevas.</p>
+          </div>
+        } @else {
+          @for (n of notificacionService.soloNoLeidas(); track n.id) {
+            <app-notificacion-single-card [notificacion]="n"></app-notificacion-single-card>
+          }
+        }
+      </div>
+
+      <button class="btn btn-ver" (click)="verTodasNotificaciones()">
+        Ver historial completo
+      </button>
     </div>
-
-    <button class="btn btn-ver" (click)="verTodasNotificaciones()">Ver todas</button>
-  </div>
   }
 </div>

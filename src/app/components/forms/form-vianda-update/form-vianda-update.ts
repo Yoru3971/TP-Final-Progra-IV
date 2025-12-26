@@ -12,10 +12,18 @@ import { SnackbarData } from '../../../model/snackbar-data.model';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { firstValueFrom } from 'rxjs';
+import { IconTacc } from '../../utils/icon-tacc/icon-tacc';
+import { IconVegan } from '../../utils/icon-vegan/icon-vegan';
+import { IconVeggie } from '../../utils/icon-veggie/icon-veggie';
 
 @Component({
   selector: 'app-form-vianda-update',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    IconTacc,
+    IconVegan,
+    IconVeggie],
   templateUrl: './form-vianda-update.html',
   styleUrl: './form-vianda-update.css',
 })

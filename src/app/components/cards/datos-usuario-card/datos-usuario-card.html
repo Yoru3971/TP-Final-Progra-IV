@@ -1,20 +1,42 @@
 <h3 class="titulo-seccion">DATOS PERSONALES</h3>
 
 <div class="datos-card">
-  <div class="dato-container">
-    <i class="fa-solid fa-user icon"></i>
-    <p class="dato">{{ usuarioSignal().nombreCompleto }}</p>
+  
+  <input 
+    type="file" 
+    #fileInput 
+    style="display: none;" 
+    (change)="onFileSelected($event)" 
+    accept="image/*">
+
+  <div class="datos-info">
+    <div class="dato-container">
+      <i class="fa-solid fa-user icon"></i>
+      <p class="dato">{{ usuarioSignal().nombreCompleto }}</p>
+    </div>
+
+    <div class="dato-container">
+      <i class="fa-solid fa-phone icon"></i>
+      <p class="dato">{{ usuarioSignal().telefono }}</p>
+    </div>
+
+    <div class="dato-container">
+      <i class="fa-solid fa-envelope icon"></i>
+      <p class="dato">{{ usuarioSignal().email }}</p>
+    </div>
   </div>
 
-  <div class="dato-container">
-    <i class="fa-solid fa-phone icon"></i>
-    <p class="dato">{{ usuarioSignal().telefono }}</p>
-  </div>
+  <div class="datos-imagen" (click)="fileInput.click()">
+    
+    <img [src]="usuarioSignal().imagenUrl" alt="Foto de perfil" class="profile-img">
+    
+    <div class="image-overlay">
+      <i class="fa-solid fa-camera"></i>
+      <span>Cambiar</span>
+    </div>
 
-  <div class="dato-container">
-    <i class="fa-solid fa-envelope icon"></i>
-    <p class="dato">{{ usuarioSignal().email }}</p>
   </div>
 
   <i class="fa-solid fa-pen edit-icon" (click)="openUpdateModal()"></i>
+
 </div>

@@ -1,4 +1,4 @@
-/* --- FORMULARIO DE CREACIÓN/EDICIÓN DE VIANDA (MEJORADO) --- */
+/* --- FORMULARIO DE EDICIÓN DE VIANDA --- */
 .form-vianda {
   display: flex;
   flex-direction: column;
@@ -213,15 +213,134 @@ textarea.form-input {
   color: var(--color-text-light);
 }
 
+/* ------- CONTENEDOR: DIETAS + DISPONIBILIDAD ------- */
 .checkbox-group {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 1.2rem;
   flex-wrap: wrap;
   margin-top: 1rem;
 }
-.checkbox-container {
+
+/* ------- DIETAS ------- */
+.diet-chips-container {
   display: flex;
-  gap: 0.5rem;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.chip-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.chip-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  
+  padding: 0.8rem 1.6rem;
+  border-radius: 5rem;
+  border: 0.1rem solid var(--color-ui-neutral);
+  background-color: var(--color-background-primary);
+  
+  color: var(--color-text-secondary);
+  font-size: 1.6rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.chip-label:hover {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary-medium);
+  background-color: var(--color-background-soft-orange);
+}
+
+.chip-checkbox input:checked + .chip-label {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-light);
+  color: var(--color-text-inverse);
+}
+
+.custom-icon {
+  width: 1.6rem;
+  height: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit; 
+}
+
+/* ------- DISPONIBILIDAD ------- */
+.availability-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+.availability-info {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.availability-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-dark-secondary);
+}
+
+.availability-subtitle {
+  font-size: 1.3rem;
+  color: var(--color-text-placeholder);
+  font-weight: 400;
+}
+
+.switch-toggle {
+  display: flex;
   align-items: center;
   cursor: pointer;
+  user-select: none;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.switch-toggle input {
+  display: none;
+}
+
+.slider {
+  width: 4.8rem;
+  height: 2.6rem;
+  background: var(--color-ui-gray-light);
+  border-radius: 3rem;
+  position: relative;
+  transition: 0.3s;
+  box-shadow: inset 0 0.1rem 0.3rem rgba(0,0,0,0.1);
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  left: 0.3rem;
+  top: 0.3rem;
+  background: var(--color-background-primary);
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  box-shadow: 0 0.2rem 0.4rem rgba(0,0,0,0.2);
+}
+
+input:checked + .slider {
+  background: var(--color-primary-light);
+}
+
+input:checked + .slider::before {
+  transform: translateX(2.2rem);
 }

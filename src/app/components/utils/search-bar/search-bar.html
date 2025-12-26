@@ -33,6 +33,7 @@
     @for (item of resultados(); track item.id) {
     <div
       class="result-card"
+      [class.unavailable]="!item.estaDisponible"
       [routerLink]="['/emprendimiento', item.id]"
       (click)="emprendimientoClickeado(searchInput)"
       (mouseenter)="sobreResultado.set(true)"
@@ -43,9 +44,14 @@
       }
 
       <div class="card-info">
-        <p class="card-title">{{ item.nombreEmprendimiento }}</p>
-        <p class="card-sub">{{ item.direccion }} - {{ item.telefono }}</p>
-        <p class="card-sub">Dueño: {{ item.dueno.nombreCompleto }}</p>
+          <div class="title-row">
+            <p class="card-title">{{ item.nombreEmprendimiento }}</p>
+            @if (!item.estaDisponible) {
+                <span class="badge-mini">NO DISPONIBLE</span>
+            }
+          </div>
+          <p class="card-sub">{{ item.direccion }} - {{ item.telefono }}</p>
+          <p class="card-sub">Dueño: {{ item.dueno.nombreCompleto }}</p>
       </div>
     </div>
     } @empty {
