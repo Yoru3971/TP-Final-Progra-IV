@@ -1,0 +1,50 @@
+<div class="activation-container">
+  @if (isLoading()) {
+  <div class="state-box loading">
+    <div class="spinner"></div>
+    <p>Procesando...</p>
+  </div>
+  } @else { @if (isSuccess()) {
+  <div class="state-box success">
+    <div class="icon-circle success-icon">
+      <span class="material-icons">check</span>
+    </div>
+    <h1 class="main-h1-title">¡Todo listo!</h1>
+    <p class="description">{{ message() }}</p>
+
+    <p class="sub-description">Revisa tu casilla de correo.</p>
+
+    <button routerLink="/login" class="btn btn-large">Ir al Login</button>
+  </div>
+  } @else {
+  <div class="state-box error">
+    <div class="icon-circle error-icon">
+      <span class="material-icons">close</span>
+    </div>
+
+    <h1 class="main-h1-title" style="color: var(--color-state-error)">Algo salió mal</h1>
+    <p class="description error-text">{{ message() }}</p>
+
+    @if (showResendForm()) {
+    <div class="resend-container">
+      <p class="sub-description">¿Expiró tu link? Ingresa tu email para recibir uno nuevo:</p>
+
+      <input
+        type="email"
+        class="form-input"
+        placeholder="tu@email.com"
+        [(ngModel)]="emailToResend"
+      />
+
+      <button (click)="onResend()" class="btn btn-large" [disabled]="isResending()">
+        @if (isResending()) { Enviando... } @else { Reenviar Correo }
+      </button>
+    </div>
+    }
+
+    <div class="actions">
+      <button routerLink="/" class="btn btn-outline">Volver al Inicio</button>
+    </div>
+  </div>
+  } }
+</div>
