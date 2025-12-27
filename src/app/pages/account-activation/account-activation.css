@@ -1,0 +1,127 @@
+/* Contenedor centrado */
+.activation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Caja contenedora (Card) */
+.state-box {
+  background-color: var(--color-background-primary);
+  border-radius: 2rem;
+  box-shadow: var(--shadow-card);
+  padding: 4rem 3rem;
+  text-align: center;
+  max-width: 50rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Iconos */
+.icon-circle {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.success-icon {
+  background-color: color-mix(in srgb, var(--color-state-success) 15%, white);
+  border: 0.2rem solid var(--color-state-success);
+  color: var(--color-state-success);
+}
+
+.error-icon {
+  background-color: color-mix(in srgb, var(--color-state-error) 15%, white);
+  border: 0.2rem solid var(--color-state-error);
+  color: var(--color-state-error);
+}
+
+.material-icons {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+/* Tipografía */
+.description {
+  font-size: 1.8rem;
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.sub-description {
+  font-size: 1.4rem;
+  color: var(--color-text-secondary);
+  margin-top: -1rem;
+}
+
+.error-text {
+  color: var(--color-state-error);
+  font-weight: 500;
+}
+
+/* Botones específicos de esta página */
+.btn-large {
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 1.8rem;
+  margin-top: 1rem;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 0.2rem solid var(--color-primary-light);
+  color: var(--color-primary-light);
+  font-weight: bold;
+  padding: 1rem 3rem;
+}
+
+.btn-outline:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-text-inverse);
+}
+
+.actions {
+  margin-top: 1rem;
+}
+
+/* Spinner de carga */
+.spinner {
+  width: 5rem;
+  height: 5rem;
+  border: 0.5rem solid var(--color-border-light);
+  border-top: 0.5rem solid var(--color-primary-light);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.resend-container {
+  width: 100%;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

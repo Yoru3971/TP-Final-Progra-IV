@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarData } from '../../../model/snackbar-data.model';
 import { Snackbar } from '../../modals/snackbar/snackbar';
 import { ErrorDialogModal } from '../../modals/error-dialog-modal/error-dialog-modal';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-form-login',
@@ -22,8 +23,11 @@ export class FormLogin {
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
 
+  unverifiedEmail: string | null = null;
+  isResending = false;
+
   formLogin = this.fb.group({
-    email: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
     recordarme: [false],
   });
@@ -35,7 +39,9 @@ export class FormLogin {
   }
 
   login() {
+    this.unverifiedEmail = null;
     const usuario = this.formLogin.value;
+
     this.authService
       .login({
         email: usuario.email || '',
@@ -65,19 +71,44 @@ export class FormLogin {
           }, 1000);
         },
         error: (err) => {
-          const backendMsg =
-            err.error?.message || err.error?.error || 'Error desconocido en el login';
-            
-          this.dialog.open(ErrorDialogModal, {
-            data: { message: backendMsg },
-            panelClass: 'modal-error',
-            autoFocus: false,
-            restoreFocus: false,
-          });
+          if (err.status === 403) {
+            this.unverifiedEmail = usuario.email || null;
+          } else {
+            const backendMsg =
+              err.error?.message || err.error?.error || 'Error desconocido en el login';
+  
+            this.dialog.open(ErrorDialogModal, {
+              data: { message: backendMsg },
+              panelClass: 'modal-error',
+              autoFocus: false,
+              restoreFocus: false,
+            });
+          }
 
           this.formLogin.get('password')?.reset();
           this.formLogin.get('recordarme')?.reset();
         },
       });
+  }
+
+  reenviarCorreo() {
+    if (!this.unverifiedEmail) return;
+
+    this.isResending = true;
+    this.authService.resendToken(this.unverifiedEmail).subscribe({
+      next: (res) => {
+        this.isResending = false;
+        this.unverifiedEmail = null;
+        this.mostrarSnackBar('¡Correo enviado! Revisa tu bandeja de entrada.', 'check_circle');
+      },
+      error: (err) => {
+        this.isResending = false;
+        this.mostrarSnackBar('Error al reenviar el correo.', 'error');
+      }
+    });
+  }
+
+  private mostrarSnackBar(msg: string, icon: string) {
+     this.snackBar.open(msg, 'Cerrar', { duration: 4000 });
   }
 }

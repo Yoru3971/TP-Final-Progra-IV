@@ -16,6 +16,7 @@ import { RecuperarPasswordPage } from './pages/recuperar-password-page/recuperar
 import { NormasComunidadPage } from './pages/normas-comunidad-page/normas-comunidad-page';
 import { BasesCondicionesPage } from './pages/bases-condiciones-page/bases-condiciones-page';
 import { Error418Page } from './pages/redirects/error418-page/error418-page';
+import { AccountActivation } from './pages/account-activation/account-activation';
 
 export const routes: Routes = [
   /* -------------------- HOME -------------------- */
@@ -50,6 +51,7 @@ export const routes: Routes = [
   { path: 'sobre-miviandita', component: SobreMivianditaPage },
   { path: 'sobre-nosotros', component: SobreNosotrosPage },
   { path: 'recuperar-password', component: RecuperarPasswordPage },
+  { path: 'confirmar-cuenta', component: AccountActivation },
   { path: 'normas-comunidad', component: NormasComunidadPage },
   { path: 'bases-condiciones', component: BasesCondicionesPage },
 
