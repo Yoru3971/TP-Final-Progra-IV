@@ -39,4 +39,21 @@
     <!-- Si el form no es valido, se desabilita el boton, funcional y estéticamente -->
     Ingresar
   </button>
+
+  @if (unverifiedEmail) {
+    <div class="account-warning">
+      <p>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        Tu cuenta aún no ha sido validada.
+      </p>
+      
+      <button type="button" class="btn-resend" (click)="reenviarCorreo()" [disabled]="isResending">
+        @if (isResending) {
+          Enviando...
+        } @else {
+          Reenviar email de activación
+        }
+      </button>
+    </div>
+  }
 </form>
