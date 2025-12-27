@@ -27,6 +27,8 @@ export class AuthService {
 
   private apiUrlLogin = 'http://localhost:8080/api/public/login';
   private apiUrlRegister = 'http://localhost:8080/api/public/register';
+  private apiUrlConfirm = 'http://localhost:8080/api/public/confirm';
+  private apiUrlResend = 'http://localhost:8080/api/public/resend-token';
 
   constructor(private http: HttpClient) {
     console.log('AuthService inicializado. Rol actual', this.currentUserRole());
@@ -133,5 +135,19 @@ export class AuthService {
 
   public getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY) || sessionStorage.getItem(this.TOKEN_KEY);
+  }
+
+  verifyAccount(token: string) {
+    return this.http.get(this.apiUrlConfirm, {
+      params: { token: token },
+      responseType: 'text'
+    });
+  }
+
+  resendToken(email: string) {
+    return this.http.post(this.apiUrlResend, null, {
+      params: { email: email },
+      responseType: 'text'
+    });
   }
 }
