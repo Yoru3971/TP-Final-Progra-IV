@@ -17,6 +17,7 @@ import { NormasComunidadPage } from './pages/normas-comunidad-page/normas-comuni
 import { BasesCondicionesPage } from './pages/bases-condiciones-page/bases-condiciones-page';
 import { Error418Page } from './pages/redirects/error418-page/error418-page';
 import { AccountActivation } from './pages/account-activation/account-activation';
+import { ReclamoPage } from './pages/reclamo-page/reclamo-page';
 
 export const routes: Routes = [
   /* -------------------- HOME -------------------- */
@@ -54,6 +55,7 @@ export const routes: Routes = [
   { path: 'confirmar-cuenta', component: AccountActivation },
   { path: 'normas-comunidad', component: NormasComunidadPage },
   { path: 'bases-condiciones', component: BasesCondicionesPage },
+  { path: 'reclamos', component: ReclamoPage},
 
   /* -------------------- REDIRECTS BASICOS -------------------- */
   { path: '', redirectTo: '/home', pathMatch: 'full' },
