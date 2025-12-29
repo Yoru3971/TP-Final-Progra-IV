@@ -1,0 +1,43 @@
+/* --- PAGINA DE RECLAMOS --- */
+.main-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh; /* Para que ocupe buen espacio vertical */
+  width: 100%;
+  max-width: 600px; /* Un poco más ancho que el login para el textarea */
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.main-h1-title {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.info-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.info-footer a {
+  color: var(--color-primary-light);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.info-footer a:hover {
+  text-decoration: underline;
+}
