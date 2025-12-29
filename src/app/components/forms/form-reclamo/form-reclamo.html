@@ -1,0 +1,45 @@
+<form class="form-reclamo" [formGroup]="formReclamo" (ngSubmit)="onSubmit()">
+  
+  <div class="form-field">
+    <label for="email" class="form-label">Email de contacto</label>
+    <input 
+      id="email" 
+      formControlName="email" 
+      type="email" 
+      class="form-input" 
+      placeholder="ejemplo@correo.com"
+    />
+  </div>
+
+  <div class="form-field">
+    <label for="categoria" class="form-label">Motivo del reporte</label>
+    <select id="categoria" formControlName="categoria" class="form-input form-select">
+      <option value="" disabled selected>Selecciona una opción</option>
+      @for (opcion of categoriasOptions; track opcion.value) {
+        <option [value]="opcion.value">{{ opcion.label }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="form-field">
+    <div class="label-container">
+      <label for="descripcion" class="form-label">Detalle del problema</label>
+      <span class="char-counter">{{ charsCount }}/400</span>
+    </div>
+    <textarea 
+      id="descripcion" 
+      formControlName="descripcion" 
+      class="form-input form-textarea" 
+      rows="5"
+    ></textarea>
+  </div>
+
+  <button
+    type="submit"
+    class="btn"
+    [disabled]="formReclamo.invalid"
+    [class.disabled]="formReclamo.invalid"
+  >
+    Enviar Reporte
+  </button>
+</form>
