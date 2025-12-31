@@ -9,4 +9,5 @@ export interface EmprendimientoResponse {
   telefono: string;
   estaDisponible: boolean;
   dueno: UsuarioResponse;
+  _links?: any;
 }
