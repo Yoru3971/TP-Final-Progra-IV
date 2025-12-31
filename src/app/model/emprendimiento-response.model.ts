@@ -1,4 +1,5 @@
 import { UsuarioResponse } from './usuario-response.model';
+import { ViandaResponse } from './vianda-response.model';
 
 export interface EmprendimientoResponse {
   id: number;
@@ -9,5 +10,6 @@ export interface EmprendimientoResponse {
   telefono: string;
   estaDisponible: boolean;
   dueno: UsuarioResponse;
+  viandas: ViandaResponse[];
   _links?: any;
 }

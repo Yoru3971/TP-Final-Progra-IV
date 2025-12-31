@@ -75,7 +75,13 @@ export class EmprendimientoService {
       )
       .subscribe((response) => {
         if (response && response._embedded) {
-            this.allEmprendimientos.set(response._embedded['emprendimientoDTOList']);
+
+          const data = (response._embedded['emprendimientoDTOList'] || []).map((item: any) => ({
+                ...item,
+                viandas: []
+            }));
+
+            this.allEmprendimientos.set(data);
             this.pageInfo.set(response.page);
         } else {
             this.allEmprendimientos.set([]);
