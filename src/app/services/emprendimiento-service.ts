@@ -1,31 +1,30 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { EmprendimientoResponse } from '../model/emprendimiento-response.model';
 import { catchError, forkJoin, map, of, tap } from 'rxjs';
 import { AuthService, UserRole } from './auth-service';
 import { CityFilterService } from './city-filter-service';
 import { ViandaService } from './vianda-service';
+import { PagedResponse, PageMetadata } from '../model/hateoas-pagination.models';
 
 @Injectable({ providedIn: 'root' })
 export class EmprendimientoService {
+
+  private http = inject(HttpClient);
+  private authService = inject(AuthService);
   private cityFilter = inject(CityFilterService);
   private viandaService = inject(ViandaService);
   public allEmprendimientos = signal<EmprendimientoResponse[]>([]);
+  public pageInfo = signal<PageMetadata | null>(null);
 
   //Siempre refleja los emprendimientos filtrados por ciudad
-  public emprendimientos = computed(() => {
-    const ciudadActual = (this.cityFilter.city() ?? '').toUpperCase();
-
-    return this.allEmprendimientos().filter((e) => (e.ciudad ?? '').toUpperCase() === ciudadActual);
-  });
+  public emprendimientos = computed(() => this.allEmprendimientos());
 
   private baseUrls = {
     PUBLIC: 'http://localhost:8080/api/public/emprendimientos',
     DUENO: 'http://localhost:8080/api/dueno/emprendimientos',
     CLIENTE: 'http://localhost:8080/api/cliente/emprendimientos',
   };
-
-  constructor(private http: HttpClient, private authService: AuthService) {}
 
   private getApiUrl(): string {
     const rol: UserRole = this.authService.currentUserRole();
@@ -43,25 +42,49 @@ export class EmprendimientoService {
   }
 
   //obtiene los emprendimientos desde el backend y lo guarda en un signal
-  fetchEmprendimientos() {
-    const url = this.getApiUrl();
-    this.http
-      .get<EmprendimientoResponse[]>(url)
+  fetchEmprendimientos(page: number = 0, size: number = 10) {
+
+    const rol = this.authService.currentUserRole();
+    const ciudad = this.cityFilter.city();
+    const baseUrl = this.getApiUrl();
+    
+    let url = baseUrl;
+    let params = new HttpParams()
+      .set('page', page)
+      .set('size', size);
+
+    if (rol === 'DUENO') {
+        //  Para el caso del dueño, la ciudad es un filtro opcional (esto nos va a servir a futuro)
+        if (ciudad) {
+            params = params.set('ciudad', ciudad);
+        }
+    } else {
+        if (ciudad) {
+            url = `${baseUrl}/ciudad/${ciudad}`;
+        } else {
+            url = baseUrl;
+        }
+    }
+
+    this.http.get<PagedResponse<EmprendimientoResponse>>(url, { params })
       .pipe(
         catchError((err) => {
           console.error('Error al cargar emprendimientos', err);
-          return of([]);
+          return of(null);
         })
       )
-      .subscribe((result) => {
-        setTimeout(() => this.allEmprendimientos.set(result));
+      .subscribe((response) => {
+        if (response && response._embedded) {
+            this.allEmprendimientos.set(response._embedded['emprendimientoDTOList']);
+            this.pageInfo.set(response.page);
+        } else {
+            this.allEmprendimientos.set([]);
+            this.pageInfo.set(null);
+        }
       });
   }
 
-  public emprendimientosConViandas = computed(() => {
-    const emps = this.emprendimientos();
-    return emps;
-  });
+  public emprendimientosConViandas = computed(() => this.emprendimientos());
 
   loadEmprendimientosConViandas() {
     const emps = this.emprendimientos();
@@ -92,7 +115,9 @@ export class EmprendimientoService {
     }
     return this.http
       .post<EmprendimientoResponse>(this.baseUrls.DUENO, formData)
-      .pipe(tap((nuevo) => this.allEmprendimientos.update((list) => [...list, nuevo])));
+      .pipe(tap(() => {
+            this.fetchEmprendimientos(0, 10);
+        }));
   }
 
   deleteEmprendimiento(id: number) {
@@ -101,7 +126,9 @@ export class EmprendimientoService {
     }
     return this.http
       .delete<void>(`${this.baseUrls.DUENO}/id/${id}`)
-      .pipe(tap(() => this.allEmprendimientos.update((list) => list.filter((e) => e.id !== id))));
+      .pipe(tap(() => {
+            this.allEmprendimientos.update((list) => list.filter((e) => e.id !== id));
+        }));
   }
 
   //verificar que un emprendimiento le corresponde a un dueño (para guards)
