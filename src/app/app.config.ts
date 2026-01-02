@@ -17,19 +17,28 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes, withInMemoryScrolling({scrollPositionRestoration: 'top'})),
     provideHttpClient(withInterceptorsFromDi()),
+
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        anchorScrolling: 'enabled',
+        scrollPositionRestoration: 'top'
+      })
+    ),
 
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
       multi: true,
     },
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true,
     },
+    
     provideEnvironmentInitializer(() => {
       const auth = inject(AuthService);
       auth.init();

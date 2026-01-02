@@ -18,6 +18,7 @@ import { BasesCondicionesPage } from './pages/bases-condiciones-page/bases-condi
 import { Error418Page } from './pages/redirects/error418-page/error418-page';
 import { AccountActivation } from './pages/account-activation/account-activation';
 import { ReclamoPage } from './pages/reclamo-page/reclamo-page';
+import { InstructivoUsoPage } from './pages/instructivo-uso-page/instructivo-uso-page';
 
 export const routes: Routes = [
   /* -------------------- HOME -------------------- */
@@ -53,6 +54,7 @@ export const routes: Routes = [
   { path: 'sobre-nosotros', component: SobreNosotrosPage },
   { path: 'recuperar-password', component: RecuperarPasswordPage },
   { path: 'confirmar-cuenta', component: AccountActivation },
+  { path: 'instructivo', component: InstructivoUsoPage },
   { path: 'normas-comunidad', component: NormasComunidadPage },
   { path: 'bases-condiciones', component: BasesCondicionesPage },
   { path: 'reclamos', component: ReclamoPage},
