@@ -5,11 +5,16 @@
     <div class="selected-option">
       {{ displayLabel() }}
     </div>
-    <div class="arrow">▾</div>
+
+    <div class="icons-right">
+      @if (startDate()) {
+        <span class="clear-icon" (click)="clearSelection($event)" title="Limpiar filtro">✕</span>
+      }
+      <div class="arrow">▾</div>
+    </div>
 
     @if (isOpen()) {
     <div class="calendar-dropdown" (click)="$event.stopPropagation()">
-      
       <div class="calendar-header">
         @if (!showSelectorView()) {
            <button class="nav-btn" (click)="changeMonth(-1, $event)">‹</button>

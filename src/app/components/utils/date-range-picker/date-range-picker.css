@@ -144,6 +144,35 @@
   color: var(--color-text-primary);
 }
 
+.icons-right {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem; 
+}
+
+.clear-icon {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-weight: bold;
+  opacity: 0.6;
+  padding: 0.2rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.clear-icon:hover {
+  opacity: 1;
+  background-color: rgba(0,0,0,0.05);
+  color: #e74c3c; 
+}
+
+.arrow {
+  color: var(--color-text-secondary);
+  font-size: 1.2rem;
+}
+
 /* --- VISTA: GRILLA DE DÍAS  --- */
 .weekdays {
   display: grid;
@@ -273,8 +302,6 @@
 }
 
 @media (max-width: 768px) {
-
-  /* El dropdown deja de ser dropdown y se vuelve modal fijo */
   .calendar-dropdown {
     position: fixed;
     top: 50%;
