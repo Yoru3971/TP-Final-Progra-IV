@@ -41,8 +41,13 @@ export class NotificacionesCard implements OnInit {
     return lista;
   }
 
-  onFechasSeleccionadas(fechas: { desde: Date; hasta: Date }) {
-    // convertimos a ISO y seteamos en el service
+  onFechasSeleccionadas(fechas: { desde: Date; hasta: Date } | null) {
+    if (!fechas) {
+      this.notiService.filtroDesde.set(null);
+      this.notiService.filtroHasta.set(null);
+      return;
+    }
+
     const desde = fechas.desde.toISOString().split('T')[0];
     const hasta = fechas.hasta.toISOString().split('T')[0];
 

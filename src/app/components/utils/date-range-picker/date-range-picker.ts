@@ -8,25 +8,24 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./date-range-picker.css'],
 })
 export class DateRangePickerComponent {
-  @Output() fechasSeleccionadas = new EventEmitter<{ desde: Date; hasta: Date }>();
+  @Output() fechasSeleccionadas = new EventEmitter<{ desde: Date; hasta: Date } | null>();
 
   isOpen = signal(false);
   isRangeMode = signal(false);
-  showSelectorView = signal(false); // cambiar entre calendario y selector de año/mes
+  showSelectorView = signal(false);
 
   viewDate = signal(new Date());
   startDate = signal<Date | null>(null);
   endDate = signal<Date | null>(null);
   hoverDate = signal<Date | null>(null);
 
-  // Detectar Clic Afuera
   constructor(private eRef: ElementRef) {}
 
   @HostListener('document:click', ['$event'])
   clickOut(event: Event) {
     if (this.isOpen() && !this.eRef.nativeElement.contains(event.target)) {
       this.isOpen.set(false);
-      this.showSelectorView.set(false); // Reseteamos la vista al cerrar
+      this.showSelectorView.set(false);
     }
   }
 
@@ -34,7 +33,6 @@ export class DateRangePickerComponent {
     const start = this.startDate();
     const end = this.endDate();
     
-    // Formato corto dd/mm/yy
     const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: '2-digit' };
     
     if (!start) return 'Filtrar por fecha';
@@ -51,7 +49,6 @@ export class DateRangePickerComponent {
     const date = this.viewDate();
     const month = date.toLocaleString('es-AR', { month: 'long' });
     const year = date.getFullYear();
-
     const monthCap = month.charAt(0).toUpperCase() + month.slice(1);
     return `${monthCap} - ${year}`; 
   });
@@ -71,35 +68,38 @@ export class DateRangePickerComponent {
     return days;
   });
 
-  // Lista de meses para la vista rápida
   monthsList = [
     'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
   ];
 
-  // --- Acciones ---
+  clearSelection(event: Event) {
+    event.stopPropagation();
+    this.startDate.set(null);
+    this.endDate.set(null);
+    this.hoverDate.set(null);
+    this.fechasSeleccionadas.emit(null);
+  }
 
+  // --- Acciones ---
   toggleDropdown(event?: Event) {
     if(event) event.stopPropagation();
     this.isOpen.update(v => !v);
     if (!this.isOpen()) this.showSelectorView.set(false);
   }
 
-  // Navegación mes a mes
   changeMonth(increment: number, event: Event) {
     event.stopPropagation();
     const current = this.viewDate();
     this.viewDate.set(new Date(current.getFullYear(), current.getMonth() + increment, 1));
   }
 
-  // Cambiar Año (Navegación Rápida)
   changeYear(increment: number, event: Event) {
     event.stopPropagation();
     const current = this.viewDate();
     this.viewDate.set(new Date(current.getFullYear() + increment, current.getMonth(), 1));
   }
 
-  // Seleccionar Mes (Navegación Rápida)
   selectMonth(monthIndex: number, event: Event) {
     event.stopPropagation();
     const current = this.viewDate();
@@ -149,7 +149,6 @@ export class DateRangePickerComponent {
     }
   }
   
-  // Helpers visuales
   isToday(date: Date): boolean {
     if (!date) return false;
     const today = new Date();
