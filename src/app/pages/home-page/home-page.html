@@ -12,26 +12,12 @@
     </div>
 
     @if (pageInfo(); as info) {
-        @if (info.totalPages > 1) {
-            <div class="pagination-controls">
-                <button 
-                    (click)="onPageChange(info.number - 1)" 
-                    [disabled]="info.number === 0"
-                    class="btn-pag">
-                    <i class="fa-solid fa-chevron-left"></i> Anterior
-                </button>
-                
-                <span class="pag-info">Página {{ info.number + 1 }} de {{ info.totalPages }}</span>
-                
-                <button 
-                    (click)="onPageChange(info.number + 1)" 
-                    [disabled]="info.number + 1 >= info.totalPages"
-                    class="btn-pag">
-                    Siguiente <i class="fa-solid fa-chevron-right"></i>
-                </button>
-            </div>
-        }
-      }
+      <app-paginador
+        [currentPage]="info.number"
+        [totalPages]="info.totalPages"
+        (pageChange)="onPageChange($event)">
+      </app-paginador>
+}
 
   } @else {
 

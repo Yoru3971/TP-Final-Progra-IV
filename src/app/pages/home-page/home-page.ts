@@ -4,10 +4,11 @@ import { EmprendimientoCard } from '../../components/cards/emprendimiento-card/e
 import { EmprendimientoConViandas } from '../../model/emprendimiento-con-viandas.model';
 import { CityFilterService } from '../../services/city-filter-service';
 import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
+import { Paginador } from '../../components/utils/paginador/paginador';
 
 @Component({
   selector: 'app-home-page',
-  imports: [EmprendimientoCard],
+  imports: [EmprendimientoCard, Paginador],
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })

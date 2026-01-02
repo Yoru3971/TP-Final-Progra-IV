@@ -6,10 +6,11 @@ import { FormEmprendimiento } from '../../components/forms/form-emprendimiento/f
 import { MatDialog } from '@angular/material/dialog';
 import { CityFilterService } from '../../services/city-filter-service';
 import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
+import { Paginador } from '../../components/utils/paginador/paginador';
 
 @Component({
   selector: 'app-home-page-dueno',
-  imports: [EmprendimientoCard],
+  imports: [EmprendimientoCard, Paginador],
   templateUrl: './home-page-dueno.html',
   styleUrl: './home-page-dueno.css',
 })
