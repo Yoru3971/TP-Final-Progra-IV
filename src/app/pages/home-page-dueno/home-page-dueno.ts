@@ -5,10 +5,12 @@ import { EmprendimientoCard } from '../../components/cards/emprendimiento-card/e
 import { FormEmprendimiento } from '../../components/forms/form-emprendimiento/form-emprendimiento';
 import { MatDialog } from '@angular/material/dialog';
 import { CityFilterService } from '../../services/city-filter-service';
+import { EmprendimientoResponse } from '../../model/emprendimiento-response.model';
+import { Paginador } from '../../components/utils/paginador/paginador';
 
 @Component({
   selector: 'app-home-page-dueno',
-  imports: [EmprendimientoCard],
+  imports: [EmprendimientoCard, Paginador],
   templateUrl: './home-page-dueno.html',
   styleUrl: './home-page-dueno.css',
 })
@@ -16,11 +18,13 @@ export class HomePageDueno implements OnInit {
   private emprendimientoService = inject(EmprendimientoService);
   private dialog = inject(MatDialog);
   private cityFilter = inject(CityFilterService);
-  ciudadActual = computed(() => (this.cityFilter.city() ?? '').toUpperCase());
 
-  emprendimientos = signal<EmprendimientoConViandas[]>([]);
+  ciudadActual = computed(() => (this.cityFilter.city() ?? '').toUpperCase());
+  emprendimientos = signal<EmprendimientoResponse[]>([]);
+  pageInfo = computed(() => this.emprendimientoService.pageInfo());
 
   constructor() {
+    //  Cargo datos, viandas y ordeno por disponibilidad
     effect(() => {
       const emps = this.emprendimientoService.emprendimientos();
 
@@ -42,10 +46,21 @@ export class HomePageDueno implements OnInit {
           this.emprendimientos.set(ordenados);
         });
     });
+
+    //  Vuelvo a página 0 si cambia la ciudad
+    effect(() => {
+        const ciudad = this.cityFilter.city();
+        this.emprendimientoService.fetchEmprendimientos(0, 10);
+    }, { allowSignalWrites: true });
   }
 
   ngOnInit() {
-    this.emprendimientoService.fetchEmprendimientos();
+    
+  }
+
+  onPageChange(newPage: number) {
+    this.emprendimientoService.fetchEmprendimientos(newPage, 10);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   openEmprendimientoForm() {
@@ -59,7 +74,8 @@ export class HomePageDueno implements OnInit {
       .afterClosed()
       .subscribe((exito) => {
         if (exito) {
-          this.emprendimientoService.fetchEmprendimientos();
+          const currentPage = this.pageInfo()?.number || 0;
+          this.emprendimientoService.fetchEmprendimientos(currentPage);
         }
       });
   }

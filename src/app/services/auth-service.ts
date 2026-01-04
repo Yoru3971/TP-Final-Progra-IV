@@ -4,6 +4,7 @@ import { UsuarioLogin } from '../model/usuario-login.model';
 import { LoginResponse } from '../model/login-response.model';
 import { UsuarioResponse } from '../model/usuario-response.model';
 import { UsuarioRegistro } from '../model/usuario-registro.model';
+import { environment } from '../environments/environment';
 
 export type UserRole = 'ADMIN' | 'DUENO' | 'CLIENTE' | 'INVITADO';
 
@@ -29,6 +30,7 @@ export class AuthService {
   private apiUrlRegister = 'http://localhost:8080/api/public/register';
   private apiUrlConfirm = 'http://localhost:8080/api/public/confirm';
   private apiUrlResend = 'http://localhost:8080/api/public/resend-token';
+  private apiUrlGoogle = `${environment.apiUrl}/google`;
 
   constructor(private http: HttpClient) {
     console.log('AuthService inicializado. Rol actual', this.currentUserRole());
@@ -61,6 +63,10 @@ export class AuthService {
 
   login(usuario: UsuarioLogin) {
     return this.http.post<LoginResponse>(this.apiUrlLogin, usuario);
+  }
+
+  loginGoogle(token: string) {
+    return this.http.post<LoginResponse>(this.apiUrlGoogle, { token });
   }
 
   public handleLoginSuccess(token: string, usuarioID: number, recordarme: boolean): void {

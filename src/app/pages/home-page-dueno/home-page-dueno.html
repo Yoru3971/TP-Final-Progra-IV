@@ -1,17 +1,33 @@
 <div class="contenedor-home">
+
   <h1 class="main-h1-title">MIS EMPRENDIMIENTOS DE <span>{{ciudadActual()}}</span></h1>
+
   <div class="card-crear" (click)="openEmprendimientoForm()">
     <i class="fa-solid fa-plus"></i>
     <span>Agrega un emprendimiento</span>
   </div>
 
-  @if (emprendimientos().length > 0) { @for (emprendimiento of emprendimientos(); track
-  emprendimiento.id) {
-  <app-emprendimiento-card [emprendimiento]="emprendimiento"></app-emprendimiento-card>
-  } } @if (emprendimientos().length === 0) {
-  <div class="estado-vacio">
-    <i class="fa-solid fa-arrow-up"></i>
-    <p>Esto está un poco vacío... deberías crear un emprendimiento</p>
-  </div>
+  @if (emprendimientos().length > 0) {
+    <div class="grid-emprendimientos">
+      @for (emprendimiento of emprendimientos(); track emprendimiento.id) {
+      <app-emprendimiento-card [emprendimiento]="emprendimiento"></app-emprendimiento-card>
+      } 
+    </div>
+
+    @if (pageInfo(); as info) {
+      <app-paginador
+        [currentPage]="info.number"
+        [totalPages]="info.totalPages"
+        (pageChange)="onPageChange($event)">
+      </app-paginador>
+}
+    
+  }
+  
+  @if (emprendimientos().length === 0) {
+    <div class="estado-vacio">
+      <i class="fa-solid fa-arrow-up"></i>
+      <p>Esto está un poco vacío... deberías crear un emprendimiento</p>
+    </div>
   }
 </div>
