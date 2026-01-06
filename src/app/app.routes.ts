@@ -20,6 +20,11 @@ import { AccountActivation } from './pages/account-activation/account-activation
 import { ReclamoPage } from './pages/reclamo-page/reclamo-page';
 import { InstructivoUsoPage } from './pages/instructivo-uso-page/instructivo-uso-page';
 import { FaqPage } from './pages/faq-page/faq-page';
+import { AdminUsuariosPage } from './pages/admin-usuarios-page/admin-usuarios-page';
+import { adminGuardFn } from './guards/admin.guard.fn';
+import { AdminReclamosPage } from './pages/admin-reclamos-page/admin-reclamos-page';
+import { AdminEmprendimientosPage } from './pages/admin-emprendimientos-page/admin-emprendimientos-page';
+import { AdminPedidosPage } from './pages/admin-pedidos-page/admin-pedidos-page';
 
 export const routes: Routes = [
   /* -------------------- HOME -------------------- */
@@ -44,6 +49,12 @@ export const routes: Routes = [
     component: EmprendimientoPage,
     canActivate: [emprendimientoDuenoGuardFn],
   },
+
+  /* -------------------- ADMIN -------------------- */
+  { path: 'admin/usuarios', component: AdminUsuariosPage, canActivate: [adminGuardFn] },
+  { path: 'admin/reclamos', component: AdminReclamosPage, canActivate: [adminGuardFn] },
+  { path: 'admin/emprendimientos', component: AdminEmprendimientosPage, canActivate: [adminGuardFn] },
+  { path: 'admin/pedidos', component: AdminPedidosPage, canActivate: [adminGuardFn] },
 
   /* -------------------- ERRORES -------------------- */
   { path: 'error/403', component: Error403Page },
