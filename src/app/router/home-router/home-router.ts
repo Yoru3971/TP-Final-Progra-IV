@@ -12,5 +12,5 @@ import { HomePageAdmin } from '../../pages/home-page-admin/home-page-admin';
 })
 export class HomeRouter {
   private auth = inject(AuthService);
-  rol = this.auth.currentUserRole();
+  rol = this.auth.currentUserRole;
 }
