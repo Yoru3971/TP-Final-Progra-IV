@@ -42,10 +42,10 @@ export class EmprendimientoService {
   }
 
   //obtiene los emprendimientos desde el backend y lo guarda en un signal
-  fetchEmprendimientos(page: number = 0, size: number = 10) {
+  fetchEmprendimientos(page: number = 0, size: number = 10, ignorarCiudad: boolean = false) {
 
     const rol = this.authService.currentUserRole();
-    const ciudad = this.cityFilter.city();
+    const ciudad = ignorarCiudad ? null : this.cityFilter.city();
     const baseUrl = this.getApiUrl();
     
     let url = baseUrl;
@@ -54,7 +54,6 @@ export class EmprendimientoService {
       .set('size', size);
 
     if (rol === 'DUENO') {
-        //  Para el caso del dueño, la ciudad es un filtro opcional (esto nos va a servir a futuro)
         if (ciudad) {
             params = params.set('ciudad', ciudad);
         }
