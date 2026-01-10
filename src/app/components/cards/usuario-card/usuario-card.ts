@@ -15,8 +15,6 @@ export class UsuarioCard {
 
   private emprendimientoService = inject(EmprendimientoService);
 
-  esDueno = computed(() => this.usuario.rolUsuario === 'DUENO');
-
   emprendimientos = computed(() =>
     this.emprendimientoService.emprendimientos().filter(datum => datum.dueno.id === this.usuario.id)
   );
