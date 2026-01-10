@@ -1,20 +1,39 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UsuarioResponse } from '../model/usuario-response.model';
 import { Observable } from 'rxjs';
 import { ChangePasswordRequest } from '../model/change-password-request.model';
 import { UsuarioUpdate } from '../model/usuario-update.model';
+import { AuthService, UserRole } from './auth-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
+  private authService = inject(AuthService);
+
   private apiUrl = 'http://localhost:8080/api/usuarios';
+
+  private getApiUrl(): string {
+    const rol: UserRole = this.authService.currentUserRole();
+
+    switch (rol) {
+      case 'ADMIN':
+        return 'http://localhost:8080/api/admin/usuarios';
+
+      default:
+        return 'http://localhost:8080/api/usuarios';
+    }
+  }
 
   constructor(private http: HttpClient) {}
 
   getPerfilUsuario(): Observable<UsuarioResponse> {
     return this.http.get<UsuarioResponse>(`${this.apiUrl}/me`);
+  }
+
+  getUsuarios(): Observable<UsuarioResponse[]> {
+    return this.http.get<UsuarioResponse[]>(`${this.getApiUrl()}`);
   }
 
   cambiarPassword(body: ChangePasswordRequest): Observable<any> {

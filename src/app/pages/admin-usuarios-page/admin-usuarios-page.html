@@ -1,1 +1,29 @@
-<p>admin-usuarios-page works!</p>
+<div class="page-container">
+  <div class="header-section">
+    <h1 class="main-h1-title">USUARIOS</h1>
+  </div>
+
+  <div class="filters">
+    <input
+      class="name-input"
+      type="text"
+      placeholder="Filtrar por nombre..."
+      (input)="onNameInput($event)"
+    />
+
+    <input
+      class="email-input"
+      type="text"
+      placeholder="Filtrar por email..."
+      (input)="onEmailInput($event)"
+    />
+  </div>
+
+  <div class="usuarios-list">
+    @for (usuario of usuarios(); track usuario.id) {
+      <app-usuario-card [usuario]="usuario"></app-usuario-card>
+    } @empty {
+      <p class="no-results">No se encontraron resultados.</p>
+    }
+  </div>
+</div>

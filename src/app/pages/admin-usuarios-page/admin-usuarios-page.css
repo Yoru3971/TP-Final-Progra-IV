@@ -1,0 +1,40 @@
+.page-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.filters input {
+  border: 1px solid var(--color-ui-neutral);
+  border-radius: 1rem;
+  font-family: inherit;
+  padding: 0.75rem 1.5rem;
+  transition-duration: 0.1s;
+}
+
+.filters input:focus-within {
+  border: 1px solid var(--color-primary);
+  outline: none;
+}
+
+.usuarios-list {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.no-results {
+  color: var(--color-ui-disabled-text);
+  font-size: 2.4rem;
+}

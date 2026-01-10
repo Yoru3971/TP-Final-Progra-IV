@@ -1,0 +1,33 @@
+<div class="usuario-card">
+  <img class="card-img" [src]="usuario.imagenUrl">
+
+  <p class="nombre">{{ usuario.nombreCompleto }}</p>
+
+  <div class="email-telefono-container">
+    <p><a [href]="'mailto:' + usuario.email">{{ usuario.email }}</a></p>
+    <p><a [href]="'tel:' + usuario.telefono">{{ usuario.telefono }}</a></p>
+  </div>
+
+  <div class="rol-emprendimientos-container">
+    <p class="rol">{{ usuario.rolUsuario }}</p>
+
+    @if (emprendimientos().length > 0) {
+      <div class="emprendimientos-container">
+        <button class="emprendimientos-title">Emprendimientos</button>
+
+        <ul class="emprendimientos-list">
+          @for (emprendimiento of emprendimientos(); track emprendimiento.id) {
+            <a class="emprendimiento" [routerLink]="'/emprendimiento/' + emprendimiento.id">
+              <img [src]="emprendimiento.imagenUrl">
+              <p>{{ emprendimiento.nombreEmprendimiento }}</p>
+            </a>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+
+  <button class="btn edit-button">
+    <i class="fa-regular fa-pen-to-square"></i>
+  </button>
+</div>
